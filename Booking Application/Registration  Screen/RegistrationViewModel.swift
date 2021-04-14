@@ -12,8 +12,5 @@ class RegistrationViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var passwordRepeat: String = ""
     
-    init() {
-        
-    }
-    
+    init() {}
 }

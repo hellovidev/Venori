@@ -9,11 +9,23 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
+    var topPadding: Int = 0
     
     var body: some View {
+        
         VStack {
-            Image("Splash Image").frame(maxWidth: .infinity, alignment: .top)
             VStack {
+                Image("Splash Image").frame(maxWidth: .infinity, alignment: .top)
+                Spacer()
+            }
+            .overlay(
+                RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 220)
+                    .ignoresSafeArea()
+            )
+        }
+        .overlay(
+            VStack {
+                Spacer()
                 VStack {
                     CustomTextField(data: $loginViewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 10)
                     CustomTextField(data: $loginViewModel.password, placeholder: "Password", isPassword: true)
@@ -38,16 +50,24 @@ struct LoginView: View {
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
                 .padding(.top, 16)
-                Text("Don’t have an account? Sign up")
-                    .padding(.leading, 80)
-                    .padding(.trailing, 80)
-                    .padding(.top, 24)
-                    .font(.system(size: 13, weight: .medium))
+                HStack {
+                    Text("Don’t have an account?")
+                        .font(.system(size: 13, weight: .medium))
+                    Button {
+                        // action
+                    } label: {
+                        Text("Sign up")
+                            .underline()
+                            .font(.system(size: 13, weight: .medium))
+                    }
+                }
+                .padding(.leading, 80)
+                .padding(.trailing, 80)
+                .padding(.top, 24)
             }
-            .padding(.bottom, 60)
-            
-            .ignoresSafeArea()
-        }        .background(RadialGradient(gradient: Gradient(colors: [Color("Start Point Color"), Color("End Point Color")]), center: UnitPoint(x: 0.5, y: 0.3), startRadius: 180, endRadius: 600).ignoresSafeArea())
+            .padding(.bottom, 20)
+        )
+        
     }
 }
 
@@ -81,7 +101,6 @@ struct CustomTextField: View {
                         .font(.system(size: 24))
                         .textCase(.lowercase)
                 }
-                
             }
             .padding()
             .frame(maxHeight: 48, alignment: .center)
