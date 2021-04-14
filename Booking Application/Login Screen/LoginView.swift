@@ -9,10 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    var topPadding: Int = 0
     
     var body: some View {
-        
         VStack {
             VStack {
                 Image("Splash Image").frame(maxWidth: .infinity, alignment: .top)
@@ -67,7 +65,6 @@ struct LoginView: View {
             }
             .padding(.bottom, 20)
         )
-        
     }
 }
 

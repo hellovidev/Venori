@@ -12,8 +12,18 @@ struct RegistrationView: View {
 
     var body: some View {
         VStack {
-            Image("Registration Image").frame(maxWidth: .infinity, alignment: .top)
             VStack {
+                Image("Registration Image").frame(maxWidth: .infinity, alignment: .top)
+                Spacer()
+            }
+            .overlay(
+                RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 190)
+                    .ignoresSafeArea()
+            )
+        }
+        .overlay(
+            VStack {
+                Spacer()
                 VStack {
                     CustomTextField(data: $registrationViewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 10)
                     CustomTextField(data: $registrationViewModel.password, placeholder: "Password", isPassword: true).padding(.bottom, 10)
@@ -39,16 +49,23 @@ struct RegistrationView: View {
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
                 .padding(.top, 16)
-                Text("Already have an account? Sign in")
-                    .padding(.leading, 80)
-                    .padding(.trailing, 80)
-                    .padding(.top, 24)
-                    .font(.system(size: 13, weight: .medium))
+                HStack {
+                    Text("Already have an account?")
+                        .font(.system(size: 13, weight: .medium))
+                    Button {
+                        // action
+                    } label: {
+                        Text("Sign in")
+                            .underline()
+                            .font(.system(size: 13, weight: .medium))
+                    }
+                }
+                .padding(.leading, 80)
+                .padding(.trailing, 80)
+                .padding(.top, 24)
             }
-            .padding(.bottom, 60)
-            
-            .ignoresSafeArea()
-        }        .background(RadialGradient(gradient: Gradient(colors: [Color("Start Point Registration"), Color("End Point Registration")]), center: UnitPoint(x: 0.5, y: 0.3), startRadius: 180, endRadius: 600).ignoresSafeArea())
+            .padding(.bottom, 20)
+        )
     }
 }
 
