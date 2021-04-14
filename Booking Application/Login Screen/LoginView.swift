@@ -52,7 +52,7 @@ struct LoginView: View {
                     Text("Don’t have an account?")
                         .font(.system(size: 13, weight: .medium))
                     Button {
-                        // action
+                        self.loginViewModel.controller?.signupRedirect()
                     } label: {
                         Text("Sign up")
                             .underline()

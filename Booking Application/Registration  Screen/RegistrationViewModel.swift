@@ -11,6 +11,5 @@ class RegistrationViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var passwordRepeat: String = ""
-    
-    init() {}
+    var controller: RegistrationViewController?
 }

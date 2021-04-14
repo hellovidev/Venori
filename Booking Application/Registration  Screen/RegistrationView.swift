@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     @ObservedObject var registrationViewModel: RegistrationViewModel
-
+    
     var body: some View {
         VStack {
             VStack {
@@ -53,7 +53,8 @@ struct RegistrationView: View {
                     Text("Already have an account?")
                         .font(.system(size: 13, weight: .medium))
                     Button {
-                        // action
+                        self.registrationViewModel.controller?.signinRedirect()
+                        print("DUCK GO!")
                     } label: {
                         Text("Sign in")
                             .underline()
