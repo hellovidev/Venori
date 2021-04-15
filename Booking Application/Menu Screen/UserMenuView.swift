@@ -24,9 +24,9 @@ struct UserMenuView: View {
                     Text("Alex Goldant!")
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color.white)
-                    padding(.bottom, 4)
+                        .padding(.bottom, 4)
                     Text("template@email.com")
-                        .font(.system(size: 12, weight: .regular))
+                        .font(.system(size: 14, weight: .regular))
                         .foregroundColor(Color.white)
                 }
                 
