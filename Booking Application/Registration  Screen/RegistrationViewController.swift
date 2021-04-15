@@ -21,9 +21,17 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func signinRedirect() {
+    func redirectToSignIn() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = LoginViewController()
+            sceneDelegate.window?.rootViewController = nextViewController
+            sceneDelegate.window?.makeKeyAndVisible()
+        }
+    }
+    
+    func processSignUp() {
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+            let nextViewController = HomeViewController()
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }

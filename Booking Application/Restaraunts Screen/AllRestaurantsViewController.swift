@@ -1,18 +1,18 @@
 //
-//  LoginViewController.swift
+//  AllRestarauntsViewController.swift
 //  Booking Application
 //
-//  Created by student on 14.04.21.
+//  Created by student on 15.04.21.
 //
 
 import UIKit
 import SwiftUI
 
-class LoginViewController: UIHostingController<LoginView>  {
-    private let state = LoginViewModel()
+class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
+    private let state = AllRestaurantViewModel()
     
     init() {
-        let view = LoginView(loginViewModel: state)
+        let view = AllRestaurantsView(allRestaurantsViewModel: state)
         super.init(rootView: view)
         state.controller = self
     }
@@ -21,15 +21,7 @@ class LoginViewController: UIHostingController<LoginView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func redirectToSignUp() {
-        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-            let nextViewController = RegistrationViewController()
-            sceneDelegate.window?.rootViewController = nextViewController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
-    }
-    
-    func processSignIn() {
+    func backToMain() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = HomeViewController()
             sceneDelegate.window?.rootViewController = nextViewController

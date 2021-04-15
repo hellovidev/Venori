@@ -7,23 +7,30 @@
 
 import SwiftUI
 
-struct MenuView: View {
+struct UserMenuView: View {
     private let headerSection = ["Account details", "Booking history", "Favorites", "Notifications", "Settings"]
     private let footerSection = ["About", "Contact", "Terms", "Privacy Policy"]
     
     var body: some View {
         VStack {
-            Image("Background Account")
-                .resizable()
-                .frame(maxWidth: .infinity, alignment: .center)
-                .overlay(VStack {
-                    Image(systemName: "film")
+            ZStack {
+                Image("Background Account")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .ignoresSafeArea()
+                VStack {
+                    Image("User Logo")
                     Text("Alex Goldant!")
-                        .bold()
+                        .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color.white)
+                    padding(.bottom, 4)
                     Text("template@email.com")
+                        .font(.system(size: 12, weight: .regular))
                         .foregroundColor(Color.white)
-                })
+                }
+                
+            }
             List {
                 Section() {
                     ForEach(headerSection, id: \.self) { item in
@@ -52,8 +59,8 @@ struct MenuView: View {
     }
 }
 
-struct MenuView_Previews: PreviewProvider {
+struct UserMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        UserMenuView()
     }
 }

@@ -8,45 +8,62 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var homeViewModel: HomeViewModel
+    
+    var categories: [Category] = [Category(title: "Burger", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger")]
+    var restaurants: [Restaurant] = [Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678)]
+    
     var body: some View {
-        CustomNavigationView(destination: FirstView(), isRoot: true, isLast: false, color: .white) {
+        CustomNavigationView(title: "", isRoot: true, isLast: false, color: .white, onBackClick: {}) {
             ScrollView {
                 VStack {
+                    
+                    // MARK: Favorite Restaurants Block
+                    
                     VStack(alignment: .leading) {
-                        SectionView(title: "My Favorite Restaraunts", onClick: {})
+                        SectionView(title: "My Favorite Restaraunts", onClick: { })
                         if true {
                             FavouriteEmptyView()
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: -8) {
-                                    ForEach(0..<10) {
-                                        Text("Item \($0)")
-                                        RestarauntCardView(title: "Bar Veranda", rating: Float($0),votes: 2354)
-                                        
+                                    ForEach(restaurants, id: \.self) { object in
+                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {})
                                     }
                                 }
                             }
                         }
-                    }.padding(.bottom, 26)
+                    }
+                    .padding(.bottom, 26)
+                    
+                    // MARK: Restaurants Block
+                    
                     VStack(alignment: .leading) {
-                        SectionView(title: "Restaurants", onClick: {})
+                        SectionView(title: "Restaurants", onClick: {
+                                        homeViewModel.controller?.seeAllRestaraunts()
+                        })
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
-                                ForEach(0..<10) {
-                                    RestarauntCardView(title: "Bar Veranda", rating: Float($0),votes: 2354)
+                                ForEach(restaurants, id: \.self) { object in
+                                    RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {})
                                 }
                             }
                         }
-                    }.padding(.bottom, 26)
+                    }
+                    .padding(.bottom, 26)
+                    
+                    // MARK: Categories Block
+                    
                     VStack(alignment: .leading) {
-                        SectionView(title: "Food Categories", onClick: {})
+                        SectionView(title: "Food Categories", onClick: {
+                            homeViewModel.controller?.seeAllCategories()
+                        })
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
-                                ForEach(1...10, id: \.self) {
-                                    CategoryView(title: "\($0) + Title", imageName: "Burger", onClick: {})
-                                    
+                                ForEach(categories, id: \.self) { object in
+                                    CategoryView(title: object.title, imageName: object.image, onClick: {})
                                 }
                             }
                         }
@@ -58,56 +75,86 @@ struct HomeView: View {
     }
 }
 
+// MARK: -> Horizontal List Block
+
+//struct HListView: View {
+//    var objects: AnyObject
+//    var onElementClick: () -> Void
+//
+//    var body: some View {
+//        ScrollView(.horizontal, showsIndicators: false) {
+//            HStack(spacing: -8) {
+//                ForEach(objects, id: \.self) { object in
+//                    CategoryView(title: object.title, imageName: object.image, onClick: {})
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//struct HListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HListView(data: { title: "Burger", imageName: "Burger" }, onElementClick: {})
+//    }
+//}
+
+// MARK: -> Restaraunt Card View
+
 struct RestarauntCardView: View {
     var title: String
     var rating: Float
     var votes: Int
+    var backgroundImage: String
+    var onClick: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
-            ZStack {
-                Image("Background Account")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: 296, maxHeight: 169)
-                    .cornerRadius(32)
-                VStack {
-                    Image("Heart")
+        Button { } label: {
+            VStack(alignment: .leading) {
+                ZStack {
+                    Image(backgroundImage)
                         .resizable()
-                        .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
-                        .foregroundColor(.white)
-                        .padding(12)
-                        .background(Color(UIColor(hex: "#0000007A")!))
-                        .clipShape(Circle())
-                        .padding(.trailing, 9)
-                        .padding(.top, 9)
-                    Spacer()
+                        .scaledToFill()
+                        .frame(maxWidth: 296, maxHeight: 169)
+                        .cornerRadius(32)
+                    VStack {
+                        Image("Heart")
+                            .resizable()
+                            .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
+                            .foregroundColor(.white)
+                            .padding(12)
+                            .background(Color(UIColor(hex: "#0000007A")!))
+                            .clipShape(Circle())
+                            .padding(.trailing, 9)
+                            .padding(.top, 9)
+                        Spacer()
+                    }
+                    .frame(maxWidth: 296, maxHeight: 169, alignment: .trailing)
                 }
-                .frame(maxWidth: 296, maxHeight: 169, alignment: .trailing)
-            }
-            Text(title)
-                .font(.system(size: 18, weight: .bold))
-                .padding(.top, 10)
-                .padding(.bottom, -4)
-            HStack {
-                Image("Star")
-                Text("\(NSString(format: "%.01f", self.rating))")
-                Text("(\(String(self.votes)))")
-                    .foregroundColor(.gray)
+                Text(title)
+                    .font(.system(size: 18, weight: .bold))
+                    .padding(.top, 10)
+                    .padding(.bottom, -4)
+                    .foregroundColor(.black)
+                HStack {
+                    Image("Star")
+                    Text("\(NSString(format: "%.01f", self.rating))")
+                        .foregroundColor(.black)
+                    Text("(\(String(self.votes)))")
+                        .foregroundColor(.gray)
+                }
             }
         }
         .padding(.leading, 16)
-        .onTapGesture {
-            print("Pressed Card!")
-        }
     }
 }
 
 struct RestarauntCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RestarauntCardView(title: "Bar Cuba", rating: 2.6, votes: 5362)
+        RestarauntCardView(title: "Bar Cuba", rating: 2.6, votes: 5362, backgroundImage: "Background Account", onClick: {})
     }
 }
+
+// MARK: -> Category View
 
 struct CategoryView: View {
     var title: String
@@ -115,21 +162,23 @@ struct CategoryView: View {
     var onClick: () -> Void
     
     var body: some View {
-        VStack{
-            Image(imageName)
-                .resizable()
-                .frame(maxWidth: 44, maxHeight: 44, alignment: .center)
-                .foregroundColor(.white)
-                .padding(32)
-                .background(Color(UIColor(hex: "#3A7DFF2E")!))
-                .clipShape(Circle())
-            Text(title)
-                .font(.system(size: 17, weight: .semibold))
+        Button {
+            self.onClick()
+        } label: {
+            VStack {
+                Image(imageName)
+                    .resizable()
+                    .frame(maxWidth: 44, maxHeight: 44, alignment: .center)
+                    .foregroundColor(.white)
+                    .padding(32)
+                    .background(Color(UIColor(hex: "#3A7DFF2E")!))
+                    .clipShape(Circle())
+                Text(title)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(.black)
+            }
         }
         .padding(.leading, 16)
-        .onTapGesture {
-            self.onClick()
-        }
     }
 }
 
@@ -138,6 +187,8 @@ struct CategoryView_Previews: PreviewProvider {
         CategoryView(title: "Burger", imageName: "Burger", onClick: {})
     }
 }
+
+// MARK: -> If Block Of Favourite Restaraunts Is Empty
 
 struct FavouriteEmptyView: View {
     var body: some View {
@@ -174,6 +225,8 @@ struct FavouriteEmptyView_Previews: PreviewProvider {
     }
 }
 
+// MARK: -> Section For View All Elements Of List
+
 struct SectionView: View {
     var title: String
     var onClick: () -> Void
@@ -205,45 +258,58 @@ struct SectionView_Previews: PreviewProvider {
     }
 }
 
+// MARK: -> Summary View Preview
+
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(homeViewModel: HomeViewModel())
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: -> Some Code
 
-struct ContentView: View {
-    var body: some View {
-        CustomNavigationView(destination: FirstView(), isRoot: true, isLast: false, color: .blue){
-            Text("This is the Root View")
-        }
-    }
-}
-
-struct FirstView : View {
-    var body: some View {
-        CustomNavigationView(destination: SecondView(), isRoot: false, isLast: false, color: .red){
-            Text("This is the First View")
-        }
-    }
-}
-
-struct SecondView : View {
-    var body: some View {
-        CustomNavigationView(destination: LastView(), isRoot: false, isLast: false, color: .green){
-            Text("This is the Second View")
-        }
-    }
-}
-
-struct LastView : View {
-    var body: some View {
-        CustomNavigationView(destination: EmptyView(), isRoot: false, isLast: true, color: .yellow){
-            Text("This is the Last View")
-        }
-    }
-}
+//struct ContentView: View {
+//    var body: some View {
+//        CustomNavigationView(destination: FirstView(), isRoot: true, isLast: false, color: .blue){
+//            Text("This is the Root View")
+//        }
+//    }
+//}
+//
+//struct FirstView : View {
+//    var body: some View {
+//        CustomNavigationView(destination: SecondView(), isRoot: false, isLast: false, color: .red){
+//            Text("This is the First View")
+//        }
+//    }
+//}
+//
+//struct SecondView : View {
+//    var body: some View {
+//        CustomNavigationView(destination: LastView(), isRoot: false, isLast: false, color: .green){
+//            Text("This is the Second View")
+//        }
+//    }
+//}
+//
+//struct LastView : View {
+//    var body: some View {
+//        CustomNavigationView(destination: EmptyView(), isRoot: false, isLast: true, color: .yellow){
+//            Text("This is the Last View")
+//        }
+//    }
+//}
 
 //struct CustomNavigationView<Content: View, Destination : View>: View {
 //    let destination : Destination
@@ -314,15 +380,14 @@ struct LastView : View {
 //    }
 //}
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
 
 
-struct CustomNavigationView<Content: View, Destination : View>: View {
-    let destination : Destination
+struct CustomNavigationView<Content: View>: View {
     let isRoot : Bool
     let isLast : Bool
     let color : Color
@@ -330,12 +395,16 @@ struct CustomNavigationView<Content: View, Destination : View>: View {
     @State var active = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    init(destination: Destination, isRoot : Bool, isLast : Bool,color : Color, @ViewBuilder content: () -> Content) {
-        self.destination = destination
+    var title: String
+    var onBackClick: () -> Void
+    
+    init(title: String, isRoot : Bool, isLast : Bool,color : Color, onBackClick: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+        self.title = title
         self.isRoot = isRoot
         self.isLast = isLast
         self.color = color
         self.content = content()
+        self.onBackClick = onBackClick
     }
     
     var body: some View {
@@ -363,42 +432,55 @@ struct CustomNavigationView<Content: View, Destination : View>: View {
                     
                     HStack(alignment: .center) {
                         
-                        Image(systemName: "arrow.left")
-                            .isHidden(isRoot ? true : false, remove: true)
-                            .frame(width: 18)
-                            .padding([.bottom, .top], 13)
-                            .padding(.leading, 19)
+                        Button {
+                            self.onBackClick()
+                            self.mode.wrappedValue.dismiss()
+                            //self.$active
+                        } label: {
+                            Image("Arrow Left")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(maxWidth: 24, alignment: .center)
+                                .padding([.bottom, .top], 13)
+                                .padding(.leading, 19)
+                                .foregroundColor(.black)
+                        }
+                        .isHidden(isRoot ? true : false, remove: true)
+                        //.opacity(isRoot ? 0 : 1)
+                        
                             
-                            .onTapGesture(count: 1, perform: {
-                                self.mode.wrappedValue.dismiss()
-                            }).opacity(isRoot ? 0 : 1)
+//                            .onTapGesture(count: 1, perform: {
+//
+//                            })
                         Spacer()
                             .isHidden(isRoot ? true : false, remove: true)
-                        Text("Restaurants")
+                        Text(title)
                             .font(.system(size: 18, weight: .bold))
                             .isHidden(isRoot ? true : false, remove: true)
                         Spacer()
                             .isHidden(isRoot ? true : false, remove: true)
-                        HStack {
-                        Image("Pin")
-                            .padding([.leading, .top, .bottom], 16)
-                            .padding(.trailing, 6)
-                        VStack(alignment: .leading) {
-                            Text("Location")
-                                .font(.system(size: 14, weight: .regular))
-                                .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                                .padding(.bottom, -8)
-                            HStack(alignment: .center) {
-                                Text("Current location")
-                                    .font(.system(size: 18, weight: .bold))
-                                Image("Vector")
+                        Button {
+                            //location code
+                        }  label: {
+                            Image("Pin")
+                                .padding([.leading, .top, .bottom], 16)
+                                .padding(.trailing, 6)
+                            VStack(alignment: .leading) {
+                                Text("Location")
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                                    .padding(.bottom, -8)
+                                HStack(alignment: .center) {
+                                    Text("Current location")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 18, weight: .bold))
+                                    Image("Vector")
+                                }
                             }
                         }
-                        }
-                        .onTapGesture {
-                            //location code
-                        }
+                        .isHidden(isRoot ? false : true, remove: true)
                         Spacer()
+                        .isHidden(isRoot ? false : true, remove: true)
                         Button {
                             //action search
                         } label: {
@@ -408,7 +490,8 @@ struct CustomNavigationView<Content: View, Destination : View>: View {
                         .padding(.trailing, 16)
                         .padding(.bottom, 12)
                     }
-                    .frame(width: geometry.size.width, height: 60)
+                    
+                    .frame(width: geometry.size.width, height: 48)
                     
                     self.content
                         .background(color.opacity(1))
@@ -462,6 +545,18 @@ extension Image {
 }
 
 extension Spacer {
+    @ViewBuilder func isHidden(_ hidden: Bool, remove: Bool = false) -> some View {
+        if hidden {
+            if !remove {
+                self.hidden()
+            }
+        } else {
+            self
+        }
+    }
+}
+
+extension Button {
     @ViewBuilder func isHidden(_ hidden: Bool, remove: Bool = false) -> some View {
         if hidden {
             if !remove {

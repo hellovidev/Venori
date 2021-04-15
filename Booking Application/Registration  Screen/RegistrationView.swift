@@ -32,6 +32,7 @@ struct RegistrationView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
+                    self.registrationViewModel.controller?.processSignUp()
                     //loginViewModel?.tryLogin()
                 }) {
                     Text("Sign up")
@@ -53,8 +54,7 @@ struct RegistrationView: View {
                     Text("Already have an account?")
                         .font(.system(size: 13, weight: .medium))
                     Button {
-                        self.registrationViewModel.controller?.signinRedirect()
-                        print("DUCK GO!")
+                        self.registrationViewModel.controller?.redirectToSignIn()
                     } label: {
                         Text("Sign in")
                             .underline()
