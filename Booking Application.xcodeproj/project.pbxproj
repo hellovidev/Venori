@@ -37,6 +37,8 @@
 		3FF0608826286ED100308556 /* AllRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0608726286ED100308556 /* AllRestaurantViewModel.swift */; };
 		3FF0608D26287A6A00308556 /* AllCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0608C26287A6A00308556 /* AllCategoriesViewModel.swift */; };
 		3FF0609126287A7700308556 /* AllCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0609026287A7700308556 /* AllCategoriesViewController.swift */; };
+		3FF0609F2628894700308556 /* UserMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0609E2628894700308556 /* UserMenuViewController.swift */; };
+		3FF060A2262889B200308556 /* UserMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF060A1262889B200308556 /* UserMenuViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		3FF0608726286ED100308556 /* AllRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRestaurantViewModel.swift; sourceTree = "<group>"; };
 		3FF0608C26287A6A00308556 /* AllCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesViewModel.swift; sourceTree = "<group>"; };
 		3FF0609026287A7700308556 /* AllCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesViewController.swift; sourceTree = "<group>"; };
+		3FF0609E2628894700308556 /* UserMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuViewController.swift; sourceTree = "<group>"; };
+		3FF060A1262889B200308556 /* UserMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				3F86BDE62626D96300CA4CD3 /* UserMenuView.swift */,
+				3FF060A1262889B200308556 /* UserMenuViewModel.swift */,
+				3FF0609E2628894700308556 /* UserMenuViewController.swift */,
 			);
 			path = "Menu Screen";
 			sourceTree = "<group>";
@@ -325,12 +331,14 @@
 				3F86BDC52626D7F500CA4CD3 /* OrdersView.swift in Sources */,
 				3F86BDB32626D4C800CA4CD3 /* Booking_Application.xcdatamodeld in Sources */,
 				3FF06080262867EA00308556 /* Restaurant.swift in Sources */,
+				3FF060A2262889B200308556 /* UserMenuViewModel.swift in Sources */,
 				3FF0608826286ED100308556 /* AllRestaurantViewModel.swift in Sources */,
 				3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */,
 				3FF0607D262867C600308556 /* User.swift in Sources */,
 				3F86BDD22626D89A00CA4CD3 /* AllRestaurantsView.swift in Sources */,
 				3F86BDD82626D8DB00CA4CD3 /* AllCategoriesView.swift in Sources */,
 				3F86BE012626DA1900CA4CD3 /* RegistrationView.swift in Sources */,
+				3FF0609F2628894700308556 /* UserMenuViewController.swift in Sources */,
 				3F86BDE72626D96300CA4CD3 /* UserMenuView.swift in Sources */,
 				3F86BDFC2626D9F000CA4CD3 /* LoginViewModel.swift in Sources */,
 				3F86BDF92626D9D800CA4CD3 /* LoginView.swift in Sources */,
