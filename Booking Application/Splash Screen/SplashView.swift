@@ -50,7 +50,6 @@ extension UIColor {
                 }
             }
         }
-        
         return nil
     }
 }
