@@ -11,6 +11,11 @@ import SwiftUI
 class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
     private let state = AllCategoriesViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     init() {
         let view = AllCategoriesView(allCategoriesViewModel: state)
         super.init(rootView: view)
@@ -22,11 +27,14 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
     }
     
     func backToMain() {
-        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-            let nextViewController = HomeViewController()
-            sceneDelegate.window?.rootViewController = nextViewController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
+//        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+//            let nextViewController = HomeViewController()
+//            sceneDelegate.window?.rootViewController = nextViewController
+//            sceneDelegate.window?.makeKeyAndVisible()
+//        }
+        
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }

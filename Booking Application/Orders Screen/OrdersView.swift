@@ -12,10 +12,16 @@ struct OrdersView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
-                ForEach(0...10, id: \.self) {
-                    Text("\($0)")
-                    HistoryItemView()
+            VStack(alignment: .leading) {
+                Text("Orders")
+                    .padding(.leading, 16)
+                    .padding(.bottom, 22)
+                    .font(.system(size: 28, weight: .bold))
+                VStack {
+                    ForEach(0...10, id: \.self) {
+                        Text("\($0)")
+                        HistoryItemView(isStatus: true, isActive: true)
+                    }
                 }
             }
         }

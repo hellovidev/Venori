@@ -11,6 +11,11 @@ import SwiftUI
 class HomeViewController: UIHostingController<HomeView>  {
     private let state = HomeViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     init() {
         let view = HomeView(homeViewModel: state)
         super.init(rootView: view)
@@ -22,21 +27,32 @@ class HomeViewController: UIHostingController<HomeView>  {
     }
     
     func seeAllRestaraunts() {
-        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {           
-            let nextViewController = AllRestaurantsViewController()
-            self.navigationController?.pushViewController(nextViewController, animated: true)
-            sceneDelegate.window?.rootViewController = nextViewController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
+//        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+//            let nextViewController = AllRestaurantsViewController()
+//            self.navigationController?.pushViewController(nextViewController, animated: true)
+//            sceneDelegate.window?.rootViewController = nextViewController
+//            sceneDelegate.window?.makeKeyAndVisible()
+//        }
+        
+        let navigationController = UINavigationController(rootViewController: AllRestaurantsViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+
+        self.present(navigationController, animated:true, completion: nil)
     }
     
     func seeAllCategories() {
-        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-            let nextViewController = AllCategoriesViewController()
-            self.navigationController?.pushViewController(nextViewController, animated: true)
-            sceneDelegate.window?.rootViewController = nextViewController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
+        let navigationController = UINavigationController(rootViewController: AllCategoriesViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+        
+//        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+//            let nextViewController = AllCategoriesViewController()
+//
+//
+//            self.navigationController?.pushViewController(nextViewController, animated: true)
+//            sceneDelegate.window?.rootViewController = nextViewController
+//            sceneDelegate.window?.makeKeyAndVisible()
+//        }
     }
 
 }

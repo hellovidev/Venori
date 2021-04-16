@@ -147,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				3F86BDC42626D7F500CA4CD3 /* OrdersView.swift */,
-				3F68114626297E0B00095A7F /* OrdersViewController.swift */,
 				3F68114926297E7800095A7F /* OrdersViewModel.swift */,
+				3F68114626297E0B00095A7F /* OrdersViewController.swift */,
 			);
 			path = "Orders Screen";
 			sourceTree = "<group>";

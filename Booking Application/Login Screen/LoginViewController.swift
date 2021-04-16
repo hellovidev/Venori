@@ -68,7 +68,7 @@ class LoginViewController: UIHostingController<LoginView>  {
             more.tabBarItem.selectedImage = UIImage(named: "Active More")
             
             let controllers = [home, orders, more]
-            tabController.viewControllers = controllers//.map { UINavigationController(rootViewController: $0) }
+            tabController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
             
             tabController.tabBar.barTintColor = .white
             tabController.tabBar.clipsToBounds = true

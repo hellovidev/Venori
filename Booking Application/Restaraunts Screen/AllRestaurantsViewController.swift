@@ -11,8 +11,8 @@ import SwiftUI
 class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
     private let state = AllRestaurantViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -27,11 +27,13 @@ class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
     }
     
     func backToMain() {
-        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-            let nextViewController = HomeViewController()
-            sceneDelegate.window?.rootViewController = nextViewController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+//        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+//            let nextViewController = HomeViewController()
+//            sceneDelegate.window?.rootViewController = nextViewController
+//            sceneDelegate.window?.makeKeyAndVisible()
+//        }
     }
     
 }

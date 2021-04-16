@@ -11,6 +11,11 @@ import SwiftUI
 class UserMenuViewController: UIHostingController<UserMenuView>  {
     private let state = UserMenuViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
