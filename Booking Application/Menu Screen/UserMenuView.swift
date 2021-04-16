@@ -33,14 +33,19 @@ struct UserMenuView: View {
                         .foregroundColor(Color.white)
                 }
             }
+            Spacer()
+                //.background(Color(UIColor(hex: "#FFFFFFFF")!))
+                .frame(maxHeight: 40)
             List {
                 Section(footer: Spacer()) {
                     ForEach(headerSection, id: \.self) { item in
-                        HStack(alignment: .center) {
-                            Image(menuIcons[0])
-                            Text("\(item)")
-                            Spacer()
-                            Image("Menu Vector")
+                        Button { } label: {
+                            HStack(alignment: .center) {
+                                Image(menuIcons[0])
+                                Text("\(item)")
+                                Spacer()
+                                Image("Menu Vector")
+                            }
                         }
                     }
                 }
@@ -54,7 +59,9 @@ struct UserMenuView: View {
                             .foregroundColor(Color.blue)
                 ) {
                     ForEach(footerSection, id: \.self) { item in
-                        Text("\(item)")
+                        Button { } label: {
+                            Text("\(item)")
+                        }
                     }
                 }
             }
@@ -67,31 +74,3 @@ struct UserMenuView_Previews: PreviewProvider {
         UserMenuView(userMenuViewModel: UserMenuViewModel())
     }
 }
-
-
-//struct CustomHeader: View {
-//    let name: String
-//    let color: Color
-//
-//    var body: some View {
-//        VStack {
-//            Spacer()
-//            HStack {
-//                Text(name)
-//                Spacer()
-//            }
-//            Spacer()
-//        }
-//        .padding(0).background(FillAll(color: color))
-//    }
-//}
-//
-//struct FillAll: View {
-//    let color: Color
-//    
-//    var body: some View {
-//        GeometryReader { proxy in
-//            self.color.frame(width: proxy.size.width * 1.3).fixedSize()
-//        }
-//    }
-//}
