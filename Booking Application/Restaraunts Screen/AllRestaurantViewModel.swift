@@ -9,4 +9,5 @@ import Foundation
 
 class AllRestaurantViewModel: ObservableObject {
     var controller: AllRestaurantsViewController?
+    
 }

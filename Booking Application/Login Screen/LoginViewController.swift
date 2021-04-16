@@ -75,7 +75,6 @@ class LoginViewController: UIHostingController<LoginView>  {
             
             self.navigationController?.isNavigationBarHidden = true
 
-            
             sceneDelegate.window?.rootViewController = tabController
             sceneDelegate.window?.makeKeyAndVisible()
         }

@@ -28,7 +28,7 @@ struct HomeView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: -8) {
                                     ForEach(restaurants, id: \.self) { object in
-                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {})
+                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {}).padding(.leading, 16)
                                     }
                                 }
                             }
@@ -46,7 +46,7 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
                                 ForEach(restaurants, id: \.self) { object in
-                                    RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {})
+                                    RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {}).padding(.leading, 16)
                                 }
                             }
                         }
@@ -108,7 +108,7 @@ struct RestarauntCardView: View {
     var onClick: () -> Void
     
     var body: some View {
-        Button { } label: {
+ 
             VStack(alignment: .leading) {
                 ZStack {
                     Image(backgroundImage)
@@ -135,6 +135,7 @@ struct RestarauntCardView: View {
                     .padding(.top, 10)
                     .padding(.bottom, -4)
                     .foregroundColor(.black)
+                    .lineLimit(1)
                 HStack {
                     Image("Star")
                     Text("\(NSString(format: "%.01f", self.rating))")
@@ -143,8 +144,7 @@ struct RestarauntCardView: View {
                         .foregroundColor(.gray)
                 }
             }
-        }
-        .padding(.leading, 16)
+        
     }
 }
 

@@ -11,6 +11,11 @@ import SwiftUI
 class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
     private let state = AllRestaurantViewModel()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     init() {
         let view = AllRestaurantsView(allRestaurantsViewModel: state)
         super.init(rootView: view)
@@ -29,8 +34,4 @@ class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        self.tabBarController?.tabBar.isHidden = false
-    }
 }

@@ -165,8 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				3F86BDD12626D89A00CA4CD3 /* AllRestaurantsView.swift */,
-				3FF0608426286EC200308556 /* AllRestaurantsViewController.swift */,
 				3FF0608726286ED100308556 /* AllRestaurantViewModel.swift */,
+				3FF0608426286EC200308556 /* AllRestaurantsViewController.swift */,
 			);
 			path = "Restaraunts Screen";
 			sourceTree = "<group>";
