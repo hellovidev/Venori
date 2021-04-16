@@ -19,7 +19,7 @@ struct AllRestaurantsView: View {
     var restaurants: [Restaurant] = [Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678), Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678)]
     
     var body: some View {
-        CustomNavigationView(title: "Restaraunts", isRoot: false, isLast: true, color: .yellow, onBackClick: {
+        CustomNavigationView(title: "Restaraunts", isRoot: false, isSearch: true, isLast: true, color: .yellow, onBackClick: {
             self.allRestaurantsViewModel.controller?.backToMain()
         }) {
             ScrollView {

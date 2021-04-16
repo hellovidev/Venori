@@ -14,7 +14,7 @@ struct HomeView: View {
     var restaurants: [Restaurant] = [Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678)]
     
     var body: some View {
-        CustomNavigationView(title: "", isRoot: true, isLast: false, color: .white, onBackClick: {}) {
+        CustomNavigationView(title: "", isRoot: true, isSearch: true, isLast: false, color: .white, onBackClick: {}) {
             ScrollView {
                 VStack {
                     
@@ -394,12 +394,14 @@ struct CustomNavigationView<Content: View>: View {
     @State var active = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    let isSearch: Bool
     var title: String
     var onBackClick: () -> Void
     
-    init(title: String, isRoot : Bool, isLast : Bool,color : Color, onBackClick: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+    init(title: String, isRoot : Bool, isSearch: Bool, isLast : Bool,color : Color, onBackClick: @escaping () -> Void, @ViewBuilder content: () -> Content) {
         self.title = title
         self.isRoot = isRoot
+        self.isSearch = isSearch
         self.isLast = isLast
         self.color = color
         self.content = content()
@@ -466,6 +468,7 @@ struct CustomNavigationView<Content: View>: View {
                         } label: {
                             Image("Search")
                         }
+                        .isHidden(!isSearch)
                         .padding(.top, 12)
                         .padding(.trailing, 16)
                         .padding(.bottom, 12)
