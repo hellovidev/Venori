@@ -9,4 +9,5 @@ import Foundation
 
 class AllCategoriesViewModel: ObservableObject {
     var controller: AllCategoriesViewController?
+    
 }

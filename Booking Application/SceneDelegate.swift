@@ -25,10 +25,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         //let contentView = //HomeView()//LoginView(loginViewModel: LoginViewModel()).environment(\.managedObjectContext, context)
 
+        /*
+         let tabController = UITabBarController()
+         let popular = PopularViewController()
+         let search = SearchViewController()
+         
+         popular.tabBarItem = UITabBarItem(title: "Popular", image: UIImage(systemName: "film"), tag: 0)
+         search.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
+         
+         let controllers = [popular, search]
+         tabController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+         
+         if !state.isAuth {
+             currentWindow.rootViewController = LoginViewController()
+         } else {
+             currentWindow.rootViewController = tabController
+         }
+         */
+        
+        
+        
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UserMenuViewController()//LoginViewController()
+            window.rootViewController = LoginViewController()
             //window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()

@@ -9,12 +9,10 @@ import SwiftUI
 
 struct UserMenuView: View {
     @ObservedObject var userMenuViewModel: UserMenuViewModel
-
     
     private let headerSection = ["Account details", "Booking history", "Favorites", "Notifications", "Settings"]
-    private let footerSection = ["About", "Contact", "Terms", "Privacy Policy"]
-    
     private let menuIcons = ["Menu Account", "Menu Booking", "Menu Favorites", "Menu Notifications", "Menu Settings"]
+    private let footerSection = ["About", "Contact", "Terms", "Privacy Policy"]
     
     var body: some View {
         VStack {
@@ -46,14 +44,15 @@ struct UserMenuView: View {
                         }
                     }
                 }
-                Section(footer: Button {
-                    print("Pressed!")
-                } label: {
-                    Text("Log out")
-                }
-                .padding(.top, 30)
-                .foregroundColor(Color.blue))
-                {
+                Section(footer:
+                            Button {
+                                userMenuViewModel.controller?.systemLogOut()
+                            } label: {
+                                Text("Log out")
+                            }
+                            .padding(.top, 30)
+                            .foregroundColor(Color.blue)
+                ) {
                     ForEach(footerSection, id: \.self) { item in
                         Text("\(item)")
                     }

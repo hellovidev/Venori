@@ -28,4 +28,9 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
             sceneDelegate.window?.makeKeyAndVisible()
         }
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(true)
+//        self.tabBarController?.tabBar.isHidden = false
+//    }
 }

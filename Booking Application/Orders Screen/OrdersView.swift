@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OrdersView: View {
+    @ObservedObject var ordersViewModel: OrdersViewModel
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -22,6 +24,6 @@ struct OrdersView: View {
 
 struct OrdersView_Previews: PreviewProvider {
     static var previews: some View {
-        OrdersView()
+        OrdersView(ordersViewModel: OrdersViewModel())
     }
 }

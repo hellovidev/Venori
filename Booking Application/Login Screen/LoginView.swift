@@ -31,7 +31,8 @@ struct LoginView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
-                    self.loginViewModel.controller?.processSignIn()
+                    //self.loginViewModel.controller?.processSignIn()
+                    self.loginViewModel.controller?.authComplete()
                     //loginViewModel?.tryLogin()
                 }) {
                     Text("Sign in")

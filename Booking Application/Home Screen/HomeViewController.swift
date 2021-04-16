@@ -11,6 +11,11 @@ import SwiftUI
 class HomeViewController: UIHostingController<HomeView>  {
     private let state = HomeViewModel()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     init() {
         let view = HomeView(homeViewModel: state)
         super.init(rootView: view)
@@ -38,4 +43,8 @@ class HomeViewController: UIHostingController<HomeView>  {
             sceneDelegate.window?.makeKeyAndVisible()
         }
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//
+//    }
 }

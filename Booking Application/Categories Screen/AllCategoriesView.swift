@@ -10,9 +10,7 @@ import SwiftUI
 struct AllCategoriesView: View {
     @ObservedObject var allCategoriesViewModel: AllCategoriesViewModel
     
-    var categories: [Category] = [Category(title: "Burger", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger")]
-    
-    //let data = (1...100).map { "Item \($0)" }
+    var categories: [Category] = [Category(title: "Burger", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger")]
     
     let columns = [
         GridItem(.flexible()),
@@ -21,7 +19,7 @@ struct AllCategoriesView: View {
     ]
     
     var body: some View {
-        CustomNavigationView(title: "Food Category", isRoot: false, isLast: true, color: .yellow, onBackClick: {
+        CustomNavigationView(title: "Food Category", isRoot: false, isLast: true, color: .white, onBackClick: {
             self.allCategoriesViewModel.controller?.backToMain()
         }) {
             ScrollView {
@@ -32,7 +30,6 @@ struct AllCategoriesView: View {
                 }
                 .padding(.horizontal)
             }
-            //.frame(maxHeight: 300)
         }
     }
     

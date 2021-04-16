@@ -63,7 +63,7 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
                                 ForEach(categories, id: \.self) { object in
-                                    CategoryView(title: object.title, imageName: object.image, onClick: {})
+                                    CategoryView(title: object.title, imageName: object.image, onClick: {}).padding(.leading, 16)
                                 }
                             }
                         }
@@ -178,7 +178,6 @@ struct CategoryView: View {
                     .foregroundColor(.black)
             }
         }
-        .padding(.leading, 16)
     }
 }
 
@@ -411,25 +410,6 @@ struct CustomNavigationView<Content: View>: View {
         NavigationView {
             GeometryReader { geometry in
                 VStack {
-                    
-                    //                        HStack {
-                    //
-                    //                            Image(systemName: "arrow.right")
-                    //                                .frame(width: 30)
-                    //                                .onTapGesture(count: 1, perform: {
-                    //                                    self.active.toggle()
-                    //                                })
-                    //                                .opacity(isLast ? 0 : 1)
-                    //                            NavigationLink(
-                    //                                destination: destination.navigationBarHidden(true)
-                    //                                    .navigationBarHidden(true),
-                    //                                isActive: self.$active,
-                    //                                label: {
-                    //                                    //no label
-                    //                                })
-                    //                        }
-                    
-                    
                     HStack(alignment: .center) {
                         
                         Button {
@@ -492,12 +472,14 @@ struct CustomNavigationView<Content: View>: View {
                     }
                     
                     .frame(width: geometry.size.width, height: 48)
-                    
                     self.content
                         .background(color.opacity(1))
-                        .ignoresSafeArea()
+                        //.ignoresSafeArea()
+
                 }
-            }.navigationBarHidden(true)
+            }
+            .navigationBarHidden(true)
+
         }
     }
 }
