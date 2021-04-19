@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BookView: View {
+    @ObservedObject var bookViewModel: BookViewModel
+
     @State private var isComplete: Bool = false
     
     var body: some View {
@@ -16,7 +18,7 @@ struct BookView: View {
                 BookProcessView(actionContinue: {
                     self.isComplete.toggle()
                 }, actionClose: {
-                    // Action Close View
+                    self.bookViewModel.controller?.goBack()
                 })
             } else {
                 CompleteView(actionContinue: {
@@ -194,7 +196,7 @@ struct ButtonModifier: ViewModifier {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView()
+        BookView(bookViewModel: BookViewModel())
     }
 }
 

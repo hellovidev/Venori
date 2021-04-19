@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */; };
+		3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */; };
+		3F08B9E2262DA66E0097FF1A /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */; };
+		3F08B9E6262DA6770097FF1A /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E5262DA6770097FF1A /* BookViewController.swift */; };
 		3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F3D26285CD20027E48C /* HomeViewController.swift */; };
 		3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F4026285D770027E48C /* HomeViewModel.swift */; };
 		3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114626297E0B00095A7F /* OrdersViewController.swift */; };
@@ -44,6 +48,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewController.swift; sourceTree = "<group>"; };
+		3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewModel.swift; sourceTree = "<group>"; };
+		3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
+		3F08B9E5262DA6770097FF1A /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		3F3F8F3D26285CD20027E48C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F3F8F4026285D770027E48C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3F68114626297E0B00095A7F /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				3F86BDDC2626D91000CA4CD3 /* BookView.swift */,
+				3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */,
+				3F08B9E5262DA6770097FF1A /* BookViewController.swift */,
 			);
 			path = "Book Screen";
 			sourceTree = "<group>";
@@ -193,6 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */,
+				3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */,
+				3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */,
 			);
 			path = "Details Screen";
 			sourceTree = "<group>";
@@ -339,7 +351,10 @@
 				3FF06080262867EA00308556 /* Restaurant.swift in Sources */,
 				3FF060A2262889B200308556 /* UserMenuViewModel.swift in Sources */,
 				3FF0608826286ED100308556 /* AllRestaurantViewModel.swift in Sources */,
+				3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */,
+				3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */,
 				3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */,
+				3F08B9E6262DA6770097FF1A /* BookViewController.swift in Sources */,
 				3FF0607D262867C600308556 /* User.swift in Sources */,
 				3F86BDD22626D89A00CA4CD3 /* AllRestaurantsView.swift in Sources */,
 				3F86BDD82626D8DB00CA4CD3 /* AllCategoriesView.swift in Sources */,
@@ -350,6 +365,7 @@
 				3F86BDF92626D9D800CA4CD3 /* LoginView.swift in Sources */,
 				3F86BDF32626D9B000CA4CD3 /* SplashView.swift in Sources */,
 				3F86BDAE2626D4C800CA4CD3 /* SceneDelegate.swift in Sources */,
+				3F08B9E2262DA66E0097FF1A /* BookViewModel.swift in Sources */,
 				3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */,
 				3F86BDED2626D98900CA4CD3 /* HomeView.swift in Sources */,
 				3FF0608526286EC200308556 /* AllRestaurantsViewController.swift in Sources */,

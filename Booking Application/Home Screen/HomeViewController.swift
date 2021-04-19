@@ -54,5 +54,13 @@ class HomeViewController: UIHostingController<HomeView>  {
 //            sceneDelegate.window?.makeKeyAndVisible()
 //        }
     }
+    
+    
+    
+    func redirectToRestarauntDetails() {
+        let navigationController = UINavigationController(rootViewController: DetailsRestarauntViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
 
 }
