@@ -13,6 +13,7 @@ struct BookView: View {
     @State private var isComplete: Bool = false
     
     var body: some View {
+        
         VStack(alignment: .leading) {
             if !isComplete {
                 BookProcessView(actionContinue: {
@@ -22,14 +23,15 @@ struct BookView: View {
                 })
             } else {
                 CompleteView(actionContinue: {
-                    // Continue Action
+                    self.bookViewModel.controller?.fullyComplete()
                 }, actionBack: {
                     self.isComplete.toggle()
                 })
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
+    
+}
 }
 
 struct CompleteView: View {
@@ -69,6 +71,7 @@ struct CompleteView: View {
                 .shadow(radius: 10)
         }
         .modifier(ButtonModifier())
+        .padding(.bottom, 35)
     }
 }
 
@@ -81,6 +84,8 @@ struct BookProcessView: View {
     var actionClose: () -> Void
     
     var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
         Button {
             self.actionClose()
         } label: {
@@ -165,6 +170,7 @@ struct BookProcessView: View {
                 }
             }
         }
+        .padding(.bottom, 24)
         Spacer()
         Button(action: {
             self.actionContinue()
@@ -180,6 +186,9 @@ struct BookProcessView: View {
                 .shadow(radius: 10)
         }
         .modifier(ButtonModifier())
+        .padding(.bottom, 35)
+    }
+        }
     }
 }
 

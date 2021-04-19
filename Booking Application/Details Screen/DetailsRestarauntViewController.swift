@@ -11,10 +11,10 @@ import SwiftUI
 class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView>  {
     private let state = DetailsRestarauntViewModel()
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        self.navigationController?.isNavigationBarHidden = true
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

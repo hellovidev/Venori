@@ -36,4 +36,10 @@ class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
 //        }
     }
     
+    func redirectToRestarauntDetails() {
+        let navigationController = UINavigationController(rootViewController: DetailsRestarauntViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
+    
 }

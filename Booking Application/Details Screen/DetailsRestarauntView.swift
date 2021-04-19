@@ -17,25 +17,30 @@ struct DetailsRestarauntView: View {
                     .resizable()
                     .scaledToFill()
                     .frame(maxWidth: .infinity, maxHeight: 256, alignment: .center)
-                VStack(alignment: .center) {
-                    HStack(alignment: .center) {
-                        Button {
-                            self.detailsRestarauntViewModel.controller?.goBack()
-                        } label: {
-                        Image("Arrow Left White")
-                            .padding([.top, .bottom], 12)
-                            .padding(.leading, 16)
+                    .overlay(
+                        HStack(alignment: .center) {
+                            Button {
+                                self.detailsRestarauntViewModel.controller?.goBack()
+                            } label: {
+                            Image("Arrow Left White")
+                                .padding([.top, .bottom], 12)
+                                .padding(.leading, 16)
+                            }
+                            Spacer()
+                            Button {
+                                // Act fav
+                            } label: {
+                            Image("Heart")
+                                .padding([.top, .bottom], 12)
+                                .padding(.trailing, 16)
+                            }
                         }
-                        Spacer()
-                        Button {
-                            // Act fav
-                        } label: {
-                        Image("Heart")
-                            .padding([.top, .bottom], 12)
-                            .padding(.trailing, 16)
-                        }
-                    }
-                }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .padding(.top, 48)
+                    )
+//                VStack(alignment: .center) {
+//
+//                }
             }
             
             VStack(alignment: .leading) {
@@ -139,6 +144,7 @@ struct DetailsRestarauntView: View {
                     .shadow(radius: 10)
             }
             .modifier(ButtonModifier())
+            .padding(.bottom, 35)
         }.ignoresSafeArea(.container, edges: .top)
     }
 }

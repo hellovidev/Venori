@@ -11,6 +11,10 @@
 		3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */; };
 		3F08B9E2262DA66E0097FF1A /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */; };
 		3F08B9E6262DA6770097FF1A /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E5262DA6770097FF1A /* BookViewController.swift */; };
+		3F08B9EE262DB1D40097FF1A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9ED262DB1D40097FF1A /* NetworkManager.swift */; };
+		3F08B9F1262DB2100097FF1A /* ImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F0262DB2100097FF1A /* ImageURL.swift */; };
+		3F08B9F4262DB24C0097FF1A /* APIRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F3262DB24C0097FF1A /* APIRequests.swift */; };
+		3F08B9F7262DB6380097FF1A /* Restaraunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F6262DB6380097FF1A /* Restaraunt.swift */; };
 		3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F3D26285CD20027E48C /* HomeViewController.swift */; };
 		3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F4026285D770027E48C /* HomeViewModel.swift */; };
 		3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114626297E0B00095A7F /* OrdersViewController.swift */; };
@@ -52,6 +56,10 @@
 		3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewModel.swift; sourceTree = "<group>"; };
 		3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		3F08B9E5262DA6770097FF1A /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		3F08B9ED262DB1D40097FF1A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		3F08B9F0262DB2100097FF1A /* ImageURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURL.swift; sourceTree = "<group>"; };
+		3F08B9F3262DB24C0097FF1A /* APIRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequests.swift; sourceTree = "<group>"; };
+		3F08B9F6262DB6380097FF1A /* Restaraunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaraunt.swift; sourceTree = "<group>"; };
 		3F3F8F3D26285CD20027E48C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F3F8F4026285D770027E48C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3F68114626297E0B00095A7F /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +147,9 @@
 				3F86BDBC2626D4D200CA4CD3 /* Info.plist */,
 				3F86BDB12626D4C800CA4CD3 /* Booking_Application.xcdatamodeld */,
 				3F86BDB62626D4D200CA4CD3 /* Preview Content */,
+				3F08B9ED262DB1D40097FF1A /* NetworkManager.swift */,
+				3F08B9F0262DB2100097FF1A /* ImageURL.swift */,
+				3F08B9F3262DB24C0097FF1A /* APIRequests.swift */,
 			);
 			path = "Booking Application";
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 				3FF060772628641D00308556 /* Category.swift */,
 				3FF0607C262867C600308556 /* User.swift */,
 				3FF0607F262867EA00308556 /* Restaurant.swift */,
+				3F08B9F6262DB6380097FF1A /* Restaraunt.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -337,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F08B9EE262DB1D40097FF1A /* NetworkManager.swift in Sources */,
 				3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */,
 				3F86BE182626F77300CA4CD3 /* LoginViewController.swift in Sources */,
 				3FF0609126287A7700308556 /* AllCategoriesViewController.swift in Sources */,
@@ -346,12 +359,15 @@
 				3F86BE1B2626F93600CA4CD3 /* RegistrationViewController.swift in Sources */,
 				3F86BE052626DA2F00CA4CD3 /* RegistrationViewModel.swift in Sources */,
 				3F86BDDD2626D91000CA4CD3 /* BookView.swift in Sources */,
+				3F08B9F4262DB24C0097FF1A /* APIRequests.swift in Sources */,
 				3F86BDC52626D7F500CA4CD3 /* OrdersView.swift in Sources */,
 				3F86BDB32626D4C800CA4CD3 /* Booking_Application.xcdatamodeld in Sources */,
+				3F08B9F7262DB6380097FF1A /* Restaraunt.swift in Sources */,
 				3FF06080262867EA00308556 /* Restaurant.swift in Sources */,
 				3FF060A2262889B200308556 /* UserMenuViewModel.swift in Sources */,
 				3FF0608826286ED100308556 /* AllRestaurantViewModel.swift in Sources */,
 				3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */,
+				3F08B9F1262DB2100097FF1A /* ImageURL.swift in Sources */,
 				3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */,
 				3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */,
 				3F08B9E6262DA6770097FF1A /* BookViewController.swift in Sources */,

@@ -28,7 +28,9 @@ struct HomeView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: -8) {
                                     ForEach(restaurants, id: \.self) { object in
-                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {}).padding(.leading, 16)
+                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
+                                            self.homeViewModel.controller?.redirectToRestarauntDetails()
+                                        }).padding(.leading, 16)
                                     }
                                 }
                             }
@@ -46,7 +48,9 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
                                 ForEach(restaurants, id: \.self) { object in
-                                    RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {}).padding(.leading, 16)
+                                    RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
+                                        self.homeViewModel.controller?.redirectToRestarauntDetails()
+                                    }).padding(.leading, 16)
                                 }
                             }
                         }
@@ -117,6 +121,9 @@ struct RestarauntCardView: View {
                         .frame(maxWidth: 296, maxHeight: 169)
                         .cornerRadius(32)
                     VStack {
+                        Button {
+                            
+                        } label: {
                         Image("Heart")
                             .resizable()
                             .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
@@ -126,6 +133,7 @@ struct RestarauntCardView: View {
                             .clipShape(Circle())
                             .padding(.trailing, 9)
                             .padding(.top, 9)
+                        }
                         Spacer()
                     }
                     .frame(maxWidth: 296, maxHeight: 169, alignment: .trailing)
@@ -143,6 +151,9 @@ struct RestarauntCardView: View {
                     Text("(\(String(self.votes)))")
                         .foregroundColor(.gray)
                 }
+            }
+            .onTapGesture {
+                self.onClick()
             }
         
     }

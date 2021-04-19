@@ -11,6 +11,11 @@ import SwiftUI
 class BookViewController: UIHostingController<BookView>  {
     private let state = BookViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     init() {
         let view = BookView(bookViewModel: state)
         super.init(rootView: view)
@@ -23,6 +28,11 @@ class BookViewController: UIHostingController<BookView>  {
     
     func goBack() {
         self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func fullyComplete() {
+        //self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
