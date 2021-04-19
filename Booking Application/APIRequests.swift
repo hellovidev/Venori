@@ -17,9 +17,10 @@ public enum APIRequests: String {
     
     case regLink = "http://dev2.cogniteq.com:3110/api/register/"
     
-    func registrationRequestLinkGenerator(firstName: String, secondName: String, email: String, password: String) -> String {
-        return String(self.regLink + "?first_name=" + firstName + "&second_name=" + secondName + "&email=" + email + "&password=" + password)
-    }
+//    func registrationRequestLinkGenerator(firstName: String, secondName: String, email: String, password: String) -> String {
+//        let link = self.regLink + "?first_name=" + firstName + "&second_name=" + secondName + "&email=" + email + "&password=" + password
+//        return link
+//    }
 }
 
 
