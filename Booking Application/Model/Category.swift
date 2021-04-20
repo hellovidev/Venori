@@ -39,5 +39,3 @@ struct Category: Codable, Hashable, Identifiable {
 //    var items: [Movie]
 //}
 
-
-
