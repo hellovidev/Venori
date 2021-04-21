@@ -33,6 +33,7 @@ class UserMenuViewController: UIHostingController<UserMenuView>  {
     func systemLogOut() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = LoginViewController()
+            UserDefaults.standard.removeObject(forKey: "access_token")
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }

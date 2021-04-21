@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     @ObservedObject var registrationViewModel: RegistrationViewModel
-    var api = RequestAPI()
+    private let api = RequestAPI()
     
     var body: some View {
         VStack {
@@ -26,9 +26,8 @@ struct RegistrationView: View {
             VStack {
                 Spacer()
                 VStack {
-                    CustomTextField(data: $registrationViewModel.email, placeholder: "Name", isPassword: false).padding(.bottom, 10)
-                    CustomTextField(data: $registrationViewModel.email, placeholder: "Surname", isPassword: false).padding(.bottom, 10)
-                    
+                    CustomTextField(data: $registrationViewModel.name, placeholder: "Name", isPassword: false).padding(.bottom, 10)
+                    CustomTextField(data: $registrationViewModel.surname, placeholder: "Surname", isPassword: false).padding(.bottom, 10)
                     CustomTextField(data: $registrationViewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 10)
                     CustomTextField(data: $registrationViewModel.password, placeholder: "Password", isPassword: true).padding(.bottom, 10)
                     CustomTextField(data: $registrationViewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
@@ -36,9 +35,8 @@ struct RegistrationView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
-                    api.userAccountRegistration(name: "Andrew", surname: "Stone", email: "andrew.strone@gmail.com", password: "asdas237h23")
+                    self.api.userAccountRegistration(name: registrationViewModel.name, surname: registrationViewModel.surname, email: registrationViewModel.email, password: registrationViewModel.password)
                     //self.registrationViewModel.controller?.processSignUp()
-                    //loginViewModel?.tryLogin()
                 }) {
                     Text("Sign up")
                         .foregroundColor(.white)

@@ -32,11 +32,22 @@ struct LoginView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
-                    //ivan.top@gmail.com
-                    self.api.getTokenAuthentication(email: "andrew.strone@gmail.com", password: "asdas237h23")
-                    //self.loginViewModel.controller?.processSignIn()
-                    //self.loginViewModel.controller?.authComplete()
-                    //loginViewModel?.tryLogin()
+                    if loginViewModel.email.isValidEmail() && loginViewModel.password.isValidPassword() {
+                        DispatchQueue.main.async {
+                            self.api.userAccountAuthentication(email: loginViewModel.email, password: loginViewModel.password)
+                            if UserDefaults.standard.string(forKey: "access_token") != nil {
+                                loginViewModel.controller?.authComplete()
+                            } else {
+                                loginViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
+                            }
+                        }
+                    } else if !loginViewModel.email.isValidEmail() && loginViewModel.password.isValidPassword() {
+                        loginViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
+                    } else if loginViewModel.email.isValidEmail() && !loginViewModel.password.isValidPassword() {
+                        loginViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
+                    } else {
+                        loginViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
+                    }
                 }) {
                     Text("Sign in")
                         .foregroundColor(.white)

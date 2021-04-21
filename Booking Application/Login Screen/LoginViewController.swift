@@ -38,21 +38,21 @@ class LoginViewController: UIHostingController<LoginView>  {
         }
     }
     
-    func authFaild() {
-        let alert = UIAlertController(title: "Auth failed", message: "Wrong email or password. Please try again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yeah", style: .default, handler: nil))
+    func failPopUp(title: String, message: String, buttonTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
-    func authVerification(email: String, password: String) {
-        if !state.email.isEmpty && !state.password.isEmpty {
-            //apiWorker.isLoginRequestComplete(email: <#T##String#>, password: <#T##String#>)
-            //RequestAPI.isLoginRequestComplete()
-            authComplete()
-        } else {
-            authFaild()
-        }
-    }
+//    func authVerification(email: String, password: String) {
+//        if !state.email.isEmpty && !state.password.isEmpty {
+//            //apiWorker.isLoginRequestComplete(email: <#T##String#>, password: <#T##String#>)
+//            //RequestAPI.isLoginRequestComplete()
+//            authComplete()
+//        } else {
+//            authFaild()
+//        }
+//    }
     
     func authComplete() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {

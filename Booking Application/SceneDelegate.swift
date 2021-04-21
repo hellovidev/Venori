@@ -48,7 +48,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = LoginViewController()
+            
+            if UserDefaults.standard.string(forKey: "access_token") != nil {
+                let tabController = UITabBarController()
+                
+                let home = HomeViewController()
+                let orders = OrdersViewController()
+                let more = UserMenuViewController()
+                
+                home.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Tab Home"), tag: 0)
+                orders.tabBarItem = UITabBarItem(title: "Orders", image: UIImage(named: "Tab Bag"), tag: 0)
+                more.tabBarItem = UITabBarItem(title: "More", image: UIImage(named: "Tab More"), tag: 1)
+                
+                home.tabBarItem.selectedImage = UIImage(named: "Active Home")
+                orders.tabBarItem.selectedImage = UIImage(named: "Active Bag")
+                more.tabBarItem.selectedImage = UIImage(named: "Active More")
+                
+                let controllers = [home, orders, more]
+                tabController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
+                
+                tabController.tabBar.barTintColor = .white
+                tabController.tabBar.clipsToBounds = true
+                
+                //navigationController.isNavigationBarHidden = true
+
+                window.rootViewController = tabController
+                window.makeKeyAndVisible()
+            } else {
+                window.rootViewController = LoginViewController()
+            }
+            
             //window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()

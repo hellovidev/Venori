@@ -7,18 +7,20 @@
 
 import Foundation
 
+// Email: qqqqq@gmail.com, Password: qqqqqqqqq
+
 struct User: Codable, Hashable, Identifiable {
-    var id: String
+    var id: Int
     var firstName: String
     var secondName: String
     var email: String
-    var addressFull: String
-    var addressLat: String
-    var addressLon: String
-    var avatar: String
-    var emailVerifiedAt: Bool
-    var createdAt: Date
-    var updatedAt: Date
+    var addressFull: String?
+    var addressLat: Double?
+    var addressLon: Double?
+    var avatar: String?
+    var emailVerifiedAt: String?
+    var createdAt: String
+    var updatedAt: String
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -32,5 +34,15 @@ struct User: Codable, Hashable, Identifiable {
         case emailVerifiedAt = "email_verified_at"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+    }
+}
+
+struct Account: Codable {
+    var user: User
+    var token: String
+    
+    enum CodingKeys: String, CodingKey {
+        case user = "user"
+        case token = "access_token"
     }
 }
