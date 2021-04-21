@@ -22,3 +22,8 @@ struct Token: Codable {
         self.token = token
     }
 }
+
+//
+//func getYearReleaseDate() -> String {
+//    return String(date?.prefix(4) ?? "")
+//}

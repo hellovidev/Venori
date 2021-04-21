@@ -16,29 +16,7 @@ struct Categ: Codable, Hashable, Identifiable {
         self.title = title
         self.image = image
     }
-    
-//    enum CodingKeys: String, CodingKey {
-//        case title = "original_title"
-//        case description = "overview"
-//        case language = "original_language"
-//        case date = "release_date"
-//        case rating = "vote_average"
-//        case posterPath = "poster_path"
-//    }
-//
-//    func getPosterLink() -> String {
-//        return API.posterResource.rawValue + (posterPath ?? "")
-//    }
-//
-//    func getYearReleaseDate() -> String {
-//        return String(date?.prefix(4) ?? "")
-//    }
 }
-
-//struct Results: Codable {
-//    var items: [Movie]
-//}
-
 
 struct Category: Codable, Hashable, Identifiable {
     var id: Int
@@ -54,6 +32,11 @@ struct Category: Codable, Hashable, Identifiable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
+    
+    func getPosterLink() -> String {
+        return Requests.domainLink.rawValue + imageURL
+    }
+
 }
 
 struct Categories: Codable {

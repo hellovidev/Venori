@@ -372,27 +372,29 @@ class RequestAPI: ObservableObject {
     
     
     
-    struct ServerResponse: Decodable {
-        let error: String
-        let ok: String
-    }
-    
-    enum Requests: String {
-        case domainLink = "http://dev2.cogniteq.com:3110/api/"
-        case loginRouter = "login"
-        case registerRouter = "register"
-        case logoutRouter = "logout"
-        case placesRouter = "places"
-        case categoriesRouter = "categories"
-    }
-    
-    enum ServerErrorResponse: String {
-        case postCallError = "Error: Error calling POST"
-        case dataNotReceived = "Error: Didn't receive data"
-    }
+
     
     
     
+}
+
+struct ServerResponse: Decodable {
+    let error: String
+    let ok: String
+}
+
+enum Requests: String {
+    case domainLink = "http://dev2.cogniteq.com:3110/api/"
+    case loginRouter = "login"
+    case registerRouter = "register"
+    case logoutRouter = "logout"
+    case placesRouter = "places"
+    case categoriesRouter = "categories"
+}
+
+enum ServerErrorResponse: String {
+    case postCallError = "Error: Error calling POST"
+    case dataNotReceived = "Error: Didn't receive data"
 }
 
 enum StatusCodes: Int {
