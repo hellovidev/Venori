@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
+    var api = RequestAPI()
     
     var body: some View {
         VStack {
@@ -31,8 +32,10 @@ struct LoginView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
+                    //ivan.top@gmail.com
+                    self.api.getTokenAuthentication(email: "andrew.strone@gmail.com", password: "asdas237h23")
                     //self.loginViewModel.controller?.processSignIn()
-                    self.loginViewModel.controller?.authComplete()
+                    //self.loginViewModel.controller?.authComplete()
                     //loginViewModel?.tryLogin()
                 }) {
                     Text("Sign in")

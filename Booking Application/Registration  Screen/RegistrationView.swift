@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     @ObservedObject var registrationViewModel: RegistrationViewModel
+    var api = RequestAPI()
     
     var body: some View {
         VStack {
@@ -35,7 +36,8 @@ struct RegistrationView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
-                    self.registrationViewModel.controller?.processSignUp()
+                    api.userAccountRegistration(name: "Andrew", surname: "Stone", email: "andrew.strone@gmail.com", password: "asdas237h23")
+                    //self.registrationViewModel.controller?.processSignUp()
                     //loginViewModel?.tryLogin()
                 }) {
                     Text("Sign up")

@@ -5,26 +5,8 @@
 //  Created by student on 20.04.21.
 //
 
-import Foundation
-import Combine
 
-class RequestAPI: ObservableObject {
-    @Published var access: Token?
-    
-    func isLoginRequestComplete(email: String, password: String) -> Bool {
-        var result: Bool = false
-        
-        access?.setToken(token: getTokenAuthentication(email: "", password: ""))
-        
-        let defaults = UserDefaults.standard
-        //defaults.set(access.token, forKey: "access_token")
-        
-        return result
-    }
-    
-    func getTokenAuthentication(email: String, password: String) -> String {
-        
-        
+
 //        var request = URLRequest(url: URL(string:  "http://dev2.cogniteq.com:3110/api/login?")!)
 //            request.httpMethod = "POST"
 //
@@ -80,14 +62,8 @@ class RequestAPI: ObservableObject {
 //            }
 //            task.resume()
 //        
-        return ""
-    }
 
-    
-    
-    
-}
-    
+
 //    //private let url = URL(string: APIRequests.dataResource.rawValue + APIRequests.prefixKeyAPI.rawValue + APIRequests.keyAPI.rawValue)!
 //    //private let loginURL = URL(string: "http://dev2.cogniteq.com:3110/api/login")
 //
@@ -128,9 +104,9 @@ class RequestAPI: ObservableObject {
 //
 //}
 
-    
 
-    
+
+
 //    func loadData() -> AnyPublisher<[User], Error> {
 //        return URLSession.shared.dataTaskPublisher(for: self.url)
 //            .map(\.data)
@@ -155,8 +131,8 @@ class RequestAPI: ObservableObject {
 //            }
 //            task.resume()
 //        }
-        
-    
+
+
 //    func userAuthentification() {
 //
 //    }
@@ -173,9 +149,9 @@ class RequestAPI: ObservableObject {
 //            .receive(on: DispatchQueue.main)
 //            .eraseToAnyPublisher()
 //    }
-    
-    
-    
+
+
+
 
 
 //class Dictionary {
@@ -246,102 +222,184 @@ class RequestAPI: ObservableObject {
 
 
 
+import Foundation
+import Combine
 
-
-
-
-
-
-
-
-
-
-
-
-//
-//import Foundation
-//import Combine
-//
-//
-//class HttpApi : ObservableObject {
-//    // var didChange = PassthroughSubject<HttpApi, Never>()
-//    // var authenticated = false
-//    // {
-//    // didSet{
-//    // didChange.send(self)
-//    // }
-//    // }
-//    
-//    func getMethod(email:String,password:String) {
-//        guard let url = URL(string: "http://dev2.cogniteq.com:3110/api/login") else {
-//            print("Error: cannot create URL")
-//            return
-//        }
-//        
-//        let body:[String:String]=["email":email,"password":password]
-//        
-//        let finalBody = try! JSONSerialization.data(withJSONObject: body)
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.httpBody = finalBody
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard error == nil else {
-//                print("Error: error calling POST")
-//                print(error!)
-//                return
-//            }
-//            guard let data = data else {
-//                print("Error: Did not receive data")
-//                return
-//            }
-//            
-//            if let response = response as? HTTPURLResponse {
-//                print("Response HTTP Status code: \(response.statusCode)")
-//                
-//            } else {
-//                return
-//                
-//            }
-//            print(data)
-//            // let finalData = try! JSONDecoder().decode(MsgServer.self, from: data)
-//            // print(finalData)
-//            // DispatchQueue.main.async{
-//            // if finalData.error == "Unauthorized"{
-//            // self.authenticated = false
-//            // }
-//            // }
-//            
-//            do {
-//                
-//                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-//                    
-//                    print("Error: Cannot convert data to JSON object")
-//                    
-//                    return
-//                }
-//                print(jsonObject)
+class RequestAPI: ObservableObject {
+    @Published var access: Token?
+    
+    func userAccountRegistration(name: String, surname: String, email: String, password: String) -> Bool {
+        guard let url = URL(string: Requests.domainLink.rawValue + Requests.registerRouter.rawValue) else {
+            print("Error: Can't create URL")
+            return false
+        }
+        
+        let data: [String: String] = ["first_name": name, "second_name": surname, "email": email, "password": password]
+        let body = try! JSONSerialization.data(withJSONObject: data)
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            guard error == nil else {
+                print(ServerErrorResponse.postCallError.rawValue)
+                print(error!)
+                return
+            }
+            
+            guard let data = data else {
+                print(ServerErrorResponse.dataNotReceived.rawValue)
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            } else { return }
+            
+            print(data)
+            //             let finalData = try! JSONDecoder().decode(ServerResponse.self, from: data)
+            //             print(finalData)
+            //             DispatchQueue.main.async{
+            //             if finalData.error == "Unauthorized"{
+            //             self.authenticated = false
+            //             }
+            //             }
+            
+            do {
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    print("Error: Cannot convert data to JSON object")
+                    return
+                }
+                print(jsonObject)
 //                DispatchQueue.main.async {
-//                    
 //                    if let accessToken = jsonObject["access_token"] as? String{
 //                        let preferences = UserDefaults.standard
 //                        preferences.set(accessToken, forKey: "accessToken")
 //                        print(accessToken)
 //                    }
 //                }
-//            } catch {
-//                print("Error: Trying to convert JSON data to string")
-//                return
-//            }
-//            
-//            
-//        }.resume()
-//    }
-//}
-//
-//struct MsgServer: Decodable {
-//    let error :String
-//    let ok:String
-//}
+            } catch {
+                print("Error: Trying to convert JSON data to string")
+                return
+            }
+        }
+        .resume()
+        return true
+    }
+    
+    func isLoginRequestComplete(email: String, password: String) -> Bool {
+        var result: Bool = false
+        
+        access?.setToken(token: getTokenAuthentication(email: "", password: ""))
+        
+        let defaults = UserDefaults.standard
+        //defaults.set(access.token, forKey: "access_token")
+        
+        return result
+    }
+    
+    var didChange = PassthroughSubject<RequestAPI, Never>()
+    var authenticated = false
+    {
+        didSet{
+            didChange.send(self)
+        }
+    }
+    
+    func getTokenAuthentication(email: String, password: String) -> String {
+        guard let url = URL(string: Requests.domainLink.rawValue + Requests.loginRouter.rawValue) else { return "Error: Can't create URL" }
+        let data: [String: String] = ["email": email, "password": password]
+        let body = try! JSONSerialization.data(withJSONObject: data)
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            guard error == nil else {
+                print(ServerErrorResponse.postCallError.rawValue)
+                print(error!)
+                return
+            }
+            
+            guard let data = data else {
+                print(ServerErrorResponse.dataNotReceived.rawValue)
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            } else { return }
+            
+            print(data)
+            //             let finalData = try! JSONDecoder().decode(ServerResponse.self, from: data)
+            //             print(finalData)
+            //             DispatchQueue.main.async{
+            //             if finalData.error == "Unauthorized"{
+            //             self.authenticated = false
+            //             }
+            //             }
+            
+            do {
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    print("Error: Cannot convert data to JSON object")
+                    return
+                }
+                print(jsonObject)
+                DispatchQueue.main.async {
+                    if let accessToken = jsonObject["access_token"] as? String{
+                        let preferences = UserDefaults.standard
+                        preferences.set(accessToken, forKey: "accessToken")
+                        print(accessToken)
+                    }
+                }
+            } catch {
+                print("Error: Trying to convert JSON data to string")
+                return
+            }
+        }
+        .resume()
+        
+        return ""
+    }
+    
+    struct ServerResponse: Decodable {
+        let error: String
+        let ok: String
+    }
+    
+    enum Requests: String {
+        case domainLink = "http://dev2.cogniteq.com:3110/api/"
+        case loginRouter = "login"
+        case registerRouter = "register"
+        
+        case prefixKeyAPI = "?api_key="
+        case keyAPI = "5c71b9abc803f2afe53656c240048718"
+        case posterResource = "https://image.tmdb.org/t/p/w500"
+        case dataResource = "https://api.themoviedb.org/3/list/1"
+        
+        case passForgotLink = "http://dev2.cogniteq.com:3110/api/forgot"
+        
+        case regLink = "http://dev2.cogniteq.com:3110/api/register/"
+        
+        //    func registrationRequestLinkGenerator(firstName: String, secondName: String, email: String, password: String) -> String {
+        //        let link = self.regLink + "?first_name=" + firstName + "&second_name=" + secondName + "&email=" + email + "&password=" + password
+        //        return link
+        //    }
+    }
+    
+    enum ServerErrorResponse: String {
+        case postCallError = "Error: Error calling POST"
+        case dataNotReceived = "Error: Did not receive data"
+    }
+    
+}
