@@ -35,7 +35,20 @@ struct RegistrationView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
-                    self.api.userAccountRegistration(name: registrationViewModel.name, surname: registrationViewModel.surname, email: registrationViewModel.email, password: registrationViewModel.password)
+                    if registrationViewModel.email.isValidEmail() && registrationViewModel.password.isValidPassword() && registrationViewModel.password == registrationViewModel.passwordRepeat {
+                        self.api.userAccountRegistration(name: registrationViewModel.name, surname: registrationViewModel.surname, email: registrationViewModel.email, password: registrationViewModel.password)
+                        self.api.userAccountAuthentication(email: registrationViewModel.email, password: registrationViewModel.password)
+                        registrationViewModel.controller?.registrationComplete()
+                    } else if registrationViewModel.password != registrationViewModel.passwordRepeat {
+                        registrationViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Check password fields.", buttonTitle: "Okay")
+                    } else if registrationViewModel.email.isValidEmail() && !registrationViewModel.password.isValidPassword() {
+                        registrationViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
+                    } else if !registrationViewModel.email.isValidEmail() && registrationViewModel.password.isValidPassword() {
+                        registrationViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
+                    }
+                    else {
+                        registrationViewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
+                    }
                     //self.registrationViewModel.controller?.processSignUp()
                 }) {
                     Text("Sign up")

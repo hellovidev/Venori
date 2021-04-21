@@ -29,16 +29,7 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
         }
     }
     
-    func processSignUp() {
-//        guard state.password == state.passwordRepeat else {
-//            let alert = UIAlertController(title: "Registration Faild", message: "Make sure the passwords are the same.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//            return
-//        }
-        
-
-//        if api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password) {
+    func registrationComplete() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let tabController = UITabBarController()
             
@@ -65,11 +56,6 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
             sceneDelegate.window?.rootViewController = tabController
             sceneDelegate.window?.makeKeyAndVisible()
         }
-//        } else {
-//            let alert = UIAlertController(title: "Registration Faild", message: "The email has already been taken.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
     }
     
     func isValidEmail(_ email: String) -> Bool {
@@ -77,5 +63,11 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
 
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
+    }
+    
+    func failPopUp(title: String, message: String, buttonTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

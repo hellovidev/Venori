@@ -10,7 +10,7 @@ import SwiftUI
 struct AllCategoriesView: View {
     @ObservedObject var allCategoriesViewModel: AllCategoriesViewModel
     
-    var categories: [Category] = [Category(title: "Burger", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger")]
+    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
     
     let columns = [
         GridItem(.flexible()),

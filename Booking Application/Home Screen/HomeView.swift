@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var homeViewModel: HomeViewModel
     
-    var categories: [Category] = [Category(title: "Burger", image: "Burger"), Category(title: "Pizza", image: "Burger"), Category(title: "Sushi", image: "Burger")]
+    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
     var restaurants: [Restaurant] = [Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678)]
     
     var body: some View {

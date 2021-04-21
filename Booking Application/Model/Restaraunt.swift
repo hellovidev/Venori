@@ -20,8 +20,8 @@ struct Restaraunt: Codable, Hashable, Identifiable {
     var description: String
     var capacity: Int
     var tablePrice: Float
-    var createdAt: Date
-    var updatedAt: Date
+    var createdAt: String
+    var updatedAt: String
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -41,8 +41,12 @@ struct Restaraunt: Codable, Hashable, Identifiable {
     }
 }
 
-struct Results: Codable {
-    var items: [Restaurant]
+struct Restaraunts: Codable {
+    var data: [Restaraunt]
+    
+    enum CodingKeys: String, CodingKey {
+        case data = "data"
+    }
 }
 
 

@@ -10,6 +10,7 @@ import SwiftUI
 
 class HomeViewController: UIHostingController<HomeView>  {
     private let state = HomeViewModel()
+    var api = RequestAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -20,6 +21,8 @@ class HomeViewController: UIHostingController<HomeView>  {
         let view = HomeView(homeViewModel: state)
         super.init(rootView: view)
         state.controller = self
+        //self.api.loadPlacesData()
+        //self.api.loadCategoriesData()
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {

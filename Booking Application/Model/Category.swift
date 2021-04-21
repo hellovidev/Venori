@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Codable, Hashable, Identifiable {
+struct Categ: Codable, Hashable, Identifiable {
     var id: String = UUID().uuidString
     var title: String
     var image: String
@@ -39,3 +39,27 @@ struct Category: Codable, Hashable, Identifiable {
 //    var items: [Movie]
 //}
 
+
+struct Category: Codable, Hashable, Identifiable {
+    var id: Int
+    var name: String
+    var imageURL: String
+    var createdAt: String
+    var updatedAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+        case imageURL = "image_url"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
+}
+
+struct Categories: Codable {
+    var data: [Category]
+    
+    enum CodingKeys: String, CodingKey {
+        case data = "data"
+    }
+}

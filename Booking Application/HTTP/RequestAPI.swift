@@ -10,8 +10,12 @@ import Combine
 
 class RequestAPI: ObservableObject {
     @Published var account: Account?
+    @Published var places: Restaraunts?
+    @Published var categories: Categories?
     
     func userAccountRegistration(name: String, surname: String, email: String, password: String) {
+        var done = false
+
         guard let url = URL(string: Requests.domainLink.rawValue + Requests.registerRouter.rawValue) else {
             print("Error: Can't create URL")
             return
@@ -26,7 +30,7 @@ class RequestAPI: ObservableObject {
         request.httpBody = body
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue( "Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        //request.setValue( "Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
@@ -48,7 +52,7 @@ class RequestAPI: ObservableObject {
                 case 422:
                     print("The given data was invalid.")
                 default:
-                    self.userAccountAuthentication(email: email, password: password)
+                    done = true
                     print("Complete")
                 }
             } else {
@@ -67,6 +71,10 @@ class RequestAPI: ObservableObject {
             }
         })
         task.resume()
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
     }
     
     func userAccountAuthentication(email: String, password: String) {
@@ -204,7 +212,130 @@ class RequestAPI: ObservableObject {
         } while !done
     }
     
+    func loadPlacesData() {
+        guard let url = URL(string: Requests.domainLink.rawValue + Requests.placesRouter.rawValue) else {
+            print("Error: Can't create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        print(UserDefaults.standard.string(forKey: "access_token")!)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            guard error == nil else {
+                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
+                return
+            }
+            
+            guard let data = data else {
+                print(ServerErrorResponse.dataNotReceived.rawValue)
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+                switch response.statusCode {
+                case 401:
+                    print("Unauthorized")
+                case 422:
+                    print("The given data was invalid.")
+                default:
+                    print("Complete")
+                }
+            } else {
+                return
+            }
+            
+            do {
+                // Read response data
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    print("Error: Cannot convert data to JSON object")
+                    return
+                }
+                //print(jsonObject)
+                
+                // Decodable
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(Restaraunts.self, from: data)
+                DispatchQueue.main.async {
+                    self.places = response
+                }
+                print(response.data[0])
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+    }
     
+    func loadCategoriesData() {
+        guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else {
+            print("Error: Can't create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        print(UserDefaults.standard.string(forKey: "access_token")!)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            guard error == nil else {
+                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
+                return
+            }
+            
+            guard let data = data else {
+                print(ServerErrorResponse.dataNotReceived.rawValue)
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+                switch response.statusCode {
+                case 401:
+                    print("Unauthorized")
+                case 422:
+                    print("The given data was invalid.")
+                default:
+                    print("Complete")
+                }
+            } else {
+                return
+            }
+            
+            do {
+                // Read response data
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    print("Error: Cannot convert data to JSON object")
+                    return
+                }
+                print(jsonObject)
+                
+                // Decodable
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(Categories.self, from: data)
+                DispatchQueue.main.async {
+                    self.categories = response
+                }
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+    }
     
     
     
@@ -251,6 +382,8 @@ class RequestAPI: ObservableObject {
         case loginRouter = "login"
         case registerRouter = "register"
         case logoutRouter = "logout"
+        case placesRouter = "places"
+        case categoriesRouter = "categories"
     }
     
     enum ServerErrorResponse: String {
