@@ -14,7 +14,7 @@ struct OrdersView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text("Orders")
-                    .padding(.leading, 16)
+                    .padding([.leading, .top], 16)
                     .padding(.bottom, 22)
                     .font(.system(size: 28, weight: .bold))
                 VStack {

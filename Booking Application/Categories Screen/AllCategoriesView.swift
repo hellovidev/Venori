@@ -29,6 +29,7 @@ struct AllCategoriesView: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.bottom, 35)
             }
         }
     }

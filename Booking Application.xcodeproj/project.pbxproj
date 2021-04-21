@@ -542,8 +542,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Siarhei Minkin (496HQZ25KF)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"Booking Application/Preview Content\"";
 				DEVELOPMENT_TEAM = QRC4JHNDS2;
 				ENABLE_PREVIEWS = YES;
@@ -554,7 +554,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cogniteq.internship.fullplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = FullPlateInternShipDevProfile;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -565,7 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development: Siarhei Minkin (496HQZ25KF)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"Booking Application/Preview Content\"";
 				DEVELOPMENT_TEAM = QRC4JHNDS2;

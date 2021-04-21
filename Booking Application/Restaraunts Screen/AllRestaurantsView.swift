@@ -30,6 +30,7 @@ struct AllRestaurantsView: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.bottom, 35)
             }
         }
     }
