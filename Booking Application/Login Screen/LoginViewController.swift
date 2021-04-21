@@ -10,7 +10,6 @@ import SwiftUI
 
 class LoginViewController: UIHostingController<LoginView>  {
     private let state = LoginViewModel()
-    let apiWorker = RequestAPI()
     
     init() {
         let view = LoginView(loginViewModel: state)
@@ -46,8 +45,6 @@ class LoginViewController: UIHostingController<LoginView>  {
     
     func authVerification(email: String, password: String) {
         if !state.email.isEmpty && !state.password.isEmpty {
-            //apiWorker.isLoginRequestComplete(email: <#T##String#>, password: <#T##String#>)
-            //RequestAPI.isLoginRequestComplete()
             authComplete()
         } else {
             authFaild()

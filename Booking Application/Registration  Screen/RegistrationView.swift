@@ -25,9 +25,6 @@ struct RegistrationView: View {
             VStack {
                 Spacer()
                 VStack {
-                    CustomTextField(data: $registrationViewModel.email, placeholder: "Name", isPassword: false).padding(.bottom, 10)
-                    CustomTextField(data: $registrationViewModel.email, placeholder: "Surname", isPassword: false).padding(.bottom, 10)
-                    
                     CustomTextField(data: $registrationViewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 10)
                     CustomTextField(data: $registrationViewModel.password, placeholder: "Password", isPassword: true).padding(.bottom, 10)
                     CustomTextField(data: $registrationViewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
