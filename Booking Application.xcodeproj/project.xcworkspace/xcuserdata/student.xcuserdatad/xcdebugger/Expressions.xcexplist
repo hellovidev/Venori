@@ -11,23 +11,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
+         contextName = "closure #2 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+               value = "result">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestAPI.loadCategoriesData():RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error">
+            </PersistentString>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+            <PersistentString
+               value = "print(response)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #3 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "homeViewModel.categories!.data">
+            </PersistentString>
+            <PersistentString
+               value = "homeViewModel.categories">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "request.httpBody">
-            </PersistentString>
-         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
@@ -45,6 +62,14 @@
          <PersistentStrings>
             <PersistentString
                value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.httpBody">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -69,10 +94,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #2 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "result">
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -65,7 +65,7 @@ class RequestAPI: ObservableObject {
                     print("Error: Cannot convert data to JSON object")
                     return
                 }
-                print(jsonObject)
+                //print(jsonObject)
             } catch {
                 print(error)
             }
@@ -128,7 +128,7 @@ class RequestAPI: ObservableObject {
                     print("Error: Cannot convert data to JSON object")
                     return
                 }
-                print(jsonObject)
+                //print(jsonObject)
                 
                 // Decodable
                 let decoder = JSONDecoder()
@@ -138,7 +138,7 @@ class RequestAPI: ObservableObject {
                     let preferences = UserDefaults.standard
                     preferences.set(self.account?.token, forKey: "access_token")
                 }
-                print(response)
+                //print(response)
             } catch {
                 print(error)
             }
@@ -225,7 +225,7 @@ class RequestAPI: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        print(UserDefaults.standard.string(forKey: "access_token")!)
+        //print(UserDefaults.standard.string(forKey: "access_token")!)
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
@@ -262,12 +262,12 @@ class RequestAPI: ObservableObject {
                 //print(jsonObject)
                 
                 // Decodable
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(Restaraunts.self, from: data)
-                DispatchQueue.main.async {
-                    self.places = response
-                }
-                print(response.data[0])
+//                let decoder = JSONDecoder()
+//                let response = try decoder.decode(Restaraunts.self, from: data)
+//                DispatchQueue.main.async {
+//                    self.places = response
+//                }
+                //print(response.data[0])
             } catch {
                 print(error)
             }
@@ -276,6 +276,8 @@ class RequestAPI: ObservableObject {
     }
     
     func loadCategoriesData() {
+        var done = false
+
         guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else {
             print("Error: Can't create URL")
             return
@@ -310,6 +312,7 @@ class RequestAPI: ObservableObject {
                 case 422:
                     print("The given data was invalid.")
                 default:
+                    done = true
                     print("Complete")
                 }
             } else {
@@ -327,22 +330,37 @@ class RequestAPI: ObservableObject {
                 // Decodable
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(Categories.self, from: data)
+                print(response)
                 DispatchQueue.main.async {
                     self.categories = response
                 }
+                //print(self.categories?.data[0])
+                
+
             } catch {
                 print(error)
             }
         })
         task.resume()
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
     }
     
     
+    private let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue)
     
     
     
-    
-    
+    func loadData() -> AnyPublisher<[Category], Error> {
+        return URLSession.shared.dataTaskPublisher(for: self.url!)
+            .map(\.data)
+            .decode(type: Categories.self, decoder:  JSONDecoder())
+            .map(\.data)
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
     
     
     
@@ -390,6 +408,7 @@ enum Requests: String {
     case logoutRouter = "logout"
     case placesRouter = "places"
     case categoriesRouter = "categories"
+    case generalDomain = "http://dev2.cogniteq.com:3110"
 }
 
 enum ServerErrorResponse: String {

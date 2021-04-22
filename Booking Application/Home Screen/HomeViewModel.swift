@@ -9,5 +9,5 @@ import Foundation
 
 class HomeViewModel: ObservableObject {
     var controller: HomeViewController?
-    
+    @Published var categories = [Category]()
 }

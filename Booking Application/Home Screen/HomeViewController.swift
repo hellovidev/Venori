@@ -7,19 +7,27 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class HomeViewController: UIHostingController<HomeView>  {
     private let state = HomeViewModel()
+    private var cancellable: AnyCancellable?
     var api = RequestAPI()
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    override func viewDidLoad() {
+        cancellable?.cancel()
+    }
+    
     init() {
         let view = HomeView(homeViewModel: state)
         super.init(rootView: view)
+        cancellable = api.loadData().sink(receiveCompletion: {_ in}, receiveValue: { items in self.state.categories = items })
         state.controller = self
         //self.api.loadPlacesData()
         //self.api.loadCategoriesData()

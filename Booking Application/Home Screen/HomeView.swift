@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var homeViewModel: HomeViewModel
+    var api = RequestAPI()
     
     var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
     var restaurants: [Restaurant] = [Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678)]
@@ -66,13 +67,16 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
-                                ForEach(categories, id: \.self) { object in
-                                    CategoryView(title: object.title, imageName: object.image, onClick: {}).padding(.leading, 16)
+                                ForEach(homeViewModel.categories, id: \.self) { object in
+                                    CategoryView(title: object.name, imageName: Requests.generalDomain.rawValue + object.imageURL, onClick: {}).padding(.leading, 16)
                                 }
                             }
                         }
                     }
                     .padding(.bottom, 26)
+                    .onAppear {
+                        api.loadCategoriesData()
+                    }
                 }
             }
         }
@@ -177,8 +181,8 @@ struct CategoryView: View {
             self.onClick()
         } label: {
             VStack {
-                Image(imageName)
-                    .resizable()
+                ImageURL(url: imageName)
+                    //.resizable()
                     .frame(maxWidth: 44, maxHeight: 44, alignment: .center)
                     .foregroundColor(.white)
                     .padding(32)
