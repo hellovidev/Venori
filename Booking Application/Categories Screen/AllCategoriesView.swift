@@ -9,8 +9,9 @@ import SwiftUI
 
 struct AllCategoriesView: View {
     @ObservedObject var allCategoriesViewModel: AllCategoriesViewModel
+    var api = ServiceAPI()
     
-    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
+//    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
     
     let columns = [
         GridItem(.flexible()),
@@ -24,12 +25,17 @@ struct AllCategoriesView: View {
         }) {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(categories, id: \.self) { object in
-                        CategoryView(title: object.title, imageName: object.image, onClick: {})
+                    ForEach(allCategoriesViewModel.categories, id: \.self) { object in
+                        CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {})
                     }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 35)
+                .onAppear {
+                    if ((api.categories?.data.isEmpty) != nil) {
+                        self.api.fetchDataAboutCategories()
+                    }
+                }
             }
         }
     }

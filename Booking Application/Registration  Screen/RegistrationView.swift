@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     @ObservedObject var registrationViewModel: RegistrationViewModel
-    private let api = RequestAPI()
+    private let api = ServiceAPI()
     
     var body: some View {
         VStack {

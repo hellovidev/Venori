@@ -10,7 +10,7 @@ import SwiftUI
 
 class LoginViewController: UIHostingController<LoginView>  {
     private let state = LoginViewModel()
-    let apiWorker = RequestAPI()
+    let apiWorker = ServiceAPI()
     
     init() {
         let view = LoginView(loginViewModel: state)

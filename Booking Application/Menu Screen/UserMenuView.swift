@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserMenuView: View {
     @ObservedObject var userMenuViewModel: UserMenuViewModel
-    private let api = RequestAPI()
+    private let api = ServiceAPI()
     
     private let headerSection = ["Account details", "Booking history", "Favorites", "Notifications", "Settings"]
     private let menuIcons = ["Menu Account", "Menu Booking", "Menu Favorites", "Menu Notifications", "Menu Settings"]

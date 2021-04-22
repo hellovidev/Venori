@@ -11,7 +11,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let api = RequestAPI()
+    let api = ServiceAPI()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -42,9 +42,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              currentWindow.rootViewController = tabController
          }
          */
-        
-        
-        api.loadCategoriesData()
+        // Email: qqqqq@gmail.com, Password: qqqqqqqqq
+
+        //
+        //func getYearReleaseDate() -> String {
+        //    return String(date?.prefix(4) ?? "")
+        //}
+        //api.loadCategoriesData()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

@@ -10,10 +10,15 @@ import SwiftUI
 
 class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
     private let state = AllCategoriesViewModel()
+    var api = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        api.fetchDataAboutCategories()
+        if api.categories != nil {
+            state.categories = api.categories!.data
+        }
     }
     
     init() {

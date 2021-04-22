@@ -7,17 +7,6 @@
 
 import Foundation
 
-struct Categ: Codable, Hashable, Identifiable {
-    var id: String = UUID().uuidString
-    var title: String
-    var image: String
-    
-    init(title: String, image: String) {
-        self.title = title
-        self.image = image
-    }
-}
-
 struct Category: Codable, Hashable, Identifiable {
     var id: Int
     var name: String
@@ -33,17 +22,6 @@ struct Category: Codable, Hashable, Identifiable {
         case updatedAt = "updated_at"
     }
     
-//    func getPosterLink() -> String {
-//        return Requests.domainLink.rawValue + imageURL
-//    }
-
-//    init(_ dictionary: [String: Any]) {
-//          self.id = dictionary["id"] as? Int ?? 0
-//          self.name = dictionary["name"] as? String ?? ""
-//          self.imageURL = dictionary["image_url"] as? String ?? ""
-//          self.createdAt = dictionary["created_at"] as? String ?? ""
-//        self.updatedAt = dictionary["updated_at"] as? String ?? ""
-//        }
 }
 
 struct Categories: Codable {
@@ -54,7 +32,7 @@ struct Categories: Codable {
     var lastPage: Int
     var lastPageURL: String
     var links: [Link]?
-    var nextPageURL: String
+    var nextPageURL: String?
     var path: String
     var perPage: Int
     var prevPageURL: String?

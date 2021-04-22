@@ -12,15 +12,19 @@ import Combine
 class HomeViewController: UIHostingController<HomeView>  {
     private let state = HomeViewModel()
     private var cancellable: AnyCancellable?
-    var api = RequestAPI()
+    var api = ServiceAPI()
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        api.loadCategoriesData()
+        api.fetchDataAboutCategories()
         if api.categories != nil {
             state.categories = api.categories!.data
+        }
+        api.fetchDataAboutPlaces()
+        if api.places != nil {
+            state.places = api.places!.data!
         }
     }
     

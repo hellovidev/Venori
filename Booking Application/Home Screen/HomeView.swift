@@ -9,8 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var homeViewModel: HomeViewModel
+    var api = ServiceAPI()
     
-    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
+//    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
     var restaurants: [Restaurant] = [Restaurant(title: "Bar Cuba", image: "Background Account", rating: 4.2, votes: 23512), Restaurant(title: "Hookah Place", image: "Background Account", rating: 3.2, votes: 154), Restaurant(title: "Restaurant Barashka", image: "Background Account", rating: 5, votes: 5678)]
     
     var body: some View {
@@ -47,8 +48,8 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
-                                ForEach(restaurants, id: \.self) { object in
-                                    RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
+                                ForEach(homeViewModel.places, id: \.self) { object in
+                                    RestarauntCardView(title: object.name, rating: object.rating, votes: 4231, backgroundImage: "Background Account", onClick: {
                                         self.homeViewModel.controller?.redirectToRestarauntDetails()
                                     }).padding(.leading, 16)
                                 }
@@ -56,6 +57,11 @@ struct HomeView: View {
                         }
                     }
                     .padding(.bottom, 26)
+                    .onAppear {
+                        if ((api.places?.data?.isEmpty) != nil) {
+                            self.api.fetchDataAboutPlaces()
+                        }
+                    }
                     
                     // MARK: Categories Block
                     
@@ -67,12 +73,17 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
                                 ForEach(homeViewModel.categories, id: \.self) { object in
-                                    CategoryView(title: object.name, imageName: Requests.generalDomain.rawValue + object.imageURL, onClick: {}).padding(.leading, 16)
+                                    CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {}).padding(.leading, 16)
                                 }
                             }
                         }
                     }
                     .padding(.bottom, 26)
+                    .onAppear {
+                        if ((api.categories?.data.isEmpty) != nil) {
+                            self.api.fetchDataAboutCategories()
+                        }
+                    }
                 }
             }
         }

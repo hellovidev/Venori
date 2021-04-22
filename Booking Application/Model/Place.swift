@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Restaraunt: Codable, Hashable, Identifiable {
+struct Place: Codable, Hashable, Identifiable {
     var id: Int
     var name: String
     var imageURL: String
@@ -18,8 +18,8 @@ struct Restaraunt: Codable, Hashable, Identifiable {
     var addressLon: Double
     var phone: String
     var description: String
-    var capacity: Int
-    var tablePrice: Float
+    var capacity: String?
+    var tablePrice: String
     var createdAt: String
     var updatedAt: String
     
@@ -39,14 +39,40 @@ struct Restaraunt: Codable, Hashable, Identifiable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
+    
 }
 
-struct Restaraunts: Codable {
-    var data: [Restaraunt]
+struct Places: Codable {
+    var currentPage: Int
+    var data: [Place]?
+    var firstPageURL: String
+    var from: Int
+    var lastPage: Int
+    var lastPageURL: String
+    var links: [Link]?
+    var nextPageURL: String?
+    var path: String
+    var perPage: Int
+    var prevPageURL: String?
+    var to: Int
+    var total: Int
     
     enum CodingKeys: String, CodingKey {
+        case currentPage = "current_page"
         case data = "data"
+        case firstPageURL = "first_page_url"
+        case from = "from"
+        case lastPage = "last_page"
+        case lastPageURL = "last_page_url"
+        case links = "links"
+        case nextPageURL = "next_page_url"
+        case path = "path"
+        case perPage = "per_page"
+        case prevPageURL = "prev_page_url"
+        case to = "to"
+        case total = "total"
     }
+    
 }
 
 

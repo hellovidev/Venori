@@ -7,8 +7,6 @@
 
 import Foundation
 
-// Email: qqqqq@gmail.com, Password: qqqqqqqqq
-
 struct User: Codable, Hashable, Identifiable {
     var id: Int
     var firstName: String
@@ -35,6 +33,7 @@ struct User: Codable, Hashable, Identifiable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
+    
 }
 
 struct Account: Codable {
@@ -45,4 +44,5 @@ struct Account: Codable {
         case user = "user"
         case token = "access_token"
     }
+    
 }

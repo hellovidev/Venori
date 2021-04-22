@@ -5,47 +5,49 @@
 //  Created by student on 20.04.21.
 //
 
-import Foundation
 import Combine
+import Foundation
 
-class RequestAPI: ObservableObject {
+class ServiceAPI: ObservableObject {
     @Published var account: Account?
-    @Published var places: Restaraunts?
+    @Published var places: Places?
     @Published var categories: Categories?
     
-    func userAccountRegistration(name: String, surname: String, email: String, password: String) {
+    // MARK: -> Loading Categories Data
+    
+    func fetchDataAboutCategories() {
         var done = false
-
-        guard let url = URL(string: Requests.domainLink.rawValue + Requests.registerRouter.rawValue) else {
-            print("Error: Can't create URL")
-            return
-        }
         
-        let data: [String: String] = ["first_name": name, "second_name": surname, "email": email, "password": password]
-        let body = try? JSONSerialization.data(withJSONObject: data)
+        // Link Generating
+        
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
+        
+        // Set Request Settings
         
         var request = URLRequest(url: url)
-        
-        request.httpMethod = "POST"
-        request.httpBody = body
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        //request.setValue( "Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            guard error == nil else {
-                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
-                return
-            }
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        // Request to API
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
-            guard let data = data else {
-                print(ServerErrorResponse.dataNotReceived.rawValue)
-                return
-            }
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
             
             if let response = response as? HTTPURLResponse {
-                print("Response HTTP Status code: \(response.statusCode)")
                 switch response.statusCode {
                 case 401:
                     print("Unauthorized")
@@ -60,55 +62,68 @@ class RequestAPI: ObservableObject {
             }
             
             do {
-                // Read response data
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    return
+                
+                // Decodable JSON Data
+                
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(Categories.self, from: data)
+                
+                // Set Data to API Manager Value of Categories
+                
+                DispatchQueue.main.async {
+                    self.categories = response
                 }
-                //print(jsonObject)
             } catch {
                 print(error)
             }
         })
+        
         task.resume()
+        
+        // Loop for Waiting Results of Status Code
         
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
     }
     
-    func userAccountAuthentication(email: String, password: String) {
+    // MARK: -> Registration User Account
+    
+    func userAccountRegistration(name: String, surname: String, email: String, password: String) {
         var done = false
+
+        // Link Generating
         
-        guard let url = URL(string: Requests.domainLink.rawValue + Requests.loginRouter.rawValue) else {
-            print("Error: Can't create URL")
-            return
-        }
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.registerRoute.rawValue) else { return }
         
-        let data: [String: String] = ["email": email, "password": password]
-        let body = try! JSONSerialization.data(withJSONObject: data)
+        // Request Body Generating
+        
+        let data: [String: String] = ["first_name": name, "second_name": surname, "email": email, "password": password]
+        let body = try? JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
         
         var request = URLRequest(url: url)
-        
         request.httpMethod = "POST"
         request.httpBody = body
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            guard error == nil else {
-                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
-                return
-            }
+        // Request to API
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
-            guard let data = data else {
-                print(ServerErrorResponse.dataNotReceived.rawValue)
-                return
-            }
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
             
             if let response = response as? HTTPURLResponse {
-                print("Response HTTP Status code: \(response.statusCode)")
                 switch response.statusCode {
                 case 401:
                     print("Unauthorized")
@@ -123,64 +138,136 @@ class RequestAPI: ObservableObject {
             }
             
             do {
-                // Read response data
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    return
-                }
-                //print(jsonObject)
                 
-                // Decodable
+                // Read Response Data
+                
+                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(response)
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+        
+        // Loop for Waiting Results of Status Code
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
+    // MARK: -> Authentication User Account
+    
+    func userAccountAuthentication(email: String, password: String) {
+        var done = false
+        
+        // Link Generating
+        
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.loginRoute.rawValue) else { return }
+        
+        // Request Body Generating
+        
+        let data: [String: String] = ["email": email, "password": password]
+        let body = try! JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Request to API
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 401:
+                    print("Unauthorized")
+                case 422:
+                    print("The given data was invalid.")
+                default:
+                    done = true
+                    print("Complete")
+                }
+            } else {
+                return
+            }
+            
+            do {
+
+                // Decodable JSON Data
+                
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(Account.self, from: data)
+                
+                // Saving User Access Token
+                
                 DispatchQueue.main.async {
                     self.account = response
                     let preferences = UserDefaults.standard
                     preferences.set(self.account?.token, forKey: "access_token")
                 }
-                //print(response)
             } catch {
                 print(error)
             }
         })
         task.resume()
         
+        // Loop for Waiting Results of Status Code
+        
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
     }
+    
+    // MARK: -> Logout From User Account
 
     func userAccountLogout() {
         var done = false
 
-        guard let url = URL(string: Requests.domainLink.rawValue + Requests.logoutRouter.rawValue) else {
-            print("Error: Can't create URL")
-            return
-        }
+        // Link Generating
+        
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.logoutRoute.rawValue) else { return }
+        
+        // Set Request Settings
         
         var request = URLRequest(url: url)
-        
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        print(UserDefaults.standard.string(forKey: "access_token")!)
+        // Request to API
         
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            guard error == nil else {
-                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
-                return
-            }
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
-            guard let data = data else {
-                print(ServerErrorResponse.dataNotReceived.rawValue)
-                return
-            }
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
             
             if let response = response as? HTTPURLResponse {
-                print("Response HTTP Status code: \(response.statusCode)")
                 switch response.statusCode {
                 case 401:
                     print("Unauthorized")
@@ -195,117 +282,57 @@ class RequestAPI: ObservableObject {
             }
             
             do {
-                // Read response data
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    return
-                }
-                print(jsonObject)
+                
+                // Read Response Data
+                
+                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(response)
             } catch {
                 print(error)
             }
         })
         task.resume()
+        
+        // Loop for Waiting Results of Status Code
         
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
     }
     
-    func loadPlacesData() {
-        guard let url = URL(string: Requests.domainLink.rawValue + Requests.placesRouter.rawValue) else {
-            print("Error: Can't create URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-        
-        //print(UserDefaults.standard.string(forKey: "access_token")!)
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            guard error == nil else {
-                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
-                return
-            }
-            
-            guard let data = data else {
-                print(ServerErrorResponse.dataNotReceived.rawValue)
-                return
-            }
-            
-            if let response = response as? HTTPURLResponse {
-                print("Response HTTP Status code: \(response.statusCode)")
-                switch response.statusCode {
-                case 401:
-                    print("Unauthorized")
-                case 422:
-                    print("The given data was invalid.")
-                default:
-                    print("Complete")
-                }
-            } else {
-                return
-            }
-            
-            do {
-                // Read response data
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    return
-                }
-                //print(jsonObject)
-                
-                // Decodable
-//                let decoder = JSONDecoder()
-//                let response = try decoder.decode(Restaraunts.self, from: data)
-//                DispatchQueue.main.async {
-//                    self.places = response
-//                }
-                //print(response.data[0])
-            } catch {
-                print(error)
-            }
-        })
-        task.resume()
-    }
+    // MARK: -> Loading Places Data
     
-    func loadCategoriesData() {
+    func fetchDataAboutPlaces() {
         var done = false
 
-        guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else {
-            print("Error: Can't create URL")
-            return
-        }
-
+        // Link Generating
+        
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
+        
+        // Set Request Settings
+        
         var request = URLRequest(url: url)
-
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-
-        print(UserDefaults.standard.string(forKey: "access_token")!)
-
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            guard error == nil else {
-                print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
-                return
-            }
-
-            guard let data = data else {
-                print(ServerErrorResponse.dataNotReceived.rawValue)
-                return
-            }
-
+                
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
+            
             if let response = response as? HTTPURLResponse {
-                print("Response HTTP Status code: \(response.statusCode)")
                 switch response.statusCode {
                 case 401:
                     print("Unauthorized")
@@ -318,35 +345,118 @@ class RequestAPI: ObservableObject {
             } else {
                 return
             }
-
+            
             do {
-                // Read response data
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    return
-                }
-                //print(jsonObject)
-
-                // Decodable
+                
+                // Read Response Data
+                
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(info)
+                
+                // Decodable JSON Data
+                
                 let decoder = JSONDecoder()
-                let response = try decoder.decode(Categories.self, from: data)
-                print(response)
+                let response = try decoder.decode(Places.self, from: data)
+                
+                // Set Data to API Manager Value of Places
+                
                 DispatchQueue.main.async {
-                    self.categories = response
+                    self.places = response
                 }
-                //print(self.categories?.data[0])
-
-
             } catch {
                 print(error)
             }
         })
         task.resume()
-
+        
+        // Loop for Waiting Results of Status Code
+        
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
     }
+    
+}
+
+// MARK: -> String Extension for Validate Password & Email
+
+extension String {
+    func isValidEmail() -> Bool {
+        // Here, `try!` will always succeed because the pattern is valid
+        let regex = try! NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
+        return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
+    }
+    
+    func isValidPassword() -> Bool {
+        if self.count < 8 {
+            return false
+        } else {
+            return true
+        }
+    }
+}
+
+// MARK: -> Enums
+
+enum DomainRouter: String {
+    case generalDomain = "http://dev2.cogniteq.com:3110/"
+    case linkAPIRequests = "http://dev2.cogniteq.com:3110/api/"
+    case loginRoute = "login"
+    case registerRoute = "register"
+    case logoutRoute = "logout"
+    case placesRoute = "places"
+    case categoriesRoute = "categories"
+}
+
+enum StatusCode: Int {
+    case complete = 200
+    case unauthorized = 401
+    case invalid = 422
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // MARK: -> Other Code
+    
+
+
+struct ServerResponse: Decodable {
+    let error: String
+    let ok: String
+}
+
+
+
+enum ServerErrorResponse: String {
+    case postCallError = "Error: Error calling POST"
+    case dataNotReceived = "Error: Didn't receive data"
+}
+
+
+
+    
     
 //    func loadCategoriesData() {
 //        guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else { return }
@@ -416,50 +526,8 @@ class RequestAPI: ObservableObject {
 
     
     
-    
-}
 
-struct ServerResponse: Decodable {
-    let error: String
-    let ok: String
-}
 
-enum Requests: String {
-    case domainLink = "http://dev2.cogniteq.com:3110/api/"
-    case loginRouter = "login"
-    case registerRouter = "register"
-    case logoutRouter = "logout"
-    case placesRouter = "places"
-    case categoriesRouter = "categories"
-    case generalDomain = "http://dev2.cogniteq.com:3110/"
-}
-
-enum ServerErrorResponse: String {
-    case postCallError = "Error: Error calling POST"
-    case dataNotReceived = "Error: Didn't receive data"
-}
-
-enum StatusCodes: Int {
-    case complete = 200
-    case unauthorized = 401
-    case invalid = 422
-}
-
-extension String {
-    func isValidEmail() -> Bool {
-        // Here, `try!` will always succeed because the pattern is valid
-        let regex = try! NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
-        return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
-    }
-    
-    func isValidPassword() -> Bool {
-        if self.count < 8 {
-            return false
-        } else {
-            return true
-        }
-    }
-}
 
 
 

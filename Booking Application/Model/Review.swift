@@ -29,4 +29,5 @@ struct Review: Codable, Hashable, Identifiable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
+    
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    var api = RequestAPI()
+    var api = ServiceAPI()
     
     var body: some View {
         VStack {
