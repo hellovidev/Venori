@@ -18,6 +18,10 @@ class HomeViewController: UIHostingController<HomeView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        api.loadCategoriesData()
+        if api.categories != nil {
+            state.categories = api.categories!.data
+        }
     }
     
     override func viewDidLoad() {
@@ -27,7 +31,7 @@ class HomeViewController: UIHostingController<HomeView>  {
     init() {
         let view = HomeView(homeViewModel: state)
         super.init(rootView: view)
-        cancellable = api.loadData().sink(receiveCompletion: {_ in}, receiveValue: { items in self.state.categories = items })
+        //cancellable = api.loadData().sink(receiveCompletion: {_ in}, receiveValue: { items in self.state.categories = items })
         state.controller = self
         //self.api.loadPlacesData()
         //self.api.loadCategoriesData()

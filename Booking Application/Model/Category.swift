@@ -53,11 +53,11 @@ struct Categories: Codable {
     var from: Int
     var lastPage: Int
     var lastPageURL: String
-    var links: [Link]
+    var links: [Link]?
     var nextPageURL: String
     var path: String
     var perPage: Int
-    var prevPageURL: String
+    var prevPageURL: String?
     var to: Int
     var total: Int
     

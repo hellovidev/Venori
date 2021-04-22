@@ -282,28 +282,28 @@ class RequestAPI: ObservableObject {
             print("Error: Can't create URL")
             return
         }
-        
+
         var request = URLRequest(url: url)
-        
+
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-        
+
         print(UserDefaults.standard.string(forKey: "access_token")!)
-        
+
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             guard error == nil else {
                 print(ServerErrorResponse.postCallError.rawValue + "Error value: \(error!)")
                 return
             }
-            
+
             guard let data = data else {
                 print(ServerErrorResponse.dataNotReceived.rawValue)
                 return
             }
-            
+
             if let response = response as? HTTPURLResponse {
                 print("Response HTTP Status code: \(response.statusCode)")
                 switch response.statusCode {
@@ -318,15 +318,15 @@ class RequestAPI: ObservableObject {
             } else {
                 return
             }
-            
+
             do {
                 // Read response data
                 guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                     print("Error: Cannot convert data to JSON object")
                     return
                 }
-                print(jsonObject)
-                
+                //print(jsonObject)
+
                 // Decodable
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(Categories.self, from: data)
@@ -335,33 +335,56 @@ class RequestAPI: ObservableObject {
                     self.categories = response
                 }
                 //print(self.categories?.data[0])
-                
+
 
             } catch {
                 print(error)
             }
         })
         task.resume()
-        
+
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
     }
     
+//    func loadCategoriesData() {
+//        guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else { return }
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+//
+//        URLSession.shared.dataTask(with: request) {data, response, error in
+//            if let data = data {
+//                if let decodedResponse = try? JSONDecoder().decode(Categories.self, from: data) {
+//                    DispatchQueue.main.async {
+//                        self.categories = decodedResponse
+//                    }
+//                    return
+//                }
+//            }
+//            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+//
+//        }.resume()
+//    }
     
-    private let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue)
     
-    
-    
-    func loadData() -> AnyPublisher<[Category], Error> {
-        return URLSession.shared.dataTaskPublisher(for: self.url!)
-            .map(\.data)
-            .decode(type: Categories.self, decoder:  JSONDecoder())
-            .map(\.data)
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }
-    
+//    private let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue)
+//
+//
+//
+//    func loadData() -> AnyPublisher<[Category], Error> {
+//        return URLSession.shared.dataTaskPublisher(for: self.url!)
+//            .map(\.data)
+//            .decode(type: Categories.self, decoder:  JSONDecoder())
+//            .map(\.data)
+//            .receive(on: DispatchQueue.main)
+//            .eraseToAnyPublisher()
+//    }
+//
     
     
     
@@ -408,7 +431,7 @@ enum Requests: String {
     case logoutRouter = "logout"
     case placesRouter = "places"
     case categoriesRouter = "categories"
-    case generalDomain = "http://dev2.cogniteq.com:3110"
+    case generalDomain = "http://dev2.cogniteq.com:3110/"
 }
 
 enum ServerErrorResponse: String {

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Link: Codable {
-    var url: String
+    var url: String?
     var label: String
     var active: Bool
     
