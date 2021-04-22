@@ -26,15 +26,15 @@ struct HomeView: View {
                         if true {
                             FavouriteEmptyView()
                         } else {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: -8) {
-                                    ForEach(restaurants, id: \.self) { object in
-                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
-                                            self.homeViewModel.controller?.redirectToRestarauntDetails()
-                                        }).padding(.leading, 16)
-                                    }
-                                }
-                            }
+//                            ScrollView(.horizontal, showsIndicators: false) {
+//                                HStack(spacing: -8) {
+//                                    ForEach(restaurants, id: \.self) { object in
+//                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
+//                                            self.homeViewModel.controller?.redirectToRestarauntDetails(object: object)
+//                                        }).padding(.leading, 16)
+//                                    }
+//                                }
+//                            }
                         }
                     }
                     .padding(.bottom, 26)
@@ -50,7 +50,7 @@ struct HomeView: View {
                             HStack(spacing: -8) {
                                 ForEach(homeViewModel.places, id: \.self) { object in
                                     RestarauntCardView(title: object.name, rating: object.rating, votes: 4231, backgroundImage: "Background Account", onClick: {
-                                        self.homeViewModel.controller?.redirectToRestarauntDetails()
+                                        self.homeViewModel.controller?.redirectToRestarauntDetails(object: object)
                                     }).padding(.leading, 16)
                                 }
                             }

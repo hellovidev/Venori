@@ -9,5 +9,6 @@ import Foundation
 
 class DetailsRestarauntViewModel: ObservableObject {
     var controller: DetailsRestarauntViewController?
+    @Published var place: Place?
     
 }

@@ -44,7 +44,7 @@ struct DetailsRestarauntView: View {
             }
             
             VStack(alignment: .leading) {
-                Text("Coffee Jack & Jhone")
+                Text(detailsRestarauntViewModel.place!.name)
                     .font(.system(size: 28, weight: .bold))
                     .padding(.top, 22)
                     .padding(.bottom, 2)
@@ -59,7 +59,7 @@ struct DetailsRestarauntView: View {
                     Image("Star Yellow")
                     Image("Star Yellow")
                     Image("Star Gray")
-                    Text("4.0")
+                    Text("\(NSString(format: "%.01f", detailsRestarauntViewModel.place!.rating))")
                         .font(.system(size: 18, weight: .semibold))
                     Text("456 Reviews")
                         .font(.system(size: 18, weight: .regular))
@@ -73,7 +73,7 @@ struct DetailsRestarauntView: View {
                             .padding(.trailing, 8)
                             .padding(.top, 18)
                         VStack(alignment: .leading) {
-                            Text("139 Reade St, New York, NY 2342378")
+                            Text(detailsRestarauntViewModel.place!.addressFull)
                                 .font(.system(size: 18, weight: .regular))
                                 .padding(.bottom, 2)
                             Button {
@@ -95,7 +95,7 @@ struct DetailsRestarauntView: View {
                 .padding(.bottom, 20)
                 
                 HStack {
-                    Image("Phone")
+                    Image(detailsRestarauntViewModel.place!.phone)
                         .padding(.trailing, 8)
                     Text("+7 812 9231983")
                         .font(.system(size: 18, weight: .regular))
@@ -122,7 +122,7 @@ struct DetailsRestarauntView: View {
                 HStack(alignment: .top) {
                     Image("Info")
                         .padding(.trailing, 8)
-                    Text("Some coffeehouses may serve cold drinks such as iced coffee and iced tea; in continental Europe, cafés serve alcoholic drinks.")
+                    Text(detailsRestarauntViewModel.place!.description)
                         .font(.system(size: 18, weight: .regular))
                 }
             }

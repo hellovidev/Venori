@@ -76,10 +76,14 @@ class HomeViewController: UIHostingController<HomeView>  {
     
     
     
-    func redirectToRestarauntDetails() {
-        let navigationController = UINavigationController(rootViewController: DetailsRestarauntViewController())
+    func redirectToRestarauntDetails(object: Place) {
+        print(object)
+        let rootviewController = DetailsRestarauntViewController()
+        rootviewController.place = object
+        let navigationController = UINavigationController(rootViewController: rootviewController)
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
+        
     }
 
 }
