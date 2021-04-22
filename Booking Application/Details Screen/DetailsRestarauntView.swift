@@ -95,9 +95,9 @@ struct DetailsRestarauntView: View {
                 .padding(.bottom, 20)
                 
                 HStack {
-                    Image(detailsRestarauntViewModel.place!.phone)
+                    Image("Phone")
                         .padding(.trailing, 8)
-                    Text("+7 812 9231983")
+                    Text(detailsRestarauntViewModel.place!.phone)
                         .font(.system(size: 18, weight: .regular))
                 }
                 .padding(.bottom, 22)

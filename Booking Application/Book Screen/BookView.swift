@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookView: View {
     @ObservedObject var bookViewModel: BookViewModel
+    var serviceAPI = ServiceAPI()
 
     @State private var isComplete: Bool = false
     
@@ -17,6 +18,7 @@ struct BookView: View {
         VStack(alignment: .leading) {
             if !isComplete {
                 BookProcessView(actionContinue: {
+                    serviceAPI.reserveTablePlace(placeIdentifier: 1)
                     self.isComplete.toggle()
                 }, actionClose: {
                     self.bookViewModel.controller?.goBack()

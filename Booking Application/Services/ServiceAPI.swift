@@ -376,6 +376,85 @@ class ServiceAPI: ObservableObject {
         } while !done
     }
     
+    // MARK: -> Reserve Table in Place
+    
+    func reserveTablePlace(placeIdentifier: Int) {
+        var done = false
+
+        // Link Generating
+        
+        guard let url = URL(string: getReserveLink(id: placeIdentifier)) else { return }
+        
+        // Request Body Generating
+        
+        let data: [String: Any] = ["date": "2021-04-23", "people": 10, "staying": 2, "time": "17:00"]
+        let body = try? JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+                
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 401:
+                    print("Unauthorized")
+                case 422:
+                    print("The given data was invalid.")
+                case 400:
+                    print("Place not found")
+                default:
+                    done = true
+                    print("Complete")
+                }
+            } else {
+                return
+            }
+            
+            do {
+                
+                // Read Response Data
+                
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(info)
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+        
+        // Loop for Waiting Results of Status Code
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
+    // MARK: -> Additional Functions
+    
+    func getReserveLink(id: Int) -> String {
+        return DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue + "/\(id)/\(DomainRouter.reserveRoute.rawValue)"
+    }
+    
 }
 
 // MARK: -> String Extension for Validate Password & Email
@@ -406,12 +485,14 @@ enum DomainRouter: String {
     case logoutRoute = "logout"
     case placesRoute = "places"
     case categoriesRoute = "categories"
+    case reserveRoute = "reserve"
 }
 
 enum StatusCode: Int {
     case complete = 200
     case unauthorized = 401
     case invalid = 422
+    case notfound = 400
 }
 
 
