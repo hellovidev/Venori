@@ -23,7 +23,7 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     }
     
     init() {
-        let view = DetailsRestarauntView(detailsRestarauntViewModel: state)
+        let view = DetailsRestarauntView(viewModel: state)
         super.init(rootView: view)
         state.controller = self
     }
@@ -41,6 +41,12 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     func goBack() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func showMapView() {
+        let navigationController = UINavigationController(rootViewController: MapViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
     }
     
 }

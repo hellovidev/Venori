@@ -517,17 +517,11 @@ class ServiceAPI: ObservableObject {
             
             do {
                 
-                // Read Response Data
-                let json = try? JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String] else { return }
-                //print(info)
-                
                 // Decodable JSON Data
                 
                 let decoder = JSONDecoder()
                 let response = try decoder.decode([[String]].self, from: data)
-                print(response)
+
                 // Set Data to API Manager Value of Places
                 
                 DispatchQueue.main.async {

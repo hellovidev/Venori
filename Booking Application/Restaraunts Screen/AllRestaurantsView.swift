@@ -25,9 +25,11 @@ struct AllRestaurantsView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(allRestaurantsViewModel.places, id: \.self) { object in
-                        RestarauntCardView(title: object.name, rating: object.rating, votes: 4231, backgroundImage: "Background Account", onClick: {
+                        PlaceCardView(onClick: {
                             self.allRestaurantsViewModel.controller?.redirectToRestarauntDetails(object: object)
-                        })
+                        }, loveClick: {
+                            
+                        }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: 777, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
                     }
                 }
                 .padding(.horizontal)

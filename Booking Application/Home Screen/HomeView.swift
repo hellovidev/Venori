@@ -29,7 +29,7 @@ struct HomeView: View {
 //                            ScrollView(.horizontal, showsIndicators: false) {
 //                                HStack(spacing: -8) {
 //                                    ForEach(restaurants, id: \.self) { object in
-//                                        RestarauntCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
+//                                        PlaceCardView(title: object.title, rating: object.rating, votes: object.votes, backgroundImage: object.image, onClick: {
 //                                            self.homeViewModel.controller?.redirectToRestarauntDetails(object: object)
 //                                        }).padding(.leading, 16)
 //                                    }
@@ -49,9 +49,12 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
                                 ForEach(homeViewModel.places, id: \.self) { object in
-                                    RestarauntCardView(title: object.name, rating: object.rating, votes: 4231, backgroundImage: "Background Account", onClick: {
+                                    PlaceCardView(onClick: {
                                         self.homeViewModel.controller?.redirectToRestarauntDetails(object: object)
-                                    }).padding(.leading, 16)
+                                    }, loveClick: {
+                                        
+                                    }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: 777, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
+                                    .padding(.leading, 16)
                                 }
                             }
                         }
@@ -113,101 +116,9 @@ struct HomeView: View {
 //    }
 //}
 
-// MARK: -> Restaraunt Card View
 
-struct RestarauntCardView: View {
-    var title: String
-    var rating: Float
-    var votes: Int
-    var backgroundImage: String
-    var onClick: () -> Void
-    
-    var body: some View {
- 
-            VStack(alignment: .leading) {
-                ZStack {
-                    Image(backgroundImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: 296, maxHeight: 169)
-                        .cornerRadius(32)
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                        Image("Heart")
-                            .resizable()
-                            .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
-                            .foregroundColor(.white)
-                            .padding(12)
-                            .background(Color(UIColor(hex: "#0000007A")!))
-                            .clipShape(Circle())
-                            .padding(.trailing, 9)
-                            .padding(.top, 9)
-                        }
-                        Spacer()
-                    }
-                    .frame(maxWidth: 296, maxHeight: 169, alignment: .trailing)
-                }
-                Text(title)
-                    .font(.system(size: 18, weight: .bold))
-                    .padding(.top, 10)
-                    .padding(.bottom, -4)
-                    .foregroundColor(.black)
-                    .lineLimit(1)
-                HStack {
-                    Image("Star")
-                    Text("\(NSString(format: "%.01f", self.rating))")
-                        .foregroundColor(.black)
-                    Text("(\(String(self.votes)))")
-                        .foregroundColor(.gray)
-                }
-            }
-            .onTapGesture {
-                self.onClick()
-            }
-        
-    }
-}
 
-struct RestarauntCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        RestarauntCardView(title: "Bar Cuba", rating: 2.6, votes: 5362, backgroundImage: "Background Account", onClick: {})
-    }
-}
 
-// MARK: -> Category View
-
-struct CategoryView: View {
-    var title: String
-    var imageName: String
-    var onClick: () -> Void
-    
-    var body: some View {
-        Button {
-            self.onClick()
-        } label: {
-            VStack {
-                ImageURL(url: imageName)
-                    //.resizable()
-                    .frame(maxWidth: 44, maxHeight: 44, alignment: .center)
-                    .foregroundColor(.white)
-                    .padding(32)
-                    .background(Color(UIColor(hex: "#3A7DFF2E")!))
-                    .clipShape(Circle())
-                Text(title)
-                    .font(.system(size: 17, weight: .semibold))
-                    .foregroundColor(.black)
-            }
-        }
-    }
-}
-
-struct CategoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryView(title: "Burger", imageName: "Burger", onClick: {})
-    }
-}
 
 // MARK: -> If Block Of Favourite Restaraunts Is Empty
 

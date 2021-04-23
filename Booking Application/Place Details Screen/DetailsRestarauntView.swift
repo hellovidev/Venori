@@ -8,19 +8,17 @@
 import SwiftUI
 
 struct DetailsRestarauntView: View {
-    @ObservedObject var detailsRestarauntViewModel: DetailsRestarauntViewModel
+    @ObservedObject var viewModel: DetailsRestarauntViewModel
     
     var body: some View {
         ScrollView {
             ZStack {
-                Image("Background Account")
-                    .resizable()
-                    .scaledToFill()
+                ImageURL(url: DomainRouter.generalDomain.rawValue + viewModel.place!.imageURL)
                     .frame(maxWidth: .infinity, maxHeight: 256, alignment: .center)
                     .overlay(
                         HStack(alignment: .center) {
                             Button {
-                                self.detailsRestarauntViewModel.controller?.goBack()
+                                self.viewModel.controller?.goBack()
                             } label: {
                             Image("Arrow Left White")
                                 .padding([.top, .bottom], 12)
@@ -42,9 +40,10 @@ struct DetailsRestarauntView: View {
 //
 //                }
             }
+            .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
             
             VStack(alignment: .leading) {
-                Text(detailsRestarauntViewModel.place!.name)
+                Text(viewModel.place!.name)
                     .font(.system(size: 28, weight: .bold))
                     .padding(.top, 22)
                     .padding(.bottom, 2)
@@ -59,7 +58,7 @@ struct DetailsRestarauntView: View {
                     Image("Star Yellow")
                     Image("Star Yellow")
                     Image("Star Gray")
-                    Text("\(NSString(format: "%.01f", detailsRestarauntViewModel.place!.rating))")
+                    Text("\(NSString(format: "%.01f", viewModel.place!.rating))")
                         .font(.system(size: 18, weight: .semibold))
                     Text("456 Reviews")
                         .font(.system(size: 18, weight: .regular))
@@ -73,11 +72,11 @@ struct DetailsRestarauntView: View {
                             .padding(.trailing, 8)
                             .padding(.top, 18)
                         VStack(alignment: .leading) {
-                            Text(detailsRestarauntViewModel.place!.addressFull)
+                            Text(viewModel.place!.addressFull)
                                 .font(.system(size: 18, weight: .regular))
                                 .padding(.bottom, 2)
                             Button {
-                                // Action
+                                viewModel.controller?.showMapView()
                             } label: {
                                 Text("View map")
                                     .font(.system(size: 12, weight: .regular))
@@ -86,18 +85,15 @@ struct DetailsRestarauntView: View {
                         .frame(maxHeight: .infinity)
                     }
                     Spacer()
-                    Image("Background Account")
-                        .resizable()
-                        .frame(maxWidth: 88, maxHeight: 88, alignment: .center)
-                        .scaledToFill()
-                        .cornerRadius(16)
+                    //Image("Background Account")
+                    MapPreview()
                 }
                 .padding(.bottom, 20)
                 
                 HStack {
                     Image("Phone")
                         .padding(.trailing, 8)
-                    Text(detailsRestarauntViewModel.place!.phone)
+                    Text(viewModel.place!.phone)
                         .font(.system(size: 18, weight: .regular))
                 }
                 .padding(.bottom, 22)
@@ -112,7 +108,7 @@ struct DetailsRestarauntView: View {
                         Button {
                             
                         } label: {
-                            Text("View schadle")
+                            Text("View schedule")
                                 .font(.system(size: 12, weight: .regular))
                         }
                     }
@@ -122,7 +118,7 @@ struct DetailsRestarauntView: View {
                 HStack(alignment: .top) {
                     Image("Info")
                         .padding(.trailing, 8)
-                    Text(detailsRestarauntViewModel.place!.description)
+                    Text(viewModel.place!.description)
                         .font(.system(size: 18, weight: .regular))
                 }
             }
@@ -131,7 +127,7 @@ struct DetailsRestarauntView: View {
             Spacer()
             
             Button(action: {
-                self.detailsRestarauntViewModel.controller?.redirectToBooking()
+                self.viewModel.controller?.redirectToBooking()
             }) {
                 Text("Book a table")
                     .foregroundColor(.white)
@@ -151,6 +147,6 @@ struct DetailsRestarauntView: View {
 
 struct DetailsRestaurantView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsRestarauntView(detailsRestarauntViewModel: DetailsRestarauntViewModel())
+        DetailsRestarauntView(viewModel: DetailsRestarauntViewModel())
     }
 }
