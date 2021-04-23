@@ -18,6 +18,7 @@ class HomeViewController: UIHostingController<HomeView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        //***
         api.fetchDataAboutCategories()
         if api.categories != nil {
             state.categories = api.categories!.data

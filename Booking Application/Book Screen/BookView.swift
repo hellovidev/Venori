@@ -10,19 +10,28 @@ import SwiftUI
 struct BookView: View {
     @ObservedObject var bookViewModel: BookViewModel
     var serviceAPI = ServiceAPI()
-
+    
     @State private var isComplete: Bool = false
     
     var body: some View {
         
         VStack(alignment: .leading) {
+
             if !isComplete {
-                BookProcessView(actionContinue: {
+                if serviceAPI.$availableTimes != nil {
+                BookProcessView(times: bookViewModel.avalClock, actionContinue: {
                     serviceAPI.reserveTablePlace(placeIdentifier: 1)
                     self.isComplete.toggle()
                 }, actionClose: {
                     self.bookViewModel.controller?.goBack()
                 })
+                .onAppear {
+                    if ((serviceAPI.availableTimes?.isEmpty) != nil) {
+                        self.serviceAPI.reserveTablePlace(placeIdentifier: 1)
+                        bookViewModel.avalClock = serviceAPI.availableTimes!
+                    }
+                }
+                }
             } else {
                 CompleteView(actionContinue: {
                     self.bookViewModel.controller?.fullyComplete()
@@ -30,6 +39,7 @@ struct BookView: View {
                     self.isComplete.toggle()
                 })
             }
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     
@@ -80,10 +90,13 @@ struct CompleteView: View {
 struct BookProcessView: View {
     @State private var valueHours: Float = 0.5
     @State private var valueHumans: Float = 1
+    @State var times: [String]
     
     @State private var numberOfAdults = 1
     var actionContinue: () -> Void
     var actionClose: () -> Void
+    
+    var serviceAPI = ServiceAPI()
     
     var body: some View {
         ScrollView {
@@ -156,11 +169,11 @@ struct BookProcessView: View {
                 .padding(.leading, 16)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: -8) {
-                    ForEach(1...10, id: \.self) { object in
+                    ForEach(times, id: \.self) { object in
                         Button {
                             
                         } label: {
-                        Text("5:00 PM")
+                        Text(object)
                             .foregroundColor(Color(UIColor(hex: "#00000080")!))
                             .padding([.top, .bottom], 12)
                             .padding([.leading, .trailing], 16)
@@ -169,6 +182,9 @@ struct BookProcessView: View {
                             .padding(.leading, 16)
                         }
                     }
+                }
+                .onAppear {
+                    self.serviceAPI.getPlaceAvailableTime(placeIdentifier: 1)
                 }
             }
         }
@@ -215,6 +231,8 @@ struct CustomStepperView: View {
     @Binding var value: Float
     var valueType: String
     
+    var serviceAPI = ServiceAPI()
+    
     var body: some View {
         HStack(alignment: .center) {
             Button {
@@ -242,6 +260,7 @@ struct CustomStepperView: View {
                     value += 0.5
                 } else if valueType != "hr" {
                     value += 1
+                    serviceAPI.getPlaceAvailableTime(placeIdentifier: 1)
                 }
             } label: {
                 Image("Plus")

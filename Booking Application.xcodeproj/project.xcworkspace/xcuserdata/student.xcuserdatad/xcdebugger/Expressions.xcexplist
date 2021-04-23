@@ -6,6 +6,22 @@
          contextName = "closure #1 in RequestAPI.userAccountAuthentication(email:password:):RequestAPI.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in BookView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bookViewModel.avalClock">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "times">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #2 in closure #3 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
          <PersistentStrings>
             <PersistentString
@@ -13,14 +29,6 @@
             </PersistentString>
             <PersistentString
                value = "homeViewModel.categories">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -36,6 +44,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.httpBody">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "HomeViewController.viewWillAppear(_:):HomeViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -44,10 +60,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "request.httpBody">
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ServiceAPI.reserveTablePlace(placeIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(placeIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -58,6 +90,9 @@
                value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in RequestAPI.loadCategoriesData():RequestAPI.swift">
@@ -72,9 +107,6 @@
                value = "print(response)">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">

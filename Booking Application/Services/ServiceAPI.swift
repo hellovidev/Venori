@@ -12,6 +12,9 @@ class ServiceAPI: ObservableObject {
     @Published var account: Account?
     @Published var places: Places?
     @Published var categories: Categories?
+    @Published var orders: Orders?
+    
+    @Published var availableTimes: [String]?
     
     // MARK: -> Loading Categories Data
     
@@ -436,6 +439,101 @@ class ServiceAPI: ObservableObject {
                 
                 guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
                 print(info)
+                
+                // Decodable JSON Data
+                
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(Order.self, from: data)
+                
+                // Set Data to API Manager Value of Places
+                
+                DispatchQueue.main.async {
+                    self.orders?.data.append(response)
+                }
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+        
+        // Loop for Waiting Results of Status Code
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
+    // MARK: -> Check Place Free Time For Reservation
+    
+    func getPlaceAvailableTime(placeIdentifier: Int) {
+        var done = false
+
+        // Link Generating
+        
+        guard let url = URL(string: getReservationLink(id: placeIdentifier)) else { return }
+        
+        // Request Body Generating
+
+        let data: [String: Any] = ["date": "2021-04-24", "people": 10, "staying": 0.5]
+        let body = try? JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+                
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else { return }
+            
+            // Data Validation
+            
+            guard let data = data else { return }
+            
+            // Get Response from API
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 401:
+                    print("Unauthorized")
+                case 422:
+                    print("The given data was invalid.")
+                default:
+                    done = true
+                    print("Complete")
+                }
+            } else {
+                return
+            }
+            
+            do {
+                
+                // Read Response Data
+                let json = try? JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String] else { return }
+                //print(info)
+                
+                // Decodable JSON Data
+                
+                let decoder = JSONDecoder()
+                let response = try decoder.decode([[String]].self, from: data)
+                print(response)
+                // Set Data to API Manager Value of Places
+                
+                DispatchQueue.main.async {
+                    self.availableTimes = response[0]
+                    print(response[0])
+                }
             } catch {
                 print(error)
             }
@@ -455,6 +553,9 @@ class ServiceAPI: ObservableObject {
         return DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue + "/\(id)/\(DomainRouter.reserveRoute.rawValue)"
     }
     
+    func getReservationLink(id: Int) -> String {
+        return DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue + "/\(id)/\(DomainRouter.reservationRoute.rawValue)"
+    }
 }
 
 // MARK: -> String Extension for Validate Password & Email
@@ -486,6 +587,7 @@ enum DomainRouter: String {
     case placesRoute = "places"
     case categoriesRoute = "categories"
     case reserveRoute = "reserve"
+    case reservationRoute = "reservation"
 }
 
 enum StatusCode: Int {
