@@ -94,7 +94,7 @@ class ServiceAPI: ObservableObject {
     
     func userAccountRegistration(name: String, surname: String, email: String, password: String) {
         var done = false
-
+        
         // Link Generating
         
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.registerRoute.rawValue) else { return }
@@ -210,7 +210,7 @@ class ServiceAPI: ObservableObject {
             }
             
             do {
-
+                
                 // Decodable JSON Data
                 
                 let decoder = JSONDecoder()
@@ -237,10 +237,10 @@ class ServiceAPI: ObservableObject {
     }
     
     // MARK: -> Logout From User Account
-
+    
     func userAccountLogout() {
         var done = false
-
+        
         // Link Generating
         
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.logoutRoute.rawValue) else { return }
@@ -307,7 +307,7 @@ class ServiceAPI: ObservableObject {
     
     func fetchDataAboutPlaces() {
         var done = false
-
+        
         // Link Generating
         
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
@@ -322,7 +322,7 @@ class ServiceAPI: ObservableObject {
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-                
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             // Check Presence of Errors
@@ -381,16 +381,16 @@ class ServiceAPI: ObservableObject {
     
     // MARK: -> Reserve Table in Place
     
-    func reserveTablePlace(placeIdentifier: Int) {
+    func reserveTablePlace(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String, time: String) {
         var done = false
-
+        
         // Link Generating
         
         guard let url = URL(string: getReserveLink(id: placeIdentifier)) else { return }
         
         // Request Body Generating
         
-        let data: [String: Any] = ["date": "2021-04-23", "people": 10, "staying": 2, "time": "17:00"]
+        let data: [String: Any] = ["date": date, "people": adultsAmount, "staying": duration, "time": time]
         let body = try? JSONSerialization.data(withJSONObject: data)
         
         // Set Request Settings
@@ -404,7 +404,7 @@ class ServiceAPI: ObservableObject {
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-                
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             // Check Presence of Errors
@@ -465,16 +465,16 @@ class ServiceAPI: ObservableObject {
     
     // MARK: -> Check Place Free Time For Reservation
     
-    func getPlaceAvailableTime(placeIdentifier: Int) {
+    func getPlaceAvailableTime(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String) {
         var done = false
-
+        
         // Link Generating
         
         guard let url = URL(string: getReservationLink(id: placeIdentifier)) else { return }
         
         // Request Body Generating
-
-        let data: [String: Any] = ["date": "2021-04-24", "people": 10, "staying": 0.5]
+        
+        let data: [String: Any] = ["date": date, "people": adultsAmount, "staying": duration]
         let body = try? JSONSerialization.data(withJSONObject: data)
         
         // Set Request Settings
@@ -488,7 +488,7 @@ class ServiceAPI: ObservableObject {
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-                
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             // Check Presence of Errors
@@ -521,7 +521,7 @@ class ServiceAPI: ObservableObject {
                 
                 let decoder = JSONDecoder()
                 let response = try decoder.decode([[String]].self, from: data)
-
+                
                 // Set Data to API Manager Value of Places
                 
                 DispatchQueue.main.async {
@@ -591,235 +591,23 @@ enum StatusCode: Int {
     case notfound = 400
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // MARK: -> Other Code
-    
-
-
-struct ServerResponse: Decodable {
-    let error: String
-    let ok: String
-}
-
-
-
-enum ServerErrorResponse: String {
+enum ErrorResponse: String {
     case postCallError = "Error: Error calling POST"
     case dataNotReceived = "Error: Didn't receive data"
 }
 
+// MARK: -> Future Combine Functions
 
-
-    
-    
-//    func loadCategoriesData() {
-//        guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else { return }
+//class NetworkManager: ObservableObject {
+//    @Published var items = [User]()
+//    private let url = URL(string: APIRequests.dataResource.rawValue + APIRequests.prefixKeyAPI.rawValue + APIRequests.keyAPI.rawValue)!
 //
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-//
-//        URLSession.shared.dataTask(with: request) {data, response, error in
-//            if let data = data {
-//                if let decodedResponse = try? JSONDecoder().decode(Categories.self, from: data) {
-//                    DispatchQueue.main.async {
-//                        self.categories = decodedResponse
-//                    }
-//                    return
-//                }
-//            }
-//            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-//
-//        }.resume()
-//    }
-    
-    
-//    private let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue)
-//
-//
-//
-//    func loadData() -> AnyPublisher<[Category], Error> {
-//        return URLSession.shared.dataTaskPublisher(for: self.url!)
+//    func loadData() -> AnyPublisher<[User], Error> {
+//        return URLSession.shared.dataTaskPublisher(for: self.url)
 //            .map(\.data)
-//            .decode(type: Categories.self, decoder:  JSONDecoder())
-//            .map(\.data)
+//            .decode(type: Results.self, decoder:  JSONDecoder())
+//            .map(\.items)
 //            .receive(on: DispatchQueue.main)
 //            .eraseToAnyPublisher()
 //    }
-//
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //            //             let finalData = try! JSONDecoder().decode(ServerResponse.self, from: data)
-    //            //             print(finalData)
-    //            //             DispatchQueue.main.async{
-    //            //             if finalData.error == "Unauthorized"{
-    //            //             self.authenticated = false
-    //            //             }
-    //            //             }
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        var request = URLRequest(url: URL(string:  "http://dev2.cogniteq.com:3110/api/login?")!)
-//            request.httpMethod = "POST"
-//
-//
-////            let postString =  String(format: "email=%@&password=%@", arguments: [txt_emailVirify.text!, language!])
-////            print(postString)
-////
-////            emailString = txt_emailVirify.text!
-//
-//            request.httpBody = postString.data(using: .utf8)
-//            request.addValue("delta141forceSEAL8PARA9MARCOSBRAHMOS", forHTTPHeaderField: "Authorization")
-//            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//            request.addValue("application/json", forHTTPHeaderField: "Accept")
-//
-//
-//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//                guard let data = data, error == nil
-//                    else
-//                {
-//                    print("error=\(String(describing: error))")
-//                    return
-//                }
-//
-//                do
-//                {
-//
-//                    let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
-//                    print(dictionary)
-//
-//                    let status = dictionary.value(forKey: "status") as! String
-//                    let sts = Int(status)
-//                    DispatchQueue.main.async()
-//                        {
-//                            if sts == 200
-//                            {
-//                                print(dictionary)
-//
-//
-//                            }
-//                            else
-//                            {
-//                               self.alertMessageOk(title: self.Alert!, message: dictionary.value(forKey: "message") as! String)
-//
-//
-//                            }
-//                    }
-//                }
-//                catch
-//                {
-//                    print(error)
-//                }
-//
-//            }
-//            task.resume()
-//
-
-
-//    //private let url = URL(string: APIRequests.dataResource.rawValue + APIRequests.prefixKeyAPI.rawValue + APIRequests.keyAPI.rawValue)!
-//    //private let loginURL = URL(string: "http://dev2.cogniteq.com:3110/api/login")
-//
-//    func getTokenAuth() {
-//        let defaults = UserDefaults.standard
-//        defaults.set("token", forKey: "access_token")
-//
-//        // Prepare URL
-//        let url = URL(string: "http://dev2.cogniteq.com:3110/api/login?email=asdas&password=asdas")
-//        guard let requestUrl = url else { fatalError() }
-//        // Prepare URL Request Object
-//        var request = URLRequest(url: requestUrl)
-//        request.httpMethod = "POST"
-//
-//        // HTTP Request Parameters which will be sent in HTTP Request Body
-//        let postString = "userId=300&title=My urgent task&completed=false";
-//        // Set HTTP Request Body
-//        request.httpBody = postString.data(using: String.Encoding.utf8);
-//        // Perform HTTP Request
-//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//
-//                // Check for Error
-//                if let error = error {
-//                    print("Error took place \(error)")
-//                    return
-//                }
-//
-//                // Convert HTTP Response Data to a String
-//                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-//                    print("Response data string:\n \(dataString)")
-//                }
-//        }
-//        task.resume()
-//
-//    }
-//
-//
-//
 //}
-
-
-

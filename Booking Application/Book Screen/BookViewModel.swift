@@ -9,5 +9,6 @@ import Foundation
 
 class BookViewModel: ObservableObject {
     var controller: BookViewController?
-    @Published var avalClock = [String]()    
+    @Published var avalClock = [String]()
+    @Published var placeID: Int?
 }

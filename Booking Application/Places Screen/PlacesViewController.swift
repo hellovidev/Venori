@@ -8,21 +8,23 @@
 import UIKit
 import SwiftUI
 
-class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
-    private let state = AllRestaurantViewModel()
-    var api = ServiceAPI()
+class PlacesViewController: UIHostingController<PlacesView>  {
+    private let state = PlacesViewModel()
+    var serviceAPI = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        api.fetchDataAboutPlaces()
-        if api.places != nil {
-            state.places = api.places!.data!
+        
+        //***
+        serviceAPI.fetchDataAboutPlaces()
+        if serviceAPI.places != nil {
+            state.places = serviceAPI.places!.data!
         }
     }
     
     init() {
-        let view = AllRestaurantsView(allRestaurantsViewModel: state)
+        let view = PlacesView(viewModel: state)
         super.init(rootView: view)
         state.controller = self
     }
@@ -31,18 +33,16 @@ class AllRestaurantsViewController: UIHostingController<AllRestaurantsView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func backToMain() {
+    // MARK: -> Go Previous Screen
+    
+    func redirectPrevious() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
-//        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-//            let nextViewController = HomeViewController()
-//            sceneDelegate.window?.rootViewController = nextViewController
-//            sceneDelegate.window?.makeKeyAndVisible()
-//        }
     }
     
-    func redirectToRestarauntDetails(object: Place) {
-        print(object)
+    // MARK: -> Redirect User To Login Screen
+    
+    func redirectToPlaceDetails(object: Place) {
         let rootviewController = DetailsRestarauntViewController()
         rootviewController.place = object
         let navigationController = UINavigationController(rootViewController: rootviewController)

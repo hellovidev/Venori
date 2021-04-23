@@ -10,5 +10,4 @@ import Foundation
 class AllCategoriesViewModel: ObservableObject {
     var controller: AllCategoriesViewController?
     @Published var categories = [Category]()
-
 }

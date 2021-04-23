@@ -49,4 +49,14 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
         self.present(navigationController, animated:true, completion: nil)
     }
     
+    // MARK: -> Redirect User To Booking Process
+
+    func redirectToBookingProcess(object: Place) {
+        let rootviewController = BookViewController()
+        rootviewController.placeID = object.id
+        let navigationController = UINavigationController(rootViewController: rootviewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
+    
 }

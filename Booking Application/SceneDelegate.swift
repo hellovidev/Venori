@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             
-            if UserDefaults.standard.string(forKey: "access_token") != nil {
+            if UserDefaults.standard.string(forKey: "access_token") != nil {                
                 let tabController = UITabBarController()
                 
                 let home = HomeViewController()
@@ -123,4 +123,350 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
+
+
+
+
+
+
+
+// MARK: -> Some Code
+
+
+
+// MARK: -> Horizontal List Block
+
+//struct HListView: View {
+//    var objects: AnyObject
+//    var onElementClick: () -> Void
+//
+//    var body: some View {
+//        ScrollView(.horizontal, showsIndicators: false) {
+//            HStack(spacing: -8) {
+//                ForEach(objects, id: \.self) { object in
+//                    CategoryView(title: object.title, imageName: object.image, onClick: {})
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//struct HListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HListView(data: { title: "Burger", imageName: "Burger" }, onElementClick: {})
+//    }
+//}
+
+//struct ContentView: View {
+//    var body: some View {
+//        CustomNavigationView(destination: FirstView(), isRoot: true, isLast: false, color: .blue){
+//            Text("This is the Root View")
+//        }
+//    }
+//}
+//
+//struct FirstView : View {
+//    var body: some View {
+//        CustomNavigationView(destination: SecondView(), isRoot: false, isLast: false, color: .red){
+//            Text("This is the First View")
+//        }
+//    }
+//}
+//
+//struct SecondView : View {
+//    var body: some View {
+//        CustomNavigationView(destination: LastView(), isRoot: false, isLast: false, color: .green){
+//            Text("This is the Second View")
+//        }
+//    }
+//}
+//
+//struct LastView : View {
+//    var body: some View {
+//        CustomNavigationView(destination: EmptyView(), isRoot: false, isLast: true, color: .yellow){
+//            Text("This is the Last View")
+//        }
+//    }
+//}
+
+//struct CustomNavigationView<Content: View, Destination : View>: View {
+//    let destination : Destination
+//    let isRoot : Bool
+//    let isLast : Bool
+//    let color : Color
+//    let content: Content
+//    @State var active = false
+//    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+//
+//    init(destination: Destination, isRoot : Bool, isLast : Bool,color : Color, @ViewBuilder content: () -> Content) {
+//        self.destination = destination
+//        self.isRoot = isRoot
+//        self.isLast = isLast
+//        self.color = color
+//        self.content = content()
+//    }
+//
+//    var body: some View {
+//        NavigationView {
+//            GeometryReader { geometry in
+//                Color.white
+//                VStack {
+//                    ZStack {
+//                        WaveShape()
+//                            .fill(color.opacity(0.3))
+//                        HStack {
+//                                Image(systemName: "arrow.left")
+//                                    .frame(width: 30)
+//                                .onTapGesture(count: 1, perform: {
+//                                    self.mode.wrappedValue.dismiss()
+//                                }).opacity(isRoot ? 0 : 1)
+//                            Spacer()
+//                            Image(systemName: "command")
+//                                .frame(width: 30)
+//                            Spacer()
+//                            Image(systemName: "arrow.right")
+//                                .frame(width: 30)
+//                                .onTapGesture(count: 1, perform: {
+//                                    self.active.toggle()
+//                                })
+//                                .opacity(isLast ? 0 : 1)
+//                            NavigationLink(
+//                                destination: destination.navigationBarHidden(true)
+//                                    .navigationBarHidden(true),
+//                                isActive: self.$active,
+//                                label: {
+//                                    //no label
+//                                })
+//                        }
+//                        .padding([.leading,.trailing], 8)
+//                        .frame(width: geometry.size.width)
+//                        .font(.system(size: 22))
+//
+//                    }
+//                    .frame(width: geometry.size.width, height: 90)
+//                    .edgesIgnoringSafeArea(.top)
+//
+//                    Spacer()
+//                    self.content
+//                        .padding()
+//                        .background(color.opacity(0.3))
+//                        .cornerRadius(20)
+//                    Spacer()
+//                }
+//            }.navigationBarHidden(true)
+//        }
+//    }
+//}
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
+
+
+
+
+
+// MARK: -> Other Code
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    func loadCategoriesData() {
+//        guard let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue) else { return }
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+//
+//        URLSession.shared.dataTask(with: request) {data, response, error in
+//            if let data = data {
+//                if let decodedResponse = try? JSONDecoder().decode(Categories.self, from: data) {
+//                    DispatchQueue.main.async {
+//                        self.categories = decodedResponse
+//                    }
+//                    return
+//                }
+//            }
+//            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+//
+//        }.resume()
+//    }
+
+
+//    private let url = URL(string: Requests.domainLink.rawValue + Requests.categoriesRouter.rawValue)
+//
+//
+//
+//    func loadData() -> AnyPublisher<[Category], Error> {
+//        return URLSession.shared.dataTaskPublisher(for: self.url!)
+//            .map(\.data)
+//            .decode(type: Categories.self, decoder:  JSONDecoder())
+//            .map(\.data)
+//            .receive(on: DispatchQueue.main)
+//            .eraseToAnyPublisher()
+//    }
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            //             let finalData = try! JSONDecoder().decode(ServerResponse.self, from: data)
+//            //             print(finalData)
+//            //             DispatchQueue.main.async{
+//            //             if finalData.error == "Unauthorized"{
+//            //             self.authenticated = false
+//            //             }
+//            //             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        var request = URLRequest(url: URL(string:  "http://dev2.cogniteq.com:3110/api/login?")!)
+//            request.httpMethod = "POST"
+//
+//
+////            let postString =  String(format: "email=%@&password=%@", arguments: [txt_emailVirify.text!, language!])
+////            print(postString)
+////
+////            emailString = txt_emailVirify.text!
+//
+//            request.httpBody = postString.data(using: .utf8)
+//            request.addValue("delta141forceSEAL8PARA9MARCOSBRAHMOS", forHTTPHeaderField: "Authorization")
+//            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+//
+//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let data = data, error == nil
+//                    else
+//                {
+//                    print("error=\(String(describing: error))")
+//                    return
+//                }
+//
+//                do
+//                {
+//
+//                    let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
+//                    print(dictionary)
+//
+//                    let status = dictionary.value(forKey: "status") as! String
+//                    let sts = Int(status)
+//                    DispatchQueue.main.async()
+//                        {
+//                            if sts == 200
+//                            {
+//                                print(dictionary)
+//
+//
+//                            }
+//                            else
+//                            {
+//                               self.alertMessageOk(title: self.Alert!, message: dictionary.value(forKey: "message") as! String)
+//
+//
+//                            }
+//                    }
+//                }
+//                catch
+//                {
+//                    print(error)
+//                }
+//
+//            }
+//            task.resume()
+//
+
+
+//    //private let url = URL(string: APIRequests.dataResource.rawValue + APIRequests.prefixKeyAPI.rawValue + APIRequests.keyAPI.rawValue)!
+//    //private let loginURL = URL(string: "http://dev2.cogniteq.com:3110/api/login")
+//
+//    func getTokenAuth() {
+//        let defaults = UserDefaults.standard
+//        defaults.set("token", forKey: "access_token")
+//
+//        // Prepare URL
+//        let url = URL(string: "http://dev2.cogniteq.com:3110/api/login?email=asdas&password=asdas")
+//        guard let requestUrl = url else { fatalError() }
+//        // Prepare URL Request Object
+//        var request = URLRequest(url: requestUrl)
+//        request.httpMethod = "POST"
+//
+//        // HTTP Request Parameters which will be sent in HTTP Request Body
+//        let postString = "userId=300&title=My urgent task&completed=false";
+//        // Set HTTP Request Body
+//        request.httpBody = postString.data(using: String.Encoding.utf8);
+//        // Perform HTTP Request
+//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//
+//                // Check for Error
+//                if let error = error {
+//                    print("Error took place \(error)")
+//                    return
+//                }
+//
+//                // Convert HTTP Response Data to a String
+//                if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                    print("Response data string:\n \(dataString)")
+//                }
+//        }
+//        task.resume()
+//
+//    }
+//
+//
+//
+//}
+
+
 

@@ -11,22 +11,19 @@ import SwiftUI
 class BookViewController: UIHostingController<BookView>  {
     private let state = BookViewModel()
     var serviceAPI = ServiceAPI()
+    var placeID: Int?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        self.serviceAPI.getPlaceAvailableTime(placeIdentifier: 1)
-        if serviceAPI.availableTimes != nil {
-            state.avalClock = serviceAPI.availableTimes!
+        state.placeID = placeID
+        
+        if placeID != nil {
+            self.serviceAPI.getPlaceAvailableTime(placeIdentifier: state.placeID!, adultsAmount: 1, duration: 0.5, date: "2021-04-24")
+            if serviceAPI.availableTimes != nil {
+                state.avalClock = serviceAPI.availableTimes!
+            }
         }
-    }
-    
-    override func viewDidLoad() {
-        self.serviceAPI.getPlaceAvailableTime(placeIdentifier: 1)
-        if serviceAPI.availableTimes != nil {
-            state.avalClock = serviceAPI.availableTimes!
-        }
-        sleep(5)
     }
     
     init() {

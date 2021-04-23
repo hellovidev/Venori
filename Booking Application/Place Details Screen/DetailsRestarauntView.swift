@@ -127,7 +127,7 @@ struct DetailsRestarauntView: View {
             Spacer()
             
             Button(action: {
-                self.viewModel.controller?.redirectToBooking()
+                self.viewModel.controller?.redirectToBookingProcess(object: viewModel.place!)
             }) {
                 Text("Book a table")
                     .foregroundColor(.white)

@@ -7,8 +7,7 @@
 
 import Foundation
 
-class AllRestaurantViewModel: ObservableObject {
-    var controller: AllRestaurantsViewController?
+class PlacesViewModel: ObservableObject {
+    var controller: PlacesViewController?
     @Published var places = [Place]()
-
 }

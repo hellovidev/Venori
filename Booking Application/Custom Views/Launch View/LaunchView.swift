@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SplashView: View {
+struct LaunchView: View {
     @State private var isLoading: Bool = true
     
     var body: some View {
@@ -65,6 +65,6 @@ struct ImageStartModifier: ViewModifier {
 
 struct SplashView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashView()
+        LaunchView()
     }
 }

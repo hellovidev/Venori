@@ -9,9 +9,8 @@ import Combine
 import Foundation
 
 class LoginViewModel: ObservableObject {
+    private var cancellableSet: Set<AnyCancellable> = []
     @Published var email: String = ""
     @Published var password: String = ""
-    
     var controller: LoginViewController?
-    private var cancellableSet: Set<AnyCancellable> = []
 }

@@ -19,18 +19,17 @@ struct BookView: View {
             
             if !isComplete {
                 if serviceAPI.$availableTimes != nil {
-                    BookProcessView(times: bookViewModel.avalClock, actionContinue: {
-                        serviceAPI.reserveTablePlace(placeIdentifier: 1)
+                    BookProcessView(times: bookViewModel.avalClock, placeID: bookViewModel.placeID!, actionContinue: {
                         self.isComplete.toggle()
                     }, actionClose: {
                         self.bookViewModel.controller?.goBack()
                     })
-                    .onAppear {
-                        if ((serviceAPI.availableTimes?.isEmpty) != nil) {
-                            self.serviceAPI.reserveTablePlace(placeIdentifier: 1)
-                            bookViewModel.avalClock = serviceAPI.availableTimes!
-                        }
-                    }
+//                    .onAppear {
+//                        if ((serviceAPI.availableTimes?.isEmpty) != nil) {
+//                            self.serviceAPI.reserveTablePlace(placeIdentifier: bookViewModel.placeID!, adultsAmount: 1, duration: 0.5, date: "2021-04-24", time: "17:00")
+//                            bookViewModel.avalClock = serviceAPI.availableTimes!
+//                        }
+//                    }
                 }
             } else {
                 CompleteView(actionContinue: {
@@ -88,10 +87,10 @@ struct CompleteView: View {
 }
 
 struct BookProcessView: View {
-    @State private var valueHours: Float = 0.5
-    @State private var valueHumans: Float = 1
+    @State var valueHours: Float = 0.5
+    @State var valueHumans: Float = 1
     @State var times: [String]
-    
+    @State var placeID: Int
     @State private var numberOfAdults = 1
     var actionContinue: () -> Void
     var actionClose: () -> Void
@@ -118,7 +117,7 @@ struct BookProcessView: View {
                     Text("Reservation ID")
                         .foregroundColor(Color(UIColor(hex: "#00000080")!))
                         .font(.system(size: 14, weight: .regular))
-                    Text("121231")
+                    Text("\(Int.random(in: 1..<10000))")
                         .font(.system(size: 18, weight: .regular))
                 }
                 .padding(.leading, 16)
@@ -147,7 +146,10 @@ struct BookProcessView: View {
                     Text("Number of adults")
                         .font(.system(size: 18, weight: .regular))
                         .padding(.bottom, 12)
-                    CustomStepperView(value: $valueHumans, valueType: "")
+                    CustomStepperView(onClick: {
+                        serviceAPI.getPlaceAvailableTime(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24")
+    }, value: $valueHumans, valueType: "")
+                    
                         .padding(.trailing, 16)
                 }
                 .padding(.leading, 16)
@@ -157,7 +159,9 @@ struct BookProcessView: View {
                     Text("How long will you be dining with us?")
                         .font(.system(size: 18, weight: .regular))
                         .padding(.bottom, 12)
-                    CustomStepperView(value: $valueHours, valueType: "hr")
+                    CustomStepperView(onClick: {
+                        serviceAPI.getPlaceAvailableTime(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24")
+                    }, value: $valueHours, valueType: "hr")
                         .padding(.trailing, 16)
                 }
                 .padding(.leading, 16)
@@ -184,13 +188,14 @@ struct BookProcessView: View {
                             }
                         }
                         .onAppear {
-                            self.serviceAPI.getPlaceAvailableTime(placeIdentifier: 1)
+                            self.serviceAPI.getPlaceAvailableTime(placeIdentifier: placeID, adultsAmount: 1, duration: 0.5, date: "2021-04-24")
                         }
                     }
                 }
                 .padding(.bottom, 24)
                 Spacer()
                 Button(action: {
+                    serviceAPI.reserveTablePlace(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24", time: "12:00")
                     self.actionContinue()
                 }) {
                     Text("Continue")
@@ -228,6 +233,7 @@ struct BookView_Previews: PreviewProvider {
 }
 
 struct CustomStepperView: View {
+    var onClick: () -> Void
     @Binding var value: Float
     var valueType: String
     
@@ -236,10 +242,12 @@ struct CustomStepperView: View {
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                if value > 0 && valueType != "hr" {
+                if value > 1 && valueType != "hr" {
                     value -= 1
-                } else if value > 0 && valueType == "hr" {
+                    self.onClick()
+                } else if value > 0.5 && valueType == "hr" {
                     value -= 0.5
+                    self.onClick()
                 }
             } label: {
                 Image("Minus")
@@ -258,9 +266,10 @@ struct CustomStepperView: View {
             Button {
                 if valueType == "hr" && value < 24 {
                     value += 0.5
+                    self.onClick()
                 } else if valueType != "hr" {
                     value += 1
-                    serviceAPI.getPlaceAvailableTime(placeIdentifier: 1)
+                    self.onClick()
                 }
             } label: {
                 Image("Plus")

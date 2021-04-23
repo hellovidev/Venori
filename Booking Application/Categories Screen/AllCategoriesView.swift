@@ -20,8 +20,8 @@ struct AllCategoriesView: View {
     ]
     
     var body: some View {
-        CustomNavigationView(title: "Food Category", isRoot: false, isSearch: false, isLast: true, color: .white, onBackClick: {
-            self.allCategoriesViewModel.controller?.backToMain()
+        NavigationBarView(title: "Food Category", isRoot: false, isSearch: false, isLast: true, color: .white, onBackClick: {
+            self.allCategoriesViewModel.controller?.redirectPrevious()
         }) {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {

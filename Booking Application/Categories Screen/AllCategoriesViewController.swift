@@ -31,13 +31,7 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func backToMain() {
-//        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-//            let nextViewController = HomeViewController()
-//            sceneDelegate.window?.rootViewController = nextViewController
-//            sceneDelegate.window?.makeKeyAndVisible()
-//        }
-        
+    func redirectPrevious() {       
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
