@@ -44,7 +44,7 @@ struct Place: Codable, Hashable, Identifiable {
 
 struct Places: Codable {
     var currentPage: Int
-    var data: [Place]?
+    var data: [Place]
     var firstPageURL: String
     var from: Int
     var lastPage: Int

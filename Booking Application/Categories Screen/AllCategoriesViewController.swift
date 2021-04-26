@@ -19,14 +19,14 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
 //        if api.categories != nil {
 //            state.categories = api.categories!.data
 //        }
-        serviceAPI.fetchDataAboutCategories(completion: {
-            response in
-            self.state.categories = self.serviceAPI.categories!.data
-        })
+//        serviceAPI.fetchDataAboutCategories(completion: {
+//            response in
+//            self.state.categories = self.serviceAPI.categories!.data
+//        })
     }
     
     init() {
-        let view = AllCategoriesView(allCategoriesViewModel: state)
+        let view = AllCategoriesView(viewModel: state)
         super.init(rootView: view)
         state.controller = self
     }
@@ -40,4 +40,12 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
         self.dismiss(animated: true, completion: nil)
     }
 
+    
+    // MARK: -> Pop Up for Faild Print
+    
+    func failPopUp(title: String, message: String, buttonTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

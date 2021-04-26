@@ -18,7 +18,6 @@ struct BookView: View {
         VStack(alignment: .leading) {
             
             if !isComplete {
-                if serviceAPI.$availableTimes != nil {
                     BookProcessView(times: bookViewModel.avalClock, placeID: bookViewModel.placeID!, actionContinue: {
                         self.isComplete.toggle()
                     }, actionClose: {
@@ -30,7 +29,6 @@ struct BookView: View {
 //                            bookViewModel.avalClock = serviceAPI.availableTimes!
 //                        }
 //                    }
-                }
             } else {
                 CompleteView(actionContinue: {
                     self.bookViewModel.controller?.fullyComplete()
@@ -147,7 +145,17 @@ struct BookProcessView: View {
                         .font(.system(size: 18, weight: .regular))
                         .padding(.bottom, 12)
                     CustomStepperView(onClick: {
-                        serviceAPI.getPlaceAvailableTime(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24")
+                        serviceAPI.getPlaceAvailableTime(completion: { result in
+                            switch result {
+                            case .success(let times):
+                                self.times = times
+                            case .failure(let error):
+                                print(error)
+//                                    DispatchQueue.main.async {
+//                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//                                      }
+                            }
+                    }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-27")
     }, value: $valueHumans, valueType: "")
                     
                         .padding(.trailing, 16)
@@ -160,7 +168,17 @@ struct BookProcessView: View {
                         .font(.system(size: 18, weight: .regular))
                         .padding(.bottom, 12)
                     CustomStepperView(onClick: {
-                        serviceAPI.getPlaceAvailableTime(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24")
+                        serviceAPI.getPlaceAvailableTime(completion: { result in
+                                switch result {
+                                case .success(let times):
+                                    self.times = times
+                                case .failure(let error):
+                                    print(error)
+//                                    DispatchQueue.main.async {
+//                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//                                      }
+                                }
+                        }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-27")
                     }, value: $valueHours, valueType: "hr")
                         .padding(.trailing, 16)
                 }
@@ -187,12 +205,28 @@ struct BookProcessView: View {
                                 }
                             }
                         }
-                        .onAppear {
-                            self.serviceAPI.getPlaceAvailableTime(placeIdentifier: placeID, adultsAmount: 1, duration: 0.5, date: "2021-04-24")
-                        }
+
                     }
                 }
                 .padding(.bottom, 24)
+                .onAppear {
+                    self.serviceAPI.getPlaceAvailableTime(completion: {
+                        
+                      result in
+                                    switch result {
+                                    case .success(let times):
+                                        self.times = times
+                                    case .failure(let error):
+                                        print(error)
+//                                                DispatchQueue.main.async {
+//                                                    self.viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//                                                  }
+                                    }
+                            }
+                        
+                    , placeIdentifier: placeID, adultsAmount: 1, duration: 0.5, date: "2021-04-26")
+                }
+                
                 Spacer()
                 Button(action: {
                     serviceAPI.reserveTablePlace(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24", time: "12:00")

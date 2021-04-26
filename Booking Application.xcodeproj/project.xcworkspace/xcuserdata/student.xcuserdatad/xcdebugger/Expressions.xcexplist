@@ -30,6 +30,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "getReservationLink(id: placeIdentifier)">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -140,6 +154,14 @@
          contextName = "closure #1 in HomeViewController.viewWillAppear(_:):HomeViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -147,6 +169,14 @@
             </PersistentString>
             <PersistentString
                value = "response.statusInfo!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "times">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

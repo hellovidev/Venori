@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct AllCategoriesView: View {
-    @ObservedObject var allCategoriesViewModel: AllCategoriesViewModel
-    var api = ServiceAPI()
-    
-//    var categories: [Categ] = [Categ(title: "Burger", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger"), Categ(title: "Pizza", image: "Burger"), Categ(title: "Sushi", image: "Burger")]
+    @ObservedObject var viewModel: AllCategoriesViewModel
+    var serviceAPI = ServiceAPI()
     
     let columns = [
         GridItem(.flexible()),
@@ -21,21 +19,29 @@ struct AllCategoriesView: View {
     
     var body: some View {
         NavigationBarView(title: "Food Category", isRoot: false, isSearch: false, isLast: true, color: .white, onBackClick: {
-            self.allCategoriesViewModel.controller?.redirectPrevious()
+            self.viewModel.controller?.redirectPrevious()
         }) {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(allCategoriesViewModel.categories, id: \.self) { object in
+                    ForEach(viewModel.categories, id: \.self) { object in
                         CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {})
                     }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 35)
-//                .onAppear {
-//                    if ((api.categories?.data.isEmpty) != nil) {
-//                        self.api.fetchDataAboutCategories()
-//                    }
-//                }
+                .onAppear {
+                    serviceAPI.fetchDataAboutCategories(completion: { result in
+                        switch result {
+                        case .success(let categories):
+                            self.viewModel.categories = categories.data
+                        case .failure(let error):
+                            DispatchQueue.main.async {
+                                viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+                                
+                            }
+                        }
+                    })
+                }
             }
         }
     }
@@ -44,6 +50,6 @@ struct AllCategoriesView: View {
 
 struct AllCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        AllCategoriesView(allCategoriesViewModel: AllCategoriesViewModel())
+        AllCategoriesView(viewModel: AllCategoriesViewModel())
     }
 }

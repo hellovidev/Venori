@@ -18,12 +18,12 @@ class BookViewController: UIHostingController<BookView>  {
         self.navigationController?.isNavigationBarHidden = true
         state.placeID = placeID
         
-        if placeID != nil {
-            self.serviceAPI.getPlaceAvailableTime(placeIdentifier: state.placeID!, adultsAmount: 1, duration: 0.5, date: "2021-04-24")
-            if serviceAPI.availableTimes != nil {
-                state.avalClock = serviceAPI.availableTimes!
-            }
-        }
+//        if placeID != nil {
+//            self.serviceAPI.getPlaceAvailableTime(placeIdentifier: state.placeID!, adultsAmount: 1, duration: 0.5, date: "2021-04-24")
+//            if serviceAPI.availableTimes != nil {
+//                state.avalClock = serviceAPI.availableTimes!
+//            }
+//        }
     }
     
     init() {

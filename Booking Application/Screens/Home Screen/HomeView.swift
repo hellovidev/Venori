@@ -65,7 +65,7 @@ struct HomeView: View {
                         serviceAPI.fetchDataAboutPlaces(completion: { result in
                             switch result {
                             case .success(let places):
-                                self.viewModel.places = places.data!
+                                self.viewModel.places = places.data
                             case .failure(let error):
                                 DispatchQueue.main.async {
                                     viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
@@ -110,7 +110,7 @@ struct HomeView: View {
                                     viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
 
                                   }
-                                print(error)
+                                //print(error)
                                 //print(error.localizedDescription)
                             }
                             

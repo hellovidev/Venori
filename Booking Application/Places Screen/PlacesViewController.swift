@@ -21,10 +21,10 @@ class PlacesViewController: UIHostingController<PlacesView>  {
 //        if serviceAPI.places != nil {
 //            state.places = serviceAPI.places!.data!
 //        }
-        serviceAPI.fetchDataAboutPlaces(completion: {
-            response in
-            self.state.places = self.serviceAPI.places!.data!
-        })
+//        serviceAPI.fetchDataAboutPlaces(completion: {
+//            response in
+//            self.state.places = self.serviceAPI.places!.data!
+//        })
     }
     
     init() {

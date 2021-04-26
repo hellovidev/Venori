@@ -10,8 +10,6 @@ import Foundation
 
 class ServiceAPI: ObservableObject {
     @Published var account: Account?
-    @Published var places: Places?
-    @Published var categories: Categories?
     @Published var orders: Orders?
     
     @Published var availableTimes: [String]?
@@ -44,14 +42,14 @@ class ServiceAPI: ObservableObject {
             // Data Validation
             
             guard let data = data else {
-                completion(.failure(NSLocalizedString("Loaded data from server is empty!", comment: "Error")))
+                completion(.failure(NSLocalizedString("Loaded data of categories from server is empty!", comment: "Error")))
                 return
             }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200...", comment: "Success"))
+                    NSLog(NSLocalizedString("Status Code is 200... Request for categories.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -64,6 +62,11 @@ class ServiceAPI: ObservableObject {
             
             do {
                 
+                // Read Response Data
+                
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(info)
+                
                 // Decodable JSON Data
                 
                 let response = try JSONDecoder().decode(Categories.self, from: data)
@@ -71,7 +74,6 @@ class ServiceAPI: ObservableObject {
                 // Set Data to API Manager Value of Categories
                 
                 DispatchQueue.main.async {
-                    self.categories = response
                     completion(.success(response))
                 }
             } catch {
@@ -109,14 +111,14 @@ class ServiceAPI: ObservableObject {
             // Data Validation
             
             guard let data = data else {
-                completion(.failure(NSLocalizedString("Loaded data from server is empty!", comment: "Error")))
+                completion(.failure(NSLocalizedString("Loaded data of places from server is empty!", comment: "Error")))
                 return
             }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200...", comment: "Success"))
+                    NSLog(NSLocalizedString("Status Code is 200... Request for places.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -131,8 +133,8 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(info)
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(info)
                 
                 // Decodable JSON Data
                 
@@ -142,7 +144,6 @@ class ServiceAPI: ObservableObject {
                 // Set Data to API Manager Value of Places
                 
                 DispatchQueue.main.async {
-                    self.places = response
                     completion(.success(response))
                 }
             } catch {
@@ -151,148 +152,6 @@ class ServiceAPI: ObservableObject {
         })
         .resume()
     }
-    
-    
-//    func fetchDataAboutPlaces(completion: @escaping (Places) -> ()) {
-//        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
-//
-//        // Set Request Settings
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//
-//        // Bearer Token for Authorized User
-//
-//        //request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-//
-//        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
-//
-//            // Check Presence of Errors
-//
-//            guard error == nil else { return }
-//
-//            // Data Validation
-//
-//            guard let data = data else { return }
-//
-//            if let response = response as? HTTPURLResponse {
-//                switch response.statusCode {
-//                case 200:
-//                    print("Complete")
-//                case 401:
-//                    print("Unauthorized")
-////                case 422:
-////                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
-////                    print("The given data was invalid.")
-//                default:
-//                    print("Unknown")
-//                }
-//            } else {
-//                return
-//            }
-//
-//            do {
-//
-//                // Read Response Data
-//
-//                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-//                print(info)
-//
-//                // Decodable JSON Data
-//
-//                let decoder = JSONDecoder()
-//                let response = try decoder.decode(Places.self, from: data)
-//
-//                // Set Data to API Manager Value of Places
-//
-//                DispatchQueue.main.async {
-//                    self.places = response
-//                    completion(response)
-//                }
-//            } catch {
-//                print(error)
-//            }
-//        })
-//        .resume()
-//    }
-    
-    // MARK: -> Old Method For Loading Places Data
-    
-//    func fetchDataAboutPlaces() {
-//        var done = false
-//        
-//        // Link Generating
-//        
-//        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
-//        
-//        // Set Request Settings
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//        
-//        // Bearer Token for Authorized User
-//        
-//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-//        
-//        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-//            
-//            // Check Presence of Errors
-//            
-//            guard error == nil else { return }
-//            
-//            // Data Validation
-//            
-//            guard let data = data else { return }
-//            
-//            // Get Response from API
-//            
-//            if let response = response as? HTTPURLResponse {
-//                switch response.statusCode {
-//                case 401:
-//                    print("Unauthorized")
-//                case 422:
-//                    print("The given data was invalid.")
-//                default:
-//                    done = true
-//                    print("Complete")
-//                }
-//            } else {
-//                return
-//            }
-//            
-//            do {
-//                
-//                // Read Response Data
-//                
-//                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-//                print(info)
-//                
-//                // Decodable JSON Data
-//                
-//                let decoder = JSONDecoder()
-//                let response = try decoder.decode(Places.self, from: data)
-//                
-//                // Set Data to API Manager Value of Places
-//                
-//                DispatchQueue.main.async {
-//                    self.places = response
-//                }
-//            } catch {
-//                print(error)
-//            }
-//        })
-//        task.resume()
-//        
-//        // Loop for Waiting Results of Status Code
-//        
-//        repeat {
-//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-//        } while !done
-//    }
     
     // MARK: -> Registration User Account
     
@@ -599,11 +458,7 @@ class ServiceAPI: ObservableObject {
     
     // MARK: -> Check Place Free Time For Reservation
     
-    func getPlaceAvailableTime(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String) {
-        var done = false
-        
-        // Link Generating
-        
+    func getPlaceAvailableTime(completion: @escaping (Result<[String], Error>) -> Void, placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String) {
         guard let url = URL(string: getReservationLink(id: placeIdentifier)) else { return }
         
         // Request Body Generating
@@ -623,57 +478,138 @@ class ServiceAPI: ObservableObject {
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
             
             // Check Presence of Errors
             
-            guard error == nil else { return }
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
             
             // Data Validation
             
-            guard let data = data else { return }
-            
-            // Get Response from API
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data of available time from server is empty!", comment: "Error")))
+                return
+            }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for available time in place.", comment: "Success"))
+                case 400:
+                    completion(.failure(NSLocalizedString("Place not found!", comment: "Error")))
                 case 401:
-                    print("Unauthorized")
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 case 422:
-                    print("The given data was invalid.")
+                    completion(.failure(NSLocalizedString("Validation error! The given data was invalid. The date must be a date after yesterday.", comment: "Error")))
                 default:
-                    done = true
-                    print("Complete")
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
             } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
                 return
             }
             
             do {
                 
+                // Read Response Data
+                
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(info)
+                
                 // Decodable JSON Data
                 
-                let decoder = JSONDecoder()
-                let response = try decoder.decode([[String]].self, from: data)
+                let response = try JSONDecoder().decode([[String]].self, from: data)
                 
-                // Set Data to API Manager Value of Places
+                // Get Data to API Manager Value of Available Time for Place
                 
                 DispatchQueue.main.async {
-                    self.availableTimes = response[0]
-                    print(response[0])
+                    completion(.success(response[0]))
                 }
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         })
-        task.resume()
-        
-        // Loop for Waiting Results of Status Code
-        
-        repeat {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-        } while !done
+        .resume()
     }
+    
+//    func getPlaceAvailableTime(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String) {
+//        var done = false
+//
+//        // Link Generating
+//
+//        guard let url = URL(string: getReservationLink(id: placeIdentifier)) else { return }
+//
+//        // Request Body Generating
+//
+//        let data: [String: Any] = ["date": date, "people": adultsAmount, "staying": duration]
+//        let body = try? JSONSerialization.data(withJSONObject: data)
+//
+//        // Set Request Settings
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.httpBody = body
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+//
+//        // Bearer Token for Authorized User
+//
+//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+//
+//        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+//
+//            // Check Presence of Errors
+//
+//            guard error == nil else { return }
+//
+//            // Data Validation
+//
+//            guard let data = data else { return }
+//
+//            // Get Response from API
+//
+//            if let response = response as? HTTPURLResponse {
+//                switch response.statusCode {
+//                case 401:
+//                    print("Unauthorized")
+//                case 422:
+//                    print("The given data was invalid.")
+//                default:
+//                    done = true
+//                    print("Complete")
+//                }
+//            } else {
+//                return
+//            }
+//
+//            do {
+//
+//                // Decodable JSON Data
+//
+//                let decoder = JSONDecoder()
+//                let response = try decoder.decode([[String]].self, from: data)
+//
+//                // Set Data to API Manager Value of Places
+//
+//                DispatchQueue.main.async {
+//                    self.availableTimes = response[0]
+//                    print(response[0])
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        })
+//        task.resume()
+//
+//        // Loop for Waiting Results of Status Code
+//
+//        repeat {
+//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+//        } while !done
+//    }
     
     // MARK: -> Additional Functions
     
@@ -1061,6 +997,8 @@ extension HTTPURLResponse {
 //            }
 //        }
 }
+
+// MARK: -> Added Functionality For Return Error As String
 
 extension String: LocalizedError {
     public var errorDescription: String? { return self }
