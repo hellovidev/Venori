@@ -17,40 +17,6 @@ class HomeViewController: UIHostingController<HomeView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        //USAGE:
-
-    //    getFriendIds(completion:{
-    //        array in
-    //        print(array) // Or do something else with the result
-    //    })
-//        serviceAPI.fetchDataAboutCategories(completion: { result in
-//            switch result {
-//            case .success(let categories):
-//                self.state.categories = categories.data
-//            case .failure(let error):
-//                //self.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                print(error)
-//                //print(error.localizedDescription)
-//            }
-//            
-//            //self.state.categories = self.serviceAPI.categories!.data
-//        })
-        
-        serviceAPI.fetchDataAboutPlaces(completion: {
-            response in
-            self.state.places = self.serviceAPI.places!.data!
-        })
-        
-        
-        //***
-//        serviceAPI.fetchDataAboutCategories()
-//        if serviceAPI.categories != nil {
-//            state.categories = serviceAPI.categories!.data
-//        }
-//        serviceAPI.fetchDataAboutPlaces()
-//        if serviceAPI.places != nil {
-//            state.places = serviceAPI.places!.data!
-//        }
     }
     
     override func viewDidLoad() {

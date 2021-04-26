@@ -61,6 +61,23 @@ struct HomeView: View {
                         }
                     }
                     .padding(.bottom, 26)
+                    .onAppear {
+                        serviceAPI.fetchDataAboutPlaces(completion: { result in
+                            switch result {
+                            case .success(let places):
+                                self.viewModel.places = places.data!
+                            case .failure(let error):
+                                DispatchQueue.main.async {
+                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+
+                                  }
+                                print(error)
+                                //print(error.localizedDescription)
+                            }
+                            
+                            //self.state.categories = self.serviceAPI.categories!.data
+                        })
+                    }
 //                    .onAppear {
 //                        if ((serviceAPI.places?.data?.isEmpty) != nil) {
 //                            self.serviceAPI.fetchDataAboutPlaces()

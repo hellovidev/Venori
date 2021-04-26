@@ -16,66 +16,8 @@ class ServiceAPI: ObservableObject {
     
     @Published var availableTimes: [String]?
     
-    // MARK: -> New Method For Loading Categories Data
-    
-//    func fetchDataAboutCategories(completion: @escaping (Categories) -> ()) {
-//        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
-//        
-//        // Set Request Settings
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//        
-//        // Bearer Token for Authorized User
-//        
-//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-//        
-//        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
-//            
-//            // Check Presence of Errors
-//            
-//            guard error == nil else { return }
-//            
-//            // Data Validation
-//            
-//            guard let data = data else { return }
-//            
-//            if let response = response as? HTTPURLResponse {
-//                switch response.statusCode {
-//                case 200:
-//                    print("Complete")
-//                case 401:
-//                    print("Unauthorized")
-//                case 422:
-//                    print("The given data was invalid.")
-//                default:
-//                    print("Unknown")
-//                }
-//            } else {
-//                return
-//            }
-//            
-//            do {
-//                
-//                // Decodable JSON Data
-//                
-//                let response = try JSONDecoder().decode(Categories.self, from: data)
-//                
-//                // Set Data to API Manager Value of Categories
-//                
-//                DispatchQueue.main.async {
-//                    self.categories = response
-//                    completion(response)
-//                }
-//            } catch {
-//                print(error)
-//            }
-//        })
-//        .resume()
-//    }
-    
+    // MARK: -> Method For Loading Categories Data
+
     func fetchDataAboutCategories(completion: @escaping (Result<Categories, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
         
@@ -103,7 +45,6 @@ class ServiceAPI: ObservableObject {
             
             guard let data = data else {
                 completion(.failure(NSLocalizedString("Loaded data from server is empty!", comment: "Error")))
-                completion(.failure(Error.self as! Error))
                 return
             }
             
@@ -140,119 +81,49 @@ class ServiceAPI: ObservableObject {
         .resume()
     }
     
-    // MARK: -> Old Method For Loading Categories Data
+    // MARK: -> Method For Loading Places Data
     
-//    func fetchDataAboutCategories() {
-//        var done = false
-//
-//        // Link Generating
-//
-//        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
-//
-//        // Set Request Settings
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//
-//        // Bearer Token for Authorized User
-//
-//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-//
-//        // Request to API
-//
-//        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-//
-//            // Check Presence of Errors
-//
-//            guard error == nil else { return }
-//
-//            // Data Validation
-//
-//            guard let data = data else { return }
-//
-//            // Get Response from API
-//
-//            if let response = response as? HTTPURLResponse {
-//                switch response.statusCode {
-//                case 401:
-//                    print("Unauthorized")
-//                case 422:
-//                    print("The given data was invalid.")
-//                default:
-//                    done = true
-//                    print("Complete")
-//                }
-//            } else {
-//                return
-//            }
-//
-//            do {
-//
-//                // Decodable JSON Data
-//
-//                let decoder = JSONDecoder()
-//                let response = try decoder.decode(Categories.self, from: data)
-//
-//                // Set Data to API Manager Value of Categories
-//
-//                DispatchQueue.main.async {
-//                    self.categories = response
-//                }
-//            } catch {
-//                print(error)
-//            }
-//        })
-//
-//        task.resume()
-//
-//        // Loop for Waiting Results of Status Code
-//
-//        repeat {
-//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-//        } while !done
-//    }
-    
-    // MARK: -> New Method For Loading Categories Data
-    
-    func fetchDataAboutPlaces(completion: @escaping (Places) -> ()) {
+    func fetchDataAboutPlaces(completion: @escaping (Result<Places, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
-        
+
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
+                
         // Bearer Token for Authorized User
         
-        //request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
             
             // Check Presence of Errors
             
-            guard error == nil else { return }
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
             
             // Data Validation
             
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data from server is empty!", comment: "Error")))
+                return
+            }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    print("Complete")
+                    NSLog(NSLocalizedString("Status Code is 200...", comment: "Success"))
                 case 401:
-                    print("Unauthorized")
-//                case 422:
-//                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
-//                    print("The given data was invalid.")
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
-                    print("Unknown")
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
             } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
                 return
             }
             
@@ -272,14 +143,80 @@ class ServiceAPI: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self.places = response
-                    completion(response)
+                    completion(.success(response))
                 }
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         })
         .resume()
     }
+    
+    
+//    func fetchDataAboutPlaces(completion: @escaping (Places) -> ()) {
+//        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
+//
+//        // Set Request Settings
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+//
+//        // Bearer Token for Authorized User
+//
+//        //request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+//
+//        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+//
+//            // Check Presence of Errors
+//
+//            guard error == nil else { return }
+//
+//            // Data Validation
+//
+//            guard let data = data else { return }
+//
+//            if let response = response as? HTTPURLResponse {
+//                switch response.statusCode {
+//                case 200:
+//                    print("Complete")
+//                case 401:
+//                    print("Unauthorized")
+////                case 422:
+////                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
+////                    print("The given data was invalid.")
+//                default:
+//                    print("Unknown")
+//                }
+//            } else {
+//                return
+//            }
+//
+//            do {
+//
+//                // Read Response Data
+//
+//                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+//                print(info)
+//
+//                // Decodable JSON Data
+//
+//                let decoder = JSONDecoder()
+//                let response = try decoder.decode(Places.self, from: data)
+//
+//                // Set Data to API Manager Value of Places
+//
+//                DispatchQueue.main.async {
+//                    self.places = response
+//                    completion(response)
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        })
+//        .resume()
+//    }
     
     // MARK: -> Old Method For Loading Places Data
     
@@ -361,6 +298,10 @@ class ServiceAPI: ObservableObject {
     
     func userAccountRegistration(name: String, surname: String, email: String, password: String) {
         var done = false
+        
+        //           case 422:
+       //                                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
+       //                                    print("The given data was invalid.")
         
         // Link Generating
         
