@@ -31,11 +31,11 @@ struct AllCategoriesView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 35)
-                .onAppear {
-                    if ((api.categories?.data.isEmpty) != nil) {
-                        self.api.fetchDataAboutCategories()
-                    }
-                }
+//                .onAppear {
+//                    if ((api.categories?.data.isEmpty) != nil) {
+//                        self.api.fetchDataAboutCategories()
+//                    }
+//                }
             }
         }
     }

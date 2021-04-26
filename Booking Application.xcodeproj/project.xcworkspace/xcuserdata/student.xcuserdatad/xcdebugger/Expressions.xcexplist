@@ -3,20 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in RequestAPI.loadCategoriesData():RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error">
-            </PersistentString>
-            <PersistentString
-               value = "response">
-            </PersistentString>
-            <PersistentString
-               value = "print(response)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
          <PersistentStrings>
             <PersistentString
@@ -24,6 +10,14 @@
             </PersistentString>
             <PersistentString
                value = "valueHours">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.httpBody">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -44,10 +38,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
          contextName = "LoginViewController.loginValidation():LoginViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.account?.token">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -186,10 +191,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         contextName = "closure #1 in RequestAPI.loadCategoriesData():RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "request.httpBody">
+               value = "error">
+            </PersistentString>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+            <PersistentString
+               value = "print(response)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

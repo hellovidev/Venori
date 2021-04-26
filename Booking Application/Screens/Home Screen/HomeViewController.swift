@@ -17,16 +17,27 @@ class HomeViewController: UIHostingController<HomeView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        //USAGE:
+
+    //    getFriendIds(completion:{
+    //        array in
+    //        print(array) // Or do something else with the result
+    //    })
+        serviceAPI.fetchDataAboutCategories(completion: {
+            response in
+            self.state.categories = self.serviceAPI.categories!.data
+        })
+        
         
         //***
-        serviceAPI.fetchDataAboutCategories()
-        if serviceAPI.categories != nil {
-            state.categories = serviceAPI.categories!.data
-        }
-        serviceAPI.fetchDataAboutPlaces()
-        if serviceAPI.places != nil {
-            state.places = serviceAPI.places!.data!
-        }
+//        serviceAPI.fetchDataAboutCategories()
+//        if serviceAPI.categories != nil {
+//            state.categories = serviceAPI.categories!.data
+//        }
+//        serviceAPI.fetchDataAboutPlaces()
+//        if serviceAPI.places != nil {
+//            state.places = serviceAPI.places!.data!
+//        }
     }
     
     override func viewDidLoad() {

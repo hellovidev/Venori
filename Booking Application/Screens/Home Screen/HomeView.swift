@@ -82,11 +82,11 @@ struct HomeView: View {
                         }
                     }
                     .padding(.bottom, 26)
-                    .onAppear {
-                        if ((serviceAPI.categories?.data.isEmpty) != nil) {
-                            self.serviceAPI.fetchDataAboutCategories()
-                        }
-                    }
+//                    .onAppear {
+//                        if ((serviceAPI.categories?.data.isEmpty) != nil) {
+//                            self.serviceAPI.fetchDataAboutCategories()
+//                        }
+//                    }
                 }
             }
         }

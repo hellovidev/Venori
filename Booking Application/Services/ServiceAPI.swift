@@ -16,13 +16,9 @@ class ServiceAPI: ObservableObject {
     
     @Published var availableTimes: [String]?
     
-    // MARK: -> Loading Categories Data
+    // MARK: -> New Method For Loading Categories Data
     
-    func fetchDataAboutCategories() {
-        var done = false
-        
-        // Link Generating
-        
+    func fetchDataAboutCategories(completion: @escaping (Categories) -> ()) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
         
         // Set Request Settings
@@ -36,9 +32,7 @@ class ServiceAPI: ObservableObject {
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        // Request to API
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
             
             // Check Presence of Errors
             
@@ -48,17 +42,16 @@ class ServiceAPI: ObservableObject {
             
             guard let data = data else { return }
             
-            // Get Response from API
-            
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
+                case 200:
+                    print("Complete")
                 case 401:
                     print("Unauthorized")
                 case 422:
                     print("The given data was invalid.")
                 default:
-                    done = true
-                    print("Complete")
+                    print("Unknown")
                 }
             } else {
                 return
@@ -68,27 +61,94 @@ class ServiceAPI: ObservableObject {
                 
                 // Decodable JSON Data
                 
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(Categories.self, from: data)
+                let response = try JSONDecoder().decode(Categories.self, from: data)
                 
                 // Set Data to API Manager Value of Categories
                 
                 DispatchQueue.main.async {
                     self.categories = response
+                    completion(response)
                 }
             } catch {
                 print(error)
             }
         })
-        
-        task.resume()
-        
-        // Loop for Waiting Results of Status Code
-        
-        repeat {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-        } while !done
+        .resume()
     }
+    
+    // MARK: -> Old Method For Loading Categories Data
+    
+//    func fetchDataAboutCategories() {
+//        var done = false
+//
+//        // Link Generating
+//
+//        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
+//
+//        // Set Request Settings
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+//
+//        // Bearer Token for Authorized User
+//
+//        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+//
+//        // Request to API
+//
+//        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+//
+//            // Check Presence of Errors
+//
+//            guard error == nil else { return }
+//
+//            // Data Validation
+//
+//            guard let data = data else { return }
+//
+//            // Get Response from API
+//
+//            if let response = response as? HTTPURLResponse {
+//                switch response.statusCode {
+//                case 401:
+//                    print("Unauthorized")
+//                case 422:
+//                    print("The given data was invalid.")
+//                default:
+//                    done = true
+//                    print("Complete")
+//                }
+//            } else {
+//                return
+//            }
+//
+//            do {
+//
+//                // Decodable JSON Data
+//
+//                let decoder = JSONDecoder()
+//                let response = try decoder.decode(Categories.self, from: data)
+//
+//                // Set Data to API Manager Value of Categories
+//
+//                DispatchQueue.main.async {
+//                    self.categories = response
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        })
+//
+//        task.resume()
+//
+//        // Loop for Waiting Results of Status Code
+//
+//        repeat {
+//            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+//        } while !done
+//    }
     
     // MARK: -> Registration User Account
     
@@ -186,7 +246,6 @@ class ServiceAPI: ObservableObject {
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             // Check Presence of Errors
-            
             guard error == nil else { return }
             
             // Data Validation
@@ -210,6 +269,9 @@ class ServiceAPI: ObservableObject {
             }
             
             do {
+                
+                guard let response1 = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(response1)
                 
                 // Decodable JSON Data
                 
