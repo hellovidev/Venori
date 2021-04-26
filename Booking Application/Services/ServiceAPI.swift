@@ -102,6 +102,7 @@ class ServiceAPI: ObservableObject {
             // Data Validation
             
             guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data from server is empty!", comment: "Error")))
                 completion(.failure(Error.self as! Error))
                 return
             }
@@ -109,20 +110,14 @@ class ServiceAPI: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    //NSLocalizedString("Complete task!", comment: "Success")
-                    print("Complete")
+                    NSLog(NSLocalizedString("Status Code is 200...", comment: "Success"))
                 case 401:
-                    completion(.failure(NSLocalizedString("User unauthorized!", comment: "Error")))
-                    print("Unauthorized")
-                case 422:
-                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
-                    print("The given data was invalid.")
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
-                    completion(.failure(NSLocalizedString("Unknown error.", comment: "Error")))
-                    print("Unknown")
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
             } else {
-                //completion(.failure(response))
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
                 return
             }
             
@@ -140,7 +135,6 @@ class ServiceAPI: ObservableObject {
                 }
             } catch {
                 completion(.failure(error))
-                print(error)
             }
         })
         .resume()
@@ -252,8 +246,9 @@ class ServiceAPI: ObservableObject {
                     print("Complete")
                 case 401:
                     print("Unauthorized")
-                case 422:
-                    print("The given data was invalid.")
+//                case 422:
+//                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
+//                    print("The given data was invalid.")
                 default:
                     print("Unknown")
                 }
