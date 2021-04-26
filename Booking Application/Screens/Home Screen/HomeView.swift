@@ -61,11 +61,11 @@ struct HomeView: View {
                         }
                     }
                     .padding(.bottom, 26)
-                    .onAppear {
-                        if ((serviceAPI.places?.data?.isEmpty) != nil) {
-                            self.serviceAPI.fetchDataAboutPlaces()
-                        }
-                    }
+//                    .onAppear {
+//                        if ((serviceAPI.places?.data?.isEmpty) != nil) {
+//                            self.serviceAPI.fetchDataAboutPlaces()
+//                        }
+//                    }
                     
                     // MARK: -> Categories Block
                     
@@ -82,6 +82,24 @@ struct HomeView: View {
                         }
                     }
                     .padding(.bottom, 26)
+                    .onAppear {
+
+                        serviceAPI.fetchDataAboutCategories(completion: { result in
+                            switch result {
+                            case .success(let categories):
+                                self.viewModel.categories = categories.data
+                            case .failure(let error):
+                                DispatchQueue.main.async {
+                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+
+                                  }
+                                print(error)
+                                //print(error.localizedDescription)
+                            }
+                            
+                            //self.state.categories = self.serviceAPI.categories!.data
+                        })
+                    }
 //                    .onAppear {
 //                        if ((serviceAPI.categories?.data.isEmpty) != nil) {
 //                            self.serviceAPI.fetchDataAboutCategories()

@@ -137,6 +137,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in HomeViewController.viewWillAppear(_:):HomeViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.status!">
+            </PersistentString>
+            <PersistentString
+               value = "response.statusInfo!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
          <PersistentStrings>
             <PersistentString

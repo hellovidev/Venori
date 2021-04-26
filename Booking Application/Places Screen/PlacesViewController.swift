@@ -17,10 +17,14 @@ class PlacesViewController: UIHostingController<PlacesView>  {
         self.navigationController?.isNavigationBarHidden = true
         
         //***
-        serviceAPI.fetchDataAboutPlaces()
-        if serviceAPI.places != nil {
-            state.places = serviceAPI.places!.data!
-        }
+//        serviceAPI.fetchDataAboutPlaces()
+//        if serviceAPI.places != nil {
+//            state.places = serviceAPI.places!.data!
+//        }
+        serviceAPI.fetchDataAboutPlaces(completion: {
+            response in
+            self.state.places = self.serviceAPI.places!.data!
+        })
     }
     
     init() {

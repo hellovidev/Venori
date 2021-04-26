@@ -23,9 +23,22 @@ class HomeViewController: UIHostingController<HomeView>  {
     //        array in
     //        print(array) // Or do something else with the result
     //    })
-        serviceAPI.fetchDataAboutCategories(completion: {
+//        serviceAPI.fetchDataAboutCategories(completion: { result in
+//            switch result {
+//            case .success(let categories):
+//                self.state.categories = categories.data
+//            case .failure(let error):
+//                //self.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//                print(error)
+//                //print(error.localizedDescription)
+//            }
+//            
+//            //self.state.categories = self.serviceAPI.categories!.data
+//        })
+        
+        serviceAPI.fetchDataAboutPlaces(completion: {
             response in
-            self.state.categories = self.serviceAPI.categories!.data
+            self.state.places = self.serviceAPI.places!.data!
         })
         
         
@@ -79,4 +92,12 @@ class HomeViewController: UIHostingController<HomeView>  {
         self.present(navigationController, animated:true, completion: nil)
     }
 
+    // MARK: -> Pop Up for Faild Print
+    
+    func failPopUp(title: String, message: String, buttonTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

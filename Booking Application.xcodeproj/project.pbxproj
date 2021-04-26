@@ -156,6 +156,7 @@
 				3FA90CA52632F70B001D1BCE /* Screens */,
 				3FDE435526319F6D00699ECB /* Services */,
 				3FDE43692632D1DE00699ECB /* Custom Views */,
+				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
 				3F86BDE52626D95300CA4CD3 /* Menu Screen */,
 				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
@@ -314,7 +315,6 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F86BDFF2626DA0C00CA4CD3 /* Registration  Screen */,

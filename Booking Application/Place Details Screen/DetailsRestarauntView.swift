@@ -93,8 +93,10 @@ struct DetailsRestarauntView: View {
                 HStack {
                     Image("Phone")
                         .padding(.trailing, 8)
-                    Text(viewModel.place!.phone)
+                    if viewModel.place!.phone != nil {
+                    Text(viewModel.place!.phone!)
                         .font(.system(size: 18, weight: .regular))
+                    }
                 }
                 .padding(.bottom, 22)
                 

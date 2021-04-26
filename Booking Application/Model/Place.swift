@@ -16,7 +16,7 @@ struct Place: Codable, Hashable, Identifiable {
     var addressFull: String
     var addressLat: Double
     var addressLon: Double
-    var phone: String
+    var phone: String?
     var description: String
     var capacity: Int?
     var tablePrice: String
