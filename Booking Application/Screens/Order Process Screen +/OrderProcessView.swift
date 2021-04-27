@@ -7,54 +7,46 @@
 
 import SwiftUI
 
-struct BookView: View {
-    @ObservedObject var bookViewModel: BookViewModel
-    var serviceAPI = ServiceAPI()
-    
+// MARK: -> Constructor Booking Process View
+
+struct OrderProcessView: View {
+    @ObservedObject var viewModel: OrderProcessViewModel
     @State private var isComplete: Bool = false
     
     var body: some View {
-        
         VStack(alignment: .leading) {
-            
             if !isComplete {
-                    BookProcessView(times: bookViewModel.avalClock, placeID: bookViewModel.placeID!, actionContinue: {
-                        self.isComplete.toggle()
-                    }, actionClose: {
-                        self.bookViewModel.controller?.goBack()
-                    })
-//                    .onAppear {
-//                        if ((serviceAPI.availableTimes?.isEmpty) != nil) {
-//                            self.serviceAPI.reserveTablePlace(placeIdentifier: bookViewModel.placeID!, adultsAmount: 1, duration: 0.5, date: "2021-04-24", time: "17:00")
-//                            bookViewModel.avalClock = serviceAPI.availableTimes!
-//                        }
-//                    }
+                BookProcessView(times: viewModel.availableTime, placeID: viewModel.placeID!, actionContinue: {
+                    self.isComplete.toggle()
+                }, actionClose: {
+                    self.viewModel.controller?.backToPlace()
+                })
             } else {
                 CompleteView(actionContinue: {
-                    self.bookViewModel.controller?.fullyComplete()
+                    self.viewModel.controller?.completeOrderProcess()
                 }, actionBack: {
                     self.isComplete.toggle()
                 })
             }
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
     }
 }
+
+// MARK: -> Complete Booking Process View
 
 struct CompleteView: View {
     var actionContinue: () -> Void
     var actionBack: () -> Void
     
     var body: some View {
-        Button {
+        Button (action: {
             self.actionBack()
-        } label: {
+        }, label: {
             Image("Arrow Left")
                 .padding([.top, .bottom, .trailing], 22)
                 .padding(.leading, 16)
-        }
+        })
         VStack(alignment: .center) {
             Image("Complete")
                 .padding(.bottom, 65)
@@ -66,9 +58,9 @@ struct CompleteView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         Spacer()
-        Button(action: {
+        Button (action: {
             self.actionContinue()
-        }) {
+        }, label: {
             Text("Continue")
                 .foregroundColor(.white)
                 .font(.system(size: 17, weight: .semibold))
@@ -78,11 +70,13 @@ struct CompleteView: View {
                 .padding(.trailing, 16)
                 .frame(maxWidth: .infinity)
                 .shadow(radius: 10)
-        }
+        })
         .modifier(ButtonModifier())
         .padding(.bottom, 35)
     }
 }
+
+// MARK: -> Booking Process View
 
 struct BookProcessView: View {
     @State var valueHours: Float = 0.5
@@ -93,18 +87,18 @@ struct BookProcessView: View {
     var actionContinue: () -> Void
     var actionClose: () -> Void
     
-    var serviceAPI = ServiceAPI()
+    var serviceAPI: ServiceAPI = ServiceAPI()
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Button {
+                Button ( action:{
                     self.actionClose()
-                } label: {
+                }, label: {
                     Image("Close")
                         .padding([.top, .bottom, .trailing], 22)
                         .padding(.leading, 16)
-                }
+                })
                 
                 Text("Book a table")
                     .font(.system(size: 32, weight: .bold))
@@ -131,12 +125,12 @@ struct BookProcessView: View {
                     }
                     .padding(.leading, 16)
                     Spacer()
-                    Button {
+                    Button (action: {
                         // Pick Calendar Action
-                    } label: {
+                    }, label: {
                         Image("Calendar")
                             .padding(.trailing, 16)
-                    }
+                    })
                 }
                 .padding(.bottom, 32)
                 
@@ -144,21 +138,31 @@ struct BookProcessView: View {
                     Text("Number of adults")
                         .font(.system(size: 18, weight: .regular))
                         .padding(.bottom, 12)
-                    CustomStepperView(onClick: {
+                    StepperView(value: $valueHumans, valueType: "", onClick: {
+                        
+                        let date = Date()
+                        let formatter = DateFormatter()
+                        //Give the format you want to the formatter:
+                        
+                        formatter.dateFormat = "yyyy-MM-dd"
+                        //Get the result string:
+                        
+                        let result = formatter.string(from: date)
+                        
                         serviceAPI.getPlaceAvailableTime(completion: { result in
                             switch result {
                             case .success(let times):
                                 self.times = times
                             case .failure(let error):
                                 print(error)
-//                                    DispatchQueue.main.async {
-//                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                                      }
+                            //                                    DispatchQueue.main.async {
+                            //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+                            //                                      }
                             }
-                    }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-27")
-    }, value: $valueHumans, valueType: "")
+                        }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: result)
+                    })
                     
-                        .padding(.trailing, 16)
+                    .padding(.trailing, 16)
                 }
                 .padding(.leading, 16)
                 .padding(.bottom, 32)
@@ -167,20 +171,32 @@ struct BookProcessView: View {
                     Text("How long will you be dining with us?")
                         .font(.system(size: 18, weight: .regular))
                         .padding(.bottom, 12)
-                    CustomStepperView(onClick: {
+                    StepperView(value: $valueHours, valueType: "hr", onClick: {
+                        
+                        let date = Date()
+                        let formatter = DateFormatter()
+                        //Give the format you want to the formatter:
+                        
+                        formatter.dateFormat = "yyyy-MM-dd"
+                        //Get the result string:
+                        
+                        let result = formatter.string(from: date)
+                        
+                        //Set your label:
+                        
                         serviceAPI.getPlaceAvailableTime(completion: { result in
-                                switch result {
-                                case .success(let times):
-                                    self.times = times
-                                case .failure(let error):
-                                    print(error)
-//                                    DispatchQueue.main.async {
-//                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                                      }
-                                }
-                        }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-27")
-                    }, value: $valueHours, valueType: "hr")
-                        .padding(.trailing, 16)
+                            switch result {
+                            case .success(let times):
+                                self.times = times
+                            case .failure(let error):
+                                print(error)
+                            //                                    DispatchQueue.main.async {
+                            //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+                            //                                      }
+                            }
+                        }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: result)
+                    })
+                    .padding(.trailing, 16)
                 }
                 .padding(.leading, 16)
                 .padding(.bottom, 32)
@@ -205,7 +221,7 @@ struct BookProcessView: View {
                                 }
                             }
                         }
-
+                        
                     }
                 }
                 .padding(.bottom, 24)
@@ -214,34 +230,46 @@ struct BookProcessView: View {
                     let date = Date()
                     let formatter = DateFormatter()
                     //Give the format you want to the formatter:
-
+                    
                     formatter.dateFormat = "yyyy-MM-dd"
                     //Get the result string:
-
+                    
                     let result = formatter.string(from: date)
-                   
+                    
                     //Set your label:
                     
                     self.serviceAPI.getPlaceAvailableTime(completion: {
                         
-                      result in
-                                    switch result {
-                                    case .success(let times):
-                                        self.times = times
-                                    case .failure(let error):
-                                        print(error)
-//                                                DispatchQueue.main.async {
-//                                                    self.viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                                                  }
-                                    }
-                            }
-                        
+                        result in
+                        switch result {
+                        case .success(let times):
+                            self.times = times
+                        case .failure(let error):
+                            print(error)
+                        //                                                DispatchQueue.main.async {
+                        //                                                    self.viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+                        //                                                  }
+                        }
+                    }
+                    
                     , placeIdentifier: placeID, adultsAmount: 1, duration: 0.5, date: result)
                 }
                 
                 Spacer()
                 Button(action: {
-                    serviceAPI.reserveTablePlace(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: "2021-04-24", time: "12:00")
+                    
+                    let date = Date()
+                    let formatter = DateFormatter()
+                    //Give the format you want to the formatter:
+                    
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    //Get the result string:
+                    
+                    let result = formatter.string(from: date)
+                    
+                    //Set your label:
+                    
+                    serviceAPI.reserveTablePlace(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: result, time: "12:00")
                     self.actionContinue()
                 }) {
                     Text("Continue")
@@ -274,56 +302,6 @@ struct ButtonModifier: ViewModifier {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView(bookViewModel: BookViewModel())
-    }
-}
-
-struct CustomStepperView: View {
-    var onClick: () -> Void
-    @Binding var value: Float
-    var valueType: String
-    
-    var serviceAPI = ServiceAPI()
-    
-    var body: some View {
-        HStack(alignment: .center) {
-            Button {
-                if value > 1 && valueType != "hr" {
-                    value -= 1
-                    self.onClick()
-                } else if value > 0.5 && valueType == "hr" {
-                    value -= 0.5
-                    self.onClick()
-                }
-            } label: {
-                Image("Minus")
-                    .padding([.top, .bottom], 12)
-                    .padding(.leading, 16)
-            }
-            Spacer()
-            if valueType != "hr" {
-                Text("\(NSString(format: "%.0f", value))")
-                    .font(.system(size: 22, weight: .regular))
-            } else {
-                Text("\(value)" + " " + valueType)
-                    .font(.system(size: 22, weight: .regular))
-            }
-            Spacer()
-            Button {
-                if valueType == "hr" && value < 24 {
-                    value += 0.5
-                    self.onClick()
-                } else if valueType != "hr" {
-                    value += 1
-                    self.onClick()
-                }
-            } label: {
-                Image("Plus")
-                    .padding([.top, .bottom], 12)
-                    .padding(.trailing, 16)
-            }
-        }
-        .background(Color(UIColor(hex: "#F6F6F6FF")!))
-        .cornerRadius(24)
+        OrderProcessView(viewModel: OrderProcessViewModel())
     }
 }

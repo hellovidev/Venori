@@ -7,8 +7,8 @@
 
 import Foundation
 
-class BookViewModel: ObservableObject {
-    var controller: BookViewController?
-    @Published var avalClock = [String]()
+class OrderProcessViewModel: ObservableObject {
+    var controller: OrderProcessViewController?
+    @Published var availableTime = [String]()
     @Published var placeID: Int?
 }

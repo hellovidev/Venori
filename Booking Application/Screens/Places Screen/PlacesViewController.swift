@@ -54,4 +54,12 @@ class PlacesViewController: UIHostingController<PlacesView>  {
         self.present(navigationController, animated:true, completion: nil)
     }
     
+    // MARK: -> Pop Up for Faild Print
+    
+    func failPopUp(title: String, message: String, buttonTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

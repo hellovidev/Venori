@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */; };
 		3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */; };
-		3F08B9E2262DA66E0097FF1A /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */; };
-		3F08B9E6262DA6770097FF1A /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E5262DA6770097FF1A /* BookViewController.swift */; };
+		3F08B9E2262DA66E0097FF1A /* OrderProcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E1262DA66E0097FF1A /* OrderProcessViewModel.swift */; };
+		3F08B9E6262DA6770097FF1A /* OrderProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E5262DA6770097FF1A /* OrderProcessViewController.swift */; };
 		3F08B9F1262DB2100097FF1A /* ImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F0262DB2100097FF1A /* ImageURL.swift */; };
 		3F08B9F7262DB6380097FF1A /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F6262DB6380097FF1A /* Place.swift */; };
 		3F0A430E262EEAFF0001C12F /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A430D262EEAFF0001C12F /* ServiceAPI.swift */; };
@@ -29,7 +29,7 @@
 		3F86BDCC2626D85200CA4CD3 /* BookingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDCB2626D85200CA4CD3 /* BookingHistoryView.swift */; };
 		3F86BDD22626D89A00CA4CD3 /* PlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD12626D89A00CA4CD3 /* PlacesView.swift */; };
 		3F86BDD82626D8DB00CA4CD3 /* AllCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD72626D8DB00CA4CD3 /* AllCategoriesView.swift */; };
-		3F86BDDD2626D91000CA4CD3 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDDC2626D91000CA4CD3 /* BookView.swift */; };
+		3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */; };
 		3F86BDE22626D93D00CA4CD3 /* DetailsRestarauntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */; };
 		3F86BDE72626D96300CA4CD3 /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE62626D96300CA4CD3 /* UserMenuView.swift */; };
 		3F86BDED2626D98900CA4CD3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDEC2626D98900CA4CD3 /* HomeView.swift */; };
@@ -40,6 +40,7 @@
 		3F86BE052626DA2F00CA4CD3 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BE042626DA2F00CA4CD3 /* RegistrationViewModel.swift */; };
 		3F86BE182626F77300CA4CD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BE172626F77300CA4CD3 /* LoginViewController.swift */; };
 		3F86BE1B2626F93600CA4CD3 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BE1A2626F93600CA4CD3 /* RegistrationViewController.swift */; };
+		3F8F0E90263817EE006404B5 /* StepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F0E8F263817EE006404B5 /* StepperView.swift */; };
 		3FA90C8E2632DEEE001D1BCE /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90C8D2632DEEE001D1BCE /* Schedule.swift */; };
 		3FA90C932632E653001D1BCE /* PlaceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90C922632E653001D1BCE /* PlaceCardView.swift */; };
 		3FA90C992632EA05001D1BCE /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90C982632EA05001D1BCE /* CategoryView.swift */; };
@@ -66,8 +67,8 @@
 /* Begin PBXFileReference section */
 		3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewController.swift; sourceTree = "<group>"; };
 		3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewModel.swift; sourceTree = "<group>"; };
-		3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
-		3F08B9E5262DA6770097FF1A /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		3F08B9E1262DA66E0097FF1A /* OrderProcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessViewModel.swift; sourceTree = "<group>"; };
+		3F08B9E5262DA6770097FF1A /* OrderProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessViewController.swift; sourceTree = "<group>"; };
 		3F08B9F0262DB2100097FF1A /* ImageURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURL.swift; sourceTree = "<group>"; };
 		3F08B9F6262DB6380097FF1A /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		3F0A430D262EEAFF0001C12F /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
@@ -88,7 +89,7 @@
 		3F86BDCB2626D85200CA4CD3 /* BookingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryView.swift; sourceTree = "<group>"; };
 		3F86BDD12626D89A00CA4CD3 /* PlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesView.swift; sourceTree = "<group>"; };
 		3F86BDD72626D8DB00CA4CD3 /* AllCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesView.swift; sourceTree = "<group>"; };
-		3F86BDDC2626D91000CA4CD3 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
+		3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessView.swift; sourceTree = "<group>"; };
 		3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntView.swift; sourceTree = "<group>"; };
 		3F86BDE62626D96300CA4CD3 /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
 		3F86BDEC2626D98900CA4CD3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		3F86BE042626DA2F00CA4CD3 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		3F86BE172626F77300CA4CD3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F86BE1A2626F93600CA4CD3 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		3F8F0E8F263817EE006404B5 /* StepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperView.swift; sourceTree = "<group>"; };
 		3FA90C8D2632DEEE001D1BCE /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		3FA90C922632E653001D1BCE /* PlaceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCardView.swift; sourceTree = "<group>"; };
 		3FA90C982632EA05001D1BCE /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -156,13 +158,6 @@
 				3FA90CA52632F70B001D1BCE /* Screens */,
 				3FDE435526319F6D00699ECB /* Services */,
 				3FDE43692632D1DE00699ECB /* Custom Views */,
-				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
-				3F86BDE52626D95300CA4CD3 /* Menu Screen */,
-				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
-				3F86BDDB2626D90000CA4CD3 /* Book Screen */,
-				3F86BDCA2626D83800CA4CD3 /* Booking History Screen */,
-				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
-				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDAD2626D4C800CA4CD3 /* SceneDelegate.swift */,
 				3F86BDAB2626D4C800CA4CD3 /* AppDelegate.swift */,
 				3F86BDB42626D4D200CA4CD3 /* Assets.xcassets */,
@@ -220,14 +215,14 @@
 			path = "Categories Screen";
 			sourceTree = "<group>";
 		};
-		3F86BDDB2626D90000CA4CD3 /* Book Screen */ = {
+		3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */ = {
 			isa = PBXGroup;
 			children = (
-				3F86BDDC2626D91000CA4CD3 /* BookView.swift */,
-				3F08B9E1262DA66E0097FF1A /* BookViewModel.swift */,
-				3F08B9E5262DA6770097FF1A /* BookViewController.swift */,
+				3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */,
+				3F08B9E1262DA66E0097FF1A /* OrderProcessViewModel.swift */,
+				3F08B9E5262DA6770097FF1A /* OrderProcessViewController.swift */,
 			);
-			path = "Book Screen";
+			path = "Order Process Screen +";
 			sourceTree = "<group>";
 		};
 		3F86BDE02626D92B00CA4CD3 /* Place Details Screen */ = {
@@ -288,6 +283,14 @@
 			path = "Registration  Screen";
 			sourceTree = "<group>";
 		};
+		3F8F0E9226381805006404B5 /* Stepper View */ = {
+			isa = PBXGroup;
+			children = (
+				3F8F0E8F263817EE006404B5 /* StepperView.swift */,
+			);
+			path = "Stepper View";
+			sourceTree = "<group>";
+		};
 		3FA90C912632E606001D1BCE /* Place Card View */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,9 +318,16 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
+				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
+				3F86BDCA2626D83800CA4CD3 /* Booking History Screen */,
+				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
+				3F86BDE52626D95300CA4CD3 /* Menu Screen */,
+				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F86BDFF2626DA0C00CA4CD3 /* Registration  Screen */,
+				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -368,6 +378,7 @@
 			children = (
 				3FDE43712632D20F00699ECB /* Map View */,
 				3F86BDF12626D9A100CA4CD3 /* Launch View */,
+				3F8F0E9226381805006404B5 /* Stepper View */,
 				3FA90C972632E9F3001D1BCE /* Category View */,
 				3FA90CA02632F0B5001D1BCE /* Text Field View */,
 				3FA90C912632E606001D1BCE /* Place Card View */,
@@ -484,9 +495,10 @@
 				3F86BE1B2626F93600CA4CD3 /* RegistrationViewController.swift in Sources */,
 				3FA90C932632E653001D1BCE /* PlaceCardView.swift in Sources */,
 				3F86BE052626DA2F00CA4CD3 /* RegistrationViewModel.swift in Sources */,
-				3F86BDDD2626D91000CA4CD3 /* BookView.swift in Sources */,
+				3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */,
 				3FDE436F2632D20B00699ECB /* MapViewModel.swift in Sources */,
 				3FA90CB22632FB97001D1BCE /* NavigationBarView.swift in Sources */,
+				3F8F0E90263817EE006404B5 /* StepperView.swift in Sources */,
 				3F86BDC52626D7F500CA4CD3 /* OrdersView.swift in Sources */,
 				3F86BDB32626D4C800CA4CD3 /* Booking_Application.xcdatamodeld in Sources */,
 				3FDE436B2632D1FE00699ECB /* MapViewController.swift in Sources */,
@@ -499,7 +511,7 @@
 				3FA90C992632EA05001D1BCE /* CategoryView.swift in Sources */,
 				3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */,
 				3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */,
-				3F08B9E6262DA6770097FF1A /* BookViewController.swift in Sources */,
+				3F08B9E6262DA6770097FF1A /* OrderProcessViewController.swift in Sources */,
 				3FF0607D262867C600308556 /* User.swift in Sources */,
 				3F0A4319262EF69F0001C12F /* Review.swift in Sources */,
 				3F86BDD22626D89A00CA4CD3 /* PlacesView.swift in Sources */,
@@ -514,7 +526,7 @@
 				3F86BDF92626D9D800CA4CD3 /* LoginView.swift in Sources */,
 				3F86BDF32626D9B000CA4CD3 /* LaunchView.swift in Sources */,
 				3F86BDAE2626D4C800CA4CD3 /* SceneDelegate.swift in Sources */,
-				3F08B9E2262DA66E0097FF1A /* BookViewModel.swift in Sources */,
+				3F08B9E2262DA66E0097FF1A /* OrderProcessViewModel.swift in Sources */,
 				3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */,
 				3F0A430E262EEAFF0001C12F /* ServiceAPI.swift in Sources */,
 				3FA90CB72632FFD0001D1BCE /* SearchBarView.swift in Sources */,

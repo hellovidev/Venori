@@ -33,7 +33,7 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     }
     
     func redirectToBooking() {
-        let navigationController = UINavigationController(rootViewController: BookViewController())
+        let navigationController = UINavigationController(rootViewController: OrderProcessViewController())
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }
@@ -52,7 +52,7 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     // MARK: -> Redirect User To Booking Process
 
     func redirectToBookingProcess(object: Place) {
-        let rootviewController = BookViewController()
+        let rootviewController = OrderProcessViewController()
         rootviewController.placeID = object.id
         let navigationController = UINavigationController(rootViewController: rootviewController)
         navigationController.modalPresentationStyle = .fullScreen

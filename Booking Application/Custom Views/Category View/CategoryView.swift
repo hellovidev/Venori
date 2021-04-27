@@ -15,9 +15,9 @@ struct CategoryView: View {
     var onClick: () -> Void
     
     var body: some View {
-        Button {
+        Button (action: {
             self.onClick()
-        } label: {
+        }, label: {
             VStack {
                 ImageURL(url: imageName)
                     .frame(maxWidth: 44, maxHeight: 44, alignment: .center)
@@ -29,7 +29,7 @@ struct CategoryView: View {
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.black)
             }
-        }
+        })
     }
 }
 
