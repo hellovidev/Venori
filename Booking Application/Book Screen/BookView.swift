@@ -210,6 +210,18 @@ struct BookProcessView: View {
                 }
                 .padding(.bottom, 24)
                 .onAppear {
+                    
+                    let date = Date()
+                    let formatter = DateFormatter()
+                    //Give the format you want to the formatter:
+
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    //Get the result string:
+
+                    let result = formatter.string(from: date)
+                   
+                    //Set your label:
+                    
                     self.serviceAPI.getPlaceAvailableTime(completion: {
                         
                       result in
@@ -224,7 +236,7 @@ struct BookProcessView: View {
                                     }
                             }
                         
-                    , placeIdentifier: placeID, adultsAmount: 1, duration: 0.5, date: "2021-04-26")
+                    , placeIdentifier: placeID, adultsAmount: 1, duration: 0.5, date: result)
                 }
                 
                 Spacer()

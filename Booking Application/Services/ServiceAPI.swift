@@ -516,8 +516,8 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(info)
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [[String]] else { return }
+                //print(info)
                 
                 // Decodable JSON Data
                 
