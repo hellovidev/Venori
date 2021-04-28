@@ -24,7 +24,9 @@ struct AllCategoriesView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(viewModel.categories, id: \.self) { object in
-                        CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {})
+                        CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
+                            self.viewModel.controller?.redirectToFoodItems()
+                        })
                     }
                 }
                 .padding(.horizontal)

@@ -48,4 +48,14 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
         alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    // MARK: -> Redirect User To Food Items of Category
+
+    func redirectToFoodItems() {
+//        let rootviewController = DetailsRestarauntViewController()
+//        rootviewController.place = object
+        let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
 }

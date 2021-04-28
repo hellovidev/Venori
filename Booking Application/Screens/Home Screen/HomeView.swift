@@ -90,7 +90,6 @@ struct HomeView: View {
                         SectionSeparatorView(title: "Food Categories", onClick: {
                             viewModel.controller?.seeAllCategories()
                         })
-                        EnumerationItemsView(items: viewModel.categories)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: -8) {
                                 ForEach(viewModel.categories, id: \.self) { object in

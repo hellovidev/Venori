@@ -5,7 +5,7 @@
 //  Created by student on 23.04.21.
 //
 
-import SwiftUI
+import Foundation
 
 struct Schedule: Codable, Hashable, Identifiable {
     var id: Int

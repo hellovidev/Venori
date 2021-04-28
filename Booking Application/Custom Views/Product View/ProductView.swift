@@ -19,22 +19,25 @@ struct ProductView: View {
                 .scaledToFill()
                 .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
                 .cornerRadius(8)
+                .fixedSize()
             VStack(alignment: .leading) {
                 HStack {
-                Text(productName)
-                    .font(.system(size: 20, weight: .regular))
+                    Text(productName)
+                        .font(.system(size: 18, weight: .regular))
                     Spacer()
                     Text(productPrice)
-                        .font(.system(size: 20, weight: .regular))
+                        .font(.system(size: 18, weight: .regular))
                         .foregroundColor(Color.blue)
                 }
+                .padding(.bottom, -2)
                 Text(productVolume)
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 14, weight: .regular))
                     .foregroundColor(Color(UIColor(hex: "#00000080")!))
             }
-            .padding(.leading, 8)
+            .padding(.leading, 6)
         }
         .padding([.leading, .trailing], 16)
+        .padding([.top, .bottom], 8)
     }
 }
 
