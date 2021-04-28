@@ -8,6 +8,6 @@
 import Foundation
 
 class OrdersViewModel: ObservableObject {
-    var controller: OrdersViewController?
-    
+    weak var controller: OrdersViewController?
+    @Published var orders = [Order]()
 }

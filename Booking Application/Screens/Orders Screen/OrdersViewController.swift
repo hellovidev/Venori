@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class OrdersViewController: UIHostingController<OrdersView>  {
-    private let state = OrdersViewModel()
+    private let viewModel = OrdersViewModel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -17,9 +17,9 @@ class OrdersViewController: UIHostingController<OrdersView>  {
     }
     
     init() {
-        let view = OrdersView(ordersViewModel: state)
+        let view = OrdersView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
