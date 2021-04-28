@@ -10,5 +10,7 @@ import Foundation
 class DetailsRestarauntViewModel: ObservableObject {
     weak var controller: DetailsRestarauntViewController?
     @Published var place: Place?
+    @Published var workTime: String?
+    @Published var schedules: [Schedule]?
     
 }

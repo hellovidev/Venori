@@ -64,6 +64,7 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
         self.serviceAPI.getScheduleOfPlace(completion: { result in
                 switch result {
                 case .success(let weekSchedule):
+                    self.state.schedules = weekSchedule
                     print(weekSchedule)
                     //self.times = times
                 case .failure(let error):
@@ -76,3 +77,39 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     }
     
 }
+
+//func getDayOfWeek(_ today:String) -> Int? {
+//    let formatter  = DateFormatter()
+//    formatter.dateFormat = "yyyy-MM-dd"
+//    guard let todayDate = formatter.date(from: today) else { return nil }
+//    let myCalendar = Calendar(identifier: .gregorian)
+//    let weekDay = myCalendar.component(.weekday, from: todayDate)
+//    return weekDay
+//}
+//
+//if let weekday = getDayOfWeek("2021-04-28") {
+//    print(weekday)
+//} else {
+//    print("bad input")
+//}
+
+extension Date {
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
+}
+
+// returns an integer from 1 - 7, with 1 being Sunday and 7 being Saturday
+//print(Date().dayNumberOfWeek()!) // 4
+//If you were looking for the written, localized version of the day of week:
+
+extension Date {
+    func dayOfWeek() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self).capitalized
+        // or use capitalized(with: locale) if you want
+    }
+}
+
+//print(Date().dayOfWeek()!) // Wednesday
