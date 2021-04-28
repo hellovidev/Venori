@@ -11,6 +11,7 @@ import SwiftUI
 class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView>  {
     private let state = DetailsRestarauntViewModel()
     var place: Place?
+    private var serviceAPI = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -57,6 +58,21 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
         let navigationController = UINavigationController(rootViewController: rootviewController)
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
+    }
+    
+    func showWeekSchedule(placeID: Int) {
+        self.serviceAPI.getScheduleOfPlace(completion: { result in
+                switch result {
+                case .success(let weekSchedule):
+                    print(weekSchedule)
+                    //self.times = times
+                case .failure(let error):
+                    print(error)
+                //                                    DispatchQueue.main.async {
+                //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+                //                                      }
+                }
+        }, placeIdentifier: placeID)
     }
     
 }

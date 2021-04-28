@@ -8,7 +8,7 @@
 import Foundation
 
 class OrderProcessViewModel: ObservableObject {
-    var controller: OrderProcessViewController?
+    weak var controller: OrderProcessViewController?
     @Published var availableTime = [String]()
     @Published var placeID: Int?
 }

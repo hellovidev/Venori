@@ -108,7 +108,7 @@ struct DetailsRestarauntView: View {
                             .font(.system(size: 18, weight: .regular))
                             .padding(.bottom, 2)
                         Button {
-                            
+                            self.viewModel.controller?.showWeekSchedule(placeID: self.viewModel.place!.id)
                         } label: {
                             Text("View schedule")
                                 .font(.system(size: 12, weight: .regular))

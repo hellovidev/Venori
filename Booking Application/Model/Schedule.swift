@@ -10,10 +10,10 @@ import SwiftUI
 struct Schedule: Codable, Hashable, Identifiable {
     var id: Int
     var placeID: Int
-    var workStart: String
-    var workEnd: String
-    var lunchStart: String
-    var lunchEnd: String
+    var workStart: String?
+    var workEnd: String?
+    var lunchStart: String?
+    var lunchEnd: String?
     var createdAt: String
     var updatedAt: String
     
@@ -32,4 +32,5 @@ struct Schedule: Codable, Hashable, Identifiable {
 
 struct WeekSchedule: Codable {
     var data: [Schedule]
+    
 }

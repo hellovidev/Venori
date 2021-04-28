@@ -89,6 +89,8 @@ struct BookProcessView: View {
     
     var serviceAPI: ServiceAPI = ServiceAPI()
     
+    @State private var selectedReservationTime: Bool = false
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -209,7 +211,7 @@ struct BookProcessView: View {
                         HStack(spacing: -8) {
                             ForEach(times, id: \.self) { object in
                                 Button {
-                                    
+                                    //selectedReservationTime = true
                                 } label: {
                                     Text(object)
                                         .foregroundColor(Color(UIColor(hex: "#00000080")!))
@@ -219,6 +221,7 @@ struct BookProcessView: View {
                                         .cornerRadius(24)
                                         .padding(.leading, 16)
                                 }
+                                //.disabled(selectedReservationTime)
                             }
                         }
                         

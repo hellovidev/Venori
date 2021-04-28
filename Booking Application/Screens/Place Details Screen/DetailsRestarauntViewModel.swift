@@ -8,7 +8,7 @@
 import Foundation
 
 class DetailsRestarauntViewModel: ObservableObject {
-    var controller: DetailsRestarauntViewController?
+    weak var controller: DetailsRestarauntViewController?
     @Published var place: Place?
     
 }
