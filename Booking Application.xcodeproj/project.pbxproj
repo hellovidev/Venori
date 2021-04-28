@@ -460,9 +460,9 @@
 				3F08B9F6262DB6380097FF1A /* Place.swift */,
 				3FDE435D2631C0CD00699ECB /* Order.swift */,
 				3F0A4318262EF69F0001C12F /* Review.swift */,
+				3FC3BB422639B40300C74727 /* Product.swift */,
 				3FF060772628641D00308556 /* Category.swift */,
 				3FA90C8D2632DEEE001D1BCE /* Schedule.swift */,
-				3FC3BB422639B40300C74727 /* Product.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
