@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserMenuView: View {
-    @ObservedObject var userMenuViewModel: UserMenuViewModel
+    @ObservedObject var viewModel: UserMenuViewModel
     private let api = ServiceAPI()
     
     private let headerSection = ["Account details", "Booking history", "Favorites", "Notifications", "Settings"]
@@ -40,7 +40,9 @@ struct UserMenuView: View {
             List {
                 Section(footer: Spacer()) {
                     ForEach(headerSection, id: \.self) { item in
-                        Button { } label: {
+                        Button {
+                            self.viewModel.controller?.redirectToBookingHistory()
+                        } label: {
                             HStack(alignment: .center) {
                                 Image(menuIcons[0])
                                 Text("\(item)")
@@ -53,7 +55,7 @@ struct UserMenuView: View {
                 Section(footer:
                             Button {
                                 api.userAccountLogout()
-                                userMenuViewModel.controller?.systemLogOut()
+                                viewModel.controller?.systemLogOut()
                             } label: {
                                 Text("Log out")
                             }
@@ -73,6 +75,6 @@ struct UserMenuView: View {
 
 struct UserMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        UserMenuView(userMenuViewModel: UserMenuViewModel())
+        UserMenuView(viewModel: UserMenuViewModel())
     }
 }

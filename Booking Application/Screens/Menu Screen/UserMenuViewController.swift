@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class UserMenuViewController: UIHostingController<UserMenuView>  {
-    private let state = UserMenuViewModel()
+    private let viewModel = UserMenuViewModel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -21,9 +21,9 @@ class UserMenuViewController: UIHostingController<UserMenuView>  {
     }
     
     init() {
-        let view = UserMenuView(userMenuViewModel: state)
+        let view = UserMenuView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
@@ -37,6 +37,12 @@ class UserMenuViewController: UIHostingController<UserMenuView>  {
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }
+    }
+    
+    func redirectToBookingHistory() {
+        let navigationController = UINavigationController(rootViewController: BookingHistoryViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
     }
     
 }

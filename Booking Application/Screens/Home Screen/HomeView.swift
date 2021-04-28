@@ -11,8 +11,12 @@ struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     var serviceAPI = ServiceAPI()
     var favIsEmpty: Bool = true //***
+//
+//    @State private var showPopUp: Bool = false
+//    @State private var errorMessage: String = ""
     
     var body: some View {
+//        ZStack{
         NavigationBarView(title: "", isRoot: true, isSearch: true, isLast: false, color: .white, onBackClick: {}) {
             ScrollView {
                 VStack {
@@ -106,6 +110,10 @@ struct HomeView: View {
                             case .success(let categories):
                                 self.viewModel.categories = categories.data
                             case .failure(let error):
+                                
+
+//                                self.errorMessage = error.localizedDescription
+//                                showPopUp.toggle()
                                 DispatchQueue.main.async {
                                     viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
 
@@ -124,7 +132,9 @@ struct HomeView: View {
 //                    }
                 }
             }
-        }
+//        }
+//        ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
+    }
     }
 }
 

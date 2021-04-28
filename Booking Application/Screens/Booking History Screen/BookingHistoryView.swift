@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct BookingHistoryView: View {
+    @ObservedObject var viewModel: BookingHistoryViewModel
+
+    private let serviceAPI = ServiceAPI()
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -16,6 +20,19 @@ struct BookingHistoryView: View {
                     HistoryItemView(isStatus: false, isActive: false)
                 }
             }
+        }
+        .onAppear {
+            self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
+                switch result {
+                case .success(let orders):
+                    print(orders)
+                    //self.viewModel.categories = categories.data
+                case .failure(let error):
+                    print(error)
+                    //self.errorMessage = error.localizedDescription
+                    //showPopUp.toggle()
+                }
+            })
         }
     }
 }
@@ -112,6 +129,6 @@ struct HistoryItemView: View {
 
 struct BookingHistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        BookingHistoryView()
+        BookingHistoryView(viewModel: BookingHistoryViewModel())
     }
 }

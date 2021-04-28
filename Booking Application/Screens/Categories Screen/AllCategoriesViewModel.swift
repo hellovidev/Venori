@@ -8,6 +8,6 @@
 import Foundation
 
 class AllCategoriesViewModel: ObservableObject {
-    var controller: AllCategoriesViewController?
+    weak var controller: AllCategoriesViewController?
     @Published var categories = [Category]()
 }

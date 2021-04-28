@@ -10,14 +10,14 @@ import Foundation
 struct Order: Codable, Hashable, Identifiable {
     var id: Int
     var status: String
-    var price: Float
+    var price: String
     var date: String
     var people: Int
     var staying: Int
     var time: String
     var stayingEnd: String
     var userID: Int
-    var placeID: String //***
+    var placeID: Int //***
     var createdAt: String
     var updatedAt: String
     
