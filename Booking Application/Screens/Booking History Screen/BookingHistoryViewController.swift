@@ -26,8 +26,11 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func redirectPrevious() {
+    // MARK: -> Click On 'Back' Button
+    
+    func goBackToPreviousView() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
+    
 }

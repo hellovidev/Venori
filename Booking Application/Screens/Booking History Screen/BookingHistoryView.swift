@@ -13,19 +13,50 @@ struct BookingHistoryView: View {
     private let serviceAPI = ServiceAPI()
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(0...10, id: \.self) {
-                    Text("\($0)")
-                    HistoryItemView(isStatus: false, isActive: false)
+        NavigationView {
+                GeometryReader { geometry in
+                    VStack {
+                        ZStack {
+                            VStack {
+                                Button(action: {
+                                    self.viewModel.controller?.goBackToPreviousView()
+                                }, label: {
+                                    Image("Arrow Left")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxWidth: 24, alignment: .leading)
+                                        .padding([.bottom, .top], 13)
+                                        .padding(.leading, 19)
+                                        .foregroundColor(.black)
+                                })
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            Text("Booking history")
+                                .font(.system(size: 18, weight: .bold))
+                        }
+                        .frame(width: geometry.size.width, height: 48, alignment: .center)
+                        ScrollView(showsIndicators: false) {
+                        VStack {
+                            ForEach(viewModel.orders, id: \.self) { item in
+                                HistoryItemView(isStatus: false, isActive: false, id: item.id, price: item.price, people: item.people, date: item.date)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                        .padding(.top, 16)
+                        .padding(.bottom, 35)
+                        
+                        
+                        }
+                    }
                 }
-            }
+                .navigationBarHidden(true)
         }
         .onAppear {
             self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
                 switch result {
                 case .success(let orders):
                     print(orders)
+                    viewModel.orders = orders.data
                     //self.viewModel.categories = categories.data
                 case .failure(let error):
                     print(error)
@@ -41,15 +72,20 @@ struct HistoryItemView: View {
     let isStatus: Bool
     let isActive: Bool
     
-    init(isStatus: Bool, isActive: Bool) {
-        self.isStatus = isStatus
-        self.isActive = isActive
-    }
+    let id: Int
+    let price: String
+    let people: Int
+    let date: String
+    
+//    init(isStatus: Bool, isActive: Bool) {
+//        self.isStatus = isStatus
+//        self.isActive = isActive
+//    }
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("ID2301023")
+                Text("ID\(id)")
                     .font(.system(size: 20, weight: .bold))
                 ZStack {
                     
@@ -64,20 +100,20 @@ struct HistoryItemView: View {
                                 )
                 }
                 Spacer()
-                Text("$140.00")
+                Text("$\(price)")
                     .foregroundColor(.blue)
                     .font(.system(size: 20, weight: .semibold))
             }
             HStack {
                 Image("Date Booking")
                     .padding(.trailing, 12)
-                Text("August 12, 2020")
+                Text("\(date)")
                     .font(.system(size: 14, weight: .regular))
             }
             HStack {
                 Image("Persons")
                     .padding(.trailing, 12)
-                Text("4 Persons")
+                Text("\(people) Person\(people == 1 ? "" : "s")")
                     .font(.system(size: 14, weight: .regular))
             }
             HStack(alignment: .top) {

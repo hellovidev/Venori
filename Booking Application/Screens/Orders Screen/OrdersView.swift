@@ -20,7 +20,7 @@ struct OrdersView: View {
                 VStack {
                     ForEach(0...10, id: \.self) {
                         Text("\($0)")
-                        HistoryItemView(isStatus: true, isActive: true)
+                        //HistoryItemView(isStatus: true, isActive: true)
                     }
                 }
             }
