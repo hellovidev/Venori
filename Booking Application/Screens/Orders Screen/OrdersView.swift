@@ -21,7 +21,7 @@ struct OrdersView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading) {
                         ForEach(viewModel.orders, id: \.self) { item in
-                            HistoryItemView(isStatus: false, isActive: false, id: item.id, price: item.price, people: item.people, date: item.date)
+                            HistoryOrderItemView(isActiveOrder: true, orderID: item.id, orderPrice: item.price, orderPeople: item.people, orderDate: item.createdAt)
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)

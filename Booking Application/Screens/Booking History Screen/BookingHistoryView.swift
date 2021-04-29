@@ -38,14 +38,12 @@ struct BookingHistoryView: View {
                         ScrollView(showsIndicators: false) {
                         VStack {
                             ForEach(viewModel.orders, id: \.self) { item in
-                                HistoryItemView(isStatus: false, isActive: false, id: item.id, price: item.price, people: item.people, date: item.createdAt)
+                                HistoryOrderItemView(isHistory: true, orderID: item.id, orderPrice: item.price, orderPeople: item.people, orderDate: item.createdAt)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .padding(.top, 16)
                         .padding(.bottom, 35)
-                        
-                        
                         }
                     }
                 }
@@ -57,7 +55,6 @@ struct BookingHistoryView: View {
                 case .success(let orders):
                     print(orders)
                     viewModel.orders = orders.data
-                    //self.viewModel.categories = categories.data
                 case .failure(let error):
                     print(error)
                     //self.errorMessage = error.localizedDescription
@@ -68,27 +65,47 @@ struct BookingHistoryView: View {
     }
 }
 
-struct HistoryItemView: View {
-    let isStatus: Bool
-    let isActive: Bool
+struct HistoryOrderItemView: View {
     
-    let id: Int
-    let price: String
-    let people: Int
-    let date: String
+    // Statuses Of View
     
-
+    let isHistory: Bool
+    let isStatusShow: Bool
+    let isActiveOrder: Bool
     
-//    init(isStatus: Bool, isActive: Bool) {
-//        self.isStatus = isStatus
-//        self.isActive = isActive
-//    }
+    // Order Data
+    
+    let orderID: Int
+    let orderPrice: String
+    let orderPeople: Int
+    let orderDate: String
+    
+    init(isActiveOrder: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String) {
+        self.isHistory = false
+        self.isStatusShow = true
+        self.isActiveOrder = isActiveOrder
+        self.orderID = orderID
+        self.orderPrice = orderPrice
+        self.orderPeople = orderPeople
+        self.orderDate = orderDate
+    }
+    
+    init(isHistory: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String) {
+        self.isHistory = isHistory
+        self.isStatusShow = false
+        self.isActiveOrder = false
+        self.orderID = orderID
+        self.orderPrice = orderPrice
+        self.orderPeople = orderPeople
+        self.orderDate = orderDate
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("ID\(id)")
+                Text("ID\(orderID)")
                     .font(.system(size: 20, weight: .bold))
+                if isStatusShow {
                 ZStack {
                     
                     Text("In progress")
@@ -101,26 +118,28 @@ struct HistoryItemView: View {
                                         .cornerRadius(14)
                                 )
                 }
+                }
                 Spacer()
-                Text("$\(price)")
+                Text("$\(orderPrice)")
                     .foregroundColor(.blue)
                     .font(.system(size: 20, weight: .semibold))
             }
             HStack {
                 Image("Date Booking")
                     .padding(.trailing, 12)
-                Text("\(Date().convertServerOrderDate(date: date))")
+                Text("\(Date().convertServerOrderDate(date: orderDate))")
                     .font(.system(size: 14, weight: .regular))
             }
             HStack {
                 Image("Persons")
                     .padding(.trailing, 12)
-                Text("\(people) Person\(people == 1 ? "" : "s")")
+                Text("\(orderPeople) Person\(orderPeople == 1 ? "" : "s")")
                     .font(.system(size: 14, weight: .regular))
             }
             
             PlaceInnerItemView(imageURL: "https://burgerking.ru/images/og-default.png", title: "Burger King", rating: 3.7, reviews: 356)
             
+            if isActiveOrder {
             VStack(alignment: .center) {
                 Button(action: {
                     //acftion
@@ -140,6 +159,7 @@ struct HistoryItemView: View {
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
                 .padding([.bottom, .top], 12)
+            }
             }
             Divider()
                 .padding(.bottom, 12)
