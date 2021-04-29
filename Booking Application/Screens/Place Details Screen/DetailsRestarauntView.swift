@@ -98,10 +98,8 @@ struct DetailsRestarauntView: View {
                     HStack {
                         Image("Phone")
                             .padding(.trailing, 8)
-                        if viewModel.place!.phone != nil {
-                            Text(viewModel.place!.phone!)
+                            Text(viewModel.place!.phone ?? "No phone")
                                 .font(.system(size: 18, weight: .regular))
-                        }
                     }
                     .padding(.bottom, 22)
                     
@@ -112,7 +110,7 @@ struct DetailsRestarauntView: View {
                             .padding(.trailing, 8)
                         VStack(alignment: .leading) {
                             
-                            Text("Avaliable until \(self.viewModel.workTime ?? "")")
+                            Text("Avaliable until \(self.viewModel.workTime ?? "unknown")")
                                 .font(.system(size: 18, weight: .regular))
                                 .padding(.bottom, 2)
                             

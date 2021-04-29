@@ -3,32 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "valueHumans">
-            </PersistentString>
-            <PersistentString
-               value = "valueHours">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "result">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in RequestAPI.userAccountAuthentication(email:password:):RequestAPI.swift">
-      </ContextState>
-      <ContextState
-         contextName = "BookViewController.viewWillAppear(_:):BookViewController.swift">
+         contextName = "BookViewController.init():BookViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "placeID">
@@ -36,10 +11,46 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+         contextName = "closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+               value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in SchedulePopUpView.body.getter:SchedulePopUpView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedules[6]">
+            </PersistentString>
+            <PersistentString
+               value = "schedules">
+            </PersistentString>
+            <PersistentString
+               value = "schedules[6].workStart!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "getReservationLink(id: placeIdentifier)">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ServiceAPI.reserveTablePlace(placeIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -55,65 +66,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         contextName = "closure #1 in RequestAPI.loadCategoriesData():RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.viewModel.workTime!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
-      </ContextState>
-      <ContextState
-         contextName = "LoginViewController.loginValidation():LoginViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.account?.token">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "try? JSONDecoder().decode(User.self, from: data)">
+               value = "error">
             </PersistentString>
             <PersistentString
-               value = "jsonObject[&quot;user&quot;]">
+               value = "response">
             </PersistentString>
             <PersistentString
-               value = "print(user)">
-            </PersistentString>
-            <PersistentString
-               value = "jsonObject">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HomeViewController.viewWillAppear(_:):HomeViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "api.categories">
+               value = "print(response)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -129,10 +91,78 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in BookView.body.getter:BookView.swift">
+         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "bookViewModel.avalClock">
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.viewModel.workTime!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.viewWillAppear(_:):HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "api.categories">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "times">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "valueHumans">
+            </PersistentString>
+            <PersistentString
+               value = "valueHours">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -162,23 +192,67 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "BookViewController.init():BookViewController.swift">
+         contextName = "BookViewController.viewWillAppear(_:):BookViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "try? JSONDecoder().decode(User.self, from: data)">
+            </PersistentString>
+            <PersistentString
+               value = "jsonObject[&quot;user&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "print(user)">
+            </PersistentString>
+            <PersistentString
+               value = "jsonObject">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.httpBody">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in BookView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bookViewModel.avalClock">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestAPI.userAccountAuthentication(email:password:):RequestAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.loginValidation():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in HomeViewController.viewWillAppear(_:):HomeViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "placeID">
-            </PersistentString>
-         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
@@ -192,14 +266,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #2 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "times">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
          <PersistentStrings>
             <PersistentString
@@ -208,35 +274,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
+         contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "getReservationLink(id: placeIdentifier)">
-            </PersistentString>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
+               value = "item.createdAt">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in ServiceAPI.reserveTablePlace(placeIdentifier:):ServiceAPI.swift">
+         contextName = "closure #1 in closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "response">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in SchedulePopUpView.body.getter:SchedulePopUpView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "schedules[6]">
-            </PersistentString>
-            <PersistentString
-               value = "schedules">
-            </PersistentString>
-            <PersistentString
-               value = "schedules[6].workStart!">
+               value = "self.account?.token">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -248,36 +297,6 @@
             </PersistentString>
             <PersistentString
                value = "state.password">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "request.httpBody">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in RequestAPI.loadCategoriesData():RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error">
-            </PersistentString>
-            <PersistentString
-               value = "response">
-            </PersistentString>
-            <PersistentString
-               value = "print(response)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

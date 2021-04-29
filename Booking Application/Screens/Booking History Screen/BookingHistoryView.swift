@@ -38,7 +38,7 @@ struct BookingHistoryView: View {
                         ScrollView(showsIndicators: false) {
                         VStack {
                             ForEach(viewModel.orders, id: \.self) { item in
-                                HistoryItemView(isStatus: false, isActive: false, id: item.id, price: item.price, people: item.people, date: item.date)
+                                HistoryItemView(isStatus: false, isActive: false, id: item.id, price: item.price, people: item.people, date: item.createdAt)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -77,6 +77,8 @@ struct HistoryItemView: View {
     let people: Int
     let date: String
     
+
+    
 //    init(isStatus: Bool, isActive: Bool) {
 //        self.isStatus = isStatus
 //        self.isActive = isActive
@@ -107,7 +109,7 @@ struct HistoryItemView: View {
             HStack {
                 Image("Date Booking")
                     .padding(.trailing, 12)
-                Text("\(date)")
+                Text("\(Date().convertServerOrderDate(date: date))")
                     .font(.system(size: 14, weight: .regular))
             }
             HStack {
@@ -116,26 +118,9 @@ struct HistoryItemView: View {
                 Text("\(people) Person\(people == 1 ? "" : "s")")
                     .font(.system(size: 14, weight: .regular))
             }
-            HStack(alignment: .top) {
-                Image("Background Account")
-                    .resizable()
-                    .frame(maxWidth: 72, maxHeight: 72, alignment: .center)
-                    .cornerRadius(14)
-                    .scaledToFill()
-                VStack(alignment: .leading) {
-                    Text("Title")
-                        .font(.system(size: 22, weight: .bold))
-                        .padding(.bottom, -8)
-                    HStack {
-                        Image("Star")
-                        Text("4.6")
-                            .font(.system(size: 16, weight: .regular))
-                        Text("(123123)")
-                            .foregroundColor(.gray)
-                            .font(.system(size: 16, weight: .regular))
-                    }
-                }
-            }
+            
+            PlaceInnerItemView(imageURL: "https://burgerking.ru/images/og-default.png", title: "Burger King", rating: 3.7, reviews: 356)
+            
             VStack(alignment: .center) {
                 Button(action: {
                     //acftion
@@ -166,5 +151,43 @@ struct HistoryItemView: View {
 struct BookingHistoryView_Previews: PreviewProvider {
     static var previews: some View {
         BookingHistoryView(viewModel: BookingHistoryViewModel())
+    }
+}
+
+struct PlaceInnerItemView: View {
+    let imageURL: String
+    let title: String
+    let rating: Float
+    let reviews: Int
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            ImageURL(url: imageURL)
+                .scaledToFill()
+                .frame(maxWidth: 72, maxHeight: 72, alignment: .center)
+                .cornerRadius(14)
+                .fixedSize()
+            VStack(alignment: .leading) {
+                Text(title)
+                    .font(.system(size: 20, weight: .bold))
+                    .padding(.bottom, -4)
+                    .padding(.top, 2)
+                HStack {
+                    Image("Star")
+                    Text("\((NSString(format: "%.01f", rating)))")
+                        .font(.system(size: 16, weight: .regular))
+                    Text("(\(reviews))")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 16, weight: .regular))
+                }
+            }
+            .padding(.leading, 8)
+        }
+    }
+}
+
+struct PlaceInnerItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlaceInnerItemView(imageURL: "https://burgerking.ru/images/og-default.png", title: "Burger King", rating: 3.7, reviews: 356)
     }
 }

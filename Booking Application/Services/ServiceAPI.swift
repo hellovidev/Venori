@@ -1086,7 +1086,23 @@ extension String {
 
 
 
+extension Date {
+    func convertServerOrderDate(date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+        //dateFormatter.date(from: date)
+        
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "LLLL dd, yyyy h:mm a"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
 
+        if let dateConverted = dateFormatter.date(from: date) {
+            return dateFormatterPrint.string(from: dateConverted)
+        } else {
+           return "There was an error decoding the string"
+        }
+    }
+}
 
 
 
