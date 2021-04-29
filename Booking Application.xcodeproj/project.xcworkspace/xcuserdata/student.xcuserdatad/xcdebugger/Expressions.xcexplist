@@ -91,6 +91,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "HistoryOrderItemView.isActiveOrder.didset:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -115,6 +123,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in closure #4 in closure #1 in HistoryOrderItemView.body.getter:BookingHistoryView.swift">
+      </ContextState>
+      <ContextState
          contextName = "HomeViewController.viewWillAppear(_:):HomeViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -132,6 +143,25 @@
       </ContextState>
       <ContextState
          contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HistoryOrderItemView.body.getter:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isActiveOrder">
+            </PersistentString>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HistoryOrderItemView.init(isActiveOrder:orderID:orderPrice:orderPeople:orderDate:orderStatus:):BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
@@ -213,6 +243,14 @@
             </PersistentString>
             <PersistentString
                value = "jsonObject">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "getCancelOrderLink(orderIdentifier: orderIdentifier)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

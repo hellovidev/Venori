@@ -37,8 +37,8 @@ struct BookingHistoryView: View {
                         .frame(width: geometry.size.width, height: 48, alignment: .center)
                         ScrollView(showsIndicators: false) {
                         VStack {
-                            ForEach(viewModel.orders, id: \.self) { item in
-                                HistoryOrderItemView(isHistory: true, orderID: item.id, orderPrice: item.price, orderPeople: item.people, orderDate: item.createdAt)
+                            ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
+                                HistoryOrderItemView(isHistory: true, orderID: item.id, orderPrice: item.price, orderPeople: item.people, orderDate: item.createdAt, orderStatus: item.status)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -66,38 +66,55 @@ struct BookingHistoryView: View {
 }
 
 struct HistoryOrderItemView: View {
+    private let serviceAPI = ServiceAPI()
     
     // Statuses Of View
     
-    let isHistory: Bool
-    let isStatusShow: Bool
-    let isActiveOrder: Bool
+    @State private var isHistory: Bool = true
+    @State private var isStatusShow: Bool = true
+    @State private var isActiveOrder: Bool?
     
     // Order Data
     
-    let orderID: Int
-    let orderPrice: String
-    let orderPeople: Int
-    let orderDate: String
-    
-    init(isActiveOrder: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String) {
+    var orderID: Int = 0
+    var orderPrice: String = ""
+    var orderPeople: Int = 0
+    var orderDate: String = ""
+    @State private var orderStatus: String?
+        
+    init(isActiveOrder: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String, orderStatus: String) {
         self.isHistory = false
         self.isStatusShow = true
-        self.isActiveOrder = isActiveOrder
+        self._isActiveOrder = State(initialValue: isActiveOrder)
         self.orderID = orderID
         self.orderPrice = orderPrice
         self.orderPeople = orderPeople
         self.orderDate = orderDate
+        //self.orderStatus = orderStatus
+        self._orderStatus = State(initialValue: orderStatus)
+        print("INIT")
+        
+        switch self.orderStatus {
+        case "Confirmed":
+            self._isActiveOrder = State(initialValue: true)
+        case "Rejected":
+            self._isActiveOrder = State(initialValue: false)
+        default:
+            self._isActiveOrder = State(initialValue: true)
+        }
     }
     
-    init(isHistory: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String) {
+    init(isHistory: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String, orderStatus: String) {
         self.isHistory = isHistory
         self.isStatusShow = false
-        self.isActiveOrder = false
+//        self.isActiveOrder = false
+        self._isActiveOrder = State(initialValue: false)
         self.orderID = orderID
         self.orderPrice = orderPrice
         self.orderPeople = orderPeople
         self.orderDate = orderDate
+        //self.orderStatus = orderStatus
+        self._orderStatus = State(initialValue: orderStatus)
     }
     
     var body: some View {
@@ -108,7 +125,7 @@ struct HistoryOrderItemView: View {
                 if isStatusShow {
                 ZStack {
                     
-                    Text("In progress")
+                    Text(orderStatus ?? "Unknown")
                         .foregroundColor(.blue)
                         .font(.system(size: 12, weight: .regular))
                         .padding([.leading, .trailing], 10)
@@ -138,11 +155,21 @@ struct HistoryOrderItemView: View {
             }
             
             PlaceInnerItemView(imageURL: "https://burgerking.ru/images/og-default.png", title: "Burger King", rating: 3.7, reviews: 356)
-            
-            if isActiveOrder {
+            if isActiveOrder! {
             VStack(alignment: .center) {
                 Button(action: {
-                    //acftion
+                    self.serviceAPI.cancelOrderInProgress(completion: { result in
+                        switch result {
+                        case .success(let message):
+                            print(message)
+                            self.isActiveOrder = false
+                            
+                        case .failure(let error):
+                            print(error)
+                            self.isActiveOrder = false
+                            self.onCancelClick()
+                        }
+                    }, orderIdentifier: orderID)
                 }) {
                     Text("Cancel")
                         .foregroundColor(.white)
@@ -160,7 +187,7 @@ struct HistoryOrderItemView: View {
                 .padding(.trailing, 75)
                 .padding([.bottom, .top], 12)
             }
-            }
+        }
             Divider()
                 .padding(.bottom, 12)
         }
