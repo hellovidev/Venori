@@ -16,7 +16,8 @@ struct OrderProcessView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if !isComplete {
-                BookProcessView(times: viewModel.availableTime, placeID: viewModel.placeID!, actionContinue: {
+//                BookProcessView(times: viewModel.availableTime, placeID: viewModel.placeID!, actionContinue: {
+                BookProcessView(times: [Time](), placeID: viewModel.placeID!, actionContinue: {
                     self.isComplete.toggle()
                 }, actionClose: {
                     self.viewModel.controller?.backToPlace()
@@ -81,7 +82,7 @@ struct CompleteView: View {
 struct BookProcessView: View {
     @State var valueHours: Float = 0.5
     @State var valueHumans: Float = 1
-    @State var times: [String]
+    @State var times: [Time]
     @State var placeID: Int
     @State private var numberOfAdults = 1
     var actionContinue: () -> Void
@@ -151,17 +152,17 @@ struct BookProcessView: View {
                         
                         let result = formatter.string(from: date)
                         
-                        serviceAPI.getPlaceAvailableTime(completion: { result in
-                            switch result {
-                            case .success(let times):
-                                self.times = times
-                            case .failure(let error):
-                                print(error)
-                            //                                    DispatchQueue.main.async {
-                            //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-                            //                                      }
-                            }
-                        }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: result)
+//                        serviceAPI.getPlaceAvailableTime(completion: { result in
+//                            switch result {
+//                            case .success(let times):
+//                                self.times = times
+//                            case .failure(let error):
+//                                print(error)
+//                            //                                    DispatchQueue.main.async {
+//                            //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//                            //                                      }
+//                            }
+//                        }, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: result)
                     })
                     
                     .padding(.trailing, 16)
@@ -189,7 +190,12 @@ struct BookProcessView: View {
                         serviceAPI.getPlaceAvailableTime(completion: { result in
                             switch result {
                             case .success(let times):
-                                self.times = times
+                                //self.times = times
+                                self.times = [Time]()
+                                for item in times {
+                                    self.times.append(Time(time: item))
+                                }
+                                
                             case .failure(let error):
                                 print(error)
                             //                                    DispatchQueue.main.async {
@@ -208,22 +214,23 @@ struct BookProcessView: View {
                         .font(.system(size: 18, weight: .regular))
                         .padding(.leading, 16)
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: -8) {
-                            ForEach(times, id: \.self) { object in
-                                Button {
-                                    //selectedReservationTime = true
-                                } label: {
-                                    Text(object)
-                                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                                        .padding([.top, .bottom], 12)
-                                        .padding([.leading, .trailing], 16)
-                                        .background(Color(UIColor(hex: "#F6F6F6FF")!))
-                                        .cornerRadius(24)
-                                        .padding(.leading, 16)
-                                }
-                                //.disabled(selectedReservationTime)
-                            }
-                        }
+//                        HStack(spacing: -8) {
+                            EnumerationTimeView(items: self.times)
+//                            ForEach(times, id: \.self) { object in
+//                                Button {
+//                                    //selectedReservationTime = true
+//                                } label: {
+//                                    Text(object)
+//                                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+//                                        .padding([.top, .bottom], 12)
+//                                        .padding([.leading, .trailing], 16)
+//                                        .background(Color(UIColor(hex: "#F6F6F6FF")!))
+//                                        .cornerRadius(24)
+//                                        .padding(.leading, 16)
+//                                }
+//                                //.disabled(selectedReservationTime)
+//                            }
+//                        }
                         
                     }
                 }
@@ -246,7 +253,12 @@ struct BookProcessView: View {
                         result in
                         switch result {
                         case .success(let times):
-                            self.times = times
+                            //print(times)
+                            //self.times = times
+                            self.times = [Time]()
+                            for item in times {
+                                self.times.append(Time(time: item))
+                            }
                         case .failure(let error):
                             print(error)
                         //                                                DispatchQueue.main.async {

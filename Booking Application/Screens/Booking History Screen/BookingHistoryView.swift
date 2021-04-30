@@ -9,11 +9,12 @@ import SwiftUI
 
 struct BookingHistoryView: View {
     @ObservedObject var viewModel: BookingHistoryViewModel
-
+    @State private var isEmpty: Bool = true
     private let serviceAPI = ServiceAPI()
     
     var body: some View {
         NavigationView {
+            ZStack {
                 GeometryReader { geometry in
                     VStack {
                         ZStack {
@@ -48,17 +49,34 @@ struct BookingHistoryView: View {
                     }
                 }
                 .navigationBarHidden(true)
+            
+            VStack(alignment: .center) {
+                Image("Empty")
+                    .resizable()
+                    .renderingMode(.template)
+                    .isHidden(!isEmpty, remove: !isEmpty)
+                    .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                    .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                Text("You have no confirmed or rejected orders.")
+                    .isHidden(!isEmpty, remove: !isEmpty)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(Color(UIColor(hex: "#00000080")!))
+            }
+        }
         }
         .onAppear {
             self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
                 switch result {
                 case .success(let orders):
-                    print(orders)
                     viewModel.orders = orders.data
+                    if viewModel.orders.isEmpty {
+                        self.isEmpty = true
+                    } else {
+                        self.isEmpty = false
+                    }
                 case .failure(let error):
+                    self.isEmpty = true
                     print(error)
-                    //self.errorMessage = error.localizedDescription
-                    //showPopUp.toggle()
                 }
             })
         }

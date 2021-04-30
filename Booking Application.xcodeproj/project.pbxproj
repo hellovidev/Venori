@@ -15,6 +15,8 @@
 		3F08B9F7262DB6380097FF1A /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F6262DB6380097FF1A /* Place.swift */; };
 		3F0A430E262EEAFF0001C12F /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A430D262EEAFF0001C12F /* ServiceAPI.swift */; };
 		3F0A4319262EF69F0001C12F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A4318262EF69F0001C12F /* Review.swift */; };
+		3F1E19C2263C4B9A00908DE3 /* EnumerationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E19C1263C4B9A00908DE3 /* EnumerationTimeView.swift */; };
+		3F1E19C5263C4BFE00908DE3 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E19C4263C4BFE00908DE3 /* Time.swift */; };
 		3F26126326396F2000B3250D /* SchedulePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26126226396F2000B3250D /* SchedulePopUpView.swift */; };
 		3F26126E263992D100B3250D /* FoodItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26126D263992D100B3250D /* FoodItemsView.swift */; };
 		3F2612732639950500B3250D /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2612722639950500B3250D /* ProductView.swift */; };
@@ -83,6 +85,8 @@
 		3F08B9F6262DB6380097FF1A /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		3F0A430D262EEAFF0001C12F /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
 		3F0A4318262EF69F0001C12F /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		3F1E19C1263C4B9A00908DE3 /* EnumerationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumerationTimeView.swift; sourceTree = "<group>"; };
+		3F1E19C4263C4BFE00908DE3 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		3F26126226396F2000B3250D /* SchedulePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePopUpView.swift; sourceTree = "<group>"; };
 		3F26126D263992D100B3250D /* FoodItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsView.swift; sourceTree = "<group>"; };
 		3F2612722639950500B3250D /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
@@ -155,6 +159,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F1E19C0263C4B7500908DE3 /* Enumeration Time View */ = {
+			isa = PBXGroup;
+			children = (
+				3F1E19C1263C4B9A00908DE3 /* EnumerationTimeView.swift */,
+			);
+			path = "Enumeration Time View";
+			sourceTree = "<group>";
+		};
 		3F26126126396F0B00B3250D /* Schedule PopUp View */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +453,7 @@
 		3FDE43692632D1DE00699ECB /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				3F1E19C0263C4B7500908DE3 /* Enumeration Time View */,
 				3FC3BB452639B5C400C74727 /* Error PopUp View */,
 				3FDE43712632D20F00699ECB /* Map View */,
 				3F86BDF12626D9A100CA4CD3 /* Launch View */,
@@ -474,6 +487,7 @@
 			children = (
 				3FDE434C26318C0800699ECB /* Link.swift */,
 				3FF0607C262867C600308556 /* User.swift */,
+				3F1E19C4263C4BFE00908DE3 /* Time.swift */,
 				3F08B9F6262DB6380097FF1A /* Place.swift */,
 				3FDE435D2631C0CD00699ECB /* Order.swift */,
 				3F0A4318262EF69F0001C12F /* Review.swift */,
@@ -604,7 +618,9 @@
 				3FA90CA22632F0DE001D1BCE /* TextFieldView.swift in Sources */,
 				3F86BDF92626D9D800CA4CD3 /* LoginView.swift in Sources */,
 				3F86BDF32626D9B000CA4CD3 /* LaunchView.swift in Sources */,
+				3F1E19C2263C4B9A00908DE3 /* EnumerationTimeView.swift in Sources */,
 				3F86BDAE2626D4C800CA4CD3 /* SceneDelegate.swift in Sources */,
+				3F1E19C5263C4BFE00908DE3 /* Time.swift in Sources */,
 				3F08B9E2262DA66E0097FF1A /* OrderProcessViewModel.swift in Sources */,
 				3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */,
 				3F0A430E262EEAFF0001C12F /* ServiceAPI.swift in Sources */,
