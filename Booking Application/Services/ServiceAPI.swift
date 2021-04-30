@@ -9,9 +9,6 @@ import Combine
 import Foundation
 
 class ServiceAPI: ObservableObject {
-    @Published var orders: Orders?
-    
-    @Published var availableTimes: [String]?
     
     // MARK: -> Method For Loading Categories Data
 
@@ -574,6 +571,95 @@ class ServiceAPI: ObservableObject {
         .resume()
     }
     
+    // MARK: -> Authentication User Account
+    
+    func userAccountAuthentication(completion: @escaping (Result<Account, Error>) -> Void, email: String, password: String) {
+        
+        // Link Generating
+
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.loginRoute.rawValue) else { return }
+                
+        // Request Body Generating
+        
+        let data: [String: String] = ["email": email, "password": password]
+        let body = try! JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data from server about sign in is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Read Response Data
+                
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(info)
+                
+                // Decodable JSON Data
+                
+                let response = try JSONDecoder().decode(Account.self, from: data)
+                
+                // Get Data to API Manager Value of Message About User
+                
+                DispatchQueue.main.async {
+                    completion(.success(response))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // MARK: -> Registration User Account
     
     func userAccountRegistration(name: String, surname: String, email: String, password: String) {
@@ -647,75 +733,7 @@ class ServiceAPI: ObservableObject {
         } while !done
     }
     
-    // MARK: -> Authentication User Account
-    
-    func userAccountAuthentication(completion: @escaping (Result<Account, Error>) -> Void, email: String, password: String) {
-        
-        // Link Generating
 
-        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.loginRoute.rawValue) else { return }
-                
-        // Request Body Generating
-        
-        let data: [String: String] = ["email": email, "password": password]
-        let body = try! JSONSerialization.data(withJSONObject: data)
-        
-        // Set Request Settings
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = body
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
-            
-            // Check Presence of Errors
-            
-            guard error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            // Data Validation
-            
-            guard let data = data else {
-                completion(.failure(NSLocalizedString("Loaded data from server about sign in is empty!", comment: "Error")))
-                return
-            }
-            
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
-                default:
-                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
-                }
-            } else {
-                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
-                return
-            }
-            
-            do {
-                
-                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(info)
-                
-                // Decodable JSON Data
-                
-                let response = try JSONDecoder().decode(Account.self, from: data)
-                
-                // Get Data to API Manager Value of Message About User
-                
-                DispatchQueue.main.async {
-                    completion(.success(response))
-                }
-            } catch {
-                completion(.failure(error))
-            }
-        })
-        .resume()
-    }
 
 
 
@@ -800,7 +818,7 @@ class ServiceAPI: ObservableObject {
                 // Set Data to API Manager Value of Places
                 
                 DispatchQueue.main.async {
-                    self.orders?.data.append(response)
+                    //self.orders?.data.append(response)
                 }
             } catch {
                 print(error)
