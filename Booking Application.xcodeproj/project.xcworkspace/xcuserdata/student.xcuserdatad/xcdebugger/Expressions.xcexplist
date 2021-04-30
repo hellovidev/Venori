@@ -3,10 +3,13 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "BookViewController.init():BookViewController.swift">
+         contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "placeID">
+               value = "api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)">
+            </PersistentString>
+            <PersistentString
+               value = "state.password">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -19,21 +22,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in SchedulePopUpView.body.getter:SchedulePopUpView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "schedules[6]">
-            </PersistentString>
-            <PersistentString
-               value = "schedules">
-            </PersistentString>
-            <PersistentString
-               value = "schedules[6].workStart!">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+         contextName = "HistoryOrderItemView.isActiveOrder.didset:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
@@ -55,13 +52,27 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in AllCategoriesView.body.getter:AllCategoriesView.swift">
+         contextName = "closure #1 in closure #1 in SchedulePopUpView.body.getter:SchedulePopUpView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "error">
+               value = "schedules[6]">
             </PersistentString>
             <PersistentString
-               value = "errorMessage">
+               value = "schedules">
+            </PersistentString>
+            <PersistentString
+               value = "schedules[6].workStart!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #3 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "homeViewModel.categories!.data">
+            </PersistentString>
+            <PersistentString
+               value = "homeViewModel.categories">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -80,29 +91,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in closure #3 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
+         contextName = "closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in AllCategoriesView.body.getter:AllCategoriesView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "homeViewModel.categories!.data">
+               value = "error">
             </PersistentString>
             <PersistentString
-               value = "homeViewModel.categories">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HistoryOrderItemView.isActiveOrder.didset:BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.isActiveOrder">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+               value = "errorMessage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -111,6 +106,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.viewModel.workTime!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -214,10 +217,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(placeIdentifier:):ServiceAPI.swift">
+         contextName = "closure #1 in ServiceAPI.userAccountLogout(completion:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in MoreView.body.getter:MoreView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }">
+               value = "viewModel.user?.avatar">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -226,6 +232,14 @@
          <PersistentStrings>
             <PersistentString
                value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(placeIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -282,6 +296,14 @@
          contextName = "closure #1 in RequestAPI.userAccountAuthentication(email:password:):RequestAPI.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ServiceAPI.fetchDataAboutBookingHistory(completion:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "info">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LoginViewController.loginValidation():LoginViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -312,12 +334,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
          <PersistentStrings>
             <PersistentString
                value = "item.createdAt">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in LoginViewController.loginValidation():LoginViewController.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
@@ -328,13 +356,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
+         contextName = "BookViewController.init():BookViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)">
-            </PersistentString>
-            <PersistentString
-               value = "state.password">
+               value = "placeID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -42,7 +42,7 @@ struct Orders: Codable {
     var currentPage: Int
     var data: [Order]
     var firstPageURL: String
-    var from: Int
+    var from: Int?
     var lastPage: Int
     var lastPageURL: String
     var links: [Link]?
@@ -50,7 +50,7 @@ struct Orders: Codable {
     var path: String
     var perPage: Int
     var prevPageURL: String?
-    var to: Int
+    var to: Int?
     var total: Int
     
     enum CodingKeys: String, CodingKey {

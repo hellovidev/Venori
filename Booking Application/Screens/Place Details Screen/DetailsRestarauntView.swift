@@ -65,7 +65,7 @@ struct DetailsRestarauntView: View {
                         Image("Star Gray")
                         Text("\(NSString(format: "%.01f", viewModel.place!.rating))")
                             .font(.system(size: 18, weight: .semibold))
-                        Text("456 Reviews")
+                        Text("\(viewModel.place!.reviewsCount) Reviews")
                             .font(.system(size: 18, weight: .regular))
                             .foregroundColor(Color(UIColor(hex: "#00000080")!))
                     }

@@ -60,7 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 let home = HomeViewController()
                 let orders = OrdersViewController()
-                let more = UserMenuViewController()
+                let more = MoreViewController()
                 
                 home.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Tab Home"), tag: 0)
                 orders.tabBarItem = UITabBarItem(title: "Orders", image: UIImage(named: "Tab Bag"), tag: 0)

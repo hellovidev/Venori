@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 class ServiceAPI: ObservableObject {
-    @Published var account: Account?
     @Published var orders: Orders?
     
     @Published var availableTimes: [String]?
@@ -181,14 +180,14 @@ class ServiceAPI: ObservableObject {
             // Data Validation
             
             guard let data = data else {
-                completion(.failure(NSLocalizedString("Loaded data of places from server is empty!", comment: "Error")))
+                completion(.failure(NSLocalizedString("Loaded data of booking history from server is empty!", comment: "Error")))
                 return
             }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for places.", comment: "Success"))
+                    NSLog(NSLocalizedString("Status Code is 200... Request for booking history.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -203,15 +202,15 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(info)
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(info)
                 
                 // Decodable JSON Data
                 
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(Orders.self, from: data)
                 
-                // Set Data to API Manager Value of Places
+                // Set Data to API Manager Value of Booking History
                 
                 DispatchQueue.main.async {
                     completion(.success(response))
@@ -251,14 +250,14 @@ class ServiceAPI: ObservableObject {
             // Data Validation
             
             guard let data = data else {
-                completion(.failure(NSLocalizedString("Loaded data of places from server is empty!", comment: "Error")))
+                completion(.failure(NSLocalizedString("Loaded data of orders from server is empty!", comment: "Error")))
                 return
             }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for places.", comment: "Success"))
+                    NSLog(NSLocalizedString("Status Code is 200... Request for orders.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -273,15 +272,15 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(info)
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(info)
                 
                 // Decodable JSON Data
                 
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(Orders.self, from: data)
                 
-                // Set Data to API Manager Value of Places
+                // Set Data to API Manager Value of Orders
                 
                 DispatchQueue.main.async {
                     completion(.success(response))
@@ -343,15 +342,15 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                //guard let info = try JSONSerialization.jsonObject(with: data) as? String else { return }
-                //print(info)
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(info)
                 
                 // Decodable JSON Data
                 
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(String.self, from: data)
                 
-                // Set Data to API Manager Value of Places
+                // Set Data to API Manager Value of Message
                 
                 DispatchQueue.main.async {
                     completion(.success(response))
@@ -362,19 +361,6 @@ class ServiceAPI: ObservableObject {
         })
         .resume()
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // MARK: -> Check Place Free Time For Reservation
     
@@ -441,12 +427,12 @@ class ServiceAPI: ObservableObject {
                 
                 // Decodable JSON Data
                 
-                let response = try JSONDecoder().decode([[String]].self, from: data)
+                let response = try JSONDecoder().decode([String].self, from: data)
                 
                 // Get Data to API Manager Value of Available Time for Place
                 
                 DispatchQueue.main.async {
-                    completion(.success(response[0]))
+                    completion(.success(response))
                 }
             } catch {
                 completion(.failure(error))
@@ -512,10 +498,74 @@ class ServiceAPI: ObservableObject {
                 
                 let response = try JSONDecoder().decode([Schedule].self, from: data)
                 
-                // Get Data to API Manager Value of Available Time for Place
+                // Get Data to API Manager Value of Schedule for Place
                 
                 DispatchQueue.main.async {
                     completion(.success(response))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
+    // MARK: -> Logout From User Account
+    
+    func userAccountLogout(completion: @escaping (Result<String, Error>) -> Void) {
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.logoutRoute.rawValue) else { return }
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data from server about log out is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for log out.", comment: "Success"))
+                    UserDefaults.standard.removeObject(forKey: "access_token")
+                    UserDefaults.standard.removeObject(forKey: "current_user")
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Decodable JSON Data
+                
+                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+
+                // Get Data to API Manager Value of Message About Log Out
+                
+                DispatchQueue.main.async {
+                    completion(.success(response["message"] as! String))
                 }
             } catch {
                 completion(.failure(error))
@@ -599,13 +649,12 @@ class ServiceAPI: ObservableObject {
     
     // MARK: -> Authentication User Account
     
-    func userAccountAuthentication(email: String, password: String) {
-        var done = false
+    func userAccountAuthentication(completion: @escaping (Result<Account, Error>) -> Void, email: String, password: String) {
         
         // Link Generating
-        
+
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.loginRoute.rawValue) else { return }
-        
+                
         // Request Body Generating
         
         let data: [String: String] = ["email": email, "password": password]
@@ -619,130 +668,69 @@ class ServiceAPI: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        // Request to API
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
             
             // Check Presence of Errors
-            guard error == nil else { return }
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
             
             // Data Validation
             
-            guard let data = data else { return }
-            
-            // Get Response from API
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data from server about sign in is empty!", comment: "Error")))
+                return
+            }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
-                case 401:
-                    print("Unauthorized")
-                case 422:
-                    print("The given data was invalid.")
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
                 default:
-                    done = true
-                    print("Complete")
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
             } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
                 return
             }
             
             do {
                 
-                guard let response1 = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(response1)
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(info)
                 
                 // Decodable JSON Data
                 
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(Account.self, from: data)
+                let response = try JSONDecoder().decode(Account.self, from: data)
                 
-                // Saving User Access Token
+                // Get Data to API Manager Value of Message About User
                 
                 DispatchQueue.main.async {
-                    self.account = response
-                    let preferences = UserDefaults.standard
-                    preferences.set(self.account?.token, forKey: "access_token")
+                    completion(.success(response))
                 }
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         })
-        task.resume()
-        
-        // Loop for Waiting Results of Status Code
-        
-        repeat {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-        } while !done
+        .resume()
     }
-    
-    // MARK: -> Logout From User Account
-    
-    func userAccountLogout() {
-        var done = false
-        
-        // Link Generating
-        
-        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.logoutRoute.rawValue) else { return }
-        
-        // Set Request Settings
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        // Bearer Token for Authorized User
-        
-        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-        
-        // Request to API
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-            // Check Presence of Errors
-            
-            guard error == nil else { return }
-            
-            // Data Validation
-            
-            guard let data = data else { return }
-            
-            // Get Response from API
-            
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 401:
-                    print("Unauthorized")
-                case 422:
-                    print("The given data was invalid.")
-                default:
-                    done = true
-                    print("Complete")
-                }
-            } else {
-                return
-            }
-            
-            do {
-                
-                // Read Response Data
-                
-                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                print(response)
-            } catch {
-                print(error)
-            }
-        })
-        task.resume()
-        
-        // Loop for Waiting Results of Status Code
-        
-        repeat {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-        } while !done
-    }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // MARK: -> Reserve Table in Place
     
     func reserveTablePlace(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String, time: String) {

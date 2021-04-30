@@ -8,8 +8,8 @@
 import UIKit
 import SwiftUI
 
-class UserMenuViewController: UIHostingController<UserMenuView>  {
-    private let viewModel = UserMenuViewModel()
+class MoreViewController: UIHostingController<MoreView>  {
+    private let viewModel = MoreViewModel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -21,7 +21,7 @@ class UserMenuViewController: UIHostingController<UserMenuView>  {
     }
     
     init() {
-        let view = UserMenuView(viewModel: viewModel)
+        let view = MoreView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self
     }
@@ -30,14 +30,17 @@ class UserMenuViewController: UIHostingController<UserMenuView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func systemLogOut() {
+    // MARK: -> Log Out User
+    
+    func systemLogout() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = LoginViewController()
-            UserDefaults.standard.removeObject(forKey: "access_token")
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }
     }
+    
+    // MARK: -> Redirect User To Booking History
     
     func redirectToBookingHistory() {
         let navigationController = UINavigationController(rootViewController: BookingHistoryViewController())

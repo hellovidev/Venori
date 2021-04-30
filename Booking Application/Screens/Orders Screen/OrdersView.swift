@@ -32,7 +32,7 @@ struct OrdersView: View {
             .navigationBarHidden(true)
         }
         .onAppear {
-            self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
+            self.serviceAPI.fetchDataAboutOrders(completion: { result in
                 switch result {
                 case .success(let orders):
                     viewModel.orders = orders.data

@@ -35,7 +35,7 @@ struct HomeView: View {
                                             self.viewModel.controller?.redirectToPlaceDetails(object: object)
                                         }, loveClick: {
                                             // Favourite Action
-                                        }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: 777, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
+                                        }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: object.reviewsCount, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
                                         .padding(.leading, 16)
                                     }
                                 }
@@ -58,7 +58,7 @@ struct HomeView: View {
                                         self.viewModel.controller?.redirectToPlaceDetails(object: object)
                                     }, loveClick: {
                                         // Favourite Action
-                                    }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: 777, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
+                                    }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: object.reviewsCount, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
                                     .padding(.leading, 16)
                                 }
                             }

@@ -167,7 +167,7 @@ struct HistoryOrderItemView: View {
                         case .failure(let error):
                             print(error)
                             self.isActiveOrder = false
-                            self.onCancelClick()
+//                            self.onCancelClick()
                         }
                     }, orderIdentifier: orderID)
                 }) {

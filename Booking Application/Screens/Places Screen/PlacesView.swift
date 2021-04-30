@@ -27,7 +27,7 @@ struct PlacesView: View {
                             self.viewModel.controller?.redirectToPlaceDetails(object: object)
                         }, loveClick: {
                             // Favorite Action
-                        }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: 777, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
+                        }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: object.reviewsCount, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
                     }
                 }
                 .padding(.horizontal)

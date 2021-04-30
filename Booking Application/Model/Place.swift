@@ -13,6 +13,7 @@ struct Place: Codable, Hashable, Identifiable {
     var imageURL: String
     var type: String
     var rating: Float
+    var reviewsCount: Int
     var addressFull: String
     var addressLat: Double
     var addressLon: Double
@@ -29,6 +30,7 @@ struct Place: Codable, Hashable, Identifiable {
         case imageURL = "image_url"
         case type = "type"
         case rating = "rating"
+        case reviewsCount = "reviewsCount"
         case addressFull = "address_full"
         case addressLat = "address_lat"
         case addressLon = "address_lon"

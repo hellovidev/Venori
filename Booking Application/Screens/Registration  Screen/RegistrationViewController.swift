@@ -40,7 +40,7 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
             
             let home = HomeViewController()
             let orders = OrdersViewController()
-            let more = UserMenuViewController()
+            let more = MoreViewController()
             
             home.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Tab Home"), tag: 0)
             orders.tabBarItem = UITabBarItem(title: "Orders", image: UIImage(named: "Tab Bag"), tag: 0)
@@ -84,7 +84,16 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
     func registerValidation() {
         if state.email.isValidEmail() && state.password.isValidPassword() && state.password == state.passwordRepeat {
             self.serviceAPI.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)
-            self.serviceAPI.userAccountAuthentication(email: state.email, password: state.password)
+            self.serviceAPI.userAccountAuthentication(completion: { result in
+                switch result {
+                case .success(let account):
+                    let preferences = UserDefaults.standard
+                    preferences.set(account.user, forKey: "current_user")
+                    preferences.set(account.token, forKey: "access_token")
+                case .failure(let error):
+                    print(error)
+                }
+            }, email: state.email, password: state.password)
             state.controller?.registrationComplete()
         } else if state.password != state.passwordRepeat {
             state.controller?.failPopUp(title: "Authentification faild!", message: "Check password fields.", buttonTitle: "Okay")
