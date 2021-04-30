@@ -10,7 +10,6 @@ import SwiftUI
 struct MoreView: View {
     @ObservedObject var viewModel: MoreViewModel
     private let serviceAPI = ServiceAPI()
-    //private let user: User = UserDefaults.standard.object(forKey: "current_user") as! User
     
     var body: some View {
         ScrollView {
@@ -21,20 +20,22 @@ struct MoreView: View {
                         .scaledToFill()
                         .ignoresSafeArea()
                         .frame(maxWidth: .infinity, maxHeight: 256)
-                    VStack {
+                    VStack(alignment: .center) {
                         ImageURL(url: DomainRouter.generalDomain.rawValue + (viewModel.user?.avatar ?? ""))
                             .frame(maxWidth: 96, maxHeight: 96, alignment: .center)
                             .scaledToFill()
                             .clipShape(Circle())
                             .shadow(radius: 10)
                             .overlay(Circle().stroke(Color.white, lineWidth: 5))
+                            .padding([.bottom, .top], 24)
                         Text("\(viewModel.user?.firstName ?? "User") \(viewModel.user?.secondName ?? "Account")")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(Color.white)
-                            .padding(.bottom, 4)
+                            .padding(.bottom, 2)
                         Text(viewModel.user?.email ?? "Haven't Email")
                             .font(.system(size: 14, weight: .regular))
                             .foregroundColor(Color.white)
+                            .padding(.bottom, 15)
                     }
                 }
                 Group {

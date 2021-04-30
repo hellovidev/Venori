@@ -14,18 +14,20 @@ class MoreViewModel: ObservableObject {
     init() {
         
         // Read/Get Data
-
+        
         if let data = UserDefaults.standard.data(forKey: "current_user") {
-
             do {
+                
                 // Create JSON Decoder
+                
                 let decoder = JSONDecoder()
-
-                // Decode Note
+                
+                // Decode User
+                
                 self.user = try decoder.decode(User.self, from: data)
-
+                
             } catch {
-                print("Unable to Decode Note (\(error))")
+                print("Unable to Decode User (\(error))")
             }
         }
     }
