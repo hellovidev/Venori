@@ -24,6 +24,8 @@
 		3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F3D26285CD20027E48C /* HomeViewController.swift */; };
 		3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F4026285D770027E48C /* HomeViewModel.swift */; };
 		3F64AC46263FF85800862BAC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC45263FF85800862BAC /* LoadingView.swift */; };
+		3F64AC5226402D6F00862BAC /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5126402D6F00862BAC /* ButtonModifier.swift */; };
+		3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5726402E3900862BAC /* DatePickerView.swift */; };
 		3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114626297E0B00095A7F /* OrdersViewController.swift */; };
 		3F68114A26297E7800095A7F /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114926297E7800095A7F /* OrdersViewModel.swift */; };
 		3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDAB2626D4C800CA4CD3 /* AppDelegate.swift */; };
@@ -95,6 +97,8 @@
 		3F3F8F3D26285CD20027E48C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F3F8F4026285D770027E48C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3F64AC45263FF85800862BAC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		3F64AC5126402D6F00862BAC /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
+		3F64AC5726402E3900862BAC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		3F68114626297E0B00095A7F /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		3F68114926297E7800095A7F /* OrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewModel.swift; sourceTree = "<group>"; };
 		3F86BDA82626D4C800CA4CD3 /* Booking Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booking Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,6 +215,22 @@
 			path = "Loading View";
 			sourceTree = "<group>";
 		};
+		3F64AC5026402D5300862BAC /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				3F64AC5126402D6F00862BAC /* ButtonModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		3F64AC5626402E2100862BAC /* Date Picker PopUp View */ = {
+			isa = PBXGroup;
+			children = (
+				3F64AC5726402E3900862BAC /* DatePickerView.swift */,
+			);
+			path = "Date Picker PopUp View";
+			sourceTree = "<group>";
+		};
 		3F86BD9F2626D4C800CA4CD3 = {
 			isa = PBXGroup;
 			children = (
@@ -263,14 +283,14 @@
 			path = "Orders Screen";
 			sourceTree = "<group>";
 		};
-		3F86BDCA2626D83800CA4CD3 /* Booking History Screen */ = {
+		3F86BDCA2626D83800CA4CD3 /* History Screen */ = {
 			isa = PBXGroup;
 			children = (
 				3F86BDCB2626D85200CA4CD3 /* BookingHistoryView.swift */,
 				3FC3BB4B2639BF6600C74727 /* BookingHistoryViewModel.swift */,
 				3FC3BB4E2639BF7700C74727 /* BookingHistoryViewController.swift */,
 			);
-			path = "Booking History Screen";
+			path = "History Screen";
 			sourceTree = "<group>";
 		};
 		3F86BDD02626D88000CA4CD3 /* Places Screen */ = {
@@ -398,7 +418,7 @@
 			children = (
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
 				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
-				3F86BDCA2626D83800CA4CD3 /* Booking History Screen */,
+				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
@@ -463,6 +483,8 @@
 		3FDE43692632D1DE00699ECB /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				3F64AC5626402E2100862BAC /* Date Picker PopUp View */,
+				3F64AC5026402D5300862BAC /* Modifiers */,
 				3F64AC44263FF83A00862BAC /* Loading View */,
 				3F1E19C0263C4B7500908DE3 /* Enumeration Time View */,
 				3FC3BB452639B5C400C74727 /* Error PopUp View */,
@@ -615,6 +637,7 @@
 				3F08B9E6262DA6770097FF1A /* OrderProcessViewController.swift in Sources */,
 				3FF0607D262867C600308556 /* User.swift in Sources */,
 				3F26126326396F2000B3250D /* SchedulePopUpView.swift in Sources */,
+				3F64AC5226402D6F00862BAC /* ButtonModifier.swift in Sources */,
 				3F0A4319262EF69F0001C12F /* Review.swift in Sources */,
 				3F86BDD22626D89A00CA4CD3 /* PlacesView.swift in Sources */,
 				3FDE43642632C95300699ECB /* MapView.swift in Sources */,
@@ -623,6 +646,7 @@
 				3F86BDD82626D8DB00CA4CD3 /* AllCategoriesView.swift in Sources */,
 				3F86BE012626DA1900CA4CD3 /* RegistrationView.swift in Sources */,
 				3FF0609F2628894700308556 /* MoreViewController.swift in Sources */,
+				3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */,
 				3F86BDE72626D96300CA4CD3 /* MoreView.swift in Sources */,
 				3F86BDFC2626D9F000CA4CD3 /* LoginViewModel.swift in Sources */,
 				3F2612732639950500B3250D /* ProductView.swift in Sources */,

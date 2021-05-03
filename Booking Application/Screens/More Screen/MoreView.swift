@@ -12,7 +12,7 @@ struct MoreView: View {
     private let serviceAPI = ServiceAPI()
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack(alignment: .center) {
                 ZStack {
                     Image("Background Account")
@@ -21,7 +21,7 @@ struct MoreView: View {
                         .ignoresSafeArea()
                         .frame(maxWidth: .infinity, maxHeight: 256)
                     VStack(alignment: .center) {
-                        ImageURL(url: DomainRouter.generalDomain.rawValue + (viewModel.user?.avatar ?? ""))
+                        ImageURL(url: viewModel.user?.avatar != nil ? DomainRouter.generalDomain.rawValue + (viewModel.user?.avatar ?? "") : "https://lh3.googleusercontent.com/proxy/NzFM0tX4ZfHsCdyTGFntgMNRMtbjcGiIU2IPRaNCQVxnsxwxIW7RmP2wulNzmGHKw1LFffTadFnQBHZh9vxTWudJglVKytY")
                             .frame(maxWidth: 96, maxHeight: 96, alignment: .center)
                             .scaledToFill()
                             .clipShape(Circle())

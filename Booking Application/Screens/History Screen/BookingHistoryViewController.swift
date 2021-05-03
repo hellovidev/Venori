@@ -33,4 +33,14 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: -> Redirect User To Detail Information About Place
+    
+    func redirectToPlaceDetails(object: Place) {
+        let rootviewController = DetailsRestarauntViewController()
+        rootviewController.place = object
+        let navigationController = UINavigationController(rootViewController: rootviewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
+    
 }

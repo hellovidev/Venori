@@ -15,15 +15,18 @@ struct SchedulePopUpView: View {
     
     var serviceAPI = ServiceAPI()
     
+    private let enumerations = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
     var body: some View {
         ZStack {
-            if show {//true {
+            if show {
                 
                 // Background Color of PopUp View
                 
                 Color.black.opacity(show ? 0.5 : 0).edgesIgnoringSafeArea(.all)
                 
                 // PopUp Window
+                
                 VStack(alignment: .center, spacing: 20) {
                     VStack(alignment: .center, spacing: 0) {
                         Text("Week Schedule")
@@ -32,123 +35,30 @@ struct SchedulePopUpView: View {
                             .font(Font.system(size: 22, weight: .semibold))
                             .foregroundColor(Color.white)
                             .background(Color("Button Color"))
-                        
-                        HStack(alignment: .center) {
-                            Text("Monaday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            Text("\(schedules[0].workStart!) — \(schedules[0].workEnd!)")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 14, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                .foregroundColor(Color.gray)
-                        }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        
-                        HStack(alignment: .center) {
-                            Text("Tuesday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            Text("\(schedules[1].workStart!) — \(schedules[1].workEnd!)")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 14, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                .foregroundColor(Color.gray)
-                        }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        
-                        HStack(alignment: .center) {
-                            Text("Wednesday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            Text("\(schedules[2].workStart!) — \(schedules[2].workEnd!)")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 14, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                .foregroundColor(Color.gray)
-                        }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        
-                        HStack(alignment: .center) {
-                            Text("Thursday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            Text("\(schedules[3].workStart!) — \(schedules[3].workEnd!)")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 14, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                .foregroundColor(Color.gray)
-                        }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        
-                        HStack(alignment: .center) {
-                            Text("Friday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            Text("\(schedules[4].workStart!) — \(schedules[4].workEnd!)")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 14, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                .foregroundColor(Color.gray)
-                        }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        
-                        HStack(alignment: .center) {
-                            Text("Saturday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            Text("\(schedules[5].workStart!) — \(schedules[5].workEnd!)")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 14, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                .foregroundColor(Color.gray)
-                        }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        
-                        HStack(alignment: .center) {
-                            Text("Sunday:")
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .semibold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
-                                .foregroundColor(Color.black)
-                            if schedules[6].workStart == nil {
-                                Text("Day off")
+                        ForEach(0..<enumerations.count) { i in
+                            HStack(alignment: .center) {
+                                Text("\(enumerations[i]):")
                                     .multilineTextAlignment(.center)
-                                    .font(Font.system(size: 14, weight: .semibold))
-                                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                    .foregroundColor(Color.gray)
-                            } else {
-                                Text("\(schedules[6].workStart!) — \(schedules[6].workEnd!)")
-                                    .multilineTextAlignment(.center)
-                                    .font(Font.system(size: 14, weight: .semibold))
-                                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 10))
-                                    .foregroundColor(Color.gray)
+                                    .font(Font.system(size: 16, weight: .semibold))
+                                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15))
+                                    .foregroundColor(Color.black)
+                                Spacer()
+                                if schedules[i].workStart == nil {
+                                    Text("Day off")
+                                        .multilineTextAlignment(.center)
+                                        .font(Font.system(size: 14, weight: .semibold))
+                                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                                        .foregroundColor(Color.gray)
+                                } else {
+                                    Text("\(schedules[i].workStart!) — \(schedules[i].workEnd!)")
+                                        .multilineTextAlignment(.center)
+                                        .font(Font.system(size: 14, weight: .semibold))
+                                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                                        .foregroundColor(Color.gray)
+                                }
                             }
+                            .padding(EdgeInsets(top: 16, leading: 0, bottom: 12, trailing: 0))
                         }
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                        //.background(Color.red)
-                        
-                        
-                        //                    ForEach(schedules!, id: \.self) { object in
-                        //                        Text("\(object.id)")
-                        //                            .multilineTextAlignment(.center)
-                        //                            .font(Font.system(size: 16, weight: .semibold))
-                        //                            .padding(EdgeInsets(top: 20, leading: 25, bottom: 20, trailing: 25))
-                        //                            .foregroundColor(Color.white)
-                        //                    }
-                        
                     }
                     .frame(maxWidth: 300)
                     .background(Color.white)
@@ -173,6 +83,7 @@ struct SchedulePopUpView: View {
                     .frame(maxWidth: 300)
                     .background(Color("Button Color"))
                     .cornerRadius(24)
+                    
                 }
             }
         }

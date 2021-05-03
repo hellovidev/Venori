@@ -23,6 +23,24 @@ struct Place: Codable, Hashable, Identifiable {
     var tablePrice: String
     var createdAt: String
     var updatedAt: String
+    var favourite: Bool
+        
+    init() {
+        self.id = 0
+        self.name = "Default"
+        self.imageURL = ""
+        self.type = "Default"
+        self.rating = 0
+        self.reviewsCount = 0
+        self.addressFull = "Default"
+        self.addressLat = 0
+        self.addressLon = 0
+        self.description = "Default"
+        self.tablePrice = "0"
+        self.createdAt = "Default"
+        self.updatedAt = "Default"
+        self.favourite = false
+    }
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -40,6 +58,7 @@ struct Place: Codable, Hashable, Identifiable {
         case tablePrice = "table_price"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case favourite = "favourite"
     }
     
 }

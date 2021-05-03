@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EnumerationTimeView: View {
     var items: [Time]
-    @State var selected = ""
+    @Binding var selected: String
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

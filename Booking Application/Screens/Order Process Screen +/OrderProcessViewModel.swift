@@ -11,4 +11,7 @@ class OrderProcessViewModel: ObservableObject {
     weak var controller: OrderProcessViewController?
     @Published var availableTime = [String]()
     @Published var placeID: Int?
+    
+
 }
+

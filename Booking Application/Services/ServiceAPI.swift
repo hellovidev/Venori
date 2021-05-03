@@ -149,6 +149,76 @@ class ServiceAPI: ObservableObject {
         .resume()
     }
     
+    // MARK: -> Method For Loading Place By ID
+    
+    func getPlaceByIdentifier(completion: @escaping (Result<Place, Error>) -> Void, placeIdentifier: Int) {
+        guard let url = URL(string: getPlaceLink(placeIdentifier: placeIdentifier)) else { return }
+
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+                
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data of place with id \(placeIdentifier) from server is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for place with id \(placeIdentifier).", comment: "Success"))
+                case 401:
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Read Response Data
+                
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(info)
+                
+                // Decodable JSON Data
+                
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(Place.self, from: data)
+                
+                // Set Data to API Manager Value of Places
+                
+                DispatchQueue.main.async {
+                    completion(.success(response))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
     // MARK: -> Method For Loading Booking History
     
     func fetchDataAboutBookingHistory(completion: @escaping (Result<Orders, Error>) -> Void) {
@@ -407,6 +477,8 @@ class ServiceAPI: ObservableObject {
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 case 422:
                     completion(.failure(NSLocalizedString("Validation error! The given data was invalid. The date must be a date after yesterday.", comment: "Error")))
+                case 429:
+                    completion(.failure(NSLocalizedString("Too many requests!", comment: "Error")))
                 default:
                     completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
@@ -419,8 +491,15 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                //guard let info = try JSONSerialization.jsonObject(with: data) as? [[String]] else { return }
-                //print(info)
+//                do {
+//                                    guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+//                                    print(info)
+//                } catch {
+//                    print(error)
+//                }
+                
+//                guard let info = try JSONSerialization.jsonObject(with: data) as? [String] else { return }
+//                print(info)
                 
                 // Decodable JSON Data
                 
@@ -850,7 +929,11 @@ class ServiceAPI: ObservableObject {
     func getCancelOrderLink(orderIdentifier: Int) -> String {
         return DomainRouter.linkAPIRequests.rawValue + DomainRouter.ordersRoute.rawValue + "/\(orderIdentifier)"
     }
-   
+    
+    func getPlaceLink(placeIdentifier: Int) -> String {
+        return DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue + "/\(placeIdentifier)"
+    }
+    
 }
 
 // MARK: -> Get Data Results or Error from Completion
