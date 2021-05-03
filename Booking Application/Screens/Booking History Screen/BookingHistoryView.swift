@@ -9,7 +9,9 @@ import SwiftUI
 
 struct BookingHistoryView: View {
     @ObservedObject var viewModel: BookingHistoryViewModel
-    @State private var isEmpty: Bool = true
+    @State private var isEmpty: Bool = false
+    @State private var isLoading: Bool = true
+    @State private var isError: Bool = false
     private let serviceAPI = ServiceAPI()
     
     var body: some View {
@@ -36,46 +38,100 @@ struct BookingHistoryView: View {
                                 .font(.system(size: 18, weight: .bold))
                         }
                         .frame(width: geometry.size.width, height: 48, alignment: .center)
-                        ScrollView(showsIndicators: false) {
-                        VStack {
-                            ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
-                                HistoryOrderItemView(isHistory: true, orderID: item.id, orderPrice: item.price, orderPeople: item.people, orderDate: item.createdAt, orderStatus: item.status)
+                        ZStack {
+                            ScrollView(showsIndicators: false) {
+                                VStack {
+                                    ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
+                                        HistoryOrderItemView(isHistory: true, orderID: item.id, orderPrice: item.price, orderPeople: item.people, orderDate: item.createdAt, orderStatus: item.status)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                .padding(.top, 16)
+                                .padding(.bottom, 35)
                             }
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                        .padding(.top, 16)
-                        .padding(.bottom, 35)
+                            LoadingView(isAnimating: isLoading, configuration: { view in
+                                view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                                view.color = .black
+                            })
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                            .background(isLoading ? Color(UIColor(hex: "#80808033")!) : Color(UIColor(hex: "#00000000")!))
                         }
                     }
                 }
                 .navigationBarHidden(true)
-            
-            VStack(alignment: .center) {
-                Image("Empty")
-                    .resizable()
-                    .renderingMode(.template)
-                    .isHidden(!isEmpty, remove: !isEmpty)
-                    .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                    .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                Text("You have no confirmed or rejected orders.")
-                    .isHidden(!isEmpty, remove: !isEmpty)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                
+                VStack(alignment: .center) {
+                    Image("Empty")
+                        .resizable()
+                        .renderingMode(.template)
+                        .isHidden(!isEmpty, remove: !isEmpty)
+                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                    Text("You have no confirmed or rejected orders.")
+                        .isHidden(!isEmpty, remove: !isEmpty)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                    Image("Reload")
+                        .resizable()
+                        .renderingMode(.template)
+                        .isHidden(!isError, remove: !isError)
+                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                        .padding(.bottom, 12)
+                    Text("Error! Try downloading the data again.")
+                        .isHidden(!isError, remove: !isError)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                        .padding(.bottom, 12)
+                    Button(action: {
+                        self.isLoading = true
+                        self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
+                            switch result {
+                            case .success(let orders):
+                                viewModel.orders = orders.data
+                                self.isLoading = false
+                                self.isError = false
+                                if viewModel.orders.isEmpty {
+                                    self.isEmpty = true
+                                } else {
+                                    self.isEmpty = false
+                                }
+                            case .failure(let error):
+                                self.isLoading = false
+                                self.isEmpty = false
+                                self.isError = true
+                                print(error)
+                            }
+                        })
+                    }, label: {
+                        Text("Try again")
+                            .foregroundColor(.white)
+                            .padding([.top, .bottom], 16)
+                            .padding([.leading, .trailing], 32)
+                            .font(.system(size: 16, weight: .semibold))
+                    })
+                    .isHidden(!isError, remove: !isError)
+                    .background(Color(UIColor(hex: "#00000030")!))
+                    .cornerRadius(12)
+                }
             }
-        }
         }
         .onAppear {
             self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
                 switch result {
                 case .success(let orders):
                     viewModel.orders = orders.data
+                    self.isLoading = false
+                    self.isError = false
                     if viewModel.orders.isEmpty {
                         self.isEmpty = true
                     } else {
                         self.isEmpty = false
                     }
                 case .failure(let error):
-                    self.isEmpty = true
+                    self.isLoading = false
+                    self.isEmpty = false
+                    self.isError = true
                     print(error)
                 }
             })
@@ -99,7 +155,7 @@ struct HistoryOrderItemView: View {
     var orderPeople: Int = 0
     var orderDate: String = ""
     @State private var orderStatus: String?
-        
+    
     init(isActiveOrder: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String, orderStatus: String) {
         self.isHistory = false
         self.isStatusShow = true
@@ -125,7 +181,7 @@ struct HistoryOrderItemView: View {
     init(isHistory: Bool, orderID: Int, orderPrice: String, orderPeople: Int, orderDate: String, orderStatus: String) {
         self.isHistory = isHistory
         self.isStatusShow = false
-//        self.isActiveOrder = false
+        //        self.isActiveOrder = false
         self._isActiveOrder = State(initialValue: false)
         self.orderID = orderID
         self.orderPrice = orderPrice
@@ -141,18 +197,18 @@ struct HistoryOrderItemView: View {
                 Text("ID\(orderID)")
                     .font(.system(size: 20, weight: .bold))
                 if isStatusShow {
-                ZStack {
-                    
-                    Text(orderStatus ?? "Unknown")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 12, weight: .regular))
-                        .padding([.leading, .trailing], 10)
-                        .padding([.top, .bottom], 6)
-                        .background(
-                            Color(UIColor(hex: "#3A7DFF2E")!)
-                                        .cornerRadius(14)
-                                )
-                }
+                    ZStack {
+                        
+                        Text(orderStatus ?? "Unknown")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 12, weight: .regular))
+                            .padding([.leading, .trailing], 10)
+                            .padding([.top, .bottom], 6)
+                            .background(
+                                Color(UIColor(hex: "#3A7DFF2E")!)
+                                    .cornerRadius(14)
+                            )
+                    }
                 }
                 Spacer()
                 Text("$\(orderPrice)")
@@ -174,38 +230,38 @@ struct HistoryOrderItemView: View {
             
             PlaceInnerItemView(imageURL: "https://burgerking.ru/images/og-default.png", title: "Burger King", rating: 3.7, reviews: 356)
             if isActiveOrder! {
-            VStack(alignment: .center) {
-                Button(action: {
-                    self.serviceAPI.cancelOrderInProgress(completion: { result in
-                        switch result {
-                        case .success(let message):
-                            print(message)
-                            self.isActiveOrder = false
-                            
-                        case .failure(let error):
-                            print(error)
-                            self.isActiveOrder = false
-//                            self.onCancelClick()
-                        }
-                    }, orderIdentifier: orderID)
-                }) {
-                    Text("Cancel")
-                        .foregroundColor(.white)
-                        .font(.system(size: 17, weight: .semibold))
-                        .padding(.top, 13)
-                        .padding(.bottom, 13)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
-                        .frame(maxWidth: .infinity)
-                        .shadow(radius: 10)
+                VStack(alignment: .center) {
+                    Button(action: {
+                        self.serviceAPI.cancelOrderInProgress(completion: { result in
+                            switch result {
+                            case .success(let message):
+                                print(message)
+                                self.isActiveOrder = false
+                                
+                            case .failure(let error):
+                                print(error)
+                                self.isActiveOrder = false
+                            //                            self.onCancelClick()
+                            }
+                        }, orderIdentifier: orderID)
+                    }) {
+                        Text("Cancel")
+                            .foregroundColor(.white)
+                            .font(.system(size: 17, weight: .semibold))
+                            .padding(.top, 13)
+                            .padding(.bottom, 13)
+                            .padding(.leading, 16)
+                            .padding(.trailing, 16)
+                            .frame(maxWidth: .infinity)
+                            .shadow(radius: 10)
+                    }
+                    .background(Color("Button Color"))
+                    .cornerRadius(24)
+                    .padding(.leading, 75)
+                    .padding(.trailing, 75)
+                    .padding([.bottom, .top], 12)
                 }
-                .background(Color("Button Color"))
-                .cornerRadius(24)
-                .padding(.leading, 75)
-                .padding(.trailing, 75)
-                .padding([.bottom, .top], 12)
             }
-        }
             Divider()
                 .padding(.bottom, 12)
         }
