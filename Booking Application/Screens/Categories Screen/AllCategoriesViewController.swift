@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
-    private let state = AllCategoriesViewModel()
+    private let viewModel = AllCategoriesViewModel()
     var serviceAPI = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,9 +26,9 @@ class AllCategoriesViewController: UIHostingController<AllCategoriesView>  {
     }
     
     init() {
-        let view = AllCategoriesView(viewModel: state)
+        let view = AllCategoriesView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {

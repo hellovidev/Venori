@@ -9,13 +9,13 @@ import UIKit
 import SwiftUI
 
 class LoginViewController: UIHostingController<LoginView>  {
-    private let state = LoginViewModel()
+    private let viewModel = LoginViewModel()
     private let serviceAPI = ServiceAPI()
     
     init() {
-        let view = LoginView(viewModel: state)
+        let view = LoginView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
@@ -74,7 +74,7 @@ class LoginViewController: UIHostingController<LoginView>  {
     // MARK: -> User Login Validate Process
     
     func loginValidation() {
-        if state.email.isValidEmail() && state.password.isValidPassword() {
+        if viewModel.email.isValidEmail() && viewModel.password.isValidPassword() {
             self.serviceAPI.userAccountAuthentication(completion: { result in
                 switch result {
                 case .success(let account):
@@ -99,18 +99,18 @@ class LoginViewController: UIHostingController<LoginView>  {
                         print("Unable to Encode User (\(error))")
                     }
                     
-                    self.state.controller?.authComplete()
+                    self.viewModel.controller?.authComplete()
                 case .failure(let error):
                     print(error)
-                    self.state.controller?.failPopUp(title: "Authentification faild!", message: "Access Token Empty", buttonTitle: "Okay")
+                    self.viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Access Token Empty", buttonTitle: "Okay")
                 }
-            }, email: self.state.email, password: self.state.password)
-        } else if !state.email.isValidEmail() && state.password.isValidPassword() {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
-        } else if state.email.isValidEmail() && !state.password.isValidPassword() {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
+            }, email: self.viewModel.email, password: self.viewModel.password)
+        } else if !viewModel.email.isValidEmail() && viewModel.password.isValidPassword() {
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
+        } else if viewModel.email.isValidEmail() && !viewModel.password.isValidPassword() {
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
         } else {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
         }
     }
     

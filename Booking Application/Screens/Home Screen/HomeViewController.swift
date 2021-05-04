@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class HomeViewController: UIHostingController<HomeView>  {
-    private let state = HomeViewModel()
+    private let viewModel = HomeViewModel()
     private var cancellable: AnyCancellable?
     private var serviceAPI = ServiceAPI()
     
@@ -24,10 +24,10 @@ class HomeViewController: UIHostingController<HomeView>  {
     }
     
     init() {
-        let view = HomeView(viewModel: state)
+        let view = HomeView(viewModel: viewModel)
         super.init(rootView: view)
         //cancellable = api.loadData().sink(receiveCompletion: {_ in}, receiveValue: { items in self.state.categories = items })
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
@@ -64,6 +64,12 @@ class HomeViewController: UIHostingController<HomeView>  {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func redirectToFoodItems() {
+        let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
     }
     
 }

@@ -9,13 +9,13 @@ import UIKit
 import SwiftUI
 
 class RegistrationViewController: UIHostingController<RegistrationView>  {
-    private let state = RegistrationViewModel()
+    private let viewModel = RegistrationViewModel()
     private let serviceAPI = ServiceAPI()
     
     init() {
-        let view = RegistrationView(viewModel: state)
+        let view = RegistrationView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
@@ -82,8 +82,8 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
     // MARK: -> User Registration Validate Process
     
     func registerValidation() {
-        if state.email.isValidEmail() && state.password.isValidPassword() && state.password == state.passwordRepeat {
-            self.serviceAPI.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)
+        if viewModel.email.isValidEmail() && viewModel.password.isValidPassword() && viewModel.password == viewModel.passwordRepeat {
+            self.serviceAPI.userAccountRegistration(name: viewModel.name, surname: viewModel.surname, email: viewModel.email, password: viewModel.password)
             self.serviceAPI.userAccountAuthentication(completion: { result in
                 switch result {
                 case .success(let account):
@@ -93,17 +93,17 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
                 case .failure(let error):
                     print(error)
                 }
-            }, email: state.email, password: state.password)
-            state.controller?.registrationComplete()
-        } else if state.password != state.passwordRepeat {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Check password fields.", buttonTitle: "Okay")
-        } else if state.email.isValidEmail() && !state.password.isValidPassword() {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
-        } else if !state.email.isValidEmail() && state.password.isValidPassword() {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
+            }, email: viewModel.email, password: viewModel.password)
+            viewModel.controller?.registrationComplete()
+        } else if viewModel.password != viewModel.passwordRepeat {
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Check password fields.", buttonTitle: "Okay")
+        } else if viewModel.email.isValidEmail() && !viewModel.password.isValidPassword() {
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
+        } else if !viewModel.email.isValidEmail() && viewModel.password.isValidPassword() {
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
         }
         else {
-            state.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
+            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
         }
     }
     

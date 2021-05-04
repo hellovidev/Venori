@@ -7,19 +7,22 @@
 
 import UIKit
 import SwiftUI
+import MapKit
 
 class MapViewController: UIHostingController<MapViewDetails>  {
-    private let state = MapViewModel()
+    private let viewModel = MapViewModel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
     }
 
-    init() {
-        let view = MapViewDetails(mapViewModel: state)
+    init(latitude: Double, longitude: Double) {
+        self.viewModel.latitude = latitude
+        self.viewModel.longitude = longitude
+        let view = MapViewDetails(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {

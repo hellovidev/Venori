@@ -8,6 +8,6 @@
 import Foundation
 
 class PlacesViewModel: ObservableObject {
-    var controller: PlacesViewController?
+    weak var controller: PlacesViewController?
     @Published var places = [Place]()
 }

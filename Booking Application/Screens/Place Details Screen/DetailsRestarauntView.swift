@@ -91,7 +91,7 @@ struct DetailsRestarauntView: View {
                         }
                         Spacer()
                         //Image("Background Account")
-                        MapPreview()
+                        MapPreview(longitude: viewModel.place?.addressLat ?? 0, latitude: viewModel.place?.addressLon ?? 0)
                     }
                     .padding(.bottom, 20)
                     

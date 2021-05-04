@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MoreView: View {
     @ObservedObject var viewModel: MoreViewModel
-    private let serviceAPI = ServiceAPI()
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -57,15 +56,7 @@ struct MoreView: View {
                         .padding(.bottom, 30)
                 }
                 MenuItemView(item: MenuItems.logout.rawValue, image: "", decorateItem: false, onClick: {
-                    self.serviceAPI.userAccountLogout( completion: { result in
-                        switch result {
-                        case .success(let message):
-                            print(message)
-                            self.viewModel.controller?.systemLogout()
-                        case .failure(let error):
-                            print(error)
-                        }
-                    })
+                    self.viewModel.logoutAccount()
                 })
                 .padding(.bottom, 20)
             }

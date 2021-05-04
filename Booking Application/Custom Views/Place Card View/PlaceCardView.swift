@@ -25,6 +25,7 @@ struct PlaceCardView: View {
     var ratingPlace: Float
     var reviewsCount: Int
     var backgroundImage: String
+    @State private var isFavourite: Bool = false
     
     var body: some View {
             VStack(alignment: .leading) {
@@ -35,10 +36,13 @@ struct PlaceCardView: View {
                         .scaledToFit()
                     VStack {
                         Button {
+                            self.isFavourite.toggle()
                             self.loveClick()
                         } label: {
                         Image("Heart")
                             .resizable()
+                            .renderingMode(.template)
+                            .foregroundColor(isFavourite ? Color.red : Color.white)
                             .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
                             .foregroundColor(.white)
                             .padding(12)

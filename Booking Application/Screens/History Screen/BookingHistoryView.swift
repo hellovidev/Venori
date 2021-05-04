@@ -42,7 +42,7 @@ struct BookingHistoryView: View {
                             ScrollView(showsIndicators: false) {
                                 VStack {
                                     ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
-                                        HistoryOrderItemView(order: item)
+                                        HistoryOrderItemView(order: item, cancel: {})
                                     }
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -154,19 +154,21 @@ struct HistoryOrderItemView: View {
     @State private var isActiveOrder: Bool = false
     @State private var place = Place()
     
-    init(order: Order) {
+    @State private var cancelCallback: () -> Void
+    
+    init(order: Order, cancel: @escaping () -> Void) {
         self._order = State(initialValue: order)
-        
+        self._cancelCallback = State(initialValue: cancel)
         switch self.order.status {
         case "Confirmed":
-            self.isHistory = true
-            self.isActiveOrder = false
+            self._isHistory = State(initialValue: true)
+            self._isActiveOrder = State(initialValue: false)
         case "Rejected":
-            self.isHistory = true
-            self.isActiveOrder = false
+            self._isHistory = State(initialValue: true)
+            self._isActiveOrder = State(initialValue: false)
         default:
-            self.isHistory = false
-            self.isActiveOrder = true
+            self._isHistory = State(initialValue: false)
+            self._isActiveOrder = State(initialValue: true)
         }
     }
     
@@ -204,7 +206,7 @@ struct HistoryOrderItemView: View {
                 Text("\(self.order.people) Person\(self.order.people == 1 ? "" : "s")")
                     .font(.system(size: 14, weight: .regular))
             }
-            PlaceInnerItemView(place: self.place, image: DomainRouter.generalDomain.rawValue + self.place.imageURL )
+            PlaceInnerItemView(place: self.place)
                 .onAppear {
                     self.serviceAPI.getPlaceByIdentifier(completion: { response in
                         switch response {
@@ -218,15 +220,7 @@ struct HistoryOrderItemView: View {
             
             VStack(alignment: .center) {
                 Button(action: {
-                    self.serviceAPI.cancelOrderInProgress(completion: { result in
-                        switch result {
-                        case .success(let message):
-                            print(message)
-                            self.isActiveOrder = false
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }, orderIdentifier: self.order.id)
+                    self.cancelCallback()
                 }) {
                     Text("Cancel")
                         .foregroundColor(.white)
@@ -243,7 +237,8 @@ struct HistoryOrderItemView: View {
                 .cornerRadius(24)
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
-                .padding([.bottom, .top], 12)
+                .padding(.bottom, 8)
+                .shadow(color: Color(UIColor(hex: "#3A7DFF66")!), radius: 8)
             }
             Divider()
                 .padding(.bottom, 12)
@@ -256,15 +251,16 @@ struct HistoryOrderItemView: View {
 
 struct PlaceInnerItemView: View {
     let place: Place
-    let image: String
     
     var body: some View {
         HStack(alignment: .top) {
-            ImageURL(url: image)
-                .scaledToFill()
-                .frame(maxWidth: 72, maxHeight: 72, alignment: .center)
-                .cornerRadius(14)
-                .fixedSize()
+            if !place.imageURL.isEmpty {
+                ImageURL(url: DomainRouter.generalDomain.rawValue + place.imageURL)
+                    .scaledToFill()
+                    .frame(maxWidth: 72, maxHeight: 72, alignment: .center)
+                    .cornerRadius(14)
+                    .fixedSize()
+            }
             VStack(alignment: .leading) {
                 Text(place.name)
                     .font(.system(size: 20, weight: .bold))
@@ -280,6 +276,8 @@ struct PlaceInnerItemView: View {
                 }
             }
             .padding(.leading, 8)
+            Spacer()
         }
+        .padding([.bottom, .top], 12)
     }
 }

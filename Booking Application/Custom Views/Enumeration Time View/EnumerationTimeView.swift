@@ -11,12 +11,13 @@ import SwiftUI
 struct EnumerationTimeView: View {
     var items: [Time]
     @Binding var selected: String
+    @Binding var choosed: Bool
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: -8) {
                 ForEach(items, id: \.self) { item in
-                    ItemTimeView(time: item, selectedButtonIdentifier: self.$selected)
+                    ItemTimeView(time: item, selectedButtonIdentifier: self.$selected, isSelected: self.$choosed)
                 }
             }
         }
@@ -25,11 +26,13 @@ struct EnumerationTimeView: View {
 
 struct ItemTimeView: View {
     var time: Time
-    @Binding var selectedButtonIdentifier: String 
+    @Binding var selectedButtonIdentifier: String
+    @Binding var isSelected: Bool
     
     var body: some View{
         Button(action: {
             self.selectedButtonIdentifier = self.time.id
+            self.isSelected = true
         }) {
             Text(time.time)
                 .foregroundColor(self.selectedButtonIdentifier == self.time.id ? Color.white : Color(UIColor(hex: "#00000080")!))

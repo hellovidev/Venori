@@ -9,5 +9,6 @@ import SwiftUI
 
 class BookingHistoryViewModel: ObservableObject {
     weak var controller: BookingHistoryViewController?
+    private let serviceAPI = ServiceAPI()
     @Published var orders = [Order]()
 }

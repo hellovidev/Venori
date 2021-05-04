@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class PlacesViewController: UIHostingController<PlacesView>  {
-    private let state = PlacesViewModel()
+    private let viewModel = PlacesViewModel()
     var serviceAPI = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,9 +28,9 @@ class PlacesViewController: UIHostingController<PlacesView>  {
     }
     
     init() {
-        let view = PlacesView(viewModel: state)
+        let view = PlacesView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {

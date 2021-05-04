@@ -8,5 +8,7 @@
 import Foundation
 
 class MapViewModel: ObservableObject {
-    var controller: MapViewController?
+    weak var controller: MapViewController?
+    @Published var latitude: Double?
+    @Published var longitude: Double?
 }

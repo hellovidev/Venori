@@ -8,7 +8,9 @@
 import Foundation
 
 class HomeViewModel: ObservableObject {
-    var controller: HomeViewController?
+    weak var controller: HomeViewController?
     @Published var categories = [Category]()
     @Published var places = [Place]()
+    
 }
+

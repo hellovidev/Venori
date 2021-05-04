@@ -95,6 +95,8 @@ struct BookProcessView: View {
     var serviceAPI: ServiceAPI = ServiceAPI()
     
     @State private var selectedReservationTime: String = ""
+    @State private var isField: Bool = false
+    
     
     var body: some View {
         ZStack {
@@ -161,6 +163,7 @@ struct BookProcessView: View {
                                                         case .success(let times):
                                                             //self.times = times
                                                         
+                                                            self.isField = false
                                                             self.times = [Time]()
                                                             for item in times {
                                                                 self.times.append(Time(time: item))
@@ -200,6 +203,7 @@ struct BookProcessView: View {
                                 switch result {
                                 case .success(let times):
                                     //self.times = times
+                                    self.isField = false
                                     self.times = [Time]()
                                     for item in times {
                                         self.times.append(Time(time: item))
@@ -224,7 +228,7 @@ struct BookProcessView: View {
                             .padding(.leading, 16)
                         ScrollView(.horizontal, showsIndicators: false) {
                             //                        HStack(spacing: -8) {
-                            EnumerationTimeView(items: self.times, selected: self.$selectedReservationTime)
+                            EnumerationTimeView(items: self.times, selected: self.$selectedReservationTime, choosed: self.$isField)
                             //                            ForEach(times, id: \.self) { object in
                             //                                Button {
                             //                                    //selectedReservationTime = true
@@ -264,6 +268,7 @@ struct BookProcessView: View {
                             case .success(let times):
                                 //print(times)
                                 //self.times = times
+                                self.isField = false
                                 self.times = [Time]()
                                 for item in times {
                                     self.times.append(Time(time: item))
@@ -294,7 +299,9 @@ struct BookProcessView: View {
                             .padding(.trailing, 16)
                             .frame(maxWidth: .infinity)
                             .shadow(radius: 10)
+                            .background(isField == false ? Color.gray : Color("Button Color"))
                     }
+                    .disabled(isField == false)
                     .modifier(ButtonModifier())
                     .padding(.bottom, 35)
                 }

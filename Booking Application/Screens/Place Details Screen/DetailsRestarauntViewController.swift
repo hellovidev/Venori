@@ -9,14 +9,14 @@ import UIKit
 import SwiftUI
 
 class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView>  {
-    private let state = DetailsRestarauntViewModel()
+    private let viewModel = DetailsRestarauntViewModel()
     var place: Place?
     private var serviceAPI = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        state.place = place
+        viewModel.place = place
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -24,9 +24,9 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     }
     
     init() {
-        let view = DetailsRestarauntView(viewModel: state)
+        let view = DetailsRestarauntView(viewModel: viewModel)
         super.init(rootView: view)
-        state.controller = self
+        viewModel.controller = self
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
@@ -45,7 +45,7 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     }
     
     func showMapView() {
-        let navigationController = UINavigationController(rootViewController: MapViewController())
+        let navigationController = UINavigationController(rootViewController: MapViewController(latitude: viewModel.place?.addressLat ?? 0, longitude: viewModel.place?.addressLon ?? 0))
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }
@@ -64,7 +64,7 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
         self.serviceAPI.getScheduleOfPlace(completion: { result in
                 switch result {
                 case .success(let weekSchedule):
-                    self.state.schedules = weekSchedule
+                    self.viewModel.schedules = weekSchedule
                     print(weekSchedule)
                     //self.times = times
                 case .failure(let error):

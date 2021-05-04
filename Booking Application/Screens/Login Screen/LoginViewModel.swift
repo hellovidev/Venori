@@ -12,5 +12,5 @@ class LoginViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
     @Published var email: String = ""
     @Published var password: String = ""
-    var controller: LoginViewController?
+    weak var controller: LoginViewController?
 }
