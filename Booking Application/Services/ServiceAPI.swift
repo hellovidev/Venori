@@ -11,7 +11,7 @@ import Foundation
 class ServiceAPI: ObservableObject {
     
     // MARK: -> Method For Loading Categories Data
-
+    
     func fetchDataAboutCategories(completion: @escaping (Result<Categories, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue) else { return }
         
@@ -83,14 +83,14 @@ class ServiceAPI: ObservableObject {
     
     func fetchDataAboutPlaces(completion: @escaping (Result<Places, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue) else { return }
-
+        
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-                
+        
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
@@ -153,14 +153,14 @@ class ServiceAPI: ObservableObject {
     
     func fetchDataAboutFavourites(completion: @escaping (Result<Places, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.favouritesRoute.rawValue) else { return }
-
+        
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-                
+        
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
@@ -370,14 +370,14 @@ class ServiceAPI: ObservableObject {
     
     func getPlaceByIdentifier(completion: @escaping (Result<Place, Error>) -> Void, placeIdentifier: Int) {
         guard let url = URL(string: getPlaceLink(placeIdentifier: placeIdentifier)) else { return }
-
+        
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-                
+        
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
@@ -440,14 +440,14 @@ class ServiceAPI: ObservableObject {
     
     func fetchDataAboutBookingHistory(completion: @escaping (Result<Orders, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue) else { return }
-
+        
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-                
+        
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
@@ -510,14 +510,14 @@ class ServiceAPI: ObservableObject {
     
     func fetchDataAboutOrders(completion: @escaping (Result<Orders, Error>) -> Void) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.ordersRoute.rawValue) else { return }
-
+        
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-                
+        
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
@@ -580,14 +580,14 @@ class ServiceAPI: ObservableObject {
     
     func cancelOrderInProgress(completion: @escaping (Result<String, Error>) -> Void, orderIdentifier: Int) {
         guard let url = URL(string: getCancelOrderLink(orderIdentifier: orderIdentifier)) else { return }
-
+        
         // Set Request Settings
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-                
+        
         // Bearer Token for Authorized User
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
@@ -703,15 +703,15 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-//                do {
-//                                    guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-//                                    print(info)
-//                } catch {
-//                    print(error)
-//                }
+                //                do {
+                //                                    guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //                                    print(info)
+                //                } catch {
+                //                    print(error)
+                //                }
                 
-//                guard let info = try JSONSerialization.jsonObject(with: data) as? [String] else { return }
-//                print(info)
+                //                guard let info = try JSONSerialization.jsonObject(with: data) as? [String] else { return }
+                //                print(info)
                 
                 // Decodable JSON Data
                 
@@ -849,7 +849,7 @@ class ServiceAPI: ObservableObject {
                 // Decodable JSON Data
                 
                 guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-
+                
                 // Get Data to API Manager Value of Message About Log Out
                 
                 DispatchQueue.main.async {
@@ -867,9 +867,9 @@ class ServiceAPI: ObservableObject {
     func userAccountAuthentication(completion: @escaping (Result<Account, Error>) -> Void, email: String, password: String) {
         
         // Link Generating
-
+        
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.loginRoute.rawValue) else { return }
-                
+        
         // Request Body Generating
         
         let data: [String: String] = ["email": email, "password": password]
@@ -938,7 +938,7 @@ class ServiceAPI: ObservableObject {
     
     func sentCurrentUserLocation(completion: @escaping (Result<[String: Any], Error>) -> Void, latitude: Double, longitude: Double, address: String) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.currentLocationRoute.rawValue) else { return }
-                
+        
         // Request Body Generating
         
         let data: [String: Any] = ["address_full": address, "address_lat": latitude, "address_lon": longitude]
@@ -991,7 +991,7 @@ class ServiceAPI: ObservableObject {
             do {
                 
                 // Decodable JSON Data
-
+                
                 guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
                 //print(response)
                 
@@ -1028,8 +1028,8 @@ class ServiceAPI: ObservableObject {
         var done = false
         
         //           case 422:
-       //                                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
-       //                                    print("The given data was invalid.")
+        //                                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
+        //                                    print("The given data was invalid.")
         
         // Link Generating
         
@@ -1095,22 +1095,22 @@ class ServiceAPI: ObservableObject {
         } while !done
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // MARK: -> Reserve Table in Place
     
     func reserveTablePlace(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String, time: String) {
@@ -1553,11 +1553,11 @@ extension Date {
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "LLLL dd, yyyy h:mm a"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-
+        
         if let dateConverted = dateFormatter.date(from: date) {
             return dateFormatterPrint.string(from: dateConverted)
         } else {
-           return "There was an error decoding the string"
+            return "There was an error decoding the string"
         }
     }
 }
@@ -1634,141 +1634,146 @@ enum ErrorResponse: String {
 
 
 class ContentDataSource: ObservableObject {
-  @Published var items = [Order]()
-  @Published var isLoadingPage = false
-  private var currentPage = 1
-  private var canLoadMorePages = true
-
-  init() {
-    loadMoreContent(completion: { response in
-        switch response {
-        case .success(let data):
-            self.items.append(contentsOf: data.data)
-            self.canLoadMorePages = (data.lastPage != data.currentPage)
-            self.isLoadingPage = false
-            self.currentPage += 1
-        case .failure(let error):
-            print(error)
+    @Published var items = [Order]()
+    @Published var isLoadingPage = false
+    private var currentPage = 1
+    private var canLoadMorePages = true
+    
+    init() {
+        loadMoreContent()
+        
+        //    loadMoreContent(completion: { response in
+        //        switch response {
+        //        case .success(let data):
+        //            self.items.append(contentsOf: data.data)
+        //            self.canLoadMorePages = (data.lastPage != data.currentPage)
+        //            self.isLoadingPage = false
+        //            self.currentPage += 1
+        //        case .failure(let error):
+        //            print(error)
+        //    }
+        //    })
     }
-    })
-  }
-
-  func loadMoreContentIfNeeded(currentItem item: Order?) {
-    guard let item = item else {
-      loadMoreContent(completion: { response in
-        switch response {
-        case .success(let data):
-            self.items.append(contentsOf: data.data)
-            self.canLoadMorePages = (data.lastPage != data.currentPage)
-            self.isLoadingPage = false
-            self.currentPage += 1
-        case .failure(let error):
-            print(error)
+    
+    func loadMoreContentIfNeeded(currentItem item: Order?) {
+        guard let item = item else {
+            loadMoreContent()
+            
+            //      loadMoreContent(completion: { response in
+            //        switch response {
+            //        case .success(let data):
+            //            self.items.append(contentsOf: data.data)
+            //            self.canLoadMorePages = (data.lastPage != data.currentPage)
+            //            self.isLoadingPage = false
+            //            self.currentPage += 1
+            //        case .failure(let error):
+            //            print(error)
+            //    }
+            //    })
+            return
+        }
+        
+        let thresholdIndex = items.index(items.endIndex, offsetBy: -5)
+        if items.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
+            loadMoreContent()
+            //        loadMoreContent(completion: { response in
+            //            switch response {
+            //            case .success(let data):
+            //                self.items.append(contentsOf: data.data)
+            //                self.canLoadMorePages = (data.lastPage != data.currentPage)
+            //                self.isLoadingPage = false
+            //                self.currentPage += 1
+            //            case .failure(let error):
+            //                print(error)
+            //        }
+            //        })
+        }
     }
-    })
-      return
-    }
-
-    let thresholdIndex = items.index(items.endIndex, offsetBy: -5)
-    if items.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-        loadMoreContent(completion: { response in
-            switch response {
-            case .success(let data):
-                self.items.append(contentsOf: data.data)
-                self.canLoadMorePages = (data.lastPage != data.currentPage)
+    
+    private func loadMoreContent(){//completion: @escaping (Result<Orders, Error>) -> Void) {
+        guard !isLoadingPage && canLoadMorePages else {
+            return
+        }
+        
+        isLoadingPage = true
+        
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue)!
+        
+        url.queryItems = [
+            URLQueryItem(name: "page", value: "\(self.currentPage)")
+        ]
+        
+        var request = URLRequest(url: url.url!)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        //    URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+        //
+        //        // Check Presence of Errors
+        //
+        //        guard error == nil else {
+        //            completion(.failure(error!))
+        //            return
+        //        }
+        //
+        //        // Data Validation
+        //
+        //        guard let data = data else {
+        //            completion(.failure(NSLocalizedString("Loaded data of booking history from server is empty!", comment: "Error")))
+        //            return
+        //        }
+        //
+        //        if let response = response as? HTTPURLResponse {
+        //            switch response.statusCode {
+        //            case 200:
+        //                NSLog(NSLocalizedString("Status Code is 200... Request for booking history.", comment: "Success"))
+        //            case 401:
+        //                completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+        //            default:
+        //                completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+        //            }
+        //        } else {
+        //            completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+        //            return
+        //        }
+        //
+        //        do {
+        //
+        //            // Decodable JSON Data
+        //
+        //            let response = try JSONDecoder().decode(Orders.self, from: data)
+        //
+        //            // Set Data to API Manager Value of Booking History
+        //
+        //            DispatchQueue.main.async {
+        //                completion(.success(response))
+        //            }
+        //        } catch {
+        //            completion(.failure(error))
+        //        }
+        //    })
+        //    .resume()
+        
+        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
+            .map(\.data)
+            .decode(type: Orders.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { response in
+                self.canLoadMorePages = (response.lastPage != response.currentPage)
                 self.isLoadingPage = false
                 self.currentPage += 1
-            case .failure(let error):
-                print(error)
-        }
-        })
+            })
+            .map({ response in
+                print(response.data)
+                self.items.append(contentsOf: response.data)
+                return self.items
+                
+            })
+            .catch({ _ in Just(self.items)
+            })
+            .assign(to: &$items)
     }
-  }
-
-  private func loadMoreContent(completion: @escaping (Result<Orders, Error>) -> Void) {
-    guard !isLoadingPage && canLoadMorePages else {
-      return
-    }
-
-    isLoadingPage = true
-    
-    var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue)!
-
-    url.queryItems = [
-        URLQueryItem(name: "page", value: "\(self.currentPage)")
-    ]
-
-    var request = URLRequest(url: url.url!)
-    request.httpMethod = "GET"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.setValue("application/json", forHTTPHeaderField: "Accept")
-    
-    request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-    
-    URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
-        
-        // Check Presence of Errors
-        
-        guard error == nil else {
-            completion(.failure(error!))
-            return
-        }
-        
-        // Data Validation
-        
-        guard let data = data else {
-            completion(.failure(NSLocalizedString("Loaded data of booking history from server is empty!", comment: "Error")))
-            return
-        }
-        
-        if let response = response as? HTTPURLResponse {
-            switch response.statusCode {
-            case 200:
-                NSLog(NSLocalizedString("Status Code is 200... Request for booking history.", comment: "Success"))
-            case 401:
-                completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
-            default:
-                completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
-            }
-        } else {
-            completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
-            return
-        }
-        
-        do {
-
-            // Decodable JSON Data
-            
-            let response = try JSONDecoder().decode(Orders.self, from: data)
-            
-            // Set Data to API Manager Value of Booking History
-            
-            DispatchQueue.main.async {
-                completion(.success(response))
-            }
-        } catch {
-            completion(.failure(error))
-        }
-    })
-    .resume()
-    
-//    URLSession.shared.dataTaskPublisher(for: url)
-//      .map(\.data)
-//      .decode(type: Orders.self, decoder: JSONDecoder())
-//      .receive(on: DispatchQueue.main)
-//      .handleEvents(receiveOutput: { response in
-//        self.canLoadMorePages = (response.lastPage != response.currentPage)
-//        self.isLoadingPage = false
-//        self.currentPage += 1
-//      })
-//      .map({ response in
-//        print(response.data)
-//        return self.items?.data.append(response.data)
-//
-//      })
-//      .catch({ _ in Just(self.items)
-//      })
-//      .assign(to: &$items)
-//  }
-}
 }

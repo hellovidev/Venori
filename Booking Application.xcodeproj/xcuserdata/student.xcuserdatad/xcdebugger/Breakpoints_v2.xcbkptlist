@@ -238,10 +238,10 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1677"
-            endingLineNumber = "1677"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1682"
+            endingLineNumber = "1682"
+            landmarkName = "loadMoreContentIfNeeded(currentItem:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -254,42 +254,10 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1661"
-            endingLineNumber = "1661"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0965A665-E872-4F4A-8F8E-2AC8D1C0BD5C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Services/ServiceAPI.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1646"
-            endingLineNumber = "1646"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4196AEC0-2BBF-4BF8-A020-7A1C86E2BCD6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Services/ServiceAPI.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1651"
-            endingLineNumber = "1651"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1665"
+            endingLineNumber = "1665"
+            landmarkName = "loadMoreContentIfNeeded(currentItem:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,10 +270,10 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1666"
-            endingLineNumber = "1666"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1670"
+            endingLineNumber = "1670"
+            landmarkName = "loadMoreContentIfNeeded(currentItem:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -318,10 +286,10 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1682"
-            endingLineNumber = "1682"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1687"
+            endingLineNumber = "1687"
+            landmarkName = "loadMoreContentIfNeeded(currentItem:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -334,9 +302,9 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1742"
-            endingLineNumber = "1742"
-            landmarkName = "loadMoreContent(completion:)"
+            startingLineNumber = "1747"
+            endingLineNumber = "1747"
+            landmarkName = "loadMoreContent()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
