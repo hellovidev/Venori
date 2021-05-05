@@ -103,6 +103,12 @@ class HomeViewModel: ObservableObject {
                 completion(.failure(error!))
             }
             
+            guard placemarks != nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            
             let pm = placemarks! as [CLPlacemark]
             
             if pm.count > 0 {

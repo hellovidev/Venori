@@ -11,10 +11,37 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in EndlessList.body.getter:HomeView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSource.items">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in ContentDataSource.loadMoreContent():ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.items">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
                value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ContentDataSource.init():ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.data">
+            </PersistentString>
+            <PersistentString
+               value = "self.items">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -474,6 +501,20 @@
             </PersistentString>
             <PersistentString
                value = "valueHours">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContentDataSource.loadMoreContent():ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currentPage">
+            </PersistentString>
+            <PersistentString
+               value = "request">
+            </PersistentString>
+            <PersistentString
+               value = "Just(self.items)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

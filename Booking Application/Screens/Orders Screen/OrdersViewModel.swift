@@ -27,20 +27,30 @@ class OrdersViewModel: ObservableObject {
                 self.orders = orders.data
                 self.isLoading = false
                 self.isError = false
+                
                 guard self.orders?.isEmpty != nil else {
                     self.isEmpty = true
                     return
                 }
                 
-                if self.orders?.isEmpty ?? true && self.orders?.isEmpty != nil {
+                if self.orders!.isEmpty {
                     self.isEmpty = true
                 } else {
                     self.isEmpty = false
                 }
             case .failure(let error):
                 self.isLoading = false
-                self.isEmpty = false
                 self.isError = true
+                self.isEmpty = false
+
+                guard self.orders?.isEmpty != nil else {
+                    return
+                }
+                
+                if !self.orders!.isEmpty {
+                    self.orders?.removeAll()
+                }
+                
                 print(error)
             }
         })
@@ -49,11 +59,12 @@ class OrdersViewModel: ObservableObject {
     func cancelOrder(orderIdentifier: Int) {
         self.serviceAPI.cancelOrderInProgress(completion: { result in
             switch result {
-            case .success(let message):                
-                if let removeOrderIndex = self.orders?.firstIndex(where: { $0.id == orderIdentifier }) {
-                    self.orders?.remove(at: removeOrderIndex)
-                }
-                Alert(title: Text("Complete"), message: Text(message), dismissButton: .cancel())
+            case .success(let message):
+                self.fetchOrders()
+//                if let removeOrderIndex = self.orders?.firstIndex(where: { $0.id == orderIdentifier }) {
+//                    self.orders?.remove(at: removeOrderIndex)
+//                }
+//                Alert(title: Text("Complete"), message: Text(message), dismissButton: .cancel())
                 print(message)
             case .failure(let error):
                 print(error)

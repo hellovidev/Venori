@@ -51,148 +51,160 @@ struct HomeView: View {
             .padding(.bottom, 12)
                 }
             
-            ScrollView {
-                VStack {
-                    // MARK: -> Favorite Restaurants Block
-                    
-                    VStack(alignment: .leading) {
-                        SectionSeparatorView(title: "My Favorite Restaraunts", onClick: {
-                                                //self.viewModel.locationManager(viewModel.locationManager!, didChangeAuthorization: viewModel.locationManager!.authorizationStatus)
-                            
-                        })
-                        if viewModel.favorites.isEmpty {
-                            FavouriteEmptyView()
-                        } else {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: -8) {
-                                    ForEach(viewModel.favorites, id: \.self) { object in
-                                        PlaceCardView(place: object, onClick: {
-                                            self.viewModel.controller?.redirectToPlaceDetails(object: object)
-                                        }, loveClick: {
-                                            object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                        })
-                                        .padding(.leading, 16)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .padding(.bottom, 26)
-                    .onAppear {
-                        serviceAPI.fetchDataAboutFavourites(completion: { result in
-                            switch result {
-                            case .success(let favorites):
-                                self.viewModel.favorites = favorites.data
-                                
-                                for (index, _) in self.viewModel.favorites.enumerated() {
-                                    self.viewModel.favorites[index].favourite = true
-                                }
-                                
-                            case .failure(let error):
-                                DispatchQueue.main.async {
-                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-
-                                  }
-                                print(error)
-                                //print(error.localizedDescription)
-                            }
-                            
-                            //self.state.categories = self.serviceAPI.categories!.data
-                        })
-
-                        //self.viewModel.controller?.locationManager(viewModel.controller?.locationManager, didChangeAuthorization: viewModel.controller?.locationManager?.authorizationStatus)
-                    }
-                    
-                    // MARK: -> Restaurants Block
-                    
-                    VStack(alignment: .leading) {
-                        SectionSeparatorView(title: "Restaurants", onClick: {
-                            viewModel.controller?.seeAllPlaces()
-                        })
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: -8) {
-                                ForEach(viewModel.places, id: \.self) { object in
-                                    PlaceCardView(place: object, onClick: {
-                                        self.viewModel.controller?.redirectToPlaceDetails(object: object)
-                                    }, loveClick: {
-                                        object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                    })
-                                    .padding(.leading, 16)
-                                }
-                            }
-                        }
-                    }
-                    .padding(.bottom, 26)
-                    .onAppear {
-                        serviceAPI.fetchDataAboutPlaces(completion: { result in
-                            switch result {
-                            case .success(let places):
-                                self.viewModel.places = places.data
-                            case .failure(let error):
-                                DispatchQueue.main.async {
-                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-
-                                  }
-                                print(error)
-                                //print(error.localizedDescription)
-                            }
-                            
-                            //self.state.categories = self.serviceAPI.categories!.data
-                        })
-                    }
-//                    .onAppear {
-//                        if ((serviceAPI.places?.data?.isEmpty) != nil) {
-//                            self.serviceAPI.fetchDataAboutPlaces()
+//            ScrollView {
+//                VStack {
+//                    // MARK: -> Favorite Restaurants Block
+//
+//                    VStack(alignment: .leading) {
+//                        SectionSeparatorView(title: "My Favorite Restaraunts", onClick: {
+//                                                //self.viewModel.locationManager(viewModel.locationManager!, didChangeAuthorization: viewModel.locationManager!.authorizationStatus)
+//
+//                        })
+//                        if viewModel.favorites.isEmpty {
+//                            FavouriteEmptyView()
+//                        } else {
+//                            ScrollView(.horizontal, showsIndicators: false) {
+//                                HStack(spacing: -8) {
+//                                    ForEach(viewModel.favorites, id: \.self) { object in
+//                                        PlaceCardView(place: object, onClick: {
+//                                            self.viewModel.controller?.redirectToPlaceDetails(object: object)
+//                                        }, loveClick: {
+//                                            object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
+//                                        })
+//                                        .padding(.leading, 16)
+//                                    }
+//                                }
+//                            }
 //                        }
 //                    }
-                    
-                    // MARK: -> Categories Block
-                    
-                    VStack(alignment: .leading) {
-                        SectionSeparatorView(title: "Food Categories", onClick: {
-                            viewModel.controller?.seeAllCategories()
-                        })
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: -8) {
-                                ForEach(viewModel.categories, id: \.self) { object in
-                                    CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {}).padding(.leading, 16)
-                                }
-                            }
-                        }
-                    }
-                    .padding(.bottom, 26)
-                    .onAppear {
-
-                        serviceAPI.fetchDataAboutCategories(completion: { result in
-                            switch result {
-                            case .success(let categories):
-                                self.viewModel.categories = categories.data
-                            case .failure(let error):
-                                
-
-//                                self.errorMessage = error.localizedDescription
-//                                showPopUp.toggle()
-                                DispatchQueue.main.async {
-                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-
-                                  }
-                                //print(error)
-                                //print(error.localizedDescription)
-                            }
-                            
-                            //self.state.categories = self.serviceAPI.categories!.data
-                        })
-                    }
+//                    .padding(.bottom, 26)
 //                    .onAppear {
-//                        if ((serviceAPI.categories?.data.isEmpty) != nil) {
-//                            self.serviceAPI.fetchDataAboutCategories()
+//                        serviceAPI.fetchDataAboutFavourites(completion: { result in
+//                            switch result {
+//                            case .success(let favorites):
+//                                self.viewModel.favorites = favorites.data
+//
+//                                for (index, _) in self.viewModel.favorites.enumerated() {
+//                                    self.viewModel.favorites[index].favourite = true
+//                                }
+//
+//                            case .failure(let error):
+//                                DispatchQueue.main.async {
+//                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//
+//                                  }
+//                                print(error)
+//                                //print(error.localizedDescription)
+//                            }
+//
+//                            //self.state.categories = self.serviceAPI.categories!.data
+//                        })
+//
+//                        //self.viewModel.controller?.locationManager(viewModel.controller?.locationManager, didChangeAuthorization: viewModel.controller?.locationManager?.authorizationStatus)
+//                    }
+//
+//                    // MARK: -> Restaurants Block
+//
+//                    VStack(alignment: .leading) {
+//                        SectionSeparatorView(title: "Restaurants", onClick: {
+//                            viewModel.controller?.seeAllPlaces()
+//                        })
+//
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack(spacing: -8) {
+//                                ForEach(viewModel.places, id: \.self) { object in
+//                                    PlaceCardView(place: object, onClick: {
+//                                        self.viewModel.controller?.redirectToPlaceDetails(object: object)
+//                                    }, loveClick: {
+//                                        object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
+//                                    })
+//                                    .padding(.leading, 16)
+//                                }
+//                            }
 //                        }
 //                    }
-                }
-            }
+//                    .padding(.bottom, 26)
+//                    .onAppear {
+//                        serviceAPI.fetchDataAboutPlaces(completion: { result in
+//                            switch result {
+//                            case .success(let places):
+//                                self.viewModel.places = places.data
+//                            case .failure(let error):
+//                                DispatchQueue.main.async {
+//                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//
+//                                  }
+//                                print(error)
+//                                //print(error.localizedDescription)
+//                            }
+//
+//                            //self.state.categories = self.serviceAPI.categories!.data
+//                        })
+//                    }
+////                    .onAppear {
+////                        if ((serviceAPI.places?.data?.isEmpty) != nil) {
+////                            self.serviceAPI.fetchDataAboutPlaces()
+////                        }
+////                    }
+//
+//                    // MARK: -> Categories Block
+//
+//                    VStack(alignment: .leading) {
+//                        SectionSeparatorView(title: "Food Categories", onClick: {
+//                            viewModel.controller?.seeAllCategories()
+//                        })
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack(spacing: -8) {
+//                                ForEach(viewModel.categories, id: \.self) { object in
+//                                    CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {}).padding(.leading, 16)
+//                                }
+//                            }
+//                        }
+//                    }
+//                    .padding(.bottom, 26)
+//                    .onAppear {
+//
+//                        serviceAPI.fetchDataAboutCategories(completion: { result in
+//                            switch result {
+//                            case .success(let categories):
+//                                self.viewModel.categories = categories.data
+//                            case .failure(let error):
+//
+//
+////                                self.errorMessage = error.localizedDescription
+////                                showPopUp.toggle()
+//                                DispatchQueue.main.async {
+//                                    viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//
+//                                  }
+//                                //print(error)
+//                                //print(error.localizedDescription)
+//                            }
+//
+//                            //self.state.categories = self.serviceAPI.categories!.data
+//                        })
+//                    }
+////                    .onAppear {
+////                        if ((serviceAPI.categories?.data.isEmpty) != nil) {
+////                            self.serviceAPI.fetchDataAboutCategories()
+////                        }
+////                    }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//                }
+//            }
 //        }
 //        ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
+                
+                
+                EndlessList()
             }.navigationBarHidden(true)
         }
     }
@@ -202,4 +214,27 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(viewModel: HomeViewModel())
     }
+}
+
+
+struct EndlessList: View {
+  @StateObject var dataSource = ContentDataSource()
+
+  var body: some View {
+    ScrollView {
+      LazyVStack {
+        ForEach(dataSource.items) { item in
+            Text(item.price)
+            .onAppear {
+              dataSource.loadMoreContentIfNeeded(currentItem: item)
+            }
+            .padding(.all, 30)
+        }
+
+        if dataSource.isLoadingPage {
+          ProgressView()
+        }
+      }
+    }
+  }
 }
