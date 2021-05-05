@@ -17,17 +17,17 @@ struct PlacesView: View {
     ]
     
     var body: some View {
-        NavigationBarView(title: "Restaraunts", isRoot: false, isSearch: true, isLast: true, color: .white, onBackClick: {
+        NavigationBarView(title: "Restaraunts", isRoot: false, isSearch: true, isLast: true, color: .white, location: "", onBackClick: {
             self.viewModel.controller?.redirectPrevious()
         }) {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(viewModel.places, id: \.self) { object in
-                        PlaceCardView(onClick: {
+                        PlaceCardView(place: object, onClick: {
                             self.viewModel.controller?.redirectToPlaceDetails(object: object)
                         }, loveClick: {
                             // Favorite Action
-                        }, namePlace: object.name, ratingPlace: object.rating, reviewsCount: object.reviewsCount, backgroundImage: DomainRouter.generalDomain.rawValue + object.imageURL)
+                        })
                     }
                 }
                 .padding(.horizontal)

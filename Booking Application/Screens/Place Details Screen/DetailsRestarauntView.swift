@@ -30,12 +30,17 @@ struct DetailsRestarauntView: View {
                                         .padding(.leading, 16)
                                 }
                                 Spacer()
-                                Button {
-                                    // Act fav
-                                } label: {
+                                if self.viewModel.place != nil {
+                                    Button (action: {
+                                        self.viewModel.place?.favourite ?? false ? self.viewModel.deleteFavouriteState() : self.viewModel.setFavouriteState()
+                                }, label: {
                                     Image("Heart")
+                                        .renderingMode(.template)
+                                        .foregroundColor(self.viewModel.place?.favourite ?? false ? Color.red : Color.white)
                                         .padding([.top, .bottom], 12)
                                         .padding(.trailing, 16)
+                                })
+                                    
                                 }
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

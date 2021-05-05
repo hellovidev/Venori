@@ -8,8 +8,9 @@
 import UIKit
 import SwiftUI
 import Combine
+import CoreLocation
 
-class HomeViewController: UIHostingController<HomeView>  {
+class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelegate  {
     private let viewModel = HomeViewModel()
     private var cancellable: AnyCancellable?
     private var serviceAPI = ServiceAPI()
@@ -17,11 +18,23 @@ class HomeViewController: UIHostingController<HomeView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+
     }
     
-    override func viewDidLoad() {
-        //cancellable?.cancel()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        viewModel.locationManager = CLLocationManager()
+        viewModel.locationManager?.delegate = self
+        viewModel.locationManager?.requestAlwaysAuthorization()
+        view.backgroundColor = .gray
     }
+    
+    
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        //cancellable?.cancel()
+//    }
     
     init() {
         let view = HomeView(viewModel: viewModel)
@@ -29,6 +42,31 @@ class HomeViewController: UIHostingController<HomeView>  {
         //cancellable = api.loadData().sink(receiveCompletion: {_ in}, receiveValue: { items in self.state.categories = items })
         viewModel.controller = self
     }
+    
+    // MARK: -> User Location
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                if CLLocationManager.isRangingAvailable() {
+                    guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+                    print("locations = \(locValue.latitude) \(locValue.longitude)")
+                    UserDefaults.standard.set(locValue.latitude, forKey: "latitude")
+                    UserDefaults.standard.set(locValue.longitude, forKey: "longitude")
+                    UserDefaults.standard.synchronize()
+                    
+                    self.viewModel.sentUserLocation()
+                }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print("New location is \(location)")
+        }
+    }
+    
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -68,6 +106,12 @@ class HomeViewController: UIHostingController<HomeView>  {
     
     func redirectToFoodItems() {
         let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
+    
+    func showMapView() {
+        let navigationController = UINavigationController(rootViewController: MapViewController(latitude: UserDefaults.standard.double(forKey: "latitude") , longitude: UserDefaults.standard.double(forKey: "longitude") ))
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }

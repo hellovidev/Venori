@@ -18,7 +18,7 @@ struct AllCategoriesView: View {
     ]
     
     var body: some View {
-        NavigationBarView(title: "Food Category", isRoot: false, isSearch: false, isLast: true, color: .white, onBackClick: {
+        NavigationBarView(title: "Food Category", isRoot: false, isSearch: false, isLast: true, color: .white, location: "", onBackClick: {
             self.viewModel.controller?.redirectPrevious()
         }) {
             ScrollView {

@@ -184,6 +184,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "HomeViewModel.getAddress():HomeViewModel.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #2 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -239,6 +242,9 @@
                value = "placeID">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeViewModel.sentUserLocation():HomeViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
@@ -314,7 +320,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in LoginViewController.loginValidation():LoginViewController.swift">
+         contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)">
+            </PersistentString>
+            <PersistentString
+               value = "state.password">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in AllCategoriesView.body.getter:AllCategoriesView.swift">
@@ -328,21 +342,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)">
-            </PersistentString>
-            <PersistentString
-               value = "state.password">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in LoginViewController.loginValidation():LoginViewController.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
          <PersistentStrings>
             <PersistentString
                value = "$0.id == self.selectedReservationTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #1 in closure #1 in PlaceCardView.body.getter:PlaceCardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "place">
+            </PersistentString>
+            <PersistentString
+               value = "place.favourite">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -362,6 +379,23 @@
             </PersistentString>
             <PersistentString
                value = "$0.id == self.selectedReservationTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeViewModel.getAddressFromLatLon(pdblLatitude:withLongitude:):HomeViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pm.subLocality">
+            </PersistentString>
+            <PersistentString
+               value = "pm.locality">
+            </PersistentString>
+            <PersistentString
+               value = "pm.country">
+            </PersistentString>
+            <PersistentString
+               value = "pm.thoroughfare">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

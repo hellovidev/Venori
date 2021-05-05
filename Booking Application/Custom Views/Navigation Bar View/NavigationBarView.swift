@@ -21,14 +21,16 @@ struct NavigationBarView<Content: View>: View {
     
     let isRoot : Bool
     let isLast : Bool
+    var location: String
     
     var onBackClick: () -> Void
     
-    init(title: String, isRoot : Bool, isSearch: Bool, isLast : Bool,color : Color, onBackClick: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+    init(title: String, isRoot : Bool, isSearch: Bool, isLast : Bool,color : Color, location: String, onBackClick: @escaping () -> Void, @ViewBuilder content: () -> Content) {
         self.title = title
         self.isRoot = isRoot
         self.isSearch = isSearch
         self.isLast = isLast
+        self.location = location
         self.color = color
         self.content = content()
         self.onBackClick = onBackClick
@@ -77,9 +79,9 @@ struct NavigationBarView<Content: View>: View {
                             .isHidden(isRoot ? true : false, remove: true)
                         Spacer()
                             .isHidden(isRoot ? true : false, remove: true)
-                        Button {
+                        Button (action: {
                             // Location  Code
-                        }  label: {
+                        },  label: {
                             Image("Pin")
                                 .padding([.leading, .top, .bottom], 16)
                                 .padding(.trailing, 6)
@@ -95,7 +97,7 @@ struct NavigationBarView<Content: View>: View {
                                     Image("Vector")
                                 }
                             }
-                        }
+                        })
                         .isHidden(isRoot ? false : true, remove: true)
                         Spacer()
                             .isHidden(isRoot ? false : true, remove: true)

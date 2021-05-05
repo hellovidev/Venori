@@ -23,7 +23,7 @@ struct Place: Codable, Hashable, Identifiable {
     var tablePrice: String
     var createdAt: String
     var updatedAt: String
-    var favourite: Bool
+    var favourite: Bool?
         
     init() {
         self.id = 0
@@ -67,7 +67,7 @@ struct Places: Codable {
     var currentPage: Int
     var data: [Place]
     var firstPageURL: String
-    var from: Int
+    var from: Int?
     var lastPage: Int
     var lastPageURL: String
     var links: [Link]?
@@ -75,7 +75,7 @@ struct Places: Codable {
     var path: String
     var perPage: Int
     var prevPageURL: String?
-    var to: Int
+    var to: Int?
     var total: Int
     
     enum CodingKeys: String, CodingKey {

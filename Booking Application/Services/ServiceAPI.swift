@@ -219,6 +219,153 @@ class ServiceAPI: ObservableObject {
         .resume()
     }
     
+    
+    // MARK: -> Add Favourite To Place
+    
+    func addToFavourite(completion: @escaping (Result<Place, Error>) -> Void, placeIdentifier: Int) {
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.favouritesRoute.rawValue) else { return }
+        
+        // Request Body Generating
+        
+        let data: [String: Any] = ["place": placeIdentifier]
+        let body = try? JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data of response for add favourite from server is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for add favourite place.", comment: "Success"))
+                case 201:
+                    NSLog(NSLocalizedString("Status Code is 201... Success storing a new favourite.", comment: "Success"))
+                case 401:
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Read Response Data
+                
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //guard let info = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else { return }
+                print(info)
+                
+                // Decodable JSON Data
+                
+                let response = try JSONDecoder().decode(Place.self, from: data)
+                
+                // Get Data to API Manager Value of Schedule for Place
+                
+                DispatchQueue.main.async {
+                    completion(.success(response))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
+    // MARK: -> Delete Favourite From Place
+    
+    func deleteFavourite(completion: @escaping (Result<String, Error>) -> Void, placeIdentifier: Int) {
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.favouritesRoute.rawValue) else { return }
+        
+        // Request Body Generating
+        
+        let data: [String: Any] = ["place": placeIdentifier]
+        let body = try? JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data of response for delete favourite from server is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for delete favourite place.", comment: "Success"))
+                case 401:
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Decodable JSON Data
+                
+                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                
+                DispatchQueue.main.async {
+                    completion(.success(response["message"] as! String))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
     // MARK: -> Method For Loading Place By ID
     
     func getPlaceByIdentifier(completion: @escaping (Result<Place, Error>) -> Void, placeIdentifier: Int) {
@@ -776,6 +923,77 @@ class ServiceAPI: ObservableObject {
                 let response = try JSONDecoder().decode(Account.self, from: data)
                 
                 // Get Data to API Manager Value of Message About User
+                
+                DispatchQueue.main.async {
+                    completion(.success(response))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
+    // MARK: -> Sent Current User Location
+    
+    func sentCurrentUserLocation(completion: @escaping (Result<[String: Any], Error>) -> Void, latitude: Double, longitude: Double, address: String) {
+        guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.currentLocationRoute.rawValue) else { return }
+                
+        // Request Body Generating
+        
+        let data: [String: Any] = ["address_full": address, "address_lat": latitude, "address_lon": longitude]
+        let body = try! JSONSerialization.data(withJSONObject: data)
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data of user location from server is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for user location.", comment: "Success"))
+                case 401:
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                case 422:
+                    completion(.failure(NSLocalizedString("The given data was invalid.", comment: "Error")))
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Decodable JSON Data
+
+                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(response)
                 
                 DispatchQueue.main.async {
                     completion(.success(response))
@@ -1373,6 +1591,7 @@ enum DomainRouter: String {
     case ordersRoute = "orders"
     case bookingHistoryRoute = "booking_history"
     case favouritesRoute = "user/favourites"
+    case currentLocationRoute = "user/location"
 }
 
 enum StatusCode: Int {
