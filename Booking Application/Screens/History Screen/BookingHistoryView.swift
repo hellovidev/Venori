@@ -42,7 +42,7 @@ struct BookingHistoryView: View {
                             ScrollView(showsIndicators: false) {
                                 VStack {
                                     ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
-                                        HistoryOrderItemView(order: item, cancel: {})
+                                        HistoryOrderItemView(order: item, place: Place(), cancel: {})
                                     }
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -152,12 +152,13 @@ struct HistoryOrderItemView: View {
     @State private var order: Order
     @State private var isHistory: Bool = false
     @State private var isActiveOrder: Bool = false
-    @State private var place = Place()
+    @State private var place: Place
     
     @State private var cancelCallback: () -> Void
     
-    init(order: Order, cancel: @escaping () -> Void) {
+    init(order: Order, place: Place, cancel: @escaping () -> Void) {
         self._order = State(initialValue: order)
+        self._place = State(initialValue: place)
         self._cancelCallback = State(initialValue: cancel)
         switch self.order.status {
         case "Confirmed":
@@ -207,16 +208,16 @@ struct HistoryOrderItemView: View {
                     .font(.system(size: 14, weight: .regular))
             }
             PlaceInnerItemView(place: self.place)
-                .onAppear {
-                    self.serviceAPI.getPlaceByIdentifier(completion: { response in
-                        switch response {
-                        case .success(let place):
-                            self.place = place
-                        case .failure(let error):
-                            print("PlaceInnerItemView has error: \(error)")
-                        }
-                    }, placeIdentifier: self.order.placeID)
-                }
+//                .onAppear {
+//                    self.serviceAPI.getPlaceByIdentifier(completion: { response in
+//                        switch response {
+//                        case .success(let place):
+//                            self.place = place
+//                        case .failure(let error):
+//                            print("PlaceInnerItemView has error: \(error)")
+//                        }
+//                    }, placeIdentifier: self.order.placeID)
+//                }
             
             VStack(alignment: .center) {
                 Button(action: {

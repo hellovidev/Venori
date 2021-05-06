@@ -11,30 +11,19 @@ import SwiftUI
 
 struct PlaceCardView: View {
     @State private var place: Place
-    
-    // Function Click On Card
-    
     @State private var onCardClick: () -> Void
-    
-    // Function Click On Favorite Icon
-    
     @State private var onFavouriteClick: () -> Void
+    @State private var isProcessDelete: Bool
     
-    // Information Data About Place
-    
-//    var namePlace: String
-//    var ratingPlace: Float
-//    var reviewsCount: Int
-//    var backgroundImage: String
-//    @State private var isFavourite: Bool = false
-    
-    init(place: Place, onCardClick: @escaping () -> Void, onFavouriteClick: @escaping () -> Void) {
+    init(place: Place, onCardClick: @escaping () -> Void, onFavouriteClick: @escaping () -> Void, isProcessDelete: Bool) {
         self._place = State(initialValue: place)
         self._onCardClick = State(initialValue: onCardClick)
         self._onFavouriteClick = State(initialValue: onFavouriteClick)
+        self._isProcessDelete = State(initialValue: isProcessDelete)
     }
     
     var body: some View {
+        ZStack {
             VStack(alignment: .leading) {
                 ZStack {
                     ImageURL(url: DomainRouter.generalDomain.rawValue + place.imageURL)
@@ -43,19 +32,19 @@ struct PlaceCardView: View {
                         .scaledToFit()
                     VStack {
                         Button {
-                            //self.isFavourite.toggle()
+                            self.isProcessDelete = true
                             self.onFavouriteClick()
                         } label: {
-                        Image("Heart")
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(maxWidth: 22, maxHeight: 22, alignment: .center)
-                            .foregroundColor(.white)
-                            .padding(6)
-                            .background(place.favourite ?? false ? Color.blue : Color(UIColor(hex: "#0000007A")!))
-                            .clipShape(Circle())
-                            .padding(.trailing, 8)
-                            .padding(.top, 8)
+                            Image("Heart")
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(maxWidth: 22, maxHeight: 22, alignment: .center)
+                                .foregroundColor(.white)
+                                .padding(6)
+                                .background(place.favourite ?? false ? Color.blue : Color(UIColor(hex: "#0000007A")!))
+                                .clipShape(Circle())
+                                .padding(.trailing, 8)
+                                .padding(.top, 8)
                         }
                         Spacer()
                     }
@@ -78,11 +67,21 @@ struct PlaceCardView: View {
             .onTapGesture {
                 self.onCardClick()
             }
+            
+            if isProcessDelete {
+                ZStack {
+                    RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#00000066")!), Color(UIColor(hex: "#00000000")!)]), center: UnitPoint(x: 0.5, y: 0.5), startRadius: 0, endRadius: 32)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            }
+        }
     }
 }
 
-//struct RestarauntCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlaceCardView(onClick: {}, loveClick: {}, namePlace: "McDonalds", ratingPlace: 3.2, reviewsCount: 777, backgroundImage: "https://cdn.vox-cdn.com/thumbor/6hGqu4TDUrZO0tJoCyVC1W5_Mk0=/0x0:8002x5335/1200x800/filters:focal(3361x2028:4641x3308)/cdn.vox-cdn.com/uploads/chorus_image/image/67760561/shutterstock_1778181218.0.jpg")
-//    }
-//}
+struct RestarauntCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlaceCardView(place: Place(), onCardClick: {}, onFavouriteClick: {}, isProcessDelete: true)
+    }
+}

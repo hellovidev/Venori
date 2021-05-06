@@ -18,70 +18,78 @@ struct OrdersView: View {
                         .padding([.leading, .top], 16)
                         .font(.system(size: 28, weight: .bold))
                     ZStack {
-                        ScrollView(showsIndicators: false) {
-                            VStack(alignment: .leading) {
-                                ForEach(viewModel.orders?.sorted { $0.id > $1.id } ?? [], id: \.self) { item in
-                                    HistoryOrderItemView(order: item, cancel: {
+                        ScrollView(showsIndicators: !viewModel.orders.isEmpty) {
+                            LazyVStack(alignment: .leading) {
+                                ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
+                                    HistoryOrderItemView(order: item, place: viewModel.place, cancel: {
                                         self.viewModel.cancelOrder(orderIdentifier: item.id)
                                     })
+                                    .onAppear {
+                                        viewModel.fetchPlaceOfOrder(placeIdentifier: item.placeID)
+                                        viewModel.loadMoreContentIfNeeded(currentItem: item)
+                                    }
                                 }
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                             .padding(.top, 16)
                             .padding(.bottom, 35)
                         }
-                        LoadingView(isAnimating: self.viewModel.isLoading, configuration: { view in
-                            view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-                            view.color = .black
-                        })
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .background(self.viewModel.isLoading ? Color(UIColor(hex: "#80808033")!) : Color(UIColor(hex: "#00000000")!))
+                        
+                        // MARK: -> While Data Loading Show Progress View
+                        
+                        if viewModel.isLoadingPage {
+                            ProgressView()
+                        }
                     }
                 }
                 .navigationBarHidden(true)
                 
-                VStack(alignment: .center) {
-                    Image("Empty")
-                        .resizable()
-                        .renderingMode(.template)
-                        .isHidden(!self.viewModel.isEmpty, remove: !self.viewModel.isEmpty)
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                    Text("You have no orders in progress.")
-                        .isHidden(!self.viewModel.isEmpty, remove: !self.viewModel.isEmpty)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                    Image("Reload")
-                        .resizable()
-                        .renderingMode(.template)
-                        .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                        .padding(.bottom, 12)
-                    Text("Error! Try downloading the data again.")
-                        .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                        .padding(.bottom, 12)
-                    Button(action: {
-                        self.viewModel.isLoading = true
-                        self.viewModel.fetchOrders()
-                    }, label: {
-                        Text("Try again")
-                            .foregroundColor(.white)
-                            .padding([.top, .bottom], 16)
-                            .padding([.leading, .trailing], 32)
-                            .font(.system(size: 16, weight: .semibold))
-                    })
-                    .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
-                    .background(Color(UIColor(hex: "#00000030")!))
-                    .cornerRadius(12)
-                }
+//                VStack(alignment: .center) {
+//
+//                    // MARK: -> Empty Data View
+//
+//                    Image("Empty")
+//                        .resizable()
+//                        .renderingMode(.template)
+//                        .isHidden(!self.viewModel.isEmpty, remove: !self.viewModel.isEmpty)
+//                        .foregroundColor(Color.gray)
+//                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+//                    Text("No Data")
+//                        .isHidden(!self.viewModel.isEmpty, remove: !self.viewModel.isEmpty)
+//                        .font(.system(size: 24, weight: .semibold))
+//                        .foregroundColor(Color.gray)
+//
+//                    // MARK: -> Error Load Data View
+//
+//                    Image("Reload")
+//                        .resizable()
+//                        .renderingMode(.template)
+//                        .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
+//                        .foregroundColor(Color.gray)
+//                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+//                        .padding(.bottom, 12)
+//                    Text("Error! Try downloading the data again.")
+//                        .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
+//                        .font(.system(size: 16, weight: .semibold))
+//                        .foregroundColor(Color.gray)
+//                        .padding(.bottom, 12)
+//                    Button(action: {
+//                        self.viewModel.isLoadingPage = true
+//                        self.viewModel.fetchOrders()
+//                    }, label: {
+//                        Text("Try again")
+//                            .foregroundColor(.white)
+//                            .padding([.top, .bottom], 16)
+//                            .padding([.leading, .trailing], 32)
+//                            .font(.system(size: 16, weight: .semibold))
+//                    })
+//                    .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
+//                    .background(Color(UIColor(hex: "#00000030")!))
+//                    .cornerRadius(12)
+//                }
             }
         }
-        .onAppear {
-            self.viewModel.fetchOrders()
-        }
+
     }
 }
 

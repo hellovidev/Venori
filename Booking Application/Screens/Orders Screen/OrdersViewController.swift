@@ -11,10 +11,14 @@ import SwiftUI
 class OrdersViewController: UIHostingController<OrdersView>  {
     private let viewModel = OrdersViewModel()
     
+    // MARK: -> Make Navigation Bar Hidden
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
     }
+    
+    // MARK: -> Initialization SwiftUI View
     
     init() {
         let view = OrdersView(viewModel: viewModel)

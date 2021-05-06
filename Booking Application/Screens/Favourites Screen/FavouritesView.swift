@@ -51,7 +51,6 @@ struct FavouritesView: View {
                         Image("Search")
                             .resizable()
                             .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
-                        
                     })
                     .isHidden(editing, remove: editing)
                     .padding(.top, 12)
@@ -61,7 +60,7 @@ struct FavouritesView: View {
                 
                 // MARK: -> Grid On Scroll View For Load Data
                 
-                ScrollView {
+                ScrollView(showsIndicators: !viewModel.favourites.isEmpty) {
                     LazyVGrid(columns: columns, spacing: 15) {
                         
                         // Search Meethod Here
@@ -71,8 +70,8 @@ struct FavouritesView: View {
                                 viewModel.controller?.redirectPlaceDetails(object: item)
                             }, onFavouriteClick: {
                                 guard item.favourite != nil else { return }
-                                item.favourite! ? viewModel.deleteFavouriteState(favourite: item) : viewModel.setFavouriteState(favourite: item)
-                            })
+                                viewModel.deleteFavouriteState(favourite: item)
+                            }, isProcessDelete: viewModel.isProcessDelete)
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }

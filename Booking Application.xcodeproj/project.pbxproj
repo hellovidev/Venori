@@ -424,9 +424,10 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
-				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3FCE05942643F4920097F23B /* Favourites Screen */,
+				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
@@ -516,7 +517,6 @@
 				3F64AC44263FF83A00862BAC /* Loading View */,
 				3F1E19C0263C4B7500908DE3 /* Enumeration Time View */,
 				3FC3BB452639B5C400C74727 /* Error PopUp View */,
-				3FDE43712632D20F00699ECB /* Map View */,
 				3F86BDF12626D9A100CA4CD3 /* Launch View */,
 				3F261271263994DE00B3250D /* Product View */,
 				3F8F0E9226381805006404B5 /* Stepper View */,
@@ -533,14 +533,14 @@
 			path = "Custom Views";
 			sourceTree = "<group>";
 		};
-		3FDE43712632D20F00699ECB /* Map View */ = {
+		3FDE43712632D20F00699ECB /* Map Screen */ = {
 			isa = PBXGroup;
 			children = (
 				3FDE43632632C95300699ECB /* MapView.swift */,
 				3FDE436E2632D20B00699ECB /* MapViewModel.swift */,
 				3FDE436A2632D1FE00699ECB /* MapViewController.swift */,
 			);
-			path = "Map View";
+			path = "Map Screen";
 			sourceTree = "<group>";
 		};
 		3FF060762628640A00308556 /* Model */ = {

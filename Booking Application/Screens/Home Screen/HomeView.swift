@@ -45,6 +45,8 @@ struct HomeView: View {
                     Button (action: {
             }, label: {
                 Image("Search")
+                    .resizable()
+                    .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
             })
             .padding(.top, 12)
             .padding(.trailing, 16)
@@ -70,7 +72,7 @@ struct HomeView: View {
                                             self.viewModel.controller?.redirectToPlaceDetails(object: object)
                                         }, onFavouriteClick: {
                                             object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                        })
+                                        }, isProcessDelete: false)
                                         .padding(.leading, 16)
                                     }
                                 }
@@ -117,7 +119,7 @@ struct HomeView: View {
                                         self.viewModel.controller?.redirectToPlaceDetails(object: object)
                                     }, onFavouriteClick: {
                                         object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                    })
+                                    }, isProcessDelete: false)
                                     .padding(.leading, 16)
                                 }
                             }
@@ -200,12 +202,12 @@ struct HomeView: View {
 
                 }
             }
-        }
+        }.navigationBarHidden(true)
         ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
                 
                 
 //                EndlessList()
-            }.navigationBarHidden(true)
+            }
         }
     }
 }
@@ -224,7 +226,7 @@ struct EndlessList: View {
     ScrollView {
       LazyVStack {
         ForEach(dataSource.items.sorted { $0.id > $1.id }) { item in
-            HistoryOrderItemView(order: item, cancel: {})
+            HistoryOrderItemView(order: item, place: Place(), cancel: {})
             .onAppear {
               dataSource.loadMoreContentIfNeeded(currentItem: item)
             }

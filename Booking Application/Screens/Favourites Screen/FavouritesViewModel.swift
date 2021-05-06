@@ -14,9 +14,10 @@ class FavouritesViewModel: ObservableObject {
     private var serviceAPI = ServiceAPI()
     private var canLoadMorePages = true
     private var currentPage = 1
-
+    
     @Published var favourites = [Place]()
     @Published var isLoadingPage = false
+    @Published var isProcessDelete = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -90,19 +91,7 @@ class FavouritesViewModel: ObservableObject {
                 if let removeOrderIndex = self.favourites.firstIndex(where: { $0.id == favourite.id }) {
                     self.favourites.remove(at: removeOrderIndex)
                 }
-                print(response)
-            case .failure(let error):
-                print(error)
-            }
-        }, placeIdentifier: favourite.id)
-    }
-    
-    // MARK: -> API Request For Add Place To Favourite
-    
-    func setFavouriteState(favourite: Place) {
-        serviceAPI.addToFavourite(completion: { result in
-            switch result {
-            case .success(let response):
+                self.isProcessDelete = false
                 print(response)
             case .failure(let error):
                 print(error)

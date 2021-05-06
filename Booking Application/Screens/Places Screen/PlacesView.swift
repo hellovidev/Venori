@@ -27,7 +27,7 @@ struct PlacesView: View {
                             self.viewModel.controller?.redirectToPlaceDetails(object: object)
                         }, onFavouriteClick: {
                             // Favorite Action
-                        })
+                        }, isProcessDelete: false)
                     }
                 }
                 .padding(.horizontal)

@@ -95,7 +95,6 @@ struct DetailsRestarauntView: View {
                             .frame(maxHeight: .infinity)
                         }
                         Spacer()
-                        //Image("Background Account")
                         MapPreview(longitude: viewModel.place?.addressLat ?? 0, latitude: viewModel.place?.addressLon ?? 0)
                     }
                     .padding(.bottom, 20)

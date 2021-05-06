@@ -5,7 +5,6 @@
 //  Created by student on 15.04.21.
 //
 
-import UIKit
 import SwiftUI
 
 class MoreViewController: UIHostingController<MoreView>  {
@@ -25,7 +24,7 @@ class MoreViewController: UIHostingController<MoreView>  {
     }
     
     // MARK: -> Initialization SwiftUI View
-
+    
     init() {
         let view = MoreView(viewModel: viewModel)
         super.init(rootView: view)
