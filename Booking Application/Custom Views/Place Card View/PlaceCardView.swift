@@ -14,11 +14,11 @@ struct PlaceCardView: View {
     
     // Function Click On Card
     
-    @State private var onClick: () -> Void
+    @State private var onCardClick: () -> Void
     
     // Function Click On Favorite Icon
     
-    @State private var loveClick: () -> Void
+    @State private var onFavouriteClick: () -> Void
     
     // Information Data About Place
     
@@ -28,35 +28,34 @@ struct PlaceCardView: View {
 //    var backgroundImage: String
 //    @State private var isFavourite: Bool = false
     
-    init(place: Place, onClick: @escaping () -> Void, loveClick: @escaping () -> Void) {
+    init(place: Place, onCardClick: @escaping () -> Void, onFavouriteClick: @escaping () -> Void) {
         self._place = State(initialValue: place)
-        self._onClick = State(initialValue: onClick)
-        self._loveClick = State(initialValue: loveClick)
+        self._onCardClick = State(initialValue: onCardClick)
+        self._onFavouriteClick = State(initialValue: onFavouriteClick)
     }
     
     var body: some View {
             VStack(alignment: .leading) {
                 ZStack {
                     ImageURL(url: DomainRouter.generalDomain.rawValue + place.imageURL)
-                        .frame(maxWidth: 296, maxHeight: 169)
-                        .cornerRadius(32)
+                        .frame(maxWidth: 256, maxHeight: 169)
+                        .cornerRadius(16)
                         .scaledToFit()
                     VStack {
                         Button {
                             //self.isFavourite.toggle()
-                            self.loveClick()
+                            self.onFavouriteClick()
                         } label: {
                         Image("Heart")
                             .resizable()
                             .renderingMode(.template)
-                            .foregroundColor(place.favourite ?? false ? Color.red : Color.white)
-                            .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
+                            .frame(maxWidth: 22, maxHeight: 22, alignment: .center)
                             .foregroundColor(.white)
-                            .padding(12)
-                            .background(Color(UIColor(hex: "#0000007A")!))
+                            .padding(6)
+                            .background(place.favourite ?? false ? Color.blue : Color(UIColor(hex: "#0000007A")!))
                             .clipShape(Circle())
-                            .padding(.trailing, 9)
-                            .padding(.top, 9)
+                            .padding(.trailing, 8)
+                            .padding(.top, 8)
                         }
                         Spacer()
                     }
@@ -77,7 +76,7 @@ struct PlaceCardView: View {
                 }
             }
             .onTapGesture {
-                self.onClick()
+                self.onCardClick()
             }
     }
 }

@@ -1639,58 +1639,26 @@ class ContentDataSource: ObservableObject {
     private var currentPage = 1
     private var canLoadMorePages = true
     
+    //Temp
+    @Published var place = Place()
+    
     init() {
         loadMoreContent()
-        
-        //    loadMoreContent(completion: { response in
-        //        switch response {
-        //        case .success(let data):
-        //            self.items.append(contentsOf: data.data)
-        //            self.canLoadMorePages = (data.lastPage != data.currentPage)
-        //            self.isLoadingPage = false
-        //            self.currentPage += 1
-        //        case .failure(let error):
-        //            print(error)
-        //    }
-        //    })
     }
     
     func loadMoreContentIfNeeded(currentItem item: Order?) {
         guard let item = item else {
             loadMoreContent()
-            
-            //      loadMoreContent(completion: { response in
-            //        switch response {
-            //        case .success(let data):
-            //            self.items.append(contentsOf: data.data)
-            //            self.canLoadMorePages = (data.lastPage != data.currentPage)
-            //            self.isLoadingPage = false
-            //            self.currentPage += 1
-            //        case .failure(let error):
-            //            print(error)
-            //    }
-            //    })
             return
         }
         
         let thresholdIndex = items.index(items.endIndex, offsetBy: -5)
         if items.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
             loadMoreContent()
-            //        loadMoreContent(completion: { response in
-            //            switch response {
-            //            case .success(let data):
-            //                self.items.append(contentsOf: data.data)
-            //                self.canLoadMorePages = (data.lastPage != data.currentPage)
-            //                self.isLoadingPage = false
-            //                self.currentPage += 1
-            //            case .failure(let error):
-            //                print(error)
-            //        }
-            //        })
         }
     }
     
-    private func loadMoreContent(){//completion: @escaping (Result<Orders, Error>) -> Void) {
+    private func loadMoreContent() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -1710,53 +1678,6 @@ class ContentDataSource: ObservableObject {
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        //    URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
-        //
-        //        // Check Presence of Errors
-        //
-        //        guard error == nil else {
-        //            completion(.failure(error!))
-        //            return
-        //        }
-        //
-        //        // Data Validation
-        //
-        //        guard let data = data else {
-        //            completion(.failure(NSLocalizedString("Loaded data of booking history from server is empty!", comment: "Error")))
-        //            return
-        //        }
-        //
-        //        if let response = response as? HTTPURLResponse {
-        //            switch response.statusCode {
-        //            case 200:
-        //                NSLog(NSLocalizedString("Status Code is 200... Request for booking history.", comment: "Success"))
-        //            case 401:
-        //                completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
-        //            default:
-        //                completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
-        //            }
-        //        } else {
-        //            completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
-        //            return
-        //        }
-        //
-        //        do {
-        //
-        //            // Decodable JSON Data
-        //
-        //            let response = try JSONDecoder().decode(Orders.self, from: data)
-        //
-        //            // Set Data to API Manager Value of Booking History
-        //
-        //            DispatchQueue.main.async {
-        //                completion(.success(response))
-        //            }
-        //        } catch {
-        //            completion(.failure(error))
-        //        }
-        //    })
-        //    .resume()
-        
         URLSession.shared.dataTaskPublisher(for: request as URLRequest)
             .map(\.data)
             .decode(type: Orders.self, decoder: JSONDecoder())
@@ -1770,10 +1691,31 @@ class ContentDataSource: ObservableObject {
                 print(response.data)
                 self.items.append(contentsOf: response.data)
                 return self.items
-                
             })
-            .catch({ _ in Just(self.items)
-            })
+            .catch({ _ in Just(self.items) })
             .assign(to: &$items)
+    }
+    
+    func loadPlaceContent(placeIdentifier: Int) {
+        let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue + "/\(placeIdentifier)")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: Place.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .map({ response in
+                print(response)
+                self.place = response
+                return self.place
+            })
+            .catch({ _ in Just(self.place) })
+            .assign(to: &$place)
     }
 }

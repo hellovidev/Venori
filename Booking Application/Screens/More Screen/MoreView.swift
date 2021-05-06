@@ -10,6 +10,27 @@ import SwiftUI
 struct MoreView: View {
     @ObservedObject var viewModel: MoreViewModel
     
+    private enum MenuItems: String {
+        case account = "Account details"
+        case history = "Booking history"
+        case favorites = "Favorites"
+        case notifications = "Notifications"
+        case settings = "Settings"
+        case about = "About"
+        case contact = "Contact"
+        case terms = "Terms"
+        case privacy = "Privacy Policy"
+        case logout = "Log out"
+    }
+    
+    private enum MenuIcons: String {
+        case accountIcon = "Menu Account"
+        case historyIcon = "Menu Booking"
+        case favoritesIcon = "Menu Favorites"
+        case notificationsIcon = "Menu Notifications"
+        case settingsIcon = "Menu Settings"
+    }
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .center) {
@@ -20,13 +41,23 @@ struct MoreView: View {
                         .ignoresSafeArea()
                         .frame(maxWidth: .infinity, maxHeight: 256)
                     VStack(alignment: .center) {
-                        ImageURL(url: viewModel.user?.avatar != nil ? DomainRouter.generalDomain.rawValue + (viewModel.user?.avatar ?? "") : "https://lh3.googleusercontent.com/proxy/NzFM0tX4ZfHsCdyTGFntgMNRMtbjcGiIU2IPRaNCQVxnsxwxIW7RmP2wulNzmGHKw1LFffTadFnQBHZh9vxTWudJglVKytY")
-                            .frame(maxWidth: 96, maxHeight: 96, alignment: .center)
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .shadow(radius: 10)
-                            .overlay(Circle().stroke(Color.white, lineWidth: 5))
-                            .padding([.bottom, .top], 24)
+                        if viewModel.user?.avatar != nil {
+                            ImageURL(url: DomainRouter.generalDomain.rawValue + (viewModel.user?.avatar ?? ""))
+                                .frame(maxWidth: 96, maxHeight: 96, alignment: .center)
+                                .scaledToFill()
+                                .clipShape(Circle())
+                                .shadow(radius: 10)
+                                .overlay(Circle().stroke(Color.white, lineWidth: 5))
+                                .padding([.bottom, .top], 24)
+                        } else {
+                            Color.gray
+                                .frame(maxWidth: 96, maxHeight: 96, alignment: .center)
+                                .scaledToFill()
+                                .clipShape(Circle())
+                                .shadow(radius: 10)
+                                .overlay(Circle().stroke(Color.white, lineWidth: 5))
+                                .padding([.bottom, .top], 24)
+                        }
                         Text("\(viewModel.user?.firstName ?? "User") \(viewModel.user?.secondName ?? "Account")")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(Color.white)
@@ -41,9 +72,11 @@ struct MoreView: View {
                     MenuItemView(item: MenuItems.account.rawValue, image: MenuIcons.accountIcon.rawValue, decorateItem: true, onClick: {})
                         .padding(.top, 20)
                     MenuItemView(item: MenuItems.history.rawValue, image: MenuIcons.historyIcon.rawValue, decorateItem: true, onClick: {
-                        self.viewModel.controller?.redirectToBookingHistory()
+                        viewModel.controller?.redirectBookingHistory()
                     })
-                    MenuItemView(item: MenuItems.favorites.rawValue, image: MenuIcons.favoritesIcon.rawValue, decorateItem: true, onClick: {})
+                    MenuItemView(item: MenuItems.favorites.rawValue, image: MenuIcons.favoritesIcon.rawValue, decorateItem: true, onClick: {
+                        viewModel.controller?.redirectFavourites()
+                    })
                     MenuItemView(item: MenuItems.notifications.rawValue, image: MenuIcons.notificationsIcon.rawValue, decorateItem: true, onClick: {})
                     MenuItemView(item: MenuItems.settings.rawValue, image: MenuIcons.settingsIcon.rawValue, decorateItem: true, onClick: {})
                         .padding(.bottom, 20)
@@ -56,7 +89,7 @@ struct MoreView: View {
                         .padding(.bottom, 30)
                 }
                 MenuItemView(item: MenuItems.logout.rawValue, image: "", decorateItem: false, onClick: {
-                    self.viewModel.logoutAccount()
+                    viewModel.logoutAccount()
                 })
                 .padding(.bottom, 20)
             }
@@ -80,11 +113,11 @@ struct MenuItemView: View {
     var body: some View {
         VStack {
             Button (action: {
-                self.onClick()
+                onClick()
             }, label: {
                 HStack(alignment: .top) {
                     Image(image)
-                        .isHidden(!self.decorateItem, remove: !self.decorateItem)
+                        .isHidden(!decorateItem, remove: !decorateItem)
                         .padding(.leading, 16)
                         .padding([.top, .bottom], 6)
                     VStack(alignment: .leading) {
@@ -94,7 +127,7 @@ struct MenuItemView: View {
                                 .font(.system(size: 14, weight: .regular))
                             Spacer()
                             Image("Menu Vector")
-                                .isHidden(!self.decorateItem, remove: !self.decorateItem)
+                                .isHidden(!decorateItem, remove: !decorateItem)
                                 .padding(.trailing, 16)
                         }
                         Divider()
@@ -106,25 +139,4 @@ struct MenuItemView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
-}
-
-public enum MenuItems: String {
-    case account = "Account details"
-    case history = "Booking history"
-    case favorites = "Favorites"
-    case notifications = "Notifications"
-    case settings = "Settings"
-    case about = "About"
-    case contact = "Contact"
-    case terms = "Terms"
-    case privacy = "Privacy Policy"
-    case logout = "Log out"
-}
-
-public enum MenuIcons: String {
-    case accountIcon = "Menu Account"
-    case historyIcon = "Menu Booking"
-    case favoritesIcon = "Menu Favorites"
-    case notificationsIcon = "Menu Notifications"
-    case settingsIcon = "Menu Settings"
 }

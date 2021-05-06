@@ -23,9 +23,9 @@ struct PlacesView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(viewModel.places, id: \.self) { object in
-                        PlaceCardView(place: object, onClick: {
+                        PlaceCardView(place: object, onCardClick: {
                             self.viewModel.controller?.redirectToPlaceDetails(object: object)
-                        }, loveClick: {
+                        }, onFavouriteClick: {
                             // Favorite Action
                         })
                     }

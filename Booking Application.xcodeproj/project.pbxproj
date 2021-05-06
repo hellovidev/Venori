@@ -65,6 +65,9 @@
 		3FC3BB472639B5E800C74727 /* ErrorPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB462639B5E800C74727 /* ErrorPopUpView.swift */; };
 		3FC3BB4C2639BF6600C74727 /* BookingHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB4B2639BF6600C74727 /* BookingHistoryViewModel.swift */; };
 		3FC3BB4F2639BF7700C74727 /* BookingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB4E2639BF7700C74727 /* BookingHistoryViewController.swift */; };
+		3FCE05962643F4C90097F23B /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCE05952643F4C90097F23B /* FavouritesView.swift */; };
+		3FCE059A2643F5FE0097F23B /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCE05992643F5FE0097F23B /* FavouritesViewModel.swift */; };
+		3FCE059E2643F60A0097F23B /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCE059D2643F60A0097F23B /* FavouritesViewController.swift */; };
 		3FDE434D26318C0800699ECB /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDE434C26318C0800699ECB /* Link.swift */; };
 		3FDE435E2631C0CD00699ECB /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDE435D2631C0CD00699ECB /* Order.swift */; };
 		3FDE43642632C95300699ECB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDE43632632C95300699ECB /* MapView.swift */; };
@@ -141,6 +144,9 @@
 		3FC3BB462639B5E800C74727 /* ErrorPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpView.swift; sourceTree = "<group>"; };
 		3FC3BB4B2639BF6600C74727 /* BookingHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryViewModel.swift; sourceTree = "<group>"; };
 		3FC3BB4E2639BF7700C74727 /* BookingHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryViewController.swift; sourceTree = "<group>"; };
+		3FCE05952643F4C90097F23B /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
+		3FCE05992643F5FE0097F23B /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
+		3FCE059D2643F60A0097F23B /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		3FDE434C26318C0800699ECB /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		3FDE435D2631C0CD00699ECB /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		3FDE43632632C95300699ECB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -420,6 +426,8 @@
 			children = (
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
 				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
+				3FCE05942643F4920097F23B /* Favourites Screen */,
+				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
@@ -428,7 +436,6 @@
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F86BDFF2626DA0C00CA4CD3 /* Registration  Screen */,
-				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -479,6 +486,16 @@
 				3FC3BB462639B5E800C74727 /* ErrorPopUpView.swift */,
 			);
 			path = "Error PopUp View";
+			sourceTree = "<group>";
+		};
+		3FCE05942643F4920097F23B /* Favourites Screen */ = {
+			isa = PBXGroup;
+			children = (
+				3FCE05952643F4C90097F23B /* FavouritesView.swift */,
+				3FCE05992643F5FE0097F23B /* FavouritesViewModel.swift */,
+				3FCE059D2643F60A0097F23B /* FavouritesViewController.swift */,
+			);
+			path = "Favourites Screen";
 			sourceTree = "<group>";
 		};
 		3FDE435526319F6D00699ECB /* Services */ = {
@@ -628,6 +645,7 @@
 				3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */,
 				3FDE436F2632D20B00699ECB /* MapViewModel.swift in Sources */,
 				3FA90CB22632FB97001D1BCE /* NavigationBarView.swift in Sources */,
+				3FCE05962643F4C90097F23B /* FavouritesView.swift in Sources */,
 				3FB452AF264171C1001128A0 /* UIAlertController.swift in Sources */,
 				3F8F0E90263817EE006404B5 /* StepperView.swift in Sources */,
 				3F86BDC52626D7F500CA4CD3 /* OrdersView.swift in Sources */,
@@ -671,6 +689,7 @@
 				3F08B9E2262DA66E0097FF1A /* OrderProcessViewModel.swift in Sources */,
 				3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */,
 				3F0A430E262EEAFF0001C12F /* ServiceAPI.swift in Sources */,
+				3FCE059A2643F5FE0097F23B /* FavouritesViewModel.swift in Sources */,
 				3FA90CB72632FFD0001D1BCE /* SearchBarView.swift in Sources */,
 				3F86BDED2626D98900CA4CD3 /* HomeView.swift in Sources */,
 				3FF0608526286EC200308556 /* PlacesViewController.swift in Sources */,
@@ -679,6 +698,7 @@
 				3F86BDCC2626D85200CA4CD3 /* BookingHistoryView.swift in Sources */,
 				3FF060782628641D00308556 /* Category.swift in Sources */,
 				3F64AC46263FF85800862BAC /* LoadingView.swift in Sources */,
+				3FCE059E2643F60A0097F23B /* FavouritesViewController.swift in Sources */,
 				3F68114A26297E7800095A7F /* OrdersViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

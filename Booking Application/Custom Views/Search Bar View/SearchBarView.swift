@@ -13,7 +13,7 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
-            TextField("Search ...", text: $text)
+            TextField("Search...", text: $text)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -45,6 +45,7 @@ struct SearchBarView: View {
                     self.text = ""
                 }) {
                     Text("Cancel")
+                        .font(.system(size: 16, weight: .semibold))
                 }
                 .padding(.trailing, 10)
                 .transition(.move(edge: .trailing))
@@ -54,10 +55,8 @@ struct SearchBarView: View {
     }
 }
 
-/*
- struct SearchBarView_Previews: PreviewProvider {
- static var previews: some View {
- SearchBarView(text: .constant(""), isEditing: false)
- }
- }
- */
+//struct SearchBarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchBarView(text: .constant(""), isEditing: false)
+//    }
+//}
