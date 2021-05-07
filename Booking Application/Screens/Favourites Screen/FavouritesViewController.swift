@@ -10,11 +10,22 @@ import SwiftUI
 class FavouritesViewController: UIHostingController<FavouritesView>  {
     private let viewModel = FavouritesViewModel()
     
+    // MARK: -> Update Values
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        viewModel.favourites.removeAll()
+        viewModel.isLoadingPage = false
+        viewModel.canLoadMorePages = true
+        viewModel.currentPage = 1
+    }
+    
     // MARK: -> Make Navigation Bar Hidden
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        viewModel.loadMoreContent()
     }
     
     // MARK: -> Initialization SwiftUI View

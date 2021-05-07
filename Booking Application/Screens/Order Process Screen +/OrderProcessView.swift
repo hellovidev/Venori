@@ -149,14 +149,14 @@ struct BookProcessView: View {
                             .padding(.bottom, 12)
                         StepperView(value: $valueHumans, valueType: "", onClick: {
                             
-                            let date = Date()
-                            let formatter = DateFormatter()
+//let date = Date()
+                           // let formatter = DateFormatter()
                             //Give the format you want to the formatter:
                             
-                            formatter.dateFormat = "yyyy-MM-dd"
+                            //formatter.dateFormat = "yyyy-MM-dd"
                             //Get the result string:
                             
-                            let result = formatter.string(from: date)
+                           // let result = formatter.string(from: date)
                             
                                                     serviceAPI.getPlaceAvailableTime(completion: { result in
                                                         switch result {
@@ -188,14 +188,14 @@ struct BookProcessView: View {
                             .padding(.bottom, 12)
                         StepperView(value: $valueHours, valueType: "hr", onClick: {
                             
-                            let date = Date()
-                            let formatter = DateFormatter()
+                           // let date = Date()
+                            //let formatter = DateFormatter()
                             //Give the format you want to the formatter:
                             
-                            formatter.dateFormat = "yyyy-MM-dd"
+                           // formatter.dateFormat = "yyyy-MM-dd"
                             //Get the result string:
                             
-                            let result = formatter.string(from: date)
+                            //let result = formatter.string(from: date)
                             
                             //Set your label:
                             

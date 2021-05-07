@@ -11,16 +11,14 @@ import CoreLocation
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     var serviceAPI = ServiceAPI()
-    var favIsEmpty: Bool = true //***
-    
-    @State private var showPopUp: Bool = false
-    @State private var errorMessage: String = ""
     
     var body: some View {
         ZStack{
             NavigationView {
-                
                 VStack {
+                    
+                    // MARK: -> Navigation Bar Block
+                    
                     HStack(alignment: .center) {
                         Button (action: {
                             self.viewModel.controller?.showMapView()
@@ -53,6 +51,8 @@ struct HomeView: View {
                         .padding(.bottom, 12)
                     }
                     
+                    // MARK: -> Scroll View For Load Data
+                    
                     ScrollView {
                         VStack {
                             // MARK: -> Favorite Restaurants Block
@@ -60,7 +60,6 @@ struct HomeView: View {
                             VStack(alignment: .leading) {
                                 SectionSeparatorView(title: "My Favorite Restaraunts", onClick: {
                                     self.viewModel.controller?.seeAllFavourites()
-                                    
                                 })
                                 if viewModel.favorites.isEmpty {
                                     FavouriteEmptyView()
@@ -80,30 +79,6 @@ struct HomeView: View {
                                 }
                             }
                             .padding(.bottom, 26)
-//                            .onAppear {
-//                                serviceAPI.fetchDataAboutFavourites(completion: { result in
-//                                    switch result {
-//                                    case .success(let favorites):
-//                                        self.viewModel.favorites = favorites.data
-//                                        
-//                                        for (index, _) in self.viewModel.favorites.enumerated() {
-//                                            self.viewModel.favorites[index].favourite = true
-//                                        }
-//                                        
-//                                    case .failure(let error):
-//                                        DispatchQueue.main.async {
-//                                            viewModel.controller?.showPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                                            
-//                                        }
-//                                        print(error)
-//                                    //print(error.localizedDescription)
-//                                    }
-//                                    
-//                                    //self.state.categories = self.serviceAPI.categories!.data
-//                                })
-//                                
-//                                //self.viewModel.controller?.locationManager(viewModel.controller?.locationManager, didChangeAuthorization: viewModel.controller?.locationManager?.authorizationStatus)
-//                            }
                             
                             // MARK: -> Restaurants Block
                             
@@ -111,7 +86,6 @@ struct HomeView: View {
                                 SectionSeparatorView(title: "Restaurants", onClick: {
                                     viewModel.controller?.seeAllPlaces()
                                 })
-                                
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: -8) {
                                         ForEach(viewModel.places.sorted { $0.id < $1.id }, id: \.self) { object in
@@ -126,25 +100,6 @@ struct HomeView: View {
                                 }
                             }
                             .padding(.bottom, 26)
-//                            .onAppear {
-//                                serviceAPI.fetchDataAboutPlaces(completion: { result in
-//                                    switch result {
-//                                    case .success(let places):
-//                                        self.viewModel.places = places.data
-//                                    case .failure(let error):
-//                                        DispatchQueue.main.async {
-//                                            viewModel.controller?.showPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                                            
-//                                        }
-//                                        print(error)
-//                                    }
-//                                })
-//                            }
-                            //                    .onAppear {
-                            //                        if ((serviceAPI.places?.data?.isEmpty) != nil) {
-                            //                            self.serviceAPI.fetchDataAboutPlaces()
-                            //                        }
-                            //                    }
                             
                             // MARK: -> Categories Block
                             
@@ -155,35 +110,21 @@ struct HomeView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: -8) {
                                         ForEach(viewModel.categories, id: \.self) { object in
-                                            CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {}).padding(.leading, 16)
+                                            CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
+                                                self.viewModel.controller?.redirectCategoryPlaces(object: object)
+                                            }).padding(.leading, 16)
                                         }
                                     }
                                 }
                             }
                             .padding(.bottom, 26)
-                            .onAppear {
-                                
-                                serviceAPI.fetchDataAboutCategories(completion: { result in
-                                    switch result {
-                                    case .success(let categories):
-                                        self.viewModel.categories = categories.data
-                                    case .failure(let error):
-                                        DispatchQueue.main.async {
-                                            viewModel.controller?.showPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-                                            
-                                        }
-                                    }
-                                    
-                                })
-                            }
-                            
-                            
-                            
-                            
                         }
                     }
-                }.navigationBarHidden(true)
-                ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
+                }
+                .navigationBarHidden(true)
+                .alert(isPresented: $viewModel.showAlertError) {
+                    Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+                }
             }
         }
     }
@@ -192,28 +133,5 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(viewModel: HomeViewModel())
-    }
-}
-
-
-struct EndlessList: View {
-    @StateObject var dataSource = ContentDataSource()
-    
-    var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(dataSource.items.sorted { $0.id > $1.id }) { item in
-                    HistoryOrderItemView(order: item, cancel: {})
-                        .onAppear {
-                            dataSource.loadMoreContentIfNeeded(currentItem: item)
-                        }
-                        .padding(.all, 30)
-                }
-                
-                if dataSource.isLoadingPage {
-                    ProgressView()
-                }
-            }
-        }
     }
 }

@@ -93,6 +93,9 @@ struct MoreView: View {
                 })
                 .padding(.bottom, 20)
             }
+            .alert(isPresented: $viewModel.showAlertError) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+            }
         }
         .ignoresSafeArea(.container, edges: .top)
     }

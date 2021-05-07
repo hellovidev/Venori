@@ -1,23 +1,23 @@
 //
-//  BookingHistoryViewModel.swift
+//  AllCategoriesViewModel.swift
 //  Booking Application
 //
-//  Created by student on 28.04.21.
+//  Created by student on 15.04.21.
 //
 
 import Combine
-import SwiftUI
+import Foundation
 
-class BookingHistoryViewModel: ObservableObject {
-    weak var controller: BookingHistoryViewController?
-    private var cancellables = Set<AnyCancellable>()
-    private var serviceAPI = ServiceAPI()
-    var canLoadMorePages = true
-    var currentPage = 1
+class CategoriesViewModel: ObservableObject {
+    weak var controller: CategoriesViewController?
+    @Published var categories = [Category]()
     
-    @Published var orders = [Order]()
     @Published var isLoadingPage = false
-    @Published var isProcessDelete = false
+    private var currentPage = 1
+    var canLoadMorePages = true
+    
+    @Published var showAlertError = false
+    @Published var errorMessage = ""
     
     // MARK: -> Load Content By Pages
     
@@ -27,8 +27,8 @@ class BookingHistoryViewModel: ObservableObject {
             return
         }
         
-        let thresholdIndex = orders.index(orders.endIndex, offsetBy: -5)
-        if orders.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
+        let thresholdIndex = categories.index(categories.endIndex, offsetBy: -5)
+        if categories.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
             loadMoreContent()
         }
     }
@@ -40,7 +40,7 @@ class BookingHistoryViewModel: ObservableObject {
         
         isLoadingPage = true
         
-        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue)!
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue)!
         
         url.queryItems = [
             URLQueryItem(name: "page", value: "\(self.currentPage)")
@@ -55,7 +55,7 @@ class BookingHistoryViewModel: ObservableObject {
         
         URLSession.shared.dataTaskPublisher(for: request as URLRequest)
             .map(\.data)
-            .decode(type: Orders.self, decoder: JSONDecoder())
+            .decode(type: Categories.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .handleEvents(receiveOutput: { response in
                 self.canLoadMorePages = (response.lastPage != response.currentPage)
@@ -64,11 +64,11 @@ class BookingHistoryViewModel: ObservableObject {
             })
             .map({ response in
                 print(response.data)
-                self.orders.append(contentsOf: response.data)
-                return self.orders
+                self.categories.append(contentsOf: response.data)
+                return self.categories
             })
-            .catch({ _ in Just(self.orders) })
-            .assign(to: &$orders)
+            .catch({ _ in Just(self.categories) })
+            .assign(to: &$categories)
     }
     
 }

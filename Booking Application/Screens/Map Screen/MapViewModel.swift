@@ -14,4 +14,3 @@ class MapViewModel: ObservableObject {
     @Published var region: MKCoordinateRegion = MKCoordinateRegion()
 
 }
-

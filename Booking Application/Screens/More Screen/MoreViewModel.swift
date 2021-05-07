@@ -10,7 +10,10 @@ import Foundation
 class MoreViewModel: ObservableObject {
     weak var controller: MoreViewController?
     private let serviceAPI = ServiceAPI()
+    
     @Published var user: User?
+    @Published var showAlertError = false
+    @Published var errorMessage = ""
     
     init() {
         
@@ -39,6 +42,8 @@ class MoreViewModel: ObservableObject {
                 self.controller?.systemLogout()
                 print(message)
             case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showAlertError = true
                 print(error)
             }
         })

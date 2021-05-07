@@ -20,18 +20,14 @@ class HomeViewModel: ObservableObject {
     
     @Published var categories = [Category]()
     @Published var favorites = [Place]()
-    
     @Published var places = [Place]()
 
     @Published var isLoadingPage = false
     private var currentPage = 1
 
-    
-//    init() {
-//        loadPlacesContent()
-//        loadFavouritesContent()
-//    }
-    
+    @Published var showAlertError = false
+    @Published var errorMessage = ""
+
      func loadPlacesContent() {
 //        guard !isLoadingPage else {
 //            return
@@ -109,6 +105,43 @@ class HomeViewModel: ObservableObject {
             .assign(to: &$favorites)
     }
     
+    func loadCategoriesContent() {
+//        guard !isLoadingPage else {
+//            return
+//        }
+//
+//        isLoadingPage = true
+       
+       var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue)!
+       
+       url.queryItems = [
+           URLQueryItem(name: "page", value: "\(self.currentPage)")
+       ]
+       
+       var request = URLRequest(url: url.url!)
+       request.httpMethod = "GET"
+       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+       request.setValue("application/json", forHTTPHeaderField: "Accept")
+       
+       request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+       
+       URLSession.shared.dataTaskPublisher(for: request as URLRequest)
+           .map(\.data)
+           .decode(type: Categories.self, decoder: JSONDecoder())
+           .receive(on: DispatchQueue.main)
+           .handleEvents(receiveOutput: { response in
+               self.isLoadingPage = false
+           })
+           .map({ response in
+               print(response.data)
+               self.categories = response.data
+               
+               return self.categories
+           })
+           .catch({ _ in Just(self.categories) })
+           .assign(to: &$categories)
+   }
+    
     func deleteFavouriteState(place: Place) {
         self.serviceAPI.deleteFavourite(completion: { result in
             switch result {
@@ -121,6 +154,8 @@ class HomeViewModel: ObservableObject {
                 //self.fetchPlaces()
                 print(response)
             case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showAlertError = true
                 print(error)
             }
         }, placeIdentifier: place.id)
@@ -138,35 +173,12 @@ class HomeViewModel: ObservableObject {
                 //self.fetchPlaces()
                 print(response)
             case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showAlertError = true
                 print(error)
             }
         }, placeIdentifier: place.id)
     }
-    
-//    func fetchPlaces() {
-//        serviceAPI.fetchDataAboutPlaces(completion: { result in
-//            switch result {
-//            case .success(let places):
-//                self.places = places.data
-//            case .failure(let error):
-//                print(error)
-//            }
-//        })
-//    }
-    
-//    func fetchFavourites() {
-//        serviceAPI.fetchDataAboutFavourites(completion: { result in
-//            switch result {
-//            case .success(let favorites):
-//                self.favorites = favorites.data
-//                for (index, _) in self.favorites.enumerated() {
-//                    self.favorites[index].favourite = true
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        })
-//    }
     
     func sentUserLocation() {
         getAddressFromLatLon(completion: { result in
@@ -178,15 +190,17 @@ class HomeViewModel: ObservableObject {
                     case .success(let message):
                         print(message)
                     case .failure(let error):
+                        self.errorMessage = error.localizedDescription
+                        self.showAlertError = true
                         print(error)
                     }
                 }, latitude: UserDefaults.standard.double(forKey: "latitude"), longitude: UserDefaults.standard.double(forKey: "longitude"), address: address)
             case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showAlertError = true
                 print(error)
             }
         }, pdblLatitude: UserDefaults.standard.double(forKey: "latitude"), withLongitude: UserDefaults.standard.double(forKey: "longitude"))
-        
-
     }
     
     func getAddressFromLatLon(completion: @escaping (Result<String, Error>) -> Void, pdblLatitude: Double, withLongitude pdblLongitude: Double) {

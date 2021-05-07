@@ -1,29 +1,27 @@
 //
-//  MapViewController.swift
+//  AllCategoriesViewController.swift
 //  Booking Application
 //
-//  Created by student on 23.04.21.
+//  Created by student on 15.04.21.
 //
 
-import MapKit
 import SwiftUI
 
-class MapViewController: UIHostingController<MapViewDetails>  {
-    private let viewModel = MapViewModel()
+class CategoriesViewController: UIHostingController<CategoriesView>  {
+    private let viewModel = CategoriesViewModel()
     
     // MARK: -> Make Navigation Bar Hidden
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        viewModel.loadMoreContent()
     }
     
     // MARK: -> Initialization SwiftUI View
     
-    init(latitude: Double, longitude: Double) {
-        self.viewModel.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        self.viewModel.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-        let view = MapViewDetails(viewModel: viewModel)
+    init() {
+        let view = CategoriesView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self
     }
@@ -39,4 +37,11 @@ class MapViewController: UIHostingController<MapViewDetails>  {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: -> Redirect User To Food Items of Category
+    
+    func redirectToFoodItems() {
+        let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
 }

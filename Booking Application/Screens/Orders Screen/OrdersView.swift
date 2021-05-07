@@ -73,6 +73,9 @@ struct OrdersView: View {
                     }
                 }
                 .navigationBarHidden(true)
+                .alert(isPresented: $viewModel.showAlertError) {
+                    Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+                }
             }
         }
         
@@ -84,53 +87,3 @@ struct OrdersView_Previews: PreviewProvider {
         OrdersView(viewModel: OrdersViewModel())
     }
 }
-
-
-
-
-//                VStack(alignment: .center) {
-//
-//                    // MARK: -> Empty Data View
-//
-//                    Image("Empty")
-//                        .resizable()
-//                        .renderingMode(.template)
-//                        .isHidden(!self.viewModel.isEmpty, remove: !self.viewModel.isEmpty)
-//                        .foregroundColor(Color.gray)
-//                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-//                    Text("No Data")
-//                        .isHidden(!self.viewModel.isEmpty, remove: !self.viewModel.isEmpty)
-//                        .font(.system(size: 24, weight: .semibold))
-//                        .foregroundColor(Color.gray)
-//
-//                    // MARK: -> Error Load Data View
-//
-//                    Image("Reload")
-//                        .resizable()
-//                        .renderingMode(.template)
-//                        .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
-//                        .foregroundColor(Color.gray)
-//                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-//                        .padding(.bottom, 12)
-//                    Text("Error! Try downloading the data again.")
-//                        .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
-//                        .font(.system(size: 16, weight: .semibold))
-//                        .foregroundColor(Color.gray)
-//                        .padding(.bottom, 12)
-//                    Button(action: {
-//                        self.viewModel.isLoadingPage = true
-//                        self.viewModel.fetchOrders()
-//                    }, label: {
-//                        Text("Try again")
-//                            .foregroundColor(.white)
-//                            .padding([.top, .bottom], 16)
-//                            .padding([.leading, .trailing], 32)
-//                            .font(.system(size: 16, weight: .semibold))
-//                    })
-//                    .isHidden(!self.viewModel.isError, remove: !self.viewModel.isError)
-//                    .background(Color(UIColor(hex: "#00000030")!))
-//                    .cornerRadius(12)
-//                }
-
-
-

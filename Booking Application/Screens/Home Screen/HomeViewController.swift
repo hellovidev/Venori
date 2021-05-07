@@ -40,14 +40,7 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         self.navigationController?.isNavigationBarHidden = true
         viewModel.loadPlacesContent()
         viewModel.loadFavouritesContent()
-    }
-    
-    // MARK: -> Pop Up View
-    
-    func showPopUp(title: String, message: String, buttonTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        viewModel.loadCategoriesContent()
     }
     
     // MARK: -> Redirect User To Detail Information About Place
@@ -58,6 +51,16 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         let navigationController = UINavigationController(rootViewController: rootviewController)
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
+    }
+    
+    // MARK: -> Redirect User To Category Places
+    
+    func redirectCategoryPlaces(object: Category) {
+//        let rootviewController = DetailsRestarauntViewController()
+//        rootviewController.place = object
+//        let navigationController = UINavigationController(rootViewController: rootviewController)
+//        navigationController.modalPresentationStyle = .fullScreen
+//        self.present(navigationController, animated:true, completion: nil)
     }
     
     // MARK: -> Redirect To Menu
@@ -85,7 +88,7 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     }
     
     func seeAllCategories() {
-        let navigationController = UINavigationController(rootViewController: AllCategoriesViewController())
+        let navigationController = UINavigationController(rootViewController: CategoriesViewController())
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }

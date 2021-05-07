@@ -29,6 +29,8 @@
 		3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5726402E3900862BAC /* DatePickerView.swift */; };
 		3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114626297E0B00095A7F /* OrdersViewController.swift */; };
 		3F68114A26297E7800095A7F /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114926297E7800095A7F /* OrdersViewModel.swift */; };
+		3F82B2A9264590C1000BBC14 /* PlaceInnerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82B2A8264590C1000BBC14 /* PlaceInnerItemView.swift */; };
+		3F82B2AE2645916C000BBC14 /* HistoryOrderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82B2AD2645916C000BBC14 /* HistoryOrderItemView.swift */; };
 		3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDAB2626D4C800CA4CD3 /* AppDelegate.swift */; };
 		3F86BDAE2626D4C800CA4CD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDAD2626D4C800CA4CD3 /* SceneDelegate.swift */; };
 		3F86BDB32626D4C800CA4CD3 /* Booking_Application.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDB12626D4C800CA4CD3 /* Booking_Application.xcdatamodeld */; };
@@ -38,7 +40,7 @@
 		3F86BDC52626D7F500CA4CD3 /* OrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDC42626D7F500CA4CD3 /* OrdersView.swift */; };
 		3F86BDCC2626D85200CA4CD3 /* BookingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDCB2626D85200CA4CD3 /* BookingHistoryView.swift */; };
 		3F86BDD22626D89A00CA4CD3 /* PlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD12626D89A00CA4CD3 /* PlacesView.swift */; };
-		3F86BDD82626D8DB00CA4CD3 /* AllCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD72626D8DB00CA4CD3 /* AllCategoriesView.swift */; };
+		3F86BDD82626D8DB00CA4CD3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD72626D8DB00CA4CD3 /* CategoriesView.swift */; };
 		3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */; };
 		3F86BDE22626D93D00CA4CD3 /* DetailsRestarauntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */; };
 		3F86BDE72626D96300CA4CD3 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE62626D96300CA4CD3 /* MoreView.swift */; };
@@ -78,8 +80,8 @@
 		3FF0607D262867C600308556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0607C262867C600308556 /* User.swift */; };
 		3FF0608526286EC200308556 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0608426286EC200308556 /* PlacesViewController.swift */; };
 		3FF0608826286ED100308556 /* PlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0608726286ED100308556 /* PlacesViewModel.swift */; };
-		3FF0608D26287A6A00308556 /* AllCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0608C26287A6A00308556 /* AllCategoriesViewModel.swift */; };
-		3FF0609126287A7700308556 /* AllCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0609026287A7700308556 /* AllCategoriesViewController.swift */; };
+		3FF0608D26287A6A00308556 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0608C26287A6A00308556 /* CategoriesViewModel.swift */; };
+		3FF0609126287A7700308556 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0609026287A7700308556 /* CategoriesViewController.swift */; };
 		3FF0609F2628894700308556 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0609E2628894700308556 /* MoreViewController.swift */; };
 		3FF060A2262889B200308556 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF060A1262889B200308556 /* MoreViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -107,6 +109,8 @@
 		3F64AC5726402E3900862BAC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		3F68114626297E0B00095A7F /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		3F68114926297E7800095A7F /* OrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewModel.swift; sourceTree = "<group>"; };
+		3F82B2A8264590C1000BBC14 /* PlaceInnerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInnerItemView.swift; sourceTree = "<group>"; };
+		3F82B2AD2645916C000BBC14 /* HistoryOrderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderItemView.swift; sourceTree = "<group>"; };
 		3F86BDA82626D4C800CA4CD3 /* Booking Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booking Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F86BDAB2626D4C800CA4CD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F86BDAD2626D4C800CA4CD3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +122,7 @@
 		3F86BDC42626D7F500CA4CD3 /* OrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersView.swift; sourceTree = "<group>"; };
 		3F86BDCB2626D85200CA4CD3 /* BookingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryView.swift; sourceTree = "<group>"; };
 		3F86BDD12626D89A00CA4CD3 /* PlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesView.swift; sourceTree = "<group>"; };
-		3F86BDD72626D8DB00CA4CD3 /* AllCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesView.swift; sourceTree = "<group>"; };
+		3F86BDD72626D8DB00CA4CD3 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessView.swift; sourceTree = "<group>"; };
 		3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntView.swift; sourceTree = "<group>"; };
 		3F86BDE62626D96300CA4CD3 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
@@ -158,8 +162,8 @@
 		3FF0607C262867C600308556 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3FF0608426286EC200308556 /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		3FF0608726286ED100308556 /* PlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewModel.swift; sourceTree = "<group>"; };
-		3FF0608C26287A6A00308556 /* AllCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesViewModel.swift; sourceTree = "<group>"; };
-		3FF0609026287A7700308556 /* AllCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesViewController.swift; sourceTree = "<group>"; };
+		3FF0608C26287A6A00308556 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		3FF0609026287A7700308556 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		3FF0609E2628894700308556 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		3FF060A1262889B200308556 /* MoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -249,6 +253,22 @@
 			path = "Date Picker PopUp View";
 			sourceTree = "<group>";
 		};
+		3F82B2A726459093000BBC14 /* Place Inner Item View */ = {
+			isa = PBXGroup;
+			children = (
+				3F82B2A8264590C1000BBC14 /* PlaceInnerItemView.swift */,
+			);
+			path = "Place Inner Item View";
+			sourceTree = "<group>";
+		};
+		3F82B2AC26459156000BBC14 /* History Order Item View */ = {
+			isa = PBXGroup;
+			children = (
+				3F82B2AD2645916C000BBC14 /* HistoryOrderItemView.swift */,
+			);
+			path = "History Order Item View";
+			sourceTree = "<group>";
+		};
 		3F86BD9F2626D4C800CA4CD3 = {
 			isa = PBXGroup;
 			children = (
@@ -324,9 +344,9 @@
 		3F86BDD62626D8CA00CA4CD3 /* Categories Screen */ = {
 			isa = PBXGroup;
 			children = (
-				3F86BDD72626D8DB00CA4CD3 /* AllCategoriesView.swift */,
-				3FF0608C26287A6A00308556 /* AllCategoriesViewModel.swift */,
-				3FF0609026287A7700308556 /* AllCategoriesViewController.swift */,
+				3F86BDD72626D8DB00CA4CD3 /* CategoriesView.swift */,
+				3FF0608C26287A6A00308556 /* CategoriesViewModel.swift */,
+				3FF0609026287A7700308556 /* CategoriesViewController.swift */,
 			);
 			path = "Categories Screen";
 			sourceTree = "<group>";
@@ -434,15 +454,15 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
 				3FCE05942643F4920097F23B /* Favourites Screen */,
-				3FDE43712632D20F00699ECB /* Map Screen */,
-				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
+				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
 				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
+				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
-				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
 				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
@@ -521,6 +541,8 @@
 		3FDE43692632D1DE00699ECB /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				3F82B2AC26459156000BBC14 /* History Order Item View */,
+				3F82B2A726459093000BBC14 /* Place Inner Item View */,
 				3F48FF0C26456B7D002F65CC /* Pull to refresh */,
 				3FB452AD264171AD001128A0 /* Extensions */,
 				3F64AC5626402E2100862BAC /* Date Picker PopUp View */,
@@ -645,11 +667,11 @@
 				3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */,
 				3FC3BB4C2639BF6600C74727 /* BookingHistoryViewModel.swift in Sources */,
 				3F86BE182626F77300CA4CD3 /* LoginViewController.swift in Sources */,
-				3FF0609126287A7700308556 /* AllCategoriesViewController.swift in Sources */,
+				3FF0609126287A7700308556 /* CategoriesViewController.swift in Sources */,
 				3F86BDE22626D93D00CA4CD3 /* DetailsRestarauntView.swift in Sources */,
 				3FA90CAD2632F922001D1BCE /* SectionSeparatorView.swift in Sources */,
 				3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */,
-				3FF0608D26287A6A00308556 /* AllCategoriesViewModel.swift in Sources */,
+				3FF0608D26287A6A00308556 /* CategoriesViewModel.swift in Sources */,
 				3F86BE1B2626F93600CA4CD3 /* RegistrationViewController.swift in Sources */,
 				3FA90C932632E653001D1BCE /* PlaceCardView.swift in Sources */,
 				3F86BE052626DA2F00CA4CD3 /* RegistrationViewModel.swift in Sources */,
@@ -679,13 +701,14 @@
 				3F08B9E6262DA6770097FF1A /* OrderProcessViewController.swift in Sources */,
 				3FF0607D262867C600308556 /* User.swift in Sources */,
 				3F26126326396F2000B3250D /* SchedulePopUpView.swift in Sources */,
+				3F82B2A9264590C1000BBC14 /* PlaceInnerItemView.swift in Sources */,
 				3F64AC5226402D6F00862BAC /* ButtonModifier.swift in Sources */,
 				3F0A4319262EF69F0001C12F /* Review.swift in Sources */,
 				3F86BDD22626D89A00CA4CD3 /* PlacesView.swift in Sources */,
 				3FDE43642632C95300699ECB /* MapView.swift in Sources */,
 				3F26126E263992D100B3250D /* FoodItemsView.swift in Sources */,
 				3FA90C8E2632DEEE001D1BCE /* Schedule.swift in Sources */,
-				3F86BDD82626D8DB00CA4CD3 /* AllCategoriesView.swift in Sources */,
+				3F86BDD82626D8DB00CA4CD3 /* CategoriesView.swift in Sources */,
 				3F86BE012626DA1900CA4CD3 /* RegistrationView.swift in Sources */,
 				3FF0609F2628894700308556 /* MoreViewController.swift in Sources */,
 				3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */,
@@ -706,6 +729,7 @@
 				3F86BDED2626D98900CA4CD3 /* HomeView.swift in Sources */,
 				3FF0608526286EC200308556 /* PlacesViewController.swift in Sources */,
 				3FDE435E2631C0CD00699ECB /* Order.swift in Sources */,
+				3F82B2AE2645916C000BBC14 /* HistoryOrderItemView.swift in Sources */,
 				3FC3BB472639B5E800C74727 /* ErrorPopUpView.swift in Sources */,
 				3F86BDCC2626D85200CA4CD3 /* BookingHistoryView.swift in Sources */,
 				3FF060782628641D00308556 /* Category.swift in Sources */,

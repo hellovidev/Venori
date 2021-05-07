@@ -19,13 +19,12 @@ class OrdersViewModel: ObservableObject {
     @Published var isLoadingPage = false
     @Published var isProcessDelete = false
     
+    @Published var showAlertError = false
+    @Published var errorMessage = ""
+    
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: -> Load Content By Pages
-    
-//    init() {
-//        loadMoreContent()
-//    }
     
     func loadMoreContentIfNeeded(currentItem item: Order?) {
         guard let item = item else {
@@ -78,6 +77,8 @@ class OrdersViewModel: ObservableObject {
             .assign(to: &$orders)
     }
     
+    // MARK: -> Cancel Order
+    
     func cancelOrder(orderIdentifier: Int) {
         self.serviceAPI.cancelOrderInProgress(completion: { result in
             switch result {
@@ -92,68 +93,4 @@ class OrdersViewModel: ObservableObject {
         }, orderIdentifier: orderIdentifier)
     }
     
-//    //Template
-//    @Published var place = Place()
-//    
-//    func fetchPlaceOfOrder(placeIdentifier: Int) {
-//        self.serviceAPI.getPlaceByIdentifier(completion: { response in
-//            switch response {
-//            case .success(let place):
-//                self.place = place
-//            case .failure(let error):
-//                print("PlaceInnerItemView has error: \(error)")
-//            }
-//        }, placeIdentifier: placeIdentifier)
-//    }
-    
 }
-
-
-//private enum StatusOrder {
-//    case Available
-//    case Process
-//    case Deleted
-//}
-//
-//
-//
-//@Published var isError: Bool = false
-//@Published var isEmpty: Bool = false
-//
-//@Published var statusOrder = StatusOrder.Available
-//
-//func fetchOrders() {
-//    self.serviceAPI.fetchDataAboutOrders(completion: { result in
-//        switch result {
-//        case .success(let orders):
-//            self.orders = orders.data
-//            self.isLoadingPage = false
-//            self.isError = false
-//            
-//            guard self.orders?.isEmpty != nil else {
-//                self.isEmpty = true
-//                return
-//            }
-//            
-//            if self.orders!.isEmpty {
-//                self.isEmpty = true
-//            } else {
-//                self.isEmpty = false
-//            }
-//        case .failure(let error):
-//            self.isLoadingPage = false
-//            self.isError = true
-//            self.isEmpty = false
-//
-//            guard self.orders?.isEmpty != nil else {
-//                return
-//            }
-//            
-//            if !self.orders!.isEmpty {
-//                self.orders?.removeAll()
-//            }
-//            
-//            print(error)
-//        }
-//    })
-//}

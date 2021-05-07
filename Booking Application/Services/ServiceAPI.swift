@@ -1176,8 +1176,7 @@ class ServiceAPI: ObservableObject {
                 
                 // Decodable JSON Data
                 
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(Order.self, from: data)
+                //let response = try JSONDecoder().decode(Order.self, from: data)
                 
                 // Set Data to API Manager Value of Places
                 

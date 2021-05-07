@@ -14,8 +14,8 @@ class FavouritesViewModel: ObservableObject {
     @Published var errorMessage = ""
     
     private var serviceAPI = ServiceAPI()
-    private var canLoadMorePages = true
-    private var currentPage = 1
+    var canLoadMorePages = true
+    var currentPage = 1
     
     @Published var favourites = [Place]()
     @Published var isLoadingPage = false
@@ -24,10 +24,6 @@ class FavouritesViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: -> Load Content By Pages
-    
-    init() {
-        loadMoreContent()
-    }
     
     func loadMoreContentIfNeeded(currentItem item: Place?) {
         guard let item = item else {
@@ -41,7 +37,7 @@ class FavouritesViewModel: ObservableObject {
         }
     }
     
-    private func loadMoreContent() {
+    func loadMoreContent() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -97,6 +93,7 @@ class FavouritesViewModel: ObservableObject {
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
+                self.showAlertError = true
                 print(error)
             }
         }, placeIdentifier: favourite.id)

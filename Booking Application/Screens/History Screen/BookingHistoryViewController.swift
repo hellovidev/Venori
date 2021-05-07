@@ -5,7 +5,6 @@
 //  Created by student on 28.04.21.
 //
 
-import UIKit
 import SwiftUI
 
 class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
