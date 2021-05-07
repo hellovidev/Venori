@@ -12,8 +12,8 @@ import Foundation
 class OrdersViewModel: ObservableObject {
     weak var controller: OrdersViewController?
     private let serviceAPI = ServiceAPI()
-    private var canLoadMorePages = true
-    private var currentPage = 1
+    var canLoadMorePages = true
+    var currentPage = 1
     
     @Published var orders = [Order]()
     @Published var isLoadingPage = false
@@ -23,9 +23,9 @@ class OrdersViewModel: ObservableObject {
     
     // MARK: -> Load Content By Pages
     
-    init() {
-        loadMoreContent()
-    }
+//    init() {
+//        loadMoreContent()
+//    }
     
     func loadMoreContentIfNeeded(currentItem item: Order?) {
         guard let item = item else {
@@ -39,7 +39,7 @@ class OrdersViewModel: ObservableObject {
         }
     }
     
-    private func loadMoreContent() {
+    func loadMoreContent() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -92,19 +92,19 @@ class OrdersViewModel: ObservableObject {
         }, orderIdentifier: orderIdentifier)
     }
     
-    //Template
-    @Published var place = Place()
-    
-    func fetchPlaceOfOrder(placeIdentifier: Int) {
-        self.serviceAPI.getPlaceByIdentifier(completion: { response in
-            switch response {
-            case .success(let place):
-                self.place = place
-            case .failure(let error):
-                print("PlaceInnerItemView has error: \(error)")
-            }
-        }, placeIdentifier: placeIdentifier)
-    }
+//    //Template
+//    @Published var place = Place()
+//    
+//    func fetchPlaceOfOrder(placeIdentifier: Int) {
+//        self.serviceAPI.getPlaceByIdentifier(completion: { response in
+//            switch response {
+//            case .success(let place):
+//                self.place = place
+//            case .failure(let error):
+//                print("PlaceInnerItemView has error: \(error)")
+//            }
+//        }, placeIdentifier: placeIdentifier)
+//    }
     
 }
 

@@ -11,10 +11,25 @@ import SwiftUI
 class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
     private let viewModel = BookingHistoryViewModel()
     
+    // MARK: -> Update Values
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        viewModel.orders.removeAll()
+        viewModel.isLoadingPage = false
+        viewModel.canLoadMorePages = true
+        viewModel.currentPage = 1
+    }
+    
+    // MARK: -> Make Navigation Bar Hidden
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        viewModel.loadMoreContent()
     }
+    
+    // MARK: -> Initialization SwiftUI View
     
     init() {
         let view = BookingHistoryView(viewModel: viewModel)
@@ -28,14 +43,14 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
     
     // MARK: -> Click On 'Back' Button
     
-    func goBackToPreviousView() {
+    func redirectPrevious() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: -> Redirect User To Detail Information About Place
     
-    func redirectToPlaceDetails(object: Place) {
+    func redirectPlaceDetails(object: Place) {
         let rootviewController = DetailsRestarauntViewController()
         rootviewController.place = object
         let navigationController = UINavigationController(rootViewController: rootviewController)

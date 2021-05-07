@@ -5,6 +5,7 @@
 //  Created by student on 14.04.21.
 //
 
+import MapKit
 import SwiftUI
 
 struct DetailsRestarauntView: View {
@@ -33,13 +34,13 @@ struct DetailsRestarauntView: View {
                                 if self.viewModel.place != nil {
                                     Button (action: {
                                         self.viewModel.place?.favourite ?? false ? self.viewModel.deleteFavouriteState() : self.viewModel.setFavouriteState()
-                                }, label: {
-                                    Image("Heart")
-                                        .renderingMode(.template)
-                                        .foregroundColor(self.viewModel.place?.favourite ?? false ? Color.red : Color.white)
-                                        .padding([.top, .bottom], 12)
-                                        .padding(.trailing, 16)
-                                })
+                                    }, label: {
+                                        Image("Heart")
+                                            .renderingMode(.template)
+                                            .foregroundColor(self.viewModel.place?.favourite ?? false ? Color.red : Color.white)
+                                            .padding([.top, .bottom], 12)
+                                            .padding(.trailing, 16)
+                                    })
                                     
                                 }
                             }
@@ -62,17 +63,18 @@ struct DetailsRestarauntView: View {
                         .font(.system(size: 12, weight: .regular))
                         .padding(.bottom, 8)
                     
-                    HStack {
-                        Image("Star Yellow")
-                        Image("Star Yellow")
-                        Image("Star Yellow")
-                        Image("Star Yellow")
-                        Image("Star Gray")
+                    HStack(alignment: .center) {
+                        StarsView(rating: viewModel.place!.rating)
+                            .padding(.trailing, 4)
                         Text("\(NSString(format: "%.01f", viewModel.place!.rating))")
                             .font(.system(size: 18, weight: .semibold))
-                        Text("\(viewModel.place!.reviewsCount) Reviews")
-                            .font(.system(size: 18, weight: .regular))
-                            .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                        Button(action: {
+                            // Go To Revies Screen
+                        }, label: {
+                            Text("\(viewModel.place!.reviewsCount) Reviews")
+                                .font(.system(size: 18, weight: .regular))
+                                .foregroundColor(Color(UIColor(hex: "#00000080")!))
+                        })
                     }
                     .padding(.bottom, 24)
                     
@@ -95,18 +97,31 @@ struct DetailsRestarauntView: View {
                             .frame(maxHeight: .infinity)
                         }
                         Spacer()
-                        MapPreview(longitude: viewModel.place?.addressLat ?? 0, latitude: viewModel.place?.addressLon ?? 0)
+                        if viewModel.place != nil {
+                            
+                            Map(coordinateRegion: .constant(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.place!.addressLat, longitude: viewModel.place!.addressLon), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))), annotationItems: [MapPin(name: "I'm here", coordinate: CLLocationCoordinate2D(latitude: viewModel.place!.addressLat, longitude: viewModel.place!.addressLon))] ) { location in
+                                MapAnnotation(coordinate: location.coordinate) {
+                                    Image("Point Pin")
+                                        .resizable()
+                                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                                        .scaledToFit()
+                                }
+                            }
+                            .frame(maxWidth: 88, maxHeight: 88, alignment: .center)
+                            .scaledToFill()
+                            .cornerRadius(16)
+                            
+                        }
                     }
                     .padding(.bottom, 20)
                     
                     HStack {
                         Image("Phone")
                             .padding(.trailing, 8)
-                            Text(viewModel.place!.phone ?? "No phone")
-                                .font(.system(size: 18, weight: .regular))
+                        Text(viewModel.place!.phone ?? "No phone")
+                            .font(.system(size: 18, weight: .regular))
                     }
                     .padding(.bottom, 22)
-                    
                     
                     
                     HStack(alignment: .top) {
@@ -192,5 +207,67 @@ struct DetailsRestarauntView: View {
 struct DetailsRestaurantView_Previews: PreviewProvider {
     static var previews: some View {
         DetailsRestarauntView(viewModel: DetailsRestarauntViewModel())
+    }
+}
+
+
+struct StarsView: View {
+    
+    // Defines upper limit of the rating
+    
+    private static let MAX_RATING: Float = 5
+    
+    // The color of the stars
+    
+    private static let COLOR = Color.yellow
+    
+    let rating: Float
+    private let fullCount: Int
+    private let emptyCount: Int
+    private let halfFullCount: Int
+    
+    init(rating: Float) {
+        self.rating = rating
+        fullCount = Int(rating)
+        emptyCount = Int(StarsView.MAX_RATING - rating)
+        halfFullCount = (Float(fullCount + emptyCount) < StarsView.MAX_RATING) ? 1 : 0
+    }
+    
+    var body: some View {
+        HStack {
+            ForEach(0..<fullCount) { _ in
+                self.fullStar
+            }
+            ForEach(0..<halfFullCount) { _ in
+                self.halfFullStar
+            }
+            ForEach(0..<emptyCount) { _ in
+                self.emptyStar
+            }
+        }
+    }
+    
+    private var fullStar: some View {
+        Image(systemName: "star.fill")
+            .resizable()
+            .frame(maxWidth: 22, maxHeight: 20)
+            //.fixedSize()
+            .foregroundColor(StarsView.COLOR)
+    }
+    
+    private var halfFullStar: some View {
+        Image(systemName: "star.lefthalf.fill")
+            .resizable()
+            .frame(maxWidth: 22, maxHeight: 20)
+            //.fixedSize()
+            .foregroundColor(StarsView.COLOR)
+    }
+    
+    private var emptyStar: some View {
+        Image(systemName: "star")
+            .resizable()
+            .frame(maxWidth: 22, maxHeight: 20)
+            //.fixedSize()
+            .foregroundColor(StarsView.COLOR)
     }
 }

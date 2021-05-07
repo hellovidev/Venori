@@ -162,14 +162,6 @@
          contextName = "closure #1 in ServiceAPI.userAccountLogout(completion:):ServiceAPI.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #2 in closure #1 in closure #1 in FavouritesView.body.getter:FavouritesView.swift">
          <PersistentStrings>
             <PersistentString
@@ -181,10 +173,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.ordersObjects[item]!">
+            </PersistentString>
+            <PersistentString
+               value = "item">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MapPreview.body.getter:MapView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "longitude">
+            </PersistentString>
+            <PersistentString
+               value = "latitude">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "HistoryOrderItemView.isActiveOrder.didset:BookingHistoryView.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -299,6 +321,20 @@
          contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
       </ContextState>
       <ContextState
+         contextName = "OrdersViewController.viewWillAppear(_:):OrdersViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.canLoadMorePages">
+            </PersistentString>
+            <PersistentString
+               value = "viewModel.isLoadingPage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in OrdersViewModel.loadMoreContent():OrdersViewModel.swift">
+      </ContextState>
+      <ContextState
          contextName = "ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -311,6 +347,17 @@
          <PersistentStrings>
             <PersistentString
                value = "self.orders?.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.place!.addressLat">
+            </PersistentString>
+            <PersistentString
+               value = "viewModel.place!.addressLon">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -410,6 +457,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "OrdersViewController.viewWillDisappear(_:):OrdersViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "iewModel.canLoadMorePages">
+            </PersistentString>
+            <PersistentString
+               value = "viewModel.canLoadMorePages">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
          <PersistentStrings>
             <PersistentString
@@ -447,6 +505,9 @@
                value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MapPreview.body.getter:MapView.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in BookView.body.getter:BookView.swift">

@@ -12,7 +12,6 @@ struct BookingHistoryView: View {
     @State private var isEmpty: Bool = false
     @State private var isLoading: Bool = true
     @State private var isError: Bool = false
-    private let serviceAPI = ServiceAPI()
     
     var body: some View {
         NavigationView {
@@ -22,7 +21,7 @@ struct BookingHistoryView: View {
                         ZStack {
                             VStack {
                                 Button(action: {
-                                    self.viewModel.controller?.goBackToPreviousView()
+                                    self.viewModel.controller?.redirectPrevious()
                                 }, label: {
                                     Image("Arrow Left")
                                         .resizable()
@@ -39,102 +38,55 @@ struct BookingHistoryView: View {
                         }
                         .frame(width: geometry.size.width, height: 48, alignment: .center)
                         ZStack {
-                            ScrollView(showsIndicators: false) {
+                            ScrollView(showsIndicators: !viewModel.orders.isEmpty) {
+                                PullToRefresh(coordinateSpaceName: "pullToRefresh") {
+                                    viewModel.orders.removeAll()
+                                    viewModel.isLoadingPage = false
+                                    viewModel.canLoadMorePages = true
+                                    viewModel.currentPage = 1
+                                    viewModel.loadMoreContent()
+                                }
                                 VStack {
                                     ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
-                                        HistoryOrderItemView(order: item, place: Place(), cancel: {})
+                                        HistoryOrderItemView(order: item, cancel: {})
+                                            .onAppear {
+                                                viewModel.loadMoreContentIfNeeded(currentItem: item)
+                                            }
                                     }
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 .padding(.top, 16)
                                 .padding(.bottom, 35)
+                                
+                                // MARK: -> While Data Loading Show Progress View
+                                
+                                if viewModel.isLoadingPage {
+                                    ProgressView()
+                                }
+                                
+                            }.coordinateSpace(name: "pullToRefresh")
+                            
+                            // MARK: -> Empty Data View
+                            
+                            if !viewModel.isLoadingPage && viewModel.orders.isEmpty {
+                                VStack {
+                                    Image("Empty")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(Color.gray)
+                                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                                    Text("No Data")
+                                        .font(.system(size: 24, weight: .semibold))
+                                        .foregroundColor(Color.gray)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                .padding(.top, 128)
                             }
-                            LoadingView(isAnimating: isLoading, configuration: { view in
-                                view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-                                view.color = .black
-                            })
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            .background(isLoading ? Color(UIColor(hex: "#80808033")!) : Color(UIColor(hex: "#00000000")!))
                         }
                     }
                 }
                 .navigationBarHidden(true)
-                
-                VStack(alignment: .center) {
-                    Image("Empty")
-                        .resizable()
-                        .renderingMode(.template)
-                        .isHidden(!isEmpty, remove: !isEmpty)
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                    Text("You have no confirmed or rejected orders.")
-                        .isHidden(!isEmpty, remove: !isEmpty)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                    Image("Reload")
-                        .resizable()
-                        .renderingMode(.template)
-                        .isHidden(!isError, remove: !isError)
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                        .padding(.bottom, 12)
-                    Text("Error! Try downloading the data again.")
-                        .isHidden(!isError, remove: !isError)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
-                        .padding(.bottom, 12)
-                    Button(action: {
-                        self.isLoading = true
-                        self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
-                            switch result {
-                            case .success(let orders):
-                                viewModel.orders = orders.data
-                                self.isLoading = false
-                                self.isError = false
-                                if viewModel.orders.isEmpty {
-                                    self.isEmpty = true
-                                } else {
-                                    self.isEmpty = false
-                                }
-                            case .failure(let error):
-                                self.isLoading = false
-                                self.isEmpty = false
-                                self.isError = true
-                                print(error)
-                            }
-                        })
-                    }, label: {
-                        Text("Try again")
-                            .foregroundColor(.white)
-                            .padding([.top, .bottom], 16)
-                            .padding([.leading, .trailing], 32)
-                            .font(.system(size: 16, weight: .semibold))
-                    })
-                    .isHidden(!isError, remove: !isError)
-                    .background(Color(UIColor(hex: "#00000030")!))
-                    .cornerRadius(12)
-                }
             }
-        }
-        .onAppear {
-            self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
-                switch result {
-                case .success(let orders):
-                    viewModel.orders = orders.data
-                    self.isLoading = false
-                    self.isError = false
-                    if viewModel.orders.isEmpty {
-                        self.isEmpty = true
-                    } else {
-                        self.isEmpty = false
-                    }
-                case .failure(let error):
-                    self.isLoading = false
-                    self.isEmpty = false
-                    self.isError = true
-                    print(error)
-                }
-            })
         }
     }
 }
@@ -152,13 +104,12 @@ struct HistoryOrderItemView: View {
     @State private var order: Order
     @State private var isHistory: Bool = false
     @State private var isActiveOrder: Bool = false
-    @State private var place: Place
+    @State private var place = Place()
     
     @State private var cancelCallback: () -> Void
     
-    init(order: Order, place: Place, cancel: @escaping () -> Void) {
+    init(order: Order, cancel: @escaping () -> Void) {
         self._order = State(initialValue: order)
-        self._place = State(initialValue: place)
         self._cancelCallback = State(initialValue: cancel)
         switch self.order.status {
         case "Confirmed":
@@ -208,16 +159,7 @@ struct HistoryOrderItemView: View {
                     .font(.system(size: 14, weight: .regular))
             }
             PlaceInnerItemView(place: self.place)
-//                .onAppear {
-//                    self.serviceAPI.getPlaceByIdentifier(completion: { response in
-//                        switch response {
-//                        case .success(let place):
-//                            self.place = place
-//                        case .failure(let error):
-//                            print("PlaceInnerItemView has error: \(error)")
-//                        }
-//                    }, placeIdentifier: self.order.placeID)
-//                }
+
             
             VStack(alignment: .center) {
                 Button(action: {
@@ -282,3 +224,61 @@ struct PlaceInnerItemView: View {
         .padding([.bottom, .top], 12)
     }
 }
+
+
+
+//                .onAppear {
+//                    self.serviceAPI.getPlaceByIdentifier(completion: { response in
+//                        switch response {
+//                        case .success(let place):
+//                            self.place = place
+//                        case .failure(let error):
+//                            print("PlaceInnerItemView has error: \(error)")
+//                        }
+//                    }, placeIdentifier: self.order.placeID)
+//                }
+
+//VStack(alignment: .center) {
+//                    Image("Reload")
+//                        .resizable()
+//                        .renderingMode(.template)
+//                        .isHidden(!isError, remove: !isError)
+//                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+//                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+//                        .padding(.bottom, 12)
+//                    Text("Error! Try downloading the data again.")
+//                        .isHidden(!isError, remove: !isError)
+//                        .font(.system(size: 16, weight: .semibold))
+//                        .foregroundColor(Color(UIColor(hex: "#00000080")!))
+//                        .padding(.bottom, 12)
+//                    Button(action: {
+//                        self.isLoading = true
+//                        self.serviceAPI.fetchDataAboutBookingHistory(completion: { result in
+//                            switch result {
+//                            case .success(let orders):
+//                                viewModel.orders = orders.data
+//                                self.isLoading = false
+//                                self.isError = false
+//                                if viewModel.orders.isEmpty {
+//                                    self.isEmpty = true
+//                                } else {
+//                                    self.isEmpty = false
+//                                }
+//                            case .failure(let error):
+//                                self.isLoading = false
+//                                self.isEmpty = false
+//                                self.isError = true
+//                                print(error)
+//                            }
+//                        })
+//                    }, label: {
+//                        Text("Try again")
+//                            .foregroundColor(.white)
+//                            .padding([.top, .bottom], 16)
+//                            .padding([.leading, .trailing], 32)
+//                            .font(.system(size: 16, weight: .semibold))
+//                    })
+//                    .isHidden(!isError, remove: !isError)
+//                    .background(Color(UIColor(hex: "#00000030")!))
+//                    .cornerRadius(12)
+//                }

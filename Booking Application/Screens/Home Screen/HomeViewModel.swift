@@ -5,6 +5,7 @@
 //  Created by student on 15.04.21.
 //
 
+import Combine
 import Foundation
 import CoreLocation
 
@@ -13,19 +14,111 @@ class HomeViewModel: ObservableObject {
     private let serviceAPI: ServiceAPI = ServiceAPI()
     @Published var locationManager: CLLocationManager?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     @Published var addressFull: String?
     
     @Published var categories = [Category]()
-    @Published var places = [Place]()
     @Published var favorites = [Place]()
+    
+    @Published var places = [Place]()
+
+    @Published var isLoadingPage = false
+    private var currentPage = 1
+
+    
+//    init() {
+//        loadPlacesContent()
+//        loadFavouritesContent()
+//    }
+    
+     func loadPlacesContent() {
+//        guard !isLoadingPage else {
+//            return
+//        }
+//
+//        isLoadingPage = true
+        
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue)!
+        
+        url.queryItems = [
+            URLQueryItem(name: "page", value: "\(self.currentPage)")
+        ]
+        
+        var request = URLRequest(url: url.url!)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
+            .map(\.data)
+            .decode(type: Places.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { response in
+                self.isLoadingPage = false
+            })
+            .map({ response in
+                print(response.data)
+                self.places = response.data
+                return self.places
+            })
+            .catch({ _ in Just(self.places) })
+            .assign(to: &$places)
+    }
+    
+     func loadFavouritesContent() {
+//        guard !isLoadingPage else {
+//            return
+//        }
+//
+//        isLoadingPage = true
+        
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.favouritesRoute.rawValue)!
+        
+        url.queryItems = [
+            URLQueryItem(name: "page", value: "\(self.currentPage)")
+        ]
+        
+        var request = URLRequest(url: url.url!)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
+            .map(\.data)
+            .decode(type: Places.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { response in
+                self.isLoadingPage = false
+            })
+            .map({ response in
+                print(response.data)
+                self.favorites = response.data
+                
+                for (index, _) in self.favorites.enumerated() {
+                    self.favorites[index].favourite = true
+                }
+                
+                return self.favorites
+            })
+            .catch({ _ in Just(self.favorites) })
+            .assign(to: &$favorites)
+    }
     
     func deleteFavouriteState(place: Place) {
         self.serviceAPI.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
                 //place.favourite?.toggle()
-                self.fetchFavourites()
-                self.fetchPlaces()
+                
+                self.loadPlacesContent()
+                self.loadFavouritesContent()
+                //self.fetchFavourites()
+                //self.fetchPlaces()
                 print(response)
             case .failure(let error):
                 print(error)
@@ -38,8 +131,11 @@ class HomeViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 //place.favourite?.toggle()
-                self.fetchFavourites()
-                self.fetchPlaces()
+                self.loadPlacesContent()
+                self.loadFavouritesContent()
+
+                //self.fetchFavourites()
+                //self.fetchPlaces()
                 print(response)
             case .failure(let error):
                 print(error)
@@ -47,30 +143,30 @@ class HomeViewModel: ObservableObject {
         }, placeIdentifier: place.id)
     }
     
-    func fetchPlaces() {
-        serviceAPI.fetchDataAboutPlaces(completion: { result in
-            switch result {
-            case .success(let places):
-                self.places = places.data
-            case .failure(let error):
-                print(error)
-            }
-        })
-    }
+//    func fetchPlaces() {
+//        serviceAPI.fetchDataAboutPlaces(completion: { result in
+//            switch result {
+//            case .success(let places):
+//                self.places = places.data
+//            case .failure(let error):
+//                print(error)
+//            }
+//        })
+//    }
     
-    func fetchFavourites() {
-        serviceAPI.fetchDataAboutFavourites(completion: { result in
-            switch result {
-            case .success(let favorites):
-                self.favorites = favorites.data
-                for (index, _) in self.favorites.enumerated() {
-                    self.favorites[index].favourite = true
-                }
-            case .failure(let error):
-                print(error)
-            }
-        })
-    }
+//    func fetchFavourites() {
+//        serviceAPI.fetchDataAboutFavourites(completion: { result in
+//            switch result {
+//            case .success(let favorites):
+//                self.favorites = favorites.data
+//                for (index, _) in self.favorites.enumerated() {
+//                    self.favorites[index].favourite = true
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        })
+//    }
     
     func sentUserLocation() {
         getAddressFromLatLon(completion: { result in

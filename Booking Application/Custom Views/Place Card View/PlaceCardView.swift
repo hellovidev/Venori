@@ -49,6 +49,14 @@ struct PlaceCardView: View {
                         Spacer()
                     }
                     .frame(maxWidth: 296, maxHeight: 169, alignment: .trailing)
+                    if isProcessDelete {
+                        ZStack {
+                            RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#00000066")!), Color(UIColor(hex: "#00000000")!)]), center: UnitPoint(x: 0.5, y: 0.5), startRadius: 0, endRadius: 32)
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    }
                 }
                 Text(place.name)
                     .font(.system(size: 18, weight: .bold))
@@ -66,15 +74,6 @@ struct PlaceCardView: View {
             }
             .onTapGesture {
                 self.onCardClick()
-            }
-            
-            if isProcessDelete {
-                ZStack {
-                    RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#00000066")!), Color(UIColor(hex: "#00000000")!)]), center: UnitPoint(x: 0.5, y: 0.5), startRadius: 0, endRadius: 32)
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
         }
     }

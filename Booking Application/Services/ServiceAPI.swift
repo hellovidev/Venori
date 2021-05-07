@@ -404,6 +404,8 @@ class ServiceAPI: ObservableObject {
                     NSLog(NSLocalizedString("Status Code is 200... Request for place with id \(placeIdentifier).", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                case 429:
+                    completion(.failure(NSLocalizedString("Too many requests!", comment: "Error")))
                 default:
                     completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
@@ -416,8 +418,8 @@ class ServiceAPI: ObservableObject {
                 
                 // Read Response Data
                 
-                //guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-                //print(info)
+                guard let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print(info)
                 
                 // Decodable JSON Data
                 

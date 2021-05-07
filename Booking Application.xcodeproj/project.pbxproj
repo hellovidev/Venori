@@ -23,6 +23,7 @@
 		3F261277263999AE00B3250D /* EnumerationItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F261276263999AE00B3250D /* EnumerationItemsView.swift */; };
 		3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F3D26285CD20027E48C /* HomeViewController.swift */; };
 		3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F4026285D770027E48C /* HomeViewModel.swift */; };
+		3F48FF0E26456B93002F65CC /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48FF0D26456B93002F65CC /* PullToRefresh.swift */; };
 		3F64AC46263FF85800862BAC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC45263FF85800862BAC /* LoadingView.swift */; };
 		3F64AC5226402D6F00862BAC /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5126402D6F00862BAC /* ButtonModifier.swift */; };
 		3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5726402E3900862BAC /* DatePickerView.swift */; };
@@ -100,6 +101,7 @@
 		3F261276263999AE00B3250D /* EnumerationItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumerationItemsView.swift; sourceTree = "<group>"; };
 		3F3F8F3D26285CD20027E48C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F3F8F4026285D770027E48C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		3F48FF0D26456B93002F65CC /* PullToRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefresh.swift; sourceTree = "<group>"; };
 		3F64AC45263FF85800862BAC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3F64AC5126402D6F00862BAC /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		3F64AC5726402E3900862BAC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -213,6 +215,14 @@
 				3F261276263999AE00B3250D /* EnumerationItemsView.swift */,
 			);
 			path = "Enumeration Categories View";
+			sourceTree = "<group>";
+		};
+		3F48FF0C26456B7D002F65CC /* Pull to refresh */ = {
+			isa = PBXGroup;
+			children = (
+				3F48FF0D26456B93002F65CC /* PullToRefresh.swift */,
+			);
+			path = "Pull to refresh";
 			sourceTree = "<group>";
 		};
 		3F64AC44263FF83A00862BAC /* Loading View */ = {
@@ -424,18 +434,18 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
 				3FCE05942643F4920097F23B /* Favourites Screen */,
+				3FDE43712632D20F00699ECB /* Map Screen */,
+				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
+				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
-				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
 				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
-				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F86BDFF2626DA0C00CA4CD3 /* Registration  Screen */,
 			);
 			path = Screens;
@@ -511,6 +521,7 @@
 		3FDE43692632D1DE00699ECB /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				3F48FF0C26456B7D002F65CC /* Pull to refresh */,
 				3FB452AD264171AD001128A0 /* Extensions */,
 				3F64AC5626402E2100862BAC /* Date Picker PopUp View */,
 				3F64AC5026402D5300862BAC /* Modifiers */,
@@ -642,6 +653,7 @@
 				3F86BE1B2626F93600CA4CD3 /* RegistrationViewController.swift in Sources */,
 				3FA90C932632E653001D1BCE /* PlaceCardView.swift in Sources */,
 				3F86BE052626DA2F00CA4CD3 /* RegistrationViewModel.swift in Sources */,
+				3F48FF0E26456B93002F65CC /* PullToRefresh.swift in Sources */,
 				3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */,
 				3FDE436F2632D20B00699ECB /* MapViewModel.swift in Sources */,
 				3FA90CB22632FB97001D1BCE /* NavigationBarView.swift in Sources */,

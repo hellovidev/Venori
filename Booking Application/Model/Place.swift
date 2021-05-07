@@ -33,8 +33,8 @@ struct Place: Codable, Hashable, Identifiable {
         self.rating = 0
         self.reviewsCount = 0
         self.addressFull = "Default"
-        self.addressLat = 0
-        self.addressLon = 0
+        self.addressLat = 5
+        self.addressLon = 5
         self.description = "Default"
         self.tablePrice = "0"
         self.createdAt = "Default"

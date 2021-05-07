@@ -101,9 +101,16 @@ struct FavouritesView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding(.top, 128)
+                        .onTapGesture {
+                            viewModel.showAlertError = true
+                        }
                     }
                 }
-            }.navigationBarHidden(true)
+            }
+            .navigationBarHidden(true)
+            .alert(isPresented: $viewModel.showAlertError) {
+                Alert(title: Text("Text"), message: Text("Text"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+            }
         }
     }
 }

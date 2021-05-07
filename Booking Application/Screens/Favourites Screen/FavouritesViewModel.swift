@@ -10,6 +10,8 @@ import Foundation
 
 class FavouritesViewModel: ObservableObject {
     weak var controller: FavouritesViewController?
+    @Published var showAlertError = false
+    @Published var errorMessage = ""
     
     private var serviceAPI = ServiceAPI()
     private var canLoadMorePages = true
@@ -94,6 +96,7 @@ class FavouritesViewModel: ObservableObject {
                 self.isProcessDelete = false
                 print(response)
             case .failure(let error):
+                self.errorMessage = error.localizedDescription
                 print(error)
             }
         }, placeIdentifier: favourite.id)

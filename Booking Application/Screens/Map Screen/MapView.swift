@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-struct AnnotatedItem: Identifiable {
+struct MapPin: Identifiable {
     let id = UUID()
     var name: String
     var coordinate: CLLocationCoordinate2D
@@ -19,7 +19,7 @@ struct MapViewDetails: View {
         
     var body: some View {
         ZStack {
-            Map(coordinateRegion: .constant(viewModel.region), annotationItems: [AnnotatedItem(name: "I'm here", coordinate: viewModel.coordinate)] ) { location in
+            Map(coordinateRegion: .constant(viewModel.region), annotationItems: [MapPin(name: "I'm here", coordinate: viewModel.coordinate)] ) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     Image("Point Pin")
                         .resizable()
@@ -48,19 +48,21 @@ struct MapViewDetails: View {
 // MARK: -> Map Item Preview
 
 struct MapPreview: View {
-    let longitude: Double
-    let latitude: Double
+    var longitude: Double
+    var latitude: Double
     
     var body: some View {
-        Map(coordinateRegion: .constant(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))), annotationItems: [AnnotatedItem(name: "I'm here", coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))] ) { location in
+        Map(coordinateRegion: .constant(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))), annotationItems: [MapPin(name: "I'm here", coordinate: CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude))] ) { location in
             MapAnnotation(coordinate: location.coordinate) {
                 Image("Point Pin")
                     .resizable()
                     .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
                     .scaledToFit()
+                Text("\(location.name)")
             }
         }
-        .frame(maxWidth: 88, maxHeight: 88, alignment: .center)
+        .frame(maxWidth: 200, maxHeight: 200, alignment: .center)
+        //.frame(maxWidth: 88, maxHeight: 88, alignment: .center)
         .scaledToFill()
         .cornerRadius(16)
         
