@@ -131,6 +131,14 @@
          contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in PlacesViewModel.setFavouriteState(favourite:):PlacesViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isProcessDelete">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in closure #1 in closure #2 in closure #2 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
          <PersistentStrings>
             <PersistentString
@@ -307,20 +315,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "response.status!">
-            </PersistentString>
-            <PersistentString
-               value = "response.statusInfo!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
-      </ContextState>
-      <ContextState
          contextName = "OrdersViewController.viewWillAppear(_:):OrdersViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -328,6 +322,20 @@
             </PersistentString>
             <PersistentString
                value = "viewModel.isLoadingPage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.status!">
+            </PersistentString>
+            <PersistentString
+               value = "response.statusInfo!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -471,10 +479,10 @@
          contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "$0.id == self.selectedReservationTime">
+               value = "self.selectedReservationTime">
             </PersistentString>
             <PersistentString
-               value = "self.selectedReservationTime">
+               value = "$0.id == self.selectedReservationTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -524,10 +532,10 @@
                value = "self.isHistory">
             </PersistentString>
             <PersistentString
-               value = "self.isActiveOrder">
+               value = "isHistory">
             </PersistentString>
             <PersistentString
-               value = "isHistory">
+               value = "self.isActiveOrder">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

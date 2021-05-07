@@ -99,9 +99,3 @@ struct CategoriesView: View {
         }
     }
 }
-
-struct AllCategoriesView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoriesView(viewModel: CategoriesViewModel())
-    }
-}

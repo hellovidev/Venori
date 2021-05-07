@@ -25,6 +25,7 @@ class HomeViewModel: ObservableObject {
     @Published var isLoadingPagePlaces = false
     @Published var isLoadingPageFavourites = false
     @Published var isLoadingPageCategories = false
+    @Published var isProcessDelete = false
 
     private var currentPage = 1
 

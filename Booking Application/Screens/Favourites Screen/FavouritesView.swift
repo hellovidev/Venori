@@ -71,7 +71,7 @@ struct FavouritesView: View {
                             }, onFavouriteClick: {
                                 guard item.favourite != nil else { return }
                                 viewModel.deleteFavouriteState(favourite: item)
-                            }, isProcessDelete: viewModel.isProcessDelete)
+                            }, isProcessDelete: false)
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }

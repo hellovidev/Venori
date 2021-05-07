@@ -44,9 +44,10 @@ struct ImageURL: View {
     var body: some View {
         selectImage()
             .resizable()
+            //.scaledToFill()
     }
     
-    init(url: String, loading: Image = Image(systemName: ""), failure: Image = Image(systemName: "multiply.circle")) {
+    init(url: String, loading: Image = Image("Loading"), failure: Image = Image(systemName: "multiply.circle")) {
         _loader = StateObject(wrappedValue: Loader(url: url))
         self.loading = loading
         self.failure = failure

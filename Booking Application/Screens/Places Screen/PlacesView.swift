@@ -75,7 +75,7 @@ struct PlacesView: View {
                                 } else {
                                     viewModel.setFavouriteState(favourite: item)
                                 }
-                            }, isProcessDelete: viewModel.isProcessDelete)
+                            }, isProcessDelete: false)
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }

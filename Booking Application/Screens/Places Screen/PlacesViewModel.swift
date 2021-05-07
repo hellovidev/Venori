@@ -81,10 +81,10 @@ class PlacesViewModel: ObservableObject {
         serviceAPI.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
+                self.isProcessDelete = false
                 if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[deleteFavouriteIndex].favourite = false
                 }
-                self.isProcessDelete = false
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -100,10 +100,10 @@ class PlacesViewModel: ObservableObject {
         self.serviceAPI.addToFavourite(completion: { result in
             switch result {
             case .success(let response):
+                self.isProcessDelete = false
                 if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[setFavouriteIndex].favourite = true
                 }
-                self.isProcessDelete = false
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription

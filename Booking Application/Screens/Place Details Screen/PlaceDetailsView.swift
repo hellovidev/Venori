@@ -70,7 +70,7 @@ struct PlaceDetailsView: View {
                         Text("\(NSString(format: "%.01f", viewModel.place!.rating))")
                             .font(.system(size: 18, weight: .semibold))
                         Button(action: {
-                            // Go To Revies Screen
+                            // Go To Reviews Screen
                         }, label: {
                             Text("\(viewModel.place!.reviewsCount) Reviews")
                                 .font(.system(size: 18, weight: .regular))

@@ -14,12 +14,15 @@ struct PlaceCardView: View {
     @State private var onCardClick: () -> Void
     @State private var onFavouriteClick: () -> Void
     @State private var isProcessDelete: Bool
+    @State private var previousState = false
     
     init(place: Place, onCardClick: @escaping () -> Void, onFavouriteClick: @escaping () -> Void, isProcessDelete: Bool) {
         self._place = State(initialValue: place)
         self._onCardClick = State(initialValue: onCardClick)
         self._onFavouriteClick = State(initialValue: onFavouriteClick)
         self._isProcessDelete = State(initialValue: isProcessDelete)
+        
+        self._previousState = State(initialValue: self.place.favourite ?? false)
     }
     
     var body: some View {
@@ -32,6 +35,11 @@ struct PlaceCardView: View {
                         .scaledToFit()
                     VStack {
                         Button {
+//                            if previousState ==  {
+//                                
+//                            } else {
+//                                
+//                            }
                             self.isProcessDelete = true
                             self.onFavouriteClick()
                         } label: {
@@ -76,11 +84,5 @@ struct PlaceCardView: View {
                 self.onCardClick()
             }
         }
-    }
-}
-
-struct RestarauntCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlaceCardView(place: Place(), onCardClick: {}, onFavouriteClick: {}, isProcessDelete: true)
     }
 }
