@@ -10,22 +10,26 @@ import SwiftUI
 
 class PlacesViewController: UIHostingController<PlacesView>  {
     private let viewModel = PlacesViewModel()
-    var serviceAPI = ServiceAPI()
+    
+    // MARK: -> Update Values
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        viewModel.places.removeAll()
+        viewModel.isLoadingPage = false
+        viewModel.canLoadMorePages = true
+        viewModel.currentPage = 1
+    }
+    
+    // MARK: -> Make Navigation Bar Hidden
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        
-        //***
-//        serviceAPI.fetchDataAboutPlaces()
-//        if serviceAPI.places != nil {
-//            state.places = serviceAPI.places!.data!
-//        }
-//        serviceAPI.fetchDataAboutPlaces(completion: {
-//            response in
-//            self.state.places = self.serviceAPI.places!.data!
-//        })
+        viewModel.loadMoreContent()
     }
+    
+    // MARK: -> Initialization SwiftUI View
     
     init() {
         let view = PlacesView(viewModel: viewModel)
@@ -37,29 +41,21 @@ class PlacesViewController: UIHostingController<PlacesView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: -> Go Previous Screen
+    // MARK: -> Go To Previous Screen
     
     func redirectPrevious() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: -> Redirect User To Login Screen
+    // MARK: -> Redirect User To Place Details Screen
     
-    func redirectToPlaceDetails(object: Place) {
+    func redirectPlaceDetails(object: Place) {
         let rootviewController = DetailsRestarauntViewController()
         rootviewController.place = object
         let navigationController = UINavigationController(rootViewController: rootviewController)
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
-    }
-    
-    // MARK: -> Pop Up for Faild Print
-    
-    func failPopUp(title: String, message: String, buttonTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
 }

@@ -22,18 +22,17 @@ class HomeViewModel: ObservableObject {
     @Published var favorites = [Place]()
     @Published var places = [Place]()
 
-    @Published var isLoadingPage = false
+    @Published var isLoadingPagePlaces = false
+    @Published var isLoadingPageFavourites = false
+    @Published var isLoadingPageCategories = false
+
     private var currentPage = 1
 
     @Published var showAlertError = false
     @Published var errorMessage = ""
 
      func loadPlacesContent() {
-//        guard !isLoadingPage else {
-//            return
-//        }
-//
-//        isLoadingPage = true
+        isLoadingPagePlaces = true
         
         var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue)!
         
@@ -53,7 +52,7 @@ class HomeViewModel: ObservableObject {
             .decode(type: Places.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .handleEvents(receiveOutput: { response in
-                self.isLoadingPage = false
+                self.isLoadingPagePlaces = false
             })
             .map({ response in
                 print(response.data)
@@ -65,11 +64,7 @@ class HomeViewModel: ObservableObject {
     }
     
      func loadFavouritesContent() {
-//        guard !isLoadingPage else {
-//            return
-//        }
-//
-//        isLoadingPage = true
+        isLoadingPageFavourites = true
         
         var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.favouritesRoute.rawValue)!
         
@@ -89,7 +84,7 @@ class HomeViewModel: ObservableObject {
             .decode(type: Places.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .handleEvents(receiveOutput: { response in
-                self.isLoadingPage = false
+                self.isLoadingPageFavourites = false
             })
             .map({ response in
                 print(response.data)
@@ -106,11 +101,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func loadCategoriesContent() {
-//        guard !isLoadingPage else {
-//            return
-//        }
-//
-//        isLoadingPage = true
+       isLoadingPageCategories = true
        
        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue)!
        
@@ -130,7 +121,7 @@ class HomeViewModel: ObservableObject {
            .decode(type: Categories.self, decoder: JSONDecoder())
            .receive(on: DispatchQueue.main)
            .handleEvents(receiveOutput: { response in
-               self.isLoadingPage = false
+               self.isLoadingPageCategories = false
            })
            .map({ response in
                print(response.data)
@@ -146,12 +137,8 @@ class HomeViewModel: ObservableObject {
         self.serviceAPI.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
-                //place.favourite?.toggle()
-                
                 self.loadPlacesContent()
                 self.loadFavouritesContent()
-                //self.fetchFavourites()
-                //self.fetchPlaces()
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -165,12 +152,8 @@ class HomeViewModel: ObservableObject {
         self.serviceAPI.addToFavourite(completion: { result in
             switch result {
             case .success(let response):
-                //place.favourite?.toggle()
                 self.loadPlacesContent()
                 self.loadFavouritesContent()
-
-                //self.fetchFavourites()
-                //self.fetchPlaces()
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -218,12 +201,13 @@ class HomeViewModel: ObservableObject {
                 return
             }
             
+            let placemark = placemarks! as [CLPlacemark]
             
-            let pm = placemarks! as [CLPlacemark]
-            
-            if pm.count > 0 {
-                let pm = placemarks![0]
-                let address: String = (pm.country ?? "") + ", " + (pm.locality ?? "") //+ ", " + (pm.thoroughfare ?? "")
+            if placemark.count > 0 {
+                let placemark = placemarks![0]
+                
+                /// EDIT
+                let address: String = (placemark.country ?? "") + ", " + (placemark.locality ?? "") //+ ", " + (pm.thoroughfare ?? "")
                 completion(.success(address))
             }
         })

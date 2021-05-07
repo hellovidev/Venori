@@ -13,7 +13,7 @@ class CategoriesViewModel: ObservableObject {
     @Published var categories = [Category]()
     
     @Published var isLoadingPage = false
-    private var currentPage = 1
+    var currentPage = 1
     var canLoadMorePages = true
     
     @Published var showAlertError = false

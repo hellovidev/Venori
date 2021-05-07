@@ -9,52 +9,114 @@ import SwiftUI
 
 struct PlacesView: View {
     @ObservedObject var viewModel: PlacesViewModel
-    var serviceAPI = ServiceAPI()
+    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    @State private var editing: Bool = false
+    @State private var text: String = ""
     
     var body: some View {
-        NavigationBarView(title: "Restaraunts", isRoot: false, isSearch: true, isLast: true, color: .white, location: "", onBackClick: {
-            self.viewModel.controller?.redirectPrevious()
-        }) {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(viewModel.places, id: \.self) { object in
-                        PlaceCardView(place: object, onCardClick: {
-                            self.viewModel.controller?.redirectToPlaceDetails(object: object)
-                        }, onFavouriteClick: {
-                            // Favorite Action
-                        }, isProcessDelete: false)
+        NavigationView {
+            VStack {
+                
+                // MARK: -> Navigation Bar Block
+                
+                HStack {
+                    SearchBarView(text: $text, isEditing: $editing)
+                        .isHidden(!editing, remove: !editing)
+                        .padding(.top, 12)
+                        .padding(.bottom, 10)
+                        .padding([.trailing,.leading], 8)
+                    Button (action: {
+                        viewModel.controller?.redirectPrevious()
+                    }, label: {
+                        Image("Arrow Left")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: 24, alignment: .center)
+                            .padding([.bottom, .top], 13)
+                            .padding(.leading, 19)
+                            .foregroundColor(.black)
+                    })
+                    .isHidden(editing, remove: editing)
+                    Spacer()
+                        .isHidden(editing, remove: editing)
+                    Text("Restaraunts")
+                        .font(.system(size: 18, weight: .bold))
+                        .isHidden(editing, remove: editing)
+                    Spacer()
+                        .isHidden(editing, remove: editing)
+                    Button (action: {
+                        editing.toggle()
+                    }, label: {
+                        Image("Search")
+                            .resizable()
+                            .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
+                    })
+                    .isHidden(editing, remove: editing)
+                    .padding(.top, 12)
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 12)
+                }
+                
+                // MARK: -> Grid On Scroll View For Load Data
+                
+                ScrollView(showsIndicators: !viewModel.places.isEmpty) {
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        
+                        // Search Meethod Here
+                        
+                        ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
+                            PlaceCardView(place: item, onCardClick: {
+                                viewModel.controller?.redirectPlaceDetails(object: item)
+                            }, onFavouriteClick: {
+                                guard item.favourite != nil else { return }
+                                if item.favourite! {
+                                    viewModel.deleteFavouriteState(favourite: item)
+                                } else {
+                                    viewModel.setFavouriteState(favourite: item)
+                                }
+                            }, isProcessDelete: viewModel.isProcessDelete)
+                            .onAppear {
+                                viewModel.loadMoreContentIfNeeded(currentItem: item)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 35)
+                    
+                    // MARK: -> While Data Loading Show Progress View
+                    
+                    if viewModel.isLoadingPage {
+                        ProgressView()
+                    }
+                    
+                    // MARK: -> Empty Data View
+                    
+                    if !viewModel.isLoadingPage && viewModel.places.isEmpty {
+                        VStack {
+                            Image("Empty")
+                                .resizable()
+                                .renderingMode(.template)
+                                .foregroundColor(Color.gray)
+                                .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                            Text("No Data")
+                                .font(.system(size: 24, weight: .semibold))
+                                .foregroundColor(Color.gray)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .padding(.top, 128)
                     }
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 35)
-                .onAppear {
-                    serviceAPI.fetchDataAboutPlaces(completion: { result in
-                        switch result {
-                        case .success(let places):
-                            self.viewModel.places = places.data
-                        case .failure(let error):
-                            DispatchQueue.main.async {
-                                viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-
-                              }
-                            //print(error)
-                            //print(error.localizedDescription)
-                        }
-                        
-                        //self.state.categories = self.serviceAPI.categories!.data
-                    })
-                }
+            }
+            .navigationBarHidden(true)
+            .alert(isPresented: $viewModel.showAlertError) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
             }
         }
     }
 }
 
-struct AllRestaurantsView_Previews: PreviewProvider {
+struct PlacesView_Previews: PreviewProvider {
     static var previews: some View {
         PlacesView(viewModel: PlacesViewModel())
     }

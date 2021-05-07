@@ -43,16 +43,50 @@ struct CategoriesView: View {
                 
                 // MARK: -> Scroll View For Load Data
                 
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(viewModel.categories, id: \.self) { object in
-                            CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
-                                // Redirect
-                            })
+                ZStack {
+                    ScrollView {
+                        PullToRefresh(coordinateSpaceName: "pullToRefresh") {
+                            viewModel.categories.removeAll()
+                            viewModel.isLoadingPage = false
+                            viewModel.canLoadMorePages = true
+                            viewModel.currentPage = 1
+                            viewModel.loadMoreContent()
                         }
+                        .padding(.bottom, 12)
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(viewModel.categories, id: \.self) { object in
+                                CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
+                                    // Redirect
+                                })
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 35)
+                        
+                        // MARK: -> While Data Loading Show Progress View
+                        
+                        if viewModel.isLoadingPage {
+                            ProgressView()
+                        }
+                        
+                    }.coordinateSpace(name: "pullToRefresh")
+                    
+                    // MARK: -> Empty Data View
+                    
+                    if !viewModel.isLoadingPage && viewModel.categories.isEmpty {
+                        VStack {
+                            Image("Empty")
+                                .resizable()
+                                .renderingMode(.template)
+                                .foregroundColor(Color.gray)
+                                .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                            Text("No Data")
+                                .font(.system(size: 24, weight: .semibold))
+                                .foregroundColor(Color.gray)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .padding(.top, 128)
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 35)
                 }
                 .navigationBarHidden(true)
                 .alert(isPresented: $viewModel.showAlertError) {

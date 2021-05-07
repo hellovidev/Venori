@@ -10,7 +10,6 @@ import CoreLocation
 
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
-    var serviceAPI = ServiceAPI()
     
     var body: some View {
         ZStack{
@@ -55,6 +54,7 @@ struct HomeView: View {
                     
                     ScrollView {
                         VStack {
+                            
                             // MARK: -> Favorite Restaurants Block
                             
                             VStack(alignment: .leading) {
@@ -64,16 +64,24 @@ struct HomeView: View {
                                 if viewModel.favorites.isEmpty {
                                     FavouriteEmptyView()
                                 } else {
-                                    ScrollView(.horizontal, showsIndicators: false) {
-                                        HStack(spacing: -8) {
-                                            ForEach(viewModel.favorites.sorted { $0.id < $1.id }, id: \.self) { object in
-                                                PlaceCardView(place: object, onCardClick: {
-                                                    self.viewModel.controller?.redirectPlaceDetails(object: object)
-                                                }, onFavouriteClick: {
-                                                    object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                                }, isProcessDelete: false)
-                                                .padding(.leading, 16)
+                                    ZStack {
+                                        ScrollView(.horizontal, showsIndicators: false) {
+                                            HStack(spacing: -8) {
+                                                ForEach(viewModel.favorites.sorted { $0.id < $1.id }, id: \.self) { object in
+                                                    PlaceCardView(place: object, onCardClick: {
+                                                        self.viewModel.controller?.redirectPlaceDetails(object: object)
+                                                    }, onFavouriteClick: {
+                                                        object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
+                                                    }, isProcessDelete: false)
+                                                    .padding(.leading, 16)
+                                                }
                                             }
+                                        }
+                                        
+                                        // MARK: -> While Data Loading Show Progress View
+                                        
+                                        if viewModel.isLoadingPageFavourites {
+                                            ProgressView()
                                         }
                                     }
                                 }
@@ -86,16 +94,24 @@ struct HomeView: View {
                                 SectionSeparatorView(title: "Restaurants", onClick: {
                                     viewModel.controller?.seeAllPlaces()
                                 })
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: -8) {
-                                        ForEach(viewModel.places.sorted { $0.id < $1.id }, id: \.self) { object in
-                                            PlaceCardView(place: object, onCardClick: {
-                                                self.viewModel.controller?.redirectPlaceDetails(object: object)
-                                            }, onFavouriteClick: {
-                                                object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                            }, isProcessDelete: false)
-                                            .padding(.leading, 16)
+                                ZStack {
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: -8) {
+                                            ForEach(viewModel.places.sorted { $0.id < $1.id }, id: \.self) { object in
+                                                PlaceCardView(place: object, onCardClick: {
+                                                    self.viewModel.controller?.redirectPlaceDetails(object: object)
+                                                }, onFavouriteClick: {
+                                                    object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
+                                                }, isProcessDelete: false)
+                                                .padding(.leading, 16)
+                                            }
                                         }
+                                    }
+                                    
+                                    // MARK: -> While Data Loading Show Progress View
+                                    
+                                    if viewModel.isLoadingPagePlaces {
+                                        ProgressView()
                                     }
                                 }
                             }
@@ -107,13 +123,22 @@ struct HomeView: View {
                                 SectionSeparatorView(title: "Food Categories", onClick: {
                                     viewModel.controller?.seeAllCategories()
                                 })
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: -8) {
-                                        ForEach(viewModel.categories, id: \.self) { object in
-                                            CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
-                                                self.viewModel.controller?.redirectCategoryPlaces(object: object)
-                                            }).padding(.leading, 16)
+                                ZStack {
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: -8) {
+                                            ForEach(viewModel.categories, id: \.self) { object in
+                                                CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
+                                                    self.viewModel.controller?.redirectCategoryPlaces(object: object)
+                                                }).padding(.leading, 16)
+                                            }
                                         }
+                                    }
+                                    
+                                    // MARK: -> While Data Loading Show Progress View
+                                    
+                                    if viewModel.isLoadingPageCategories {
+                                        ProgressView()
                                     }
                                 }
                             }
