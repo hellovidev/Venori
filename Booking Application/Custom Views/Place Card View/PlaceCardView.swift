@@ -14,7 +14,7 @@ struct PlaceCardView: View {
     @State private var onCardClick: () -> Void
     @State private var onFavouriteClick: () -> Void
     @State private var isProcessDelete: Bool
-    @State private var previousState = false
+    //@State private var previousState = false
     
     init(place: Place, onCardClick: @escaping () -> Void, onFavouriteClick: @escaping () -> Void, isProcessDelete: Bool) {
         self._place = State(initialValue: place)
@@ -22,7 +22,7 @@ struct PlaceCardView: View {
         self._onFavouriteClick = State(initialValue: onFavouriteClick)
         self._isProcessDelete = State(initialValue: isProcessDelete)
         
-        self._previousState = State(initialValue: self.place.favourite ?? false)
+        //self._previousState = State(initialValue: self.place.favourite ?? false)
     }
     
     var body: some View {
@@ -35,12 +35,11 @@ struct PlaceCardView: View {
                         .scaledToFit()
                     VStack {
                         Button {
-//                            if previousState ==  {
-//                                
+//                            if previousState != place.favourite {
+//                                self.isProcessDelete = true
 //                            } else {
-//                                
+//                                self.isProcessDelete = false
 //                            }
-                            self.isProcessDelete = true
                             self.onFavouriteClick()
                         } label: {
                             Image("Heart")
