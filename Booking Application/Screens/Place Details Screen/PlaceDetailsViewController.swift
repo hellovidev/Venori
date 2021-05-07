@@ -8,23 +8,22 @@
 import UIKit
 import SwiftUI
 
-class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView>  {
-    private let viewModel = DetailsRestarauntViewModel()
-    var place: Place?
+class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
+    private let viewModel = PlaceDetailsViewModel()
     private var serviceAPI = ServiceAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.place = place
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    init() {
-        let view = DetailsRestarauntView(viewModel: viewModel)
+    init(place: Place) {
+        viewModel.place = place
+        let view = PlaceDetailsView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self
     }
@@ -40,8 +39,15 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
     }
     
     func goBack() {
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
+        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: nil)
     }
     
     func showMapView() {
@@ -66,50 +72,10 @@ class DetailsRestarauntViewController: UIHostingController<DetailsRestarauntView
                 case .success(let weekSchedule):
                     self.viewModel.schedules = weekSchedule
                     print(weekSchedule)
-                    //self.times = times
                 case .failure(let error):
                     print(error)
-                //                                    DispatchQueue.main.async {
-                //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-                //                                      }
                 }
         }, placeIdentifier: placeID)
     }
     
 }
-
-//func getDayOfWeek(_ today:String) -> Int? {
-//    let formatter  = DateFormatter()
-//    formatter.dateFormat = "yyyy-MM-dd"
-//    guard let todayDate = formatter.date(from: today) else { return nil }
-//    let myCalendar = Calendar(identifier: .gregorian)
-//    let weekDay = myCalendar.component(.weekday, from: todayDate)
-//    return weekDay
-//}
-//
-//if let weekday = getDayOfWeek("2021-04-28") {
-//    print(weekday)
-//} else {
-//    print("bad input")
-//}
-
-extension Date {
-    func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday
-    }
-}
-
-// returns an integer from 1 - 7, with 1 being Sunday and 7 being Saturday
-//print(Date().dayNumberOfWeek()!) // 4
-//If you were looking for the written, localized version of the day of week:
-
-extension Date {
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
-        // or use capitalized(with: locale) if you want
-    }
-}
-
-//print(Date().dayOfWeek()!) // Wednesday

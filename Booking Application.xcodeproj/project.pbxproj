@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */; };
-		3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */; };
+		3F08B9DC262DA5CA0097FF1A /* PlaceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DB262DA5CA0097FF1A /* PlaceDetailsViewController.swift */; };
+		3F08B9DF262DA5D90097FF1A /* PlaceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9DE262DA5D90097FF1A /* PlaceDetailsViewModel.swift */; };
 		3F08B9E2262DA66E0097FF1A /* OrderProcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E1262DA66E0097FF1A /* OrderProcessViewModel.swift */; };
 		3F08B9E6262DA6770097FF1A /* OrderProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9E5262DA6770097FF1A /* OrderProcessViewController.swift */; };
 		3F08B9F1262DB2100097FF1A /* ImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08B9F0262DB2100097FF1A /* ImageURL.swift */; };
@@ -42,7 +42,7 @@
 		3F86BDD22626D89A00CA4CD3 /* PlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD12626D89A00CA4CD3 /* PlacesView.swift */; };
 		3F86BDD82626D8DB00CA4CD3 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDD72626D8DB00CA4CD3 /* CategoriesView.swift */; };
 		3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */; };
-		3F86BDE22626D93D00CA4CD3 /* DetailsRestarauntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */; };
+		3F86BDE22626D93D00CA4CD3 /* PlaceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE12626D93D00CA4CD3 /* PlaceDetailsView.swift */; };
 		3F86BDE72626D96300CA4CD3 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDE62626D96300CA4CD3 /* MoreView.swift */; };
 		3F86BDED2626D98900CA4CD3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDEC2626D98900CA4CD3 /* HomeView.swift */; };
 		3F86BDF32626D9B000CA4CD3 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BDF22626D9B000CA4CD3 /* LaunchView.swift */; };
@@ -87,8 +87,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewController.swift; sourceTree = "<group>"; };
-		3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntViewModel.swift; sourceTree = "<group>"; };
+		3F08B9DB262DA5CA0097FF1A /* PlaceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsViewController.swift; sourceTree = "<group>"; };
+		3F08B9DE262DA5D90097FF1A /* PlaceDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsViewModel.swift; sourceTree = "<group>"; };
 		3F08B9E1262DA66E0097FF1A /* OrderProcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessViewModel.swift; sourceTree = "<group>"; };
 		3F08B9E5262DA6770097FF1A /* OrderProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessViewController.swift; sourceTree = "<group>"; };
 		3F08B9F0262DB2100097FF1A /* ImageURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURL.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		3F86BDD12626D89A00CA4CD3 /* PlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesView.swift; sourceTree = "<group>"; };
 		3F86BDD72626D8DB00CA4CD3 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		3F86BDDC2626D91000CA4CD3 /* OrderProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProcessView.swift; sourceTree = "<group>"; };
-		3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRestarauntView.swift; sourceTree = "<group>"; };
+		3F86BDE12626D93D00CA4CD3 /* PlaceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsView.swift; sourceTree = "<group>"; };
 		3F86BDE62626D96300CA4CD3 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		3F86BDEC2626D98900CA4CD3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3F86BDF22626D9B000CA4CD3 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -364,9 +364,9 @@
 		3F86BDE02626D92B00CA4CD3 /* Place Details Screen */ = {
 			isa = PBXGroup;
 			children = (
-				3F86BDE12626D93D00CA4CD3 /* DetailsRestarauntView.swift */,
-				3F08B9DE262DA5D90097FF1A /* DetailsRestarauntViewModel.swift */,
-				3F08B9DB262DA5CA0097FF1A /* DetailsRestarauntViewController.swift */,
+				3F86BDE12626D93D00CA4CD3 /* PlaceDetailsView.swift */,
+				3F08B9DE262DA5D90097FF1A /* PlaceDetailsViewModel.swift */,
+				3F08B9DB262DA5CA0097FF1A /* PlaceDetailsViewController.swift */,
 			);
 			path = "Place Details Screen";
 			sourceTree = "<group>";
@@ -459,8 +459,8 @@
 				3FCE05942643F4920097F23B /* Favourites Screen */,
 				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
 				3F86BDCA2626D83800CA4CD3 /* History Screen */,
-				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
+				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
@@ -668,7 +668,7 @@
 				3FC3BB4C2639BF6600C74727 /* BookingHistoryViewModel.swift in Sources */,
 				3F86BE182626F77300CA4CD3 /* LoginViewController.swift in Sources */,
 				3FF0609126287A7700308556 /* CategoriesViewController.swift in Sources */,
-				3F86BDE22626D93D00CA4CD3 /* DetailsRestarauntView.swift in Sources */,
+				3F86BDE22626D93D00CA4CD3 /* PlaceDetailsView.swift in Sources */,
 				3FA90CAD2632F922001D1BCE /* SectionSeparatorView.swift in Sources */,
 				3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */,
 				3FF0608D26287A6A00308556 /* CategoriesViewModel.swift in Sources */,
@@ -690,10 +690,10 @@
 				3FF060A2262889B200308556 /* MoreViewModel.swift in Sources */,
 				3FDE434D26318C0800699ECB /* Link.swift in Sources */,
 				3FF0608826286ED100308556 /* PlacesViewModel.swift in Sources */,
-				3F08B9DF262DA5D90097FF1A /* DetailsRestarauntViewModel.swift in Sources */,
+				3F08B9DF262DA5D90097FF1A /* PlaceDetailsViewModel.swift in Sources */,
 				3F08B9F1262DB2100097FF1A /* ImageURL.swift in Sources */,
 				3FA90C992632EA05001D1BCE /* CategoryView.swift in Sources */,
-				3F08B9DC262DA5CA0097FF1A /* DetailsRestarauntViewController.swift in Sources */,
+				3F08B9DC262DA5CA0097FF1A /* PlaceDetailsViewController.swift in Sources */,
 				3FC3BB432639B40300C74727 /* Product.swift in Sources */,
 				3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */,
 				3FC3BB4F2639BF7700C74727 /* BookingHistoryViewController.swift in Sources */,

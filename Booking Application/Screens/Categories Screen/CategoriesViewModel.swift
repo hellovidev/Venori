@@ -21,7 +21,7 @@ class CategoriesViewModel: ObservableObject {
     
     // MARK: -> Load Content By Pages
     
-    func loadMoreContentIfNeeded(currentItem item: Order?) {
+    func loadMoreContentIfNeeded(currentItem item: Category?) {
         guard let item = item else {
             loadMoreContent()
             return

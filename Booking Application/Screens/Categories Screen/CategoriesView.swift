@@ -58,6 +58,9 @@ struct CategoriesView: View {
                                 CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
                                     // Redirect
                                 })
+                                .onAppear {
+                                    viewModel.loadMoreContentIfNeeded(currentItem: object)
+                                }
                             }
                         }
                         .padding(.horizontal)

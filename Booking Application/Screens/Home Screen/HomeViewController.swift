@@ -46,11 +46,18 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     // MARK: -> Redirect User To Detail Information About Place
     
     func redirectPlaceDetails(object: Place) {
-        let rootviewController = DetailsRestarauntViewController()
-        rootviewController.place = object
+        let rootviewController = PlaceDetailsViewController(place: object)
         let navigationController = UINavigationController(rootViewController: rootviewController)
+        
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: -> Redirect User To Category Places
@@ -58,17 +65,25 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     func redirectCategoryPlaces(object: Category) {
 //        let rootviewController = DetailsRestarauntViewController()
 //        rootviewController.place = object
+        
+//        let transition = CATransition()
+//        transition.duration = 0.25
+//        transition.type = CATransitionType.push
+//        transition.subtype = CATransitionSubtype.fromRight
+//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+//        view.window?.layer.add(transition, forKey: kCATransition)
+        
 //        let navigationController = UINavigationController(rootViewController: rootviewController)
 //        navigationController.modalPresentationStyle = .fullScreen
-//        self.present(navigationController, animated:true, completion: nil)
+//        self.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: -> Redirect To Menu
     
-    func redirectToFoodItems() {
+    func redirectFoodItems() {
         let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: -> Show Map View
@@ -76,27 +91,51 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     func showMapView() {
         let navigationController = UINavigationController(rootViewController: MapViewController(latitude: UserDefaults.standard.double(forKey: "latitude") , longitude: UserDefaults.standard.double(forKey: "longitude") ))
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: -> See All Functions
     
     func seeAllPlaces() {
         let navigationController = UINavigationController(rootViewController: PlacesViewController())
+        
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     func seeAllCategories() {
         let navigationController = UINavigationController(rootViewController: CategoriesViewController())
+        
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     func seeAllFavourites() {
         let navigationController = UINavigationController(rootViewController: FavouritesViewController())
+        
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: -> User Location

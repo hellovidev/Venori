@@ -69,7 +69,6 @@ class PlacesViewModel: ObservableObject {
             .map({ response in
                 print(response.data)
                 self.places.append(contentsOf: response.data)
-                
                 return self.places
             })
             .catch({ _ in Just(self.places) })

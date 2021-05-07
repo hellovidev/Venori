@@ -50,8 +50,7 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
     // MARK: -> Redirect User To Detail Information About Place
     
     func redirectPlaceDetails(object: Place) {
-        let rootviewController = DetailsRestarauntViewController()
-        rootviewController.place = object
+        let rootviewController = PlaceDetailsViewController(place: object)
         let navigationController = UINavigationController(rootViewController: rootviewController)
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)

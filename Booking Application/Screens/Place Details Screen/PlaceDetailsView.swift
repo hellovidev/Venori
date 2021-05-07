@@ -8,8 +8,8 @@
 import MapKit
 import SwiftUI
 
-struct DetailsRestarauntView: View {
-    @ObservedObject var viewModel: DetailsRestarauntViewModel
+struct PlaceDetailsView: View {
+    @ObservedObject var viewModel: PlaceDetailsViewModel
     @State private var showPopUp: Bool = false
     
     var serviceAPI: ServiceAPI = ServiceAPI()
@@ -20,38 +20,39 @@ struct DetailsRestarauntView: View {
                 
                 ZStack {
                     ImageURL(url: DomainRouter.generalDomain.rawValue + viewModel.place!.imageURL)
+                        .background(Color.gray)
                         .frame(maxWidth: .infinity, maxHeight: 256, alignment: .center)
-                        .overlay(
-                            HStack(alignment: .center) {
-                                Button {
-                                    self.viewModel.controller?.goBack()
-                                } label: {
-                                    Image("Arrow Left White")
-                                        .padding([.top, .bottom], 12)
-                                        .padding(.leading, 16)
-                                }
-                                Spacer()
-                                if self.viewModel.place != nil {
-                                    Button (action: {
-                                        self.viewModel.place?.favourite ?? false ? self.viewModel.deleteFavouriteState() : self.viewModel.setFavouriteState()
-                                    }, label: {
-                                        Image("Heart")
-                                            .renderingMode(.template)
-                                            .foregroundColor(self.viewModel.place?.favourite ?? false ? Color.red : Color.white)
-                                            .padding([.top, .bottom], 12)
-                                            .padding(.trailing, 16)
-                                    })
-                                    
-                                }
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                            .padding(.top, 48)
-                        )
-                    //                VStack(alignment: .center) {
-                    //
-                    //                }
+
+                    HStack(alignment: .center) {
+                        Button {
+                            self.viewModel.controller?.goBack()
+                        } label: {
+                            Image("Arrow Left White")
+                                .padding([.top, .bottom], 12)
+                                .padding(.leading, 16)
+                        }
+                        Spacer()
+                        if self.viewModel.place != nil {
+                            Button (action: {
+                                self.viewModel.place?.favourite ?? false ? self.viewModel.deleteFavouriteState() : self.viewModel.setFavouriteState()
+                            }, label: {
+                                Image("Heart")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .frame(maxWidth: 22, maxHeight: 22, alignment: .center)
+                                    .foregroundColor(.white)
+                                    .padding(6)
+                                    .background(viewModel.place?.favourite ?? false ? Color.blue : Color(UIColor(hex: "#0000007A")!))
+                                    .clipShape(Circle())
+                                    .padding([.top, .bottom], 12)
+                                    .padding(.trailing, 16)
+                            })
+                            
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .padding(.top, 36)
                 }
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 
                 VStack(alignment: .leading) {
                     Text(viewModel.place!.name)
@@ -206,7 +207,7 @@ struct DetailsRestarauntView: View {
 
 struct DetailsRestaurantView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsRestarauntView(viewModel: DetailsRestarauntViewModel())
+        PlaceDetailsView(viewModel: PlaceDetailsViewModel())
     }
 }
 
