@@ -23,13 +23,13 @@ class BookingHistoryViewModel: ObservableObject {
     
     func loadMoreContentIfNeeded(currentItem item: Order?) {
         guard let item = item else {
-            loadMoreContent()
+            self.loadMoreContent()
             return
         }
         
         let thresholdIndex = orders.index(orders.endIndex, offsetBy: -5)
         if orders.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+            self.loadMoreContent()
         }
     }
     
@@ -40,13 +40,18 @@ class BookingHistoryViewModel: ObservableObject {
         
         isLoadingPage = true
         
-        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue)!
-        
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.ordersRoute.rawValue)!
+
         url.queryItems = [
+            URLQueryItem(name: "history", value: nil),
             URLQueryItem(name: "page", value: "\(self.currentPage)")
         ]
+           // ?history=""&page=3
+        
+//        let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue + "&page=\(self.currentPage)")!
         
         var request = URLRequest(url: url.url!)
+        print(url.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -62,11 +67,20 @@ class BookingHistoryViewModel: ObservableObject {
                 self.isLoadingPage = false
                 self.currentPage += 1
             })
+//            .sink(receiveCompletion: { error in
+//                print(error)
+//
+//            }, receiveValue: { response in
+//                print(response.data)
+//                self.orders.append(contentsOf: response.data)
+//                //return self.orders
+//            })
             .map({ response in
                 print(response.data)
                 self.orders.append(contentsOf: response.data)
                 return self.orders
             })
+            //.replaceError(with: [])
             .catch({ _ in Just(self.orders) })
             .assign(to: &$orders)
     }

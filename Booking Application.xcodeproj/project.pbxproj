@@ -53,6 +53,15 @@
 		3F86BE182626F77300CA4CD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BE172626F77300CA4CD3 /* LoginViewController.swift */; };
 		3F86BE1B2626F93600CA4CD3 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86BE1A2626F93600CA4CD3 /* RegistrationViewController.swift */; };
 		3F8F0E90263817EE006404B5 /* StepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F0E8F263817EE006404B5 /* StepperView.swift */; };
+		3F9DCAD7264BFE1E00B279CD /* CategoryPlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAD6264BFE1E00B279CD /* CategoryPlacesViewModel.swift */; };
+		3F9DCADB264BFE3700B279CD /* CategoryPlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCADA264BFE3700B279CD /* CategoryPlacesView.swift */; };
+		3F9DCADE264BFE4400B279CD /* CategoryPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCADD264BFE4400B279CD /* CategoryPlacesViewController.swift */; };
+		3F9DCAE8264C070C00B279CD /* ReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAE7264C070C00B279CD /* ReviewsView.swift */; };
+		3F9DCAEC264C071900B279CD /* ReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAEB264C071900B279CD /* ReviewsViewModel.swift */; };
+		3F9DCAEF264C072400B279CD /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAEE264C072400B279CD /* ReviewsViewController.swift */; };
+		3F9DCAF6264C246800B279CD /* ReviewProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAF5264C246800B279CD /* ReviewProcessView.swift */; };
+		3F9DCAFA264C247600B279CD /* ReviewProcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAF9264C247600B279CD /* ReviewProcessViewModel.swift */; };
+		3F9DCAFD264C248000B279CD /* ReviewProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9DCAFC264C248000B279CD /* ReviewProcessViewController.swift */; };
 		3FA90C8E2632DEEE001D1BCE /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90C8D2632DEEE001D1BCE /* Schedule.swift */; };
 		3FA90C932632E653001D1BCE /* PlaceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90C922632E653001D1BCE /* PlaceCardView.swift */; };
 		3FA90C992632EA05001D1BCE /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90C982632EA05001D1BCE /* CategoryView.swift */; };
@@ -135,6 +144,15 @@
 		3F86BE172626F77300CA4CD3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F86BE1A2626F93600CA4CD3 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		3F8F0E8F263817EE006404B5 /* StepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperView.swift; sourceTree = "<group>"; };
+		3F9DCAD6264BFE1E00B279CD /* CategoryPlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPlacesViewModel.swift; sourceTree = "<group>"; };
+		3F9DCADA264BFE3700B279CD /* CategoryPlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPlacesView.swift; sourceTree = "<group>"; };
+		3F9DCADD264BFE4400B279CD /* CategoryPlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPlacesViewController.swift; sourceTree = "<group>"; };
+		3F9DCAE7264C070C00B279CD /* ReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsView.swift; sourceTree = "<group>"; };
+		3F9DCAEB264C071900B279CD /* ReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewModel.swift; sourceTree = "<group>"; };
+		3F9DCAEE264C072400B279CD /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		3F9DCAF5264C246800B279CD /* ReviewProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProcessView.swift; sourceTree = "<group>"; };
+		3F9DCAF9264C247600B279CD /* ReviewProcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProcessViewModel.swift; sourceTree = "<group>"; };
+		3F9DCAFC264C248000B279CD /* ReviewProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProcessViewController.swift; sourceTree = "<group>"; };
 		3FA90C8D2632DEEE001D1BCE /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		3FA90C922632E653001D1BCE /* PlaceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCardView.swift; sourceTree = "<group>"; };
 		3FA90C982632EA05001D1BCE /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -427,6 +445,36 @@
 			path = "Stepper View";
 			sourceTree = "<group>";
 		};
+		3F9DCAD5264BFDFF00B279CD /* Category Places Screen */ = {
+			isa = PBXGroup;
+			children = (
+				3F9DCADA264BFE3700B279CD /* CategoryPlacesView.swift */,
+				3F9DCAD6264BFE1E00B279CD /* CategoryPlacesViewModel.swift */,
+				3F9DCADD264BFE4400B279CD /* CategoryPlacesViewController.swift */,
+			);
+			path = "Category Places Screen";
+			sourceTree = "<group>";
+		};
+		3F9DCAE6264C06CD00B279CD /* Reviews Screen */ = {
+			isa = PBXGroup;
+			children = (
+				3F9DCAE7264C070C00B279CD /* ReviewsView.swift */,
+				3F9DCAEB264C071900B279CD /* ReviewsViewModel.swift */,
+				3F9DCAEE264C072400B279CD /* ReviewsViewController.swift */,
+			);
+			path = "Reviews Screen";
+			sourceTree = "<group>";
+		};
+		3F9DCAF4264C244E00B279CD /* Review Process Screen */ = {
+			isa = PBXGroup;
+			children = (
+				3F9DCAF5264C246800B279CD /* ReviewProcessView.swift */,
+				3F9DCAF9264C247600B279CD /* ReviewProcessViewModel.swift */,
+				3F9DCAFC264C248000B279CD /* ReviewProcessViewController.swift */,
+			);
+			path = "Review Process Screen";
+			sourceTree = "<group>";
+		};
 		3FA90C912632E606001D1BCE /* Place Card View */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,6 +502,8 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3F9DCAF4264C244E00B279CD /* Review Process Screen */,
+				3F9DCAE6264C06CD00B279CD /* Reviews Screen */,
 				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
 				3FCE05942643F4920097F23B /* Favourites Screen */,
@@ -461,6 +511,7 @@
 				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
+				3F9DCAD5264BFDFF00B279CD /* Category Places Screen */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
@@ -666,6 +717,7 @@
 				3F261277263999AE00B3250D /* EnumerationItemsView.swift in Sources */,
 				3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */,
 				3FC3BB4C2639BF6600C74727 /* BookingHistoryViewModel.swift in Sources */,
+				3F9DCAFD264C248000B279CD /* ReviewProcessViewController.swift in Sources */,
 				3F86BE182626F77300CA4CD3 /* LoginViewController.swift in Sources */,
 				3FF0609126287A7700308556 /* CategoriesViewController.swift in Sources */,
 				3F86BDE22626D93D00CA4CD3 /* PlaceDetailsView.swift in Sources */,
@@ -680,14 +732,19 @@
 				3FDE436F2632D20B00699ECB /* MapViewModel.swift in Sources */,
 				3FA90CB22632FB97001D1BCE /* NavigationBarView.swift in Sources */,
 				3FCE05962643F4C90097F23B /* FavouritesView.swift in Sources */,
+				3F9DCAE8264C070C00B279CD /* ReviewsView.swift in Sources */,
 				3FB452AF264171C1001128A0 /* UIAlertController.swift in Sources */,
 				3F8F0E90263817EE006404B5 /* StepperView.swift in Sources */,
 				3F86BDC52626D7F500CA4CD3 /* OrdersView.swift in Sources */,
 				3FC3BB402639A9AA00C74727 /* FoodItemsViewController.swift in Sources */,
 				3F86BDB32626D4C800CA4CD3 /* Booking_Application.xcdatamodeld in Sources */,
+				3F9DCAFA264C247600B279CD /* ReviewProcessViewModel.swift in Sources */,
 				3FDE436B2632D1FE00699ECB /* MapViewController.swift in Sources */,
 				3F08B9F7262DB6380097FF1A /* Place.swift in Sources */,
+				3F9DCAEF264C072400B279CD /* ReviewsViewController.swift in Sources */,
 				3FF060A2262889B200308556 /* MoreViewModel.swift in Sources */,
+				3F9DCAF6264C246800B279CD /* ReviewProcessView.swift in Sources */,
+				3F9DCAEC264C071900B279CD /* ReviewsViewModel.swift in Sources */,
 				3FDE434D26318C0800699ECB /* Link.swift in Sources */,
 				3FF0608826286ED100308556 /* PlacesViewModel.swift in Sources */,
 				3F08B9DF262DA5D90097FF1A /* PlaceDetailsViewModel.swift in Sources */,
@@ -695,6 +752,7 @@
 				3FA90C992632EA05001D1BCE /* CategoryView.swift in Sources */,
 				3F08B9DC262DA5CA0097FF1A /* PlaceDetailsViewController.swift in Sources */,
 				3FC3BB432639B40300C74727 /* Product.swift in Sources */,
+				3F9DCAD7264BFE1E00B279CD /* CategoryPlacesViewModel.swift in Sources */,
 				3F86BDAC2626D4C800CA4CD3 /* AppDelegate.swift in Sources */,
 				3FC3BB4F2639BF7700C74727 /* BookingHistoryViewController.swift in Sources */,
 				3FC3BB3D2639A97F00C74727 /* FoodItemsViewModel.swift in Sources */,
@@ -713,6 +771,8 @@
 				3FF0609F2628894700308556 /* MoreViewController.swift in Sources */,
 				3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */,
 				3F86BDE72626D96300CA4CD3 /* MoreView.swift in Sources */,
+				3F9DCADB264BFE3700B279CD /* CategoryPlacesView.swift in Sources */,
+				3F9DCADE264BFE4400B279CD /* CategoryPlacesViewController.swift in Sources */,
 				3F86BDFC2626D9F000CA4CD3 /* LoginViewModel.swift in Sources */,
 				3F2612732639950500B3250D /* ProductView.swift in Sources */,
 				3FA90CA22632F0DE001D1BCE /* TextFieldView.swift in Sources */,

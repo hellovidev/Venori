@@ -17,10 +17,12 @@ struct HistoryOrderItemView: View {
     //@State private var place = Place()
     
     @State private var cancelCallback: () -> Void
+    @State private var openPlaceCallback: () -> Void
     
-    init(order: Order, cancel: @escaping () -> Void) {
+    init(order: Order, cancel: @escaping () -> Void, redirect: @escaping () -> Void) {
         self._order = State(initialValue: order)
         self._cancelCallback = State(initialValue: cancel)
+        self._openPlaceCallback = State(initialValue: redirect)
         switch self.order.status {
         case "Confirmed":
             self._isHistory = State(initialValue: true)
@@ -69,7 +71,11 @@ struct HistoryOrderItemView: View {
                     .font(.system(size: 14, weight: .regular))
             }
             
-            //PlaceInnerItemView(place: self.order.place)
+            Button(action: {
+                self.openPlaceCallback()
+            }, label: {
+                PlaceInnerItemView(place: self.order.place ?? Place())
+            })
 
             VStack(alignment: .center) {
                 Button(action: {

@@ -23,7 +23,6 @@ struct OrdersView: View {
                     
                     // MARK: -> Data List View
                     
-                    ZStack {
                         ScrollView(showsIndicators: !viewModel.orders.isEmpty) {
                             PullToRefresh(coordinateSpaceName: "pullToRefresh") {
                                 viewModel.orders.removeAll()
@@ -36,6 +35,9 @@ struct OrdersView: View {
                                 ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
                                     HistoryOrderItemView(order: item, cancel: {
                                         self.viewModel.cancelOrder(orderIdentifier: item.id)
+                                    }, redirect: {
+                                        guard item.place != nil else { return }
+                                        viewModel.controller?.redirectPlaceDetails(object: item.place!)
                                     })
                                     .onAppear {
                                         viewModel.loadMoreContentIfNeeded(currentItem: item)
@@ -46,31 +48,31 @@ struct OrdersView: View {
                             .padding(.top, 16)
                             .padding(.bottom, 35)
                             
-                        }.coordinateSpace(name: "pullToRefresh")
-                        
-                        // MARK: -> While Data Loading Show Progress View
-                        
-                        if viewModel.isLoadingPage {
-                            ProgressView()
-                        }
-                        
-                        // MARK: -> Empty Data View
-                        
-                        if !viewModel.isLoadingPage && viewModel.orders.isEmpty {
-                            VStack {
-                                Image("Empty")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(Color.gray)
-                                    .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                                Text("No Data")
-                                    .font(.system(size: 24, weight: .semibold))
-                                    .foregroundColor(Color.gray)
+                            // MARK: -> While Data Loading Show Progress View
+                            
+                            if viewModel.isLoadingPage {
+                                ProgressView()
                             }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            .padding(.top, 128)
+                            
+                            // MARK: -> Empty Data View
+                            
+                            if !viewModel.isLoadingPage && viewModel.orders.isEmpty {
+                                VStack {
+                                    Image("Empty")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                                        .fixedSize()
+                                        .foregroundColor(Color.gray)
+                                    Text("No Data")
+                                        .font(.system(size: 24, weight: .semibold))
+                                        .foregroundColor(Color.gray)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                .padding(.top, 96)
+                            }
                         }
-                    }
+                        .coordinateSpace(name: "pullToRefresh")
                 }
                 .navigationBarHidden(true)
                 .alert(isPresented: $viewModel.showAlertError) {
@@ -78,7 +80,6 @@ struct OrdersView: View {
                 }
             }
         }
-        
     }
 }
 

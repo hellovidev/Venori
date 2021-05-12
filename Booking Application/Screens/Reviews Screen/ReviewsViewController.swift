@@ -1,20 +1,20 @@
 //
-//  BookingHistoryViewController.swift
+//  ReviewsViewController.swift
 //  Booking Application
 //
-//  Created by student on 28.04.21.
+//  Created by student on 12.05.21.
 //
 
 import SwiftUI
 
-class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
-    private let viewModel = BookingHistoryViewModel()
+class ReviewsViewController: UIHostingController<ReviewsView>  {
+    private let viewModel: ReviewsViewModel
     
     // MARK: -> Update Values
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        viewModel.orders.removeAll()
+        viewModel.reviews.removeAll()
         viewModel.isLoadingPage = false
         viewModel.canLoadMorePages = true
         viewModel.currentPage = 1
@@ -30,8 +30,9 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
     
     // MARK: -> Initialization SwiftUI View
     
-    init() {
-        let view = BookingHistoryView(viewModel: viewModel)
+    init(placeIdentifier: Int) {
+        viewModel = ReviewsViewModel(placeIdentifier: placeIdentifier)
+        let view = ReviewsView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self
     }
@@ -47,21 +48,13 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
         self.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: -> Redirect User To Detail Information About Place
-    
-    func redirectPlaceDetails(object: Place) {
-        let rootviewController = PlaceDetailsViewController(place: object)
+    // MARK: -> Redirect User To New Review
+
+    func redirectNewReview(placeIdentifier: Int) {
+        let rootviewController = ReviewProcessViewController(placeIdentifier: placeIdentifier)
         let navigationController = UINavigationController(rootViewController: rootviewController)
-        
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromRight
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        view.window?.layer.add(transition, forKey: kCATransition)
-        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: false, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
 }

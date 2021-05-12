@@ -46,8 +46,9 @@ class OrdersViewModel: ObservableObject {
         isLoadingPage = true
         
         var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.ordersRoute.rawValue)!
-        
+
         url.queryItems = [
+            URLQueryItem(name: "active", value: nil),
             URLQueryItem(name: "page", value: "\(self.currentPage)")
         ]
         

@@ -1,20 +1,21 @@
 //
-//  BookingHistoryViewController.swift
+//  CategoryPlacesViewController.swift
 //  Booking Application
 //
-//  Created by student on 28.04.21.
+//  Created by student on 12.05.21.
 //
 
 import SwiftUI
 
-class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
-    private let viewModel = BookingHistoryViewModel()
+
+class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
+    private let viewModel: CategoryPlacesViewModel
     
     // MARK: -> Update Values
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        viewModel.orders.removeAll()
+        viewModel.places.removeAll()
         viewModel.isLoadingPage = false
         viewModel.canLoadMorePages = true
         viewModel.currentPage = 1
@@ -30,8 +31,9 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
     
     // MARK: -> Initialization SwiftUI View
     
-    init() {
-        let view = BookingHistoryView(viewModel: viewModel)
+    init(categoryIdentifier: Int, categoryName: String) {
+        viewModel = CategoryPlacesViewModel(categoryIdentifier: categoryIdentifier, categoryName: categoryName)
+        let view = CategoryPlacesView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self
     }
@@ -40,14 +42,21 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: -> Click On 'Back' Button
+    // MARK: -> Go To Previous Screen
     
     func redirectPrevious() {
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+
+        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: nil)
     }
     
-    // MARK: -> Redirect User To Detail Information About Place
+    // MARK: -> Redirect User To Place Details Screen
     
     func redirectPlaceDetails(object: Place) {
         let rootviewController = PlaceDetailsViewController(place: object)
@@ -63,5 +72,4 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: false, completion: nil)
     }
-    
 }

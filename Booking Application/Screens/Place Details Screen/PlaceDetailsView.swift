@@ -70,7 +70,7 @@ struct PlaceDetailsView: View {
                         Text("\(NSString(format: "%.01f", viewModel.place!.rating))")
                             .font(.system(size: 18, weight: .semibold))
                         Button(action: {
-                            // Go To Reviews Screen
+                            self.viewModel.controller?.redirectReviews(placeIdentifier: viewModel.place!.id)
                         }, label: {
                             Text("\(viewModel.place!.reviewsCount) Reviews")
                                 .font(.system(size: 18, weight: .regular))

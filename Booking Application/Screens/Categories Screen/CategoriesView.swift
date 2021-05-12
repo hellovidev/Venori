@@ -56,7 +56,7 @@ struct CategoriesView: View {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(viewModel.categories, id: \.self) { object in
                                 CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
-                                    // Redirect
+                                    self.viewModel.controller?.redirectCategoryPlaces(categoryIdentifier: object.id, categoryName: object.name)
                                 })
                                 .onAppear {
                                     viewModel.loadMoreContentIfNeeded(currentItem: object)

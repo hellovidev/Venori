@@ -49,7 +49,10 @@ struct BookingHistoryView: View {
                             }
                             VStack {
                                 ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
-                                    HistoryOrderItemView(order: item, cancel: {})
+                                    HistoryOrderItemView(order: item, cancel: {}, redirect: {
+                                        guard item.place != nil else { return }
+                                        viewModel.controller?.redirectPlaceDetails(object: item.place!)
+                                    })
                                         .onAppear {
                                             viewModel.loadMoreContentIfNeeded(currentItem: item)
                                         }
@@ -63,6 +66,8 @@ struct BookingHistoryView: View {
                             
                             if viewModel.isLoadingPage {
                                 ProgressView()
+                                    .padding(.top, 15)
+                                    .padding(.bottom, 35)
                             }
                             
                         }.coordinateSpace(name: "pullToRefresh")

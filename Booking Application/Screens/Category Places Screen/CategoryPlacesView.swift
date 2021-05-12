@@ -1,14 +1,14 @@
 //
-//  FavouritesView.swift
+//  CategoryPlacesView.swift
 //  Booking Application
 //
-//  Created by student on 6.05.21.
+//  Created by student on 12.05.21.
 //
 
 import SwiftUI
 
-struct FavouritesView: View {
-    @ObservedObject var viewModel: FavouritesViewModel
+struct CategoryPlacesView: View {
+    @ObservedObject var viewModel: CategoryPlacesViewModel
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     @State private var editing: Bool = false
@@ -40,7 +40,7 @@ struct FavouritesView: View {
                     .isHidden(editing, remove: editing)
                     Spacer()
                         .isHidden(editing, remove: editing)
-                    Text("Favourites")
+                    Text("\(viewModel.categoryName)")
                         .font(.system(size: 18, weight: .bold))
                         .isHidden(editing, remove: editing)
                     Spacer()
@@ -60,12 +60,12 @@ struct FavouritesView: View {
                 
                 // MARK: -> Grid On Scroll View For Load Data
                 
-                ScrollView(showsIndicators: !viewModel.favourites.isEmpty) {
+                ScrollView(showsIndicators: !viewModel.places.isEmpty) {
                     LazyVGrid(columns: columns, spacing: 15) {
                         
                         // Search Meethod Here
                         
-                        ForEach(viewModel.favourites.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
+                        ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
                             PlaceCardView(place: item, onCardClick: {
                                 viewModel.controller?.redirectPlaceDetails(object: item)
                             }, onFavouriteClick: {
@@ -88,7 +88,7 @@ struct FavouritesView: View {
                     
                     // MARK: -> Empty Data View
                     
-                    if !viewModel.isLoadingPage && viewModel.favourites.isEmpty {
+                    if !viewModel.isLoadingPage && viewModel.places.isEmpty {
                         VStack {
                             Image("Empty")
                                 .resizable()
@@ -112,8 +112,8 @@ struct FavouritesView: View {
     }
 }
 
-struct FavouritesView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavouritesView(viewModel: FavouritesViewModel())
-    }
-}
+//struct CategoryPlacesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CategoryPlacesView()
+//    }
+//}

@@ -66,6 +66,14 @@ class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
         self.present(navigationController, animated:true, completion: nil)
     }
     
+    // MARK: -> Redirect User To Reviews Of Place
+
+    func redirectReviews(placeIdentifier: Int) {
+        let navigationController = UINavigationController(rootViewController: ReviewsViewController(placeIdentifier: placeIdentifier))
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated:true, completion: nil)
+    }
+    
     func showWeekSchedule(placeID: Int) {
         self.serviceAPI.getScheduleOfPlace(completion: { result in
                 switch result {

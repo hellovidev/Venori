@@ -20,6 +20,7 @@ struct Order: Codable, Hashable, Identifiable {
     var placeID: Int //***
     var createdAt: String
     var updatedAt: String
+    var place: Place?
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -34,6 +35,7 @@ struct Order: Codable, Hashable, Identifiable {
         case placeID = "place_id"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case place = "place"
     }
     
 }

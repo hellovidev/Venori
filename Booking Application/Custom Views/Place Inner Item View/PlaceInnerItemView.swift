@@ -26,9 +26,11 @@ struct PlaceInnerItemView: View {
                     .font(.system(size: 20, weight: .bold))
                     .padding(.bottom, -4)
                     .padding(.top, 2)
+                    .foregroundColor(.black)
                 HStack {
                     Image("Star")
                     Text("\((NSString(format: "%.01f", place.rating)))")
+                        .foregroundColor(.black)
                         .font(.system(size: 16, weight: .regular))
                     Text("(\(place.reviewsCount))")
                         .foregroundColor(.gray)
