@@ -27,6 +27,8 @@ struct TextFieldView: View {
                             .font(.system(size: 24))
                     }
                     Image(isPasswordShowing ? "Text Field Hide" : "Text Field Show")
+                        .resizable()
+                        .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
                         .padding(.trailing, 5)
                         .padding(.leading, 5)
                         .onTapGesture {
