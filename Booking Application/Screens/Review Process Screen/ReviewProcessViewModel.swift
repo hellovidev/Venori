@@ -78,11 +78,11 @@ class ReviewProcessViewModel: ObservableObject {
 //            .store(in: &cancellables)
     }
     
-//    deinit {
-//        for cancellable in cancellables {
-//            cancellable.cancel()
-//        }
-//    }
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
     
     func publishNewReview(title: String, rating: Int, description: String) {
         let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.reviewsRoute.rawValue)!

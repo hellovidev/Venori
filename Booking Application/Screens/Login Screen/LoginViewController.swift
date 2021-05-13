@@ -10,7 +10,6 @@ import SwiftUI
 
 class LoginViewController: UIHostingController<LoginView>  {
     private let viewModel = LoginViewModel()
-    private let serviceAPI = ServiceAPI()
     
     init() {
         let view = LoginView(viewModel: viewModel)
@@ -30,14 +29,6 @@ class LoginViewController: UIHostingController<LoginView>  {
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }
-    }
-    
-    // MARK: -> Pop Up for Faild Print
-    
-    func failPopUp(title: String, message: String, buttonTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: -> User Registration Validate Process
@@ -68,49 +59,6 @@ class LoginViewController: UIHostingController<LoginView>  {
             
             sceneDelegate.window?.rootViewController = tabController
             sceneDelegate.window?.makeKeyAndVisible()
-        }
-    }
-    
-    // MARK: -> User Login Validate Process
-    
-    func loginValidation() {
-        if viewModel.email.isValidEmail() && viewModel.password.isValidPassword() {
-            self.serviceAPI.userAccountAuthentication(completion: { result in
-                switch result {
-                case .success(let account):
-                    let preferences = UserDefaults.standard
-                    //preferences.set(account.user, forKey: "current_user")
-                    preferences.set(account.token, forKey: "access_token")
-                    
-                    do {
-                        // Create JSON Encoder
-                        
-                        let encoder = JSONEncoder()
-
-                        // Encode User
-                        
-                        let data = try encoder.encode(account.user)
-
-                        // Write/Set Data
-                        
-                        UserDefaults.standard.set(data, forKey: "current_user")
-
-                    } catch {
-                        print("Unable to Encode User (\(error))")
-                    }
-                    
-                    self.viewModel.controller?.authComplete()
-                case .failure(let error):
-                    print(error)
-                    self.viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Access Token Empty", buttonTitle: "Okay")
-                }
-            }, email: self.viewModel.email, password: self.viewModel.password)
-        } else if !viewModel.email.isValidEmail() && viewModel.password.isValidPassword() {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
-        } else if viewModel.email.isValidEmail() && !viewModel.password.isValidPassword() {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
-        } else {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
         }
     }
     

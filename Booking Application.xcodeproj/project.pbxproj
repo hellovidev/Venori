@@ -502,6 +502,8 @@
 		3FA90CA52632F70B001D1BCE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
+				3F86BDFF2626DA0C00CA4CD3 /* Registration  Screen */,
 				3F9DCAF4264C244E00B279CD /* Review Process Screen */,
 				3F9DCAE6264C06CD00B279CD /* Reviews Screen */,
 				3FDE43712632D20F00699ECB /* Map Screen */,
@@ -516,8 +518,6 @@
 				3F26126C263992A600B3250D /* Food Items Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
 				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
-				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
-				3F86BDFF2626DA0C00CA4CD3 /* Registration  Screen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

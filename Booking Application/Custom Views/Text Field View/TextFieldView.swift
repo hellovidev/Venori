@@ -41,7 +41,7 @@ struct TextFieldView: View {
                 }
             }
             .padding()
-            .frame(maxHeight: 48, alignment: .center)
+            .frame(maxHeight: 44, alignment: .center)
             .background(Color("Text Field Color"))
             .cornerRadius(8)
             .padding(3)

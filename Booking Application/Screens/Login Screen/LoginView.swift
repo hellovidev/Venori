@@ -11,27 +11,37 @@ struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
-        VStack {
+        ZStack {
             VStack {
-                Image("Splash Image").frame(maxWidth: .infinity, alignment: .top)
-                Spacer()
+                ZStack {
+                    VStack {
+                        Image("Splash Image")
+                        Spacer()
+                    }
+                    RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 220)
+                        .ignoresSafeArea()
+                    RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 1000)
+                        .ignoresSafeArea()
+                }
             }
-            .overlay(
-                RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 220)
-                    .ignoresSafeArea()
-            )
-        }
-        .overlay(
             VStack {
                 Spacer()
-                VStack {
-                    TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 10)
+                VStack(alignment: .leading) {
+                    TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false)
+                        .padding(.bottom, 8)
+                    Text(viewModel.inputErrorMessage)
+                        .isHidden(viewModel.inputErrorMessage.isEmpty ? true : false, remove: viewModel.inputErrorMessage.isEmpty ? true : false)
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(.red)
+                        .background(Color.yellow)
+                        .padding(.bottom, 8)
                     TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true)
                 }
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 Button(action: {
-                    self.viewModel.controller?.loginValidation()
+                    self.hideKeyboard()
+                    self.viewModel.tryAuth()
                 }) {
                     Text("Sign in")
                         .foregroundColor(.white)
@@ -43,7 +53,9 @@ struct LoginView: View {
                         .frame(maxWidth: .infinity)
                         .shadow(radius: 10)
                 }
-                .background(Color("Button Color"))
+                .disabled(!viewModel.isValid)
+                .background(viewModel.isValid ? Color("Button Color") : Color.gray)
+                .shadow(radius: 10)
                 .cornerRadius(24)
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
@@ -63,8 +75,21 @@ struct LoginView: View {
                 .padding(.trailing, 80)
                 .padding(.top, 24)
             }
-            .padding(.bottom, 20)
-        )
+            .padding(.bottom, 25)
+            
+            if viewModel.isLoading {
+                ZStack {
+                    Color(UIColor(hex: "#FFFFFF99")!)
+                    ProgressView()
+                }
+            }
+        }
+        .onTapGesture {
+            self.hideKeyboard()
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
+        }
     }
 }
 

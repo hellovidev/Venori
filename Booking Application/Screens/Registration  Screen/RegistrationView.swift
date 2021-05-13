@@ -25,10 +25,11 @@ struct RegistrationView: View {
             VStack {
                 Spacer()
                 VStack {
-                    TextFieldView(data: $viewModel.name, placeholder: "Name", isPassword: false).padding(.bottom, 10)
-                    TextFieldView(data: $viewModel.surname, placeholder: "Surname", isPassword: false).padding(.bottom, 10)
-                    TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 10)
-                    TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true).padding(.bottom, 10)
+                    TextFieldView(data: $viewModel.name, placeholder: "Name", isPassword: false)
+                        .padding(.bottom, 8)
+                    TextFieldView(data: $viewModel.surname, placeholder: "Surname", isPassword: false).padding(.bottom, 8)
+                    TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false).padding(.bottom, 8)
+                    TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true).padding(.bottom, 8)
                     TextFieldView(data: $viewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
                 }
                 .padding(.leading, 24)
@@ -47,6 +48,7 @@ struct RegistrationView: View {
                         .shadow(radius: 10)
                 }
                 .background(Color("Button Color"))
+                .shadow(radius: 10)
                 .cornerRadius(24)
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
@@ -66,7 +68,7 @@ struct RegistrationView: View {
                 .padding(.trailing, 80)
                 .padding(.top, 24)
             }
-            .padding(.bottom, 20)
+            .padding(.bottom, 25)
         )
     }
 }
