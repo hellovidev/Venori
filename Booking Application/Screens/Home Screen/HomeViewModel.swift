@@ -208,7 +208,9 @@ class HomeViewModel: ObservableObject {
                 let placemark = placemarks![0]
                 
                 /// EDIT
-                let address: String = (placemark.country ?? "") + ", " + (placemark.locality ?? "") //+ ", " + (pm.thoroughfare ?? "")
+                
+                
+                let address: String = (placemark.country ?? "") //+ ", " + (placemark.locality ?? "") + ", " + (placemark.thoroughfare ?? "")
                 completion(.success(address))
             }
         })

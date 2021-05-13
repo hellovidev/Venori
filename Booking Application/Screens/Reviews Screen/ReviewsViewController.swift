@@ -53,7 +53,7 @@ class ReviewsViewController: UIHostingController<ReviewsView>  {
     func redirectNewReview(placeIdentifier: Int) {
         let rootviewController = ReviewProcessViewController(placeIdentifier: placeIdentifier)
         let navigationController = UINavigationController(rootViewController: rootviewController)
-        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalPresentationStyle = .popover
         self.present(navigationController, animated: true, completion: nil)
     }
     

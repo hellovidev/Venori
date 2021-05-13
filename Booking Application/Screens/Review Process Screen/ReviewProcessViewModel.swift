@@ -10,40 +10,88 @@ import SwiftUI
 
 class ReviewProcessViewModel: ObservableObject {
     weak var controller: ReviewProcessViewController?
-    var cancellable: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
     private let placeIdentifier: Int
+    private var user: User?
     
+    @Published var showAlert = false
+    @Published var errorMessage = ""
+    
+    @Published var titleText: String = ""
+    //@Published var isEmptyTitle: Bool = true
+    
+    @Published var descriptionText: String = ""
+    //@Published var isEmptyDescription: Bool = true
+
+    @Published var rating: Int? = 0
+    //@Published var isEmptyRating: Bool = true
+    
+    @Published var isValid: Bool = false
+
     init(placeIdentifier: Int) {
         self.placeIdentifier = placeIdentifier
         
-        // Read/Get Data
+        // Get Data About User
         
         if let data = UserDefaults.standard.data(forKey: "current_user") {
             do {
                 
-                // Create JSON Decoder
-                
-                let decoder = JSONDecoder()
-                
                 // Decode User
                 
-                self.user = try decoder.decode(User.self, from: data)
+                self.user = try JSONDecoder().decode(User.self, from: data)
             } catch {
                 print("Unable to Decode User (\(error))")
             }
         }
+        
+        isFormFieldCompletePublisher
+            .receive(on: RunLoop.main)
+            .assign(to: \.isValid, on: self)
+            .store(in: &cancellables)
+        
+        
+//        $titleText
+//            .debounce(for: 0.3, scheduler: RunLoop.main)
+//            .removeDuplicates()
+//            .map { input in
+//                return input.count >= 1
+//            }
+//            .assign(to: \.isEmptyTitle, on: self)
+//            .store(in: &cancellables)
+//
+//        $descriptionText
+//            .debounce(for: 0.3, scheduler: RunLoop.main)
+//            .removeDuplicates()
+//            .map { input in
+//                return input.count >= 1
+//            }
+//            .assign(to: \.isEmptyDescription, on: self)
+//            .store(in: &cancellables)
+//
+//        $rating
+//            .debounce(for: 0.3, scheduler: RunLoop.main)
+//            .removeDuplicates()
+//            .map { input in
+//                return input ?? 0 >= 1
+//            }
+//            .assign(to: \.isEmptyRating, on: self)
+//            .store(in: &cancellables)
     }
     
-    @Published var user: User?
+//    deinit {
+//        for cancellable in cancellables {
+//            cancellable.cancel()
+//        }
+//    }
     
-    func publishNewReview(newReview: Review) {
+    func publishNewReview(title: String, rating: Int, description: String) {
         let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.reviewsRoute.rawValue)!
         
         // Request Body Generating
         
-        let data: [String: Any] = ["title": newReview.title, "rating": newReview.rating, "description": newReview.description, "user_id": user?.id as Any, "place_id": self.placeIdentifier]
+        let data: [String: Any] = ["title": title, "rating": rating, "description": description, "user_id": user?.id as Any, "place_id": placeIdentifier]
         let body = try? JSONSerialization.data(withJSONObject: data)
-                
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = body
@@ -51,45 +99,101 @@ class ReviewProcessViewModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        cancellable = URLSession.shared.dataTaskPublisher(for: request as URLRequest)
-            .map(\.data)
-            .decode(type: Review.self, decoder: JSONDecoder())
+        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
             .receive(on: DispatchQueue.main)
+            .tryMap() { element -> Data in
+                
+                // Not worried about the status code just trying to get any response
+                
+                guard let httpResponse = element.response as? HTTPURLResponse, httpResponse.statusCode >= 200
+                else {
+                    throw URLError(.badServerResponse)
+                }
+                return element.data
+            }
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
+                    print("Success published new review.")
                     break
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.errorMessage = error.localizedDescription
+                    self.showAlert = true
+                    print("Error: \(error.localizedDescription)")
                 }
-            }, receiveValue: { response in
-                print(response)
+            },
+            receiveValue: { data in
+                guard let response = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                print("Server response: \(response)")
+                self.controller?.redirectPrevious()
             })
-        
-        //cancellable?.cancel()
-
-        //        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
-        //            .map(\.data)
-        //            .decode(type: Reviews.self, decoder: JSONDecoder())
-        //            .receive(on: DispatchQueue.main)
-        //            .sink(receiveCompletion: { error in
-        //                print(error)
-        //            }, receiveValue: { response in
-        //                print(response)
-        //            })
-            
-//            .handleEvents(receiveOutput: { response in
-//                self.canLoadMorePages = (response.lastPage != response.currentPage)
-//                self.isLoadingPage = false
-//                self.currentPage += 1
-//            })
-//            .map({ response in
-//                print(response.data)
-//                self.reviews.append(contentsOf: response.data)
-//                return self.reviews
-//            })
-//            .catch({ _ in Just(self.reviews) })
-//            .assign(to: &$reviews)
+            .store(in: &cancellables)
     }
     
+    private var isTitleEmptyPublisher: AnyPublisher<Bool, Never> {
+        $titleText
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map { title in
+                return title == ""
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private var isDescriptionEmptyPublisher: AnyPublisher<Bool, Never> {
+        $descriptionText
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map { description in
+                return description == ""
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private var isRatingEmptyPublisher: AnyPublisher<Bool, Never> {
+        $rating
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map { rating in
+                return rating == 0
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private var isFormFieldCompletePublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest3(isTitleEmptyPublisher, isDescriptionEmptyPublisher, isRatingEmptyPublisher)
+            .map { titleIsEmpty, descriptionIsEmpty, ratingIsEmpty in
+                return !titleIsEmpty && !descriptionIsEmpty && !ratingIsEmpty
+//                if titleIsEmpty && descriptionIsEmpty && ratingIsEmpty{
+//                    return false
+//                } else if titleIsEmpty {
+//                    return .emptyTitle
+//                } else if descriptionIsEmpty {
+//                    return .emptyDescription
+//                } else if ratingIsEmpty {
+//                    return .emptyRating
+//                }
+//                else {
+//                    return .valid
+//                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+//    private var isFormValidPublisher: AnyPublisher<Bool, Never> {
+//        Publishers.CombineLatest(isFormFieldCompletePublisher, <#_#>)
+//            .map { isComplete in
+//                return isComplete
+//            }
+//            .eraseToAnyPublisher()
+//    }
+    
+}
+
+enum FormFieldCheck {
+    case valid
+    case emptyRating
+    case emptyTitle
+    case emptyDescription
+    case emptyFields
 }

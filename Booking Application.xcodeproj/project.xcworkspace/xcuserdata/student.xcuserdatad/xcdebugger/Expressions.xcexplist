@@ -286,6 +286,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ReviewProcessViewModel.publishNewReview(newReview:):ReviewProcessViewModel.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in PlaceInnerItemView.body.getter:BookingHistoryView.swift">
          <PersistentStrings>
             <PersistentString
@@ -406,6 +409,14 @@
             </PersistentString>
             <PersistentString
                value = "response.statusInfo!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in closure #1 in ReviewProcessView.body.getter:ReviewProcessView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "descriptionText.isEmpty">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -580,6 +591,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #2 in ReviewProcessViewModel.publishNewReview(title:rating:description:):ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.showAlert">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
          <PersistentStrings>
             <PersistentString
@@ -653,6 +672,23 @@
          contextName = "closure #1 in MapPreview.body.getter:MapView.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ReviewProcessViewModel.isFormFieldCompletePublisher.getter:ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "titleIsEmpty">
+            </PersistentString>
+            <PersistentString
+               value = "!titleIsEmpty &amp;&amp; !descriptionIsEmpty &amp;&amp; !ratingIsEmpty">
+            </PersistentString>
+            <PersistentString
+               value = "descriptionIsEmpty">
+            </PersistentString>
+            <PersistentString
+               value = "ratingIsEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in BookView.body.getter:BookView.swift">
          <PersistentStrings>
             <PersistentString
@@ -699,6 +735,14 @@
             </PersistentString>
             <PersistentString
                value = "schedules[6].workStart!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReviewProcessViewModel.isDescriptionEmptyPublisher.getter:ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "description == &quot;&quot;">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
