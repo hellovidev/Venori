@@ -41,7 +41,7 @@ struct LoginView: View {
                 .padding(.trailing, 24)
                 Button(action: {
                     self.hideKeyboard()
-                    self.viewModel.tryAuth()
+                    self.viewModel.tryAuthorize()
                 }) {
                     Text("Sign in")
                         .foregroundColor(.white)
@@ -55,7 +55,6 @@ struct LoginView: View {
                 }
                 .disabled(!viewModel.isValid)
                 .background(viewModel.isValid ? Color("Button Color") : Color.gray)
-                .shadow(radius: 10)
                 .cornerRadius(24)
                 .padding(.leading, 75)
                 .padding(.trailing, 75)
@@ -64,7 +63,7 @@ struct LoginView: View {
                     Text("Don’t have an account?")
                         .font(.system(size: 13, weight: .medium))
                     Button {
-                        self.viewModel.controller?.redirectToSignUp()
+                        self.viewModel.controller?.redirectSignUp()
                     } label: {
                         Text("Sign up")
                             .underline()

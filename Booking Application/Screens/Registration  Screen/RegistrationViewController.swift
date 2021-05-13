@@ -10,7 +10,6 @@ import SwiftUI
 
 class RegistrationViewController: UIHostingController<RegistrationView>  {
     private let viewModel = RegistrationViewModel()
-    private let serviceAPI = ServiceAPI()
     
     init() {
         let view = RegistrationView(viewModel: viewModel)
@@ -24,7 +23,7 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
     
     // MARK: -> Redirect User To Login Screen
     
-    func redirectToSignIn() {
+    func redirectSignIn() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = LoginViewController()
             sceneDelegate.window?.rootViewController = nextViewController
@@ -60,43 +59,6 @@ class RegistrationViewController: UIHostingController<RegistrationView>  {
             
             sceneDelegate.window?.rootViewController = tabController
             sceneDelegate.window?.makeKeyAndVisible()
-        }
-    }
-    
-    // MARK: -> Pop Up for Faild Print
-    
-    func failPopUp(title: String, message: String, buttonTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    // MARK: -> User Registration Validate Process
-    
-    func registerValidation() {
-        if viewModel.email.isValidEmail() && viewModel.password.isValidPassword() && viewModel.password == viewModel.passwordRepeat {
-            self.serviceAPI.userAccountRegistration(name: viewModel.name, surname: viewModel.surname, email: viewModel.email, password: viewModel.password)
-            self.serviceAPI.userAccountAuthentication(completion: { result in
-                switch result {
-                case .success(let account):
-                    let preferences = UserDefaults.standard
-                    preferences.set(account.user, forKey: "current_user")
-                    preferences.set(account.token, forKey: "access_token")
-                case .failure(let error):
-                    print(error)
-                }
-            }, email: viewModel.email, password: viewModel.password)
-            viewModel.controller?.registrationComplete()
-        } else if viewModel.password != viewModel.passwordRepeat {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Check password fields.", buttonTitle: "Okay")
-        } else if viewModel.email.isValidEmail() && !viewModel.password.isValidPassword() {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password has wrong value.", buttonTitle: "Okay")
-        } else if !viewModel.email.isValidEmail() && viewModel.password.isValidPassword() {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Email has wrong value.", buttonTitle: "Okay")
-        }
-        else {
-            viewModel.controller?.failPopUp(title: "Authentification faild!", message: "Password or Email has wrong value.", buttonTitle: "Okay")
         }
     }
     

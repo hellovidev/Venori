@@ -3,255 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #2 in CategoryPlacesViewModel.loadMoreContent():CategoryPlacesViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "response.data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in ServiceAPI.reserveTablePlace(placeIdentifier:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "response">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in EndlessList.body.getter:HomeView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dataSource.items">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ContentDataSource.init():ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data.data">
-            </PersistentString>
-            <PersistentString
-               value = "self.items">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #3 in ContentDataSource.loadMoreContent():ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.items">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in HistoryOrderItemView.body.getter:BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "isActiveOrder">
-            </PersistentString>
-            <PersistentString
-               value = "self.isActiveOrder">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "response.data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "times">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "try? JSONDecoder().decode(User.self, from: data)">
-            </PersistentString>
-            <PersistentString
-               value = "jsonObject[&quot;user&quot;]">
-            </PersistentString>
-            <PersistentString
-               value = "print(user)">
-            </PersistentString>
-            <PersistentString
-               value = "jsonObject">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "request.httpBody">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HistoryOrderItemView.init(isActiveOrder:orderID:orderPrice:orderPeople:orderDate:orderStatus:):BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.isActiveOrder">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
-      </ContextState>
-      <ContextState
-         contextName = "BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "!isLoadingPage">
-            </PersistentString>
-            <PersistentString
-               value = "self.currentPage">
-            </PersistentString>
-            <PersistentString
-               value = "url.url!">
-            </PersistentString>
-            <PersistentString
-               value = "canLoadMorePages">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "placeID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "getReservationLink(id: placeIdentifier)">
-            </PersistentString>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in PlacesViewModel.setFavouriteState(favourite:):PlacesViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.isProcessDelete">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in closure #2 in closure #2 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "object.addressLon">
-            </PersistentString>
-            <PersistentString
-               value = "object.addressLat">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in closure #3 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "homeViewModel.categories!.data">
-            </PersistentString>
-            <PersistentString
-               value = "homeViewModel.categories">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in PlaceInnerItemView.body.getter:BookingHistoryView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #4 in closure #1 in HistoryOrderItemView.body.getter:BookingHistoryView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ServiceAPI.userAccountLogout(completion:):ServiceAPI.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in closure #1 in closure #1 in FavouritesView.body.getter:FavouritesView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.text">
-            </PersistentString>
-            <PersistentString
-               value = "text.isEmpty">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "viewModel.ordersObjects[item]!">
-            </PersistentString>
-            <PersistentString
-               value = "item">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MapPreview.body.getter:MapView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "longitude">
-            </PersistentString>
-            <PersistentString
-               value = "latitude">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HistoryOrderItemView.isActiveOrder.didset:BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.isActiveOrder">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "BookingHistoryViewModel.loadMoreContentIfNeeded(currentItem:):BookingHistoryViewModel.swift">
          <PersistentStrings>
             <PersistentString
@@ -278,15 +29,186 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoginViewController.loginValidation():LoginViewController.swift">
+         contextName = "MapPreview.body.getter:MapView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+               value = "longitude">
+            </PersistentString>
+            <PersistentString
+               value = "latitude">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ReviewProcessViewModel.publishNewReview(newReview:):ReviewProcessViewModel.swift">
+         contextName = "ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "getCancelOrderLink(orderIdentifier: orderIdentifier)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OrdersViewModel.loadMoreContent():OrdersViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "url.url!">
+            </PersistentString>
+            <PersistentString
+               value = "http://dev2.cogniteq.com:3110/api/orders?history&amp;page=3">
+            </PersistentString>
+            <PersistentString
+               value = "request as URLRequest">
+            </PersistentString>
+            <PersistentString
+               value = " URLSession.shared.dataTaskPublisher(for: request as URLRequest)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in PlacesViewModel.setFavouriteState(favourite:):PlacesViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isProcessDelete">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in ContentDataSource.loadMoreContent():ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.items">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewModel.getAddress():HomeViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ServiceAPI.reserveTablePlace(placeIdentifier:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReviewsViewModel.loadMoreContent():ReviewsViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error">
+            </PersistentString>
+            <PersistentString
+               value = "response1">
+            </PersistentString>
+            <PersistentString
+               value = "response.statusCode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ContentDataSource.init():ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.data">
+            </PersistentString>
+            <PersistentString
+               value = "self.items">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in closure #1 in ReviewProcessView.body.getter:ReviewProcessView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "descriptionText.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in LoginViewController.loginValidation():LoginViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.orders.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "try? JSONDecoder().decode(User.self, from: data)">
+            </PersistentString>
+            <PersistentString
+               value = "jsonObject[&quot;user&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "print(user)">
+            </PersistentString>
+            <PersistentString
+               value = "jsonObject">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "getReservationLink(id: placeIdentifier)">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeViewModel.getAddressFromLatLon(pdblLatitude:withLongitude:):HomeViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pm.subLocality">
+            </PersistentString>
+            <PersistentString
+               value = "pm.locality">
+            </PersistentString>
+            <PersistentString
+               value = "pm.country">
+            </PersistentString>
+            <PersistentString
+               value = "pm.thoroughfare">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "valueHumans">
+            </PersistentString>
+            <PersistentString
+               value = "valueHours">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in OrdersViewModel.fetchOrders():OrdersViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.orders?.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in PlaceInnerItemView.body.getter:BookingHistoryView.swift">
@@ -298,6 +220,191 @@
                value = "place.imageURL">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HistoryOrderItemView.init(order:):BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isHistory">
+            </PersistentString>
+            <PersistentString
+               value = "isHistory">
+            </PersistentString>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "item.createdAt">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in CategoryPlacesViewModel.loadMoreContent():CategoryPlacesViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MapPreview.body.getter:MapView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in OrdersViewModel.loadMoreContent():OrdersViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in OrdersViewModel.cancelOrder(orderIdentifier:):OrdersViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #6 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placeID">
+            </PersistentString>
+            <PersistentString
+               value = "valueHours">
+            </PersistentString>
+            <PersistentString
+               value = "Int(valueHumans)">
+            </PersistentString>
+            <PersistentString
+               value = "valueHumans">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in FavouritesView.body.getter:FavouritesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0.name.lowercased().contains(text)">
+            </PersistentString>
+            <PersistentString
+               value = "text">
+            </PersistentString>
+            <PersistentString
+               value = "$0.name.lowercased().contains(&quot;star&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.loginValidation():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.viewModel.workTime!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.place!.addressLat">
+            </PersistentString>
+            <PersistentString
+               value = "viewModel.place!.addressLon">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in SchedulePopUpView.body.getter:SchedulePopUpView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "schedules[6]">
+            </PersistentString>
+            <PersistentString
+               value = "schedules">
+            </PersistentString>
+            <PersistentString
+               value = "schedules[6].workStart!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #4 in closure #1 in HistoryOrderItemView.body.getter:BookingHistoryView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "OrdersViewController.viewWillDisappear(_:):OrdersViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "iewModel.canLoadMorePages">
+            </PersistentString>
+            <PersistentString
+               value = "viewModel.canLoadMorePages">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.account?.token">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0.id == self.selectedReservationTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in MoreView.body.getter:MoreView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.user?.avatar">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContentDataSource.loadMoreContent():ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currentPage">
+            </PersistentString>
+            <PersistentString
+               value = "request">
+            </PersistentString>
+            <PersistentString
+               value = "Just(self.items)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeViewController.viewWillAppear(_:):HomeViewController.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
@@ -314,7 +421,75 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "HomeViewModel.getAddress():HomeViewModel.swift">
+         contextName = "closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #2 in LoginView.body.getter:LoginView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OrdersViewController.viewWillAppear(_:):OrdersViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.canLoadMorePages">
+            </PersistentString>
+            <PersistentString
+               value = "viewModel.isLoadingPage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in AllCategoriesView.body.getter:AllCategoriesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error">
+            </PersistentString>
+            <PersistentString
+               value = "errorMessage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)">
+            </PersistentString>
+            <PersistentString
+               value = "state.password">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BookViewController.init():BookViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #1 in closure #1 in PlaceCardView.body.getter:PlaceCardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "place">
+            </PersistentString>
+            <PersistentString
+               value = "place.favourite">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)!">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #2 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
@@ -325,40 +500,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in MoreView.body.getter:MoreView.swift">
+         contextName = "RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "viewModel.user?.avatar">
+               value = "request.httpBody">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
+         contextName = "closure #1 in ServiceAPI.userAccountLogout(completion:):ServiceAPI.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
+         contextName = "HistoryOrderItemView.isActiveOrder.didset:BookingHistoryView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "item.createdAt">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ReviewProcessViewModel.publishNewReview(newReview:):ReviewProcessViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.placeIdentifier">
-            </PersistentString>
-            <PersistentString
-               value = "user?.id">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "times">
+               value = "self.isActiveOrder">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -377,29 +533,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in HomeViewModel.sentUserLocation():HomeViewModel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "BookViewController.init():BookViewController.swift">
+         contextName = "closure #1 in closure #2 in closure #3 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "placeID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "OrdersViewController.viewWillAppear(_:):OrdersViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "viewModel.canLoadMorePages">
+               value = "homeViewModel.categories!.data">
             </PersistentString>
             <PersistentString
-               value = "viewModel.isLoadingPage">
+               value = "homeViewModel.categories">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Date.convertServerOrderDate(date:):BookingHistoryViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in ServiceAPI.fetchDataAboutCategories(completion:):ServiceAPI.swift">
@@ -413,48 +555,213 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #3 in closure #1 in ReviewProcessView.body.getter:ReviewProcessView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "descriptionText.isEmpty">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in OrdersViewModel.loadMoreContent():OrdersViewModel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "getCancelOrderLink(orderIdentifier: orderIdentifier)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in OrdersViewModel.fetchOrders():OrdersViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.orders?.isEmpty">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "viewModel.place!.addressLat">
-            </PersistentString>
-            <PersistentString
-               value = "viewModel.place!.addressLon">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in ServiceAPI.getPlaceAvailableTime(placeIdentifier:):ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString
                value = "let info = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReviewProcessViewModel.publishNewReview(newReview:):ReviewProcessViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in EndlessList.body.getter:HomeView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSource.items">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReviewProcessViewModel.publishNewReview(newReview:):ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.placeIdentifier">
+            </PersistentString>
+            <PersistentString
+               value = "user?.id">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.selectedReservationTime">
+            </PersistentString>
+            <PersistentString
+               value = "$0.id == self.selectedReservationTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "times">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HistoryOrderItemView.init(isActiveOrder:orderID:orderPrice:orderPeople:orderDate:orderStatus:):BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReviewProcessViewModel.isDescriptionEmptyPublisher.getter:ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "description == &quot;&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ReviewProcessViewModel.publishNewReview(title:rating:description:):ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.showAlert">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RequestAPI.userAccountAuthentication(email:password:):RequestAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in RegistrationViewModel.tryRegister():RegistrationViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.lo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BookViewController.viewWillAppear(_:):BookViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeViewModel.sentUserLocation():HomeViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in BookView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bookViewModel.avalClock">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HistoryOrderItemView.body.getter:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isActiveOrder">
+            </PersistentString>
+            <PersistentString
+               value = "self.isActiveOrder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReviewProcessViewModel.isFormFieldCompletePublisher.getter:ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "titleIsEmpty">
+            </PersistentString>
+            <PersistentString
+               value = "!titleIsEmpty &amp;&amp; !descriptionIsEmpty &amp;&amp; !ratingIsEmpty">
+            </PersistentString>
+            <PersistentString
+               value = "descriptionIsEmpty">
+            </PersistentString>
+            <PersistentString
+               value = "ratingIsEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #1 in FavouritesView.body.getter:FavouritesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.text">
+            </PersistentString>
+            <PersistentString
+               value = "text.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.ordersObjects[item]!">
+            </PersistentString>
+            <PersistentString
+               value = "item">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.fetchDataAboutBookingHistory(completion:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "info">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "!isLoadingPage">
+            </PersistentString>
+            <PersistentString
+               value = "self.currentPage">
+            </PersistentString>
+            <PersistentString
+               value = "url.url!">
+            </PersistentString>
+            <PersistentString
+               value = "canLoadMorePages">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #2 in closure #2 in closure #1 in closure #1 in closure #2 in HomeView.body.getter:HomeView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "object.addressLon">
+            </PersistentString>
+            <PersistentString
+               value = "object.addressLat">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in PlaceInnerItemView.body.getter:BookingHistoryView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in closure #7 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "times">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -489,305 +796,6 @@
          <PersistentStrings>
             <PersistentString
                value = "api.categories">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in HomeViewController.viewWillAppear(_:):HomeViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #4 in closure #2 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.viewModel.workTime!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "BookViewController.viewWillAppear(_:):BookViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "placeID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in ServiceAPI.userAccountAuthentication(email:password:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.account?.token">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RegistrationViewController.processSignUp():RegistrationViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "api.userAccountRegistration(name: state.name, surname: state.surname, email: state.email, password: state.password)">
-            </PersistentString>
-            <PersistentString
-               value = "state.password">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in AllCategoriesView.body.getter:AllCategoriesView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error">
-            </PersistentString>
-            <PersistentString
-               value = "errorMessage">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in LoginViewController.loginValidation():LoginViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in closure #1 in closure #1 in BookingHistoryView.body.getter:BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "viewModel.orders.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "$0.id == self.selectedReservationTime">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in closure #1 in closure #1 in PlaceCardView.body.getter:PlaceCardView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "place">
-            </PersistentString>
-            <PersistentString
-               value = "place.favourite">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ServiceAPI.fetchDataAboutBookingHistory(completion:):ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "info">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "OrdersViewController.viewWillDisappear(_:):OrdersViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "iewModel.canLoadMorePages">
-            </PersistentString>
-            <PersistentString
-               value = "viewModel.canLoadMorePages">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in ReviewProcessViewModel.publishNewReview(title:rating:description:):ReviewProcessViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.showAlert">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.selectedReservationTime">
-            </PersistentString>
-            <PersistentString
-               value = "$0.id == self.selectedReservationTime">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in HomeViewModel.getAddressFromLatLon(pdblLatitude:withLongitude:):HomeViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "pm.subLocality">
-            </PersistentString>
-            <PersistentString
-               value = "pm.locality">
-            </PersistentString>
-            <PersistentString
-               value = "pm.country">
-            </PersistentString>
-            <PersistentString
-               value = "pm.thoroughfare">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ReviewsViewModel.loadMoreContent():ReviewsViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error">
-            </PersistentString>
-            <PersistentString
-               value = "response1">
-            </PersistentString>
-            <PersistentString
-               value = "response.statusCode">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "OrdersViewModel.loadMoreContent():OrdersViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "url.url!">
-            </PersistentString>
-            <PersistentString
-               value = "http://dev2.cogniteq.com:3110/api/orders?history&amp;page=3">
-            </PersistentString>
-            <PersistentString
-               value = "request as URLRequest">
-            </PersistentString>
-            <PersistentString
-               value = " URLSession.shared.dataTaskPublisher(for: request as URLRequest)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in RequestAPI.userAccountAuthentication(email:password:):RequestAPI.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RequestAPI.userAccountLogout():RequestAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "UserDefaults.standard.string(forKey: &quot;access_token&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in MapPreview.body.getter:MapView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ReviewProcessViewModel.isFormFieldCompletePublisher.getter:ReviewProcessViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "titleIsEmpty">
-            </PersistentString>
-            <PersistentString
-               value = "!titleIsEmpty &amp;&amp; !descriptionIsEmpty &amp;&amp; !ratingIsEmpty">
-            </PersistentString>
-            <PersistentString
-               value = "descriptionIsEmpty">
-            </PersistentString>
-            <PersistentString
-               value = "ratingIsEmpty">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in BookView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "bookViewModel.avalClock">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HistoryOrderItemView.init(order:):BookingHistoryView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.isHistory">
-            </PersistentString>
-            <PersistentString
-               value = "isHistory">
-            </PersistentString>
-            <PersistentString
-               value = "self.isActiveOrder">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in FavouritesView.body.getter:FavouritesView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "$0.name.lowercased().contains(text)">
-            </PersistentString>
-            <PersistentString
-               value = "text">
-            </PersistentString>
-            <PersistentString
-               value = "$0.name.lowercased().contains(&quot;star&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in SchedulePopUpView.body.getter:SchedulePopUpView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "schedules[6]">
-            </PersistentString>
-            <PersistentString
-               value = "schedules">
-            </PersistentString>
-            <PersistentString
-               value = "schedules[6].workStart!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ReviewProcessViewModel.isDescriptionEmptyPublisher.getter:ReviewProcessViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "description == &quot;&quot;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in OrdersViewModel.cancelOrder(orderIdentifier:):OrdersViewModel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #6 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "placeID">
-            </PersistentString>
-            <PersistentString
-               value = "valueHours">
-            </PersistentString>
-            <PersistentString
-               value = "Int(valueHumans)">
-            </PersistentString>
-            <PersistentString
-               value = "valueHumans">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #5 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "valueHumans">
-            </PersistentString>
-            <PersistentString
-               value = "valueHours">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ContentDataSource.loadMoreContent():ServiceAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.currentPage">
-            </PersistentString>
-            <PersistentString
-               value = "request">
-            </PersistentString>
-            <PersistentString
-               value = "Just(self.items)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

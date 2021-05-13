@@ -1022,19 +1022,11 @@ class ServiceAPI: ObservableObject {
     
     
     
-    
+
     
     // MARK: -> Registration User Account
-    
-    func userAccountRegistration(name: String, surname: String, email: String, password: String) {
-        var done = false
-        
-        //           case 422:
-        //                                    completion(.failure(NSLocalizedString("Unprocessable Entity!", comment: "Error")))
-        //                                    print("The given data was invalid.")
-        
-        // Link Generating
-        
+
+    func userAccountRegistration(completion: @escaping (Result<[String: Any], Error>) -> Void, name: String, surname: String, email: String, password: String) {
         guard let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.registerRoute.rawValue) else { return }
         
         // Request Body Generating
@@ -1050,31 +1042,31 @@ class ServiceAPI: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        // Request to API
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
             
             // Check Presence of Errors
             
-            guard error == nil else { return }
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
             
             // Data Validation
             
-            guard let data = data else { return }
-            
-            // Get Response from API
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Loaded data from server about sign in is empty!", comment: "Error")))
+                return
+            }
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
-                case 401:
-                    print("Unauthorized")
-                case 422:
-                    print("The given data was invalid.")
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
                 default:
-                    done = true
-                    print("Complete")
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
             } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
                 return
             }
             
@@ -1084,19 +1076,16 @@ class ServiceAPI: ObservableObject {
                 
                 guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
                 print(response)
+                
+                DispatchQueue.main.async {
+                    completion(.success(response))
+                }
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         })
-        task.resume()
-        
-        // Loop for Waiting Results of Status Code
-        
-        repeat {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-        } while !done
+        .resume()
     }
-    
     
     
     

@@ -86,7 +86,7 @@ class LoginViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    func tryAuth() {
+    func tryAuthorize() {
         isLoading = true
         self.serviceAPI.userAccountAuthentication(completion: { result in
             self.isLoading = false
@@ -110,7 +110,7 @@ class LoginViewModel: ObservableObject {
                     self.showAlert = true
                 }
                 
-                self.controller?.authComplete()
+                self.controller?.authorizationComplete()
             case .failure(let error):
                 DispatchQueue.main.async {
                     print(error.localizedDescription)
@@ -122,7 +122,7 @@ class LoginViewModel: ObservableObject {
     }
 }
 
-private enum EmailCheck {
+enum EmailCheck {
     case valid
     case invalid
 }

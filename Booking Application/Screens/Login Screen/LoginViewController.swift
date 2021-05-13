@@ -23,7 +23,7 @@ class LoginViewController: UIHostingController<LoginView>  {
     
     // MARK: -> Redirect User To Register Screen
     
-    func redirectToSignUp() {
+    func redirectSignUp() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = RegistrationViewController()
             sceneDelegate.window?.rootViewController = nextViewController
@@ -33,7 +33,7 @@ class LoginViewController: UIHostingController<LoginView>  {
     
     // MARK: -> User Registration Validate Process
     
-    func authComplete() {
+    func authorizationComplete() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let tabController = UITabBarController()
             
