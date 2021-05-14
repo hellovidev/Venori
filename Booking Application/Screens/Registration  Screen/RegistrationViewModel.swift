@@ -31,7 +31,7 @@ class RegistrationViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var passwordRepeat: String = ""
     @Published var isValid: Bool = false
-    @Published var hasEmailDomain: Bool = false
+    @Published var hasEmailDomain: Bool = true
     
     deinit {
         for cancellable in cancellableSet {

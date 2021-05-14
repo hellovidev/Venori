@@ -26,7 +26,7 @@ class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isValid: Bool = false
-    @Published var hasEmailDomain: Bool = false
+    @Published var hasEmailDomain: Bool = true
     
     deinit {
         for cancellable in cancellableSet {
