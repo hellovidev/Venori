@@ -25,6 +25,13 @@ class LoginViewController: UIHostingController<LoginView>  {
     func redirectSignUp() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = RegistrationViewController()
+            
+            let transition = CATransition()
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromRight
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }

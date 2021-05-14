@@ -93,8 +93,8 @@ struct MoreView: View {
                 })
                 .padding(.bottom, 20)
             }
-            .alert(isPresented: $viewModel.showAlertError) {
-                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
             }
         }
         .ignoresSafeArea(.container, edges: .top)
@@ -142,4 +142,5 @@ struct MenuItemView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
+    
 }

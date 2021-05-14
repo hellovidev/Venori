@@ -9,53 +9,34 @@ import Foundation
 
 class MoreViewModel: ObservableObject {
     weak var controller: MoreViewController?
-    private let serviceAPI = ServiceAPI()
+    private let serverRequests = ServiceAPI()
     
     @Published var user: User?
-    @Published var showAlertError = false
+    @Published var showAlert = false
     @Published var errorMessage = ""
     
     init() {
-        
-        // Read/Get Data
-        
-        if let data = UserDefaults.standard.data(forKey: "current_user") {
-            do {
-                
-                // Create JSON Decoder
-                
-                let decoder = JSONDecoder()
-                
-                // Decode User
-                
-                self.user = try decoder.decode(User.self, from: data)
-            } catch {
-                print("Unable to Decode User (\(error))")
-            }
+        do {
+            self.user = try UserDefaults.standard.getObject(forKey: "current_user", castTo: User.self)
+        } catch {
+            print(error.localizedDescription)
+            errorMessage = error.localizedDescription
+            showAlert = true
         }
     }
     
     func logoutAccount() {
-        self.serviceAPI.userAccountLogout( completion: { result in
+        self.serverRequests.userAccountLogout( completion: { result in
             switch result {
             case .success(let message):
-                self.controller?.systemLogout()
                 print(message)
+                self.controller?.systemLogout()
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlertError = true
                 print(error)
+                self.errorMessage = error.localizedDescription
+                self.showAlert = true
             }
         })
     }
     
 }
-
-
-//let userDefaults = UserDefaults.standard
-//do {
-//    let playingItMyWay = try userDefaults.getObject(forKey: "MyFavouriteBook", castTo: Book.self)
-//    print(playingItMyWay)
-//} catch {
-//    print(error.localizedDescription)
-//}

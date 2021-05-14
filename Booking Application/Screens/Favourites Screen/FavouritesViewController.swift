@@ -43,8 +43,14 @@ class FavouritesViewController: UIHostingController<FavouritesView>  {
     // MARK: -> Go To Previous Screen
     
     func redirectPrevious() {
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
+        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: nil)
     }
     
     // MARK: -> Redirect User To Place Details Screen
@@ -52,8 +58,15 @@ class FavouritesViewController: UIHostingController<FavouritesView>  {
     func redirectPlaceDetails(object: Place) {
         let rootviewController = PlaceDetailsViewController(place: object)
         let navigationController = UINavigationController(rootViewController: rootviewController)
+        
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
 }

@@ -6,25 +6,25 @@
          contextName = "BookingHistoryViewModel.loadMoreContentIfNeeded(currentItem:):BookingHistoryViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "item.id">
-            </PersistentString>
-            <PersistentString
-               value = "orders.firstIndex(where: { $0.id == item.id })">
-            </PersistentString>
-            <PersistentString
-               value = "$0.id">
+               value = "thresholdIndex">
             </PersistentString>
             <PersistentString
                value = "orders.firstIndex(where: { $0.id == item.id }) == thresholdIndex">
             </PersistentString>
             <PersistentString
-               value = "orders.endIndex">
-            </PersistentString>
-            <PersistentString
-               value = "thresholdIndex">
+               value = "$0.id">
             </PersistentString>
             <PersistentString
                value = "orders.index(orders.endIndex, offsetBy: -5)">
+            </PersistentString>
+            <PersistentString
+               value = "orders.endIndex">
+            </PersistentString>
+            <PersistentString
+               value = "item.id">
+            </PersistentString>
+            <PersistentString
+               value = "orders.firstIndex(where: { $0.id == item.id })">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -245,10 +245,10 @@
                value = "self.isHistory">
             </PersistentString>
             <PersistentString
-               value = "isHistory">
+               value = "self.isActiveOrder">
             </PersistentString>
             <PersistentString
-               value = "self.isActiveOrder">
+               value = "isHistory">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -616,10 +616,10 @@
          contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.selectedReservationTime">
+               value = "$0.id == self.selectedReservationTime">
             </PersistentString>
             <PersistentString
-               value = "$0.id == self.selectedReservationTime">
+               value = "self.selectedReservationTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -755,13 +755,13 @@
          contextName = "BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "!isLoadingPage">
+               value = "url.url!">
             </PersistentString>
             <PersistentString
                value = "self.currentPage">
             </PersistentString>
             <PersistentString
-               value = "url.url!">
+               value = "!isLoadingPage">
             </PersistentString>
             <PersistentString
                value = "canLoadMorePages">
@@ -794,16 +794,13 @@
          contextName = "closure #1 in BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "response.lastPage != response.currentPage">
-            </PersistentString>
-            <PersistentString
-               value = "self.canLoadMorePages">
-            </PersistentString>
-            <PersistentString
-               value = "response.lastPage">
+               value = "(response.lastPage != response.currentPage)">
             </PersistentString>
             <PersistentString
                value = "self.currentPage">
+            </PersistentString>
+            <PersistentString
+               value = "self.canLoadMorePages">
             </PersistentString>
             <PersistentString
                value = "response.currentPage">
@@ -812,7 +809,10 @@
                value = "url.url!">
             </PersistentString>
             <PersistentString
-               value = "(response.lastPage != response.currentPage)">
+               value = "response.lastPage != response.currentPage">
+            </PersistentString>
+            <PersistentString
+               value = "response.lastPage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -24,6 +24,7 @@ struct LoginView: View {
                         Image("Splash Image")
                         Spacer()
                     }
+                    .ignoresSafeArea()
                     RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 220)
                         .ignoresSafeArea()
                     RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 1000)
@@ -112,6 +113,7 @@ struct LoginView: View {
                     Color(UIColor(hex: "#FFFFFF99")!)
                     ProgressView()
                 }
+                .ignoresSafeArea()
             }
         }
         .onTapGesture {

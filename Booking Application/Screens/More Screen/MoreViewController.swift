@@ -40,6 +40,13 @@ class MoreViewController: UIHostingController<MoreView>  {
     func systemLogout() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             let nextViewController = LoginViewController()
+            
+            let transition = CATransition()
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromTop
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             sceneDelegate.window?.rootViewController = nextViewController
             sceneDelegate.window?.makeKeyAndVisible()
         }
@@ -49,16 +56,30 @@ class MoreViewController: UIHostingController<MoreView>  {
     
     func redirectBookingHistory() {
         let navigationController = UINavigationController(rootViewController: BookingHistoryViewController())
+        
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: -> Redirect User To Favourites Screen
     
     func redirectFavourites() {
         let navigationController = UINavigationController(rootViewController: FavouritesViewController())
+        
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
 }

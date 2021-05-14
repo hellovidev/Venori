@@ -12,15 +12,18 @@ struct RegistrationView: View {
     
     var body: some View {
         ZStack {
-            ZStack {
-                VStack {
-                    Image("Registration Image").frame(maxWidth: .infinity, alignment: .top)
-                    Spacer()
+            VStack {
+                ZStack {
+                    VStack {
+                        Image("Registration Image")
+                        Spacer()
+                    }
+                    .ignoresSafeArea()
+                    RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 190)
+                        .ignoresSafeArea()
+                    RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 1000)
+                        .ignoresSafeArea()
                 }
-                RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 190)
-                    .ignoresSafeArea()
-                RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 1000)
-                    .ignoresSafeArea()
             }
             VStack {
                 Spacer()
@@ -85,39 +88,42 @@ struct RegistrationView: View {
                         .padding(.bottom, 8)
                         .padding([.leading, .trailing], 24)
                 }
-                Button(action: {
-                    self.hideKeyboard()
-                    self.viewModel.tryRegister()
-                }) {
-                    Text("Sign up")
-                        .foregroundColor(.white)
-                        .font(.system(size: 17, weight: .semibold))
-                        .padding(.top, 13)
-                        .padding(.bottom, 13)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
-                        .frame(maxWidth: .infinity)
-                }
-                .disabled(!viewModel.isValid)
-                .background(viewModel.isValid ? Color("Button Color") : Color.gray)
-                .cornerRadius(24)
-                .padding(.leading, 75)
-                .padding(.trailing, 75)
-                .padding(.top, 16)
-                HStack {
-                    Text("Already have an account?")
-                        .font(.system(size: 13, weight: .medium))
-                    Button {
-                        self.viewModel.controller?.redirectSignIn()
-                    } label: {
-                        Text("Sign in")
-                            .underline()
-                            .font(.system(size: 13, weight: .medium))
+                .padding(.top, 96)
+                VStack {
+                    Button(action: {
+                        self.hideKeyboard()
+                        self.viewModel.tryRegister()
+                    }) {
+                        Text("Sign up")
+                            .foregroundColor(.white)
+                            .font(.system(size: 17, weight: .semibold))
+                            .padding(.top, 13)
+                            .padding(.bottom, 13)
+                            .padding(.leading, 16)
+                            .padding(.trailing, 16)
+                            .frame(maxWidth: .infinity)
                     }
+                    .disabled(!viewModel.isValid)
+                    .background(viewModel.isValid ? Color("Button Color") : Color.gray)
+                    .cornerRadius(24)
+                    .padding([.leading,.trailing], 75)
+                    .padding(.top, 16)
+                    HStack {
+                        Text("Already have an account?")
+                            .font(.system(size: 13, weight: .medium))
+                        Button (action: {
+                            self.viewModel.controller?.redirectSignIn()
+                        }, label: {
+                            Text("Sign in")
+                                .underline()
+                                .font(.system(size: 13, weight: .medium))
+                        })
+                    }
+                    .padding(.leading, 80)
+                    .padding(.trailing, 80)
+                    .padding(.top, 24)
                 }
-                .padding(.leading, 80)
-                .padding(.trailing, 80)
-                .padding(.top, 24)
+                .ignoresSafeArea(.keyboard, edges: .all)
             }
             .padding(.bottom, 25)
             
@@ -126,6 +132,7 @@ struct RegistrationView: View {
                     Color(UIColor(hex: "#FFFFFF99")!)
                     ProgressView()
                 }
+                .ignoresSafeArea()
             }
         }
         .onTapGesture {

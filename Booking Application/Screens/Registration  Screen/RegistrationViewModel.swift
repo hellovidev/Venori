@@ -199,7 +199,7 @@ class RegistrationViewModel: ObservableObject {
     private var isFullNameEmptyPublisher: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest(isNameEmptyPublisher, isSurnameEmptyPublisher)
             .map { nameIsEmpty, surnameIsEmpty in
-                return nameIsEmpty && surnameIsEmpty
+                return nameIsEmpty || surnameIsEmpty
             }
             .eraseToAnyPublisher()
     }
