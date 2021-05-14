@@ -60,5 +60,5 @@ class LoginViewController: UIHostingController<LoginView>  {
             sceneDelegate.window?.makeKeyAndVisible()
         }
     }
-
+    
 }

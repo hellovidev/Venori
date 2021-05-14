@@ -13,17 +13,15 @@ struct RegistrationView: View {
     var body: some View {
         ZStack {
             ZStack {
-            VStack {
-                Image("Registration Image").frame(maxWidth: .infinity, alignment: .top)
-                Spacer()
-            }
+                VStack {
+                    Image("Registration Image").frame(maxWidth: .infinity, alignment: .top)
+                    Spacer()
+                }
                 RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 190)
                     .ignoresSafeArea()
                 RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#EDEEF000")!), Color(UIColor(hex: "#E0E1E3FF")!)]), center: UnitPoint(x: 0.5, y: 0.28), startRadius: 130, endRadius: 1000)
                     .ignoresSafeArea()
             }
-
-            
             VStack {
                 Spacer()
                 VStack(alignment: .leading) {
@@ -32,58 +30,61 @@ struct RegistrationView: View {
                         TextFieldView(data: $viewModel.surname, placeholder: "Surname", isPassword: false)
                     }
                     .padding(.bottom, 6)
+                    .padding([.leading, .trailing], 24)
                     Text(viewModel.inputNameErrorMessage)
                         .isHidden(viewModel.inputNameErrorMessage.isEmpty ? true : false, remove: viewModel.inputNameErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
                         .padding(.bottom, 8)
+                        .padding([.leading, .trailing], 24)
                     TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false)
-                        .padding(.bottom,6)
+                        .padding(.bottom, 6)
                         .keyboardType(.emailAddress)
-                    
-//                    if !viewModel.hasEmailDomain {
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//                            HStack(spacing: -24) {
-//                                ForEach(viewModel.emailProviders, id: \.self) { item in
-//                                    Button(action: {
-//                                        viewModel.email.append(item)
-//                                    }) {
-//                                        Text(item)
-//                                            .foregroundColor(.black)
-//                                            .padding([.top, .bottom], 8)
-//                                            .padding([.leading, .trailing], 12)
-//                                    }
-//                                    .background(Color.white)
-//                                    .cornerRadius(24)
-//                                    .padding(.leading, 24)
-//                                    .padding(.trailing, 8)
-//                                }
-//                            }
-//                        }
-//                        .padding(.bottom, 4)
-//                        .ignoresSafeArea(edges: [.leading, .trailing])
-//                    }
-                    
+                        .textContentType(.emailAddress)
+                        .padding([.leading, .trailing], 24)
+                    if !viewModel.hasEmailDomain {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: -24) {
+                                ForEach(viewModel.emailProviders, id: \.self) { item in
+                                    Button(action: {
+                                        viewModel.email.append(item)
+                                    }) {
+                                        Text(item)
+                                            .foregroundColor(.black)
+                                            .padding([.top, .bottom], 8)
+                                            .padding([.leading, .trailing], 12)
+                                    }
+                                    .background(Color.white)
+                                    .cornerRadius(24)
+                                    .padding(.leading, 24)
+                                    .padding(.trailing, 8)
+                                }
+                            }
+                        }
+                        .padding(.bottom, 4)
+                        .ignoresSafeArea(edges: [.leading, .trailing])
+                    }
                     Text(viewModel.inputEmailErrorMessage)
                         .isHidden(viewModel.inputEmailErrorMessage.isEmpty ? true : false, remove: viewModel.inputEmailErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
                         .padding(.bottom, 4)
+                        .padding([.leading, .trailing], 24)
                     TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true)
                         .padding(.bottom, 6)
+                        .padding([.leading, .trailing], 24)
                     TextFieldView(data: $viewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
+                        .padding([.leading, .trailing], 24)
                     Text(viewModel.inputPasswordErrorMessage)
                         .isHidden(viewModel.inputPasswordErrorMessage.isEmpty ? true : false, remove: viewModel.inputPasswordErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
                         .padding(.bottom, 8)
+                        .padding([.leading, .trailing], 24)
                 }
-                .padding(.leading, 24)
-                .padding(.trailing, 24)
-                
                 Button(action: {
                     self.hideKeyboard()
                     self.viewModel.tryRegister()

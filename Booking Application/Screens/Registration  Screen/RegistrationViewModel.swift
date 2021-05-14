@@ -6,13 +6,13 @@
 //
 
 import Combine
-import SwiftUI
 import Foundation
 
 class RegistrationViewModel: ObservableObject {
     weak var controller: RegistrationViewController?
     private var cancellableSet = Set<AnyCancellable>()
-    private let serviceAPI = ServiceAPI()
+    private let serverRequests = ServiceAPI()
+    let emailProviders = ["@gmail.com", "@icloud.com", "@yahoo.com", "@hotmail.com", "@yandex.com"]
     
     // Alert Data
     
@@ -31,17 +31,24 @@ class RegistrationViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var passwordRepeat: String = ""
     @Published var isValid: Bool = false
+    @Published var hasEmailDomain: Bool = false
     
     deinit {
         for cancellable in cancellableSet {
             cancellable.cancel()
+            print("Cancel!")
         }
     }
     
     init() {
+        isEmailHasEmailDomainPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in self?.hasEmailDomain = $0 }
+            .store(in: &cancellableSet)
+        
         isFormFieldCompletePublisher
             .receive(on: RunLoop.main)
-            .assign(to: \.isValid, on: self)
+            .sink { [weak self] in self?.isValid = $0 }
             .store(in: &cancellableSet)
     }
     
@@ -70,6 +77,15 @@ class RegistrationViewModel: ObservableObject {
                     }
                     return .invalid
                 }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private var isEmailHasEmailDomainPublisher: AnyPublisher<Bool, Never> {
+        $email
+            .removeDuplicates()
+            .map { email in
+                return email.contains("@") != email.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -209,7 +225,7 @@ class RegistrationViewModel: ObservableObject {
             }
             .eraseToAnyPublisher()
     }
-        
+    
     private var isFormFieldCompletePublisher: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest4(isEmailEmptyPublisher, isEmailValidPublisher, isPasswordValidPublisher, isFullNameValidPublisher)
             .map { emailIsEmpty, emailIsValid, passwordIsValid, fullNameIsCorrect in
@@ -220,32 +236,38 @@ class RegistrationViewModel: ObservableObject {
     
     func tryRegister() {
         isLoading = true
-        self.serviceAPI.userAccountRegistration(completion: { result in
+        self.serverRequests.userAccountRegistration(completion: { result in
             switch result {
             case .success:
-                self.serviceAPI.userAccountAuthentication(completion: { result in
+                self.serverRequests.userAccountAuthentication(completion: { result in
                     switch result {
                     case .success(let account):
-
+                        self.isLoading = false
                         let userDefaults = UserDefaults.standard
                         do {
                             try userDefaults.setObject(account.user, forKey: "current_user")
+                            UserDefaults.standard.set(account.token, forKey: "access_token")
+                            UserDefaults.standard.synchronize()
+                            self.controller?.registrationComplete()
                         } catch {
                             print(error.localizedDescription)
+                            self.errorMessage = error.localizedDescription
+                            self.showAlert = true
                         }
-                        
-                        //UserDefaults.standard.set(account.user, forKey: "current_user")
-
-                        
-                        UserDefaults.standard.set(account.token, forKey: "access_token")
-                        UserDefaults.standard.synchronize()
-                        self.controller?.registrationComplete()
                     case .failure(let error):
-                        print(error)
+                        self.isLoading = false
+                        print(error.localizedDescription)
+                        self.errorMessage = error.localizedDescription
+                        self.showAlert = true
                     }
                 }, email: self.email, password: self.password)
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    print(error.localizedDescription)
+                    self.errorMessage = error.localizedDescription
+                    self.showAlert = true
+                }
             }
         }, name: name, surname: surname, email: email, password: password)
     }
@@ -262,37 +284,4 @@ enum NameCheck {
     case valid
     case empty
     case small
-}
-
-extension UserDefaults { //: ObjectSavable
-    func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable {
-        let encoder = JSONEncoder()
-        do {
-            let data = try encoder.encode(object)
-            set(data, forKey: forKey)
-        } catch {
-            throw ObjectSavableError.unableToEncode
-        }
-    }
-    
-    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable {
-        guard let data = data(forKey: forKey) else { throw ObjectSavableError.noValue }
-        let decoder = JSONDecoder()
-        do {
-            let object = try decoder.decode(type, from: data)
-            return object
-        } catch {
-            throw ObjectSavableError.unableToDecode
-        }
-    }
-}
-
-enum ObjectSavableError: String, LocalizedError {
-    case unableToEncode = "Unable to encode object into data"
-    case noValue = "No data object found for the given key"
-    case unableToDecode = "Unable to decode object into given type"
-    
-    var errorDescription: String? {
-        rawValue
-    }
 }

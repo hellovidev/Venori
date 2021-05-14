@@ -5,7 +5,6 @@
 //  Created by student on 14.04.21.
 //
 
-import UIKit
 import SwiftUI
 
 class RegistrationViewController: UIHostingController<RegistrationView>  {
