@@ -78,8 +78,8 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1116"
-            endingLineNumber = "1116"
+            startingLineNumber = "1120"
+            endingLineNumber = "1120"
             landmarkName = "reserveTablePlace(placeIdentifier:adultsAmount:duration:date:time:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1164"
-            endingLineNumber = "1164"
+            startingLineNumber = "1168"
+            endingLineNumber = "1168"
             landmarkName = "reserveTablePlace(placeIdentifier:adultsAmount:duration:date:time:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -263,22 +263,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C045DA1B-DB03-4FE2-B864-F53D0A4B14A0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Category Places Screen/CategoryPlacesViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "loadMoreContent()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BB7D3F45-0C5C-4F25-B195-7577C1D0E0F9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -343,144 +327,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "907624B3-9630-465F-B207-EAA6FC5B4B45"
-            shouldBeEnabled = "Yes"
+            uuid = "62858929-231C-4217-A014-8892FF195CE4"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Registration  Screen/RegistrationViewModel.swift"
+            filePath = "Booking Application/Services/ServiceAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "tryRegister()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "91B76DDF-EFA7-48F4-815C-37EBE8DE1FC8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Registration  Screen/RegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "tryRegister()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A82CF5E9-8F85-4E7D-8F73-182FAC3D75AA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Registration  Screen/RegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "tryRegister()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9A45AC60-1BCA-41B6-9D96-4388BE825C65"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Registration  Screen/RegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "tryRegister()"
+            startingLineNumber = "1087"
+            endingLineNumber = "1087"
+            landmarkName = "userAccountRegistration(completion:name:surname:email:password:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "9A45AC60-1BCA-41B6-9D96-4388BE825C65 - 9b6a6b44c0eba73"
+                  uuid = "62858929-231C-4217-A014-8892FF195CE4 - ae95f635d14a6284"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Booking_Application.Result&lt;Booking_Application.Account, Swift.Error&gt;) -&gt; () in closure #1 (Booking_Application.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; () in Booking_Application.RegistrationViewModel.tryRegister() -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Booking_Application.ServiceAPI.userAccountRegistration(completion: (Booking_Application.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; (), name: Swift.String, surname: Swift.String, email: Swift.String, password: Swift.String) -&gt; ()"
                   moduleName = "Booking Application"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Screens/Registration%20%20Screen/RegistrationViewModel.swift"
+                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Services/ServiceAPI.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
-                  offsetFromSymbolStart = "60">
+                  startingLineNumber = "1087"
+                  endingLineNumber = "1087"
+                  offsetFromSymbolStart = "5312">
                </Location>
                <Location
-                  uuid = "9A45AC60-1BCA-41B6-9D96-4388BE825C65 - 9b6a6b44c0eba73"
+                  uuid = "62858929-231C-4217-A014-8892FF195CE4 - ae95f635d14a6284"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Booking_Application.Result&lt;Booking_Application.Account, Swift.Error&gt;) -&gt; () in closure #1 (Booking_Application.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; () in Booking_Application.RegistrationViewModel.tryRegister() -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Booking_Application.ServiceAPI.userAccountRegistration(completion: (Booking_Application.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; (), name: Swift.String, surname: Swift.String, email: Swift.String, password: Swift.String) -&gt; ()"
                   moduleName = "Booking Application"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Screens/Registration%20%20Screen/RegistrationViewModel.swift"
+                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Services/ServiceAPI.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  uuid = "9A45AC60-1BCA-41B6-9D96-4388BE825C65 - 9b6a6b44c0eba73"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Booking_Application.Result&lt;Booking_Application.Account, Swift.Error&gt;) -&gt; () in closure #1 (Booking_Application.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; () in Booking_Application.RegistrationViewModel.tryRegister() -&gt; ()"
-                  moduleName = "Booking Application"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Screens/Registration%20%20Screen/RegistrationViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
-                  offsetFromSymbolStart = "728">
+                  startingLineNumber = "1087"
+                  endingLineNumber = "1087"
+                  offsetFromSymbolStart = "5804">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "38A095E8-CDFC-46D8-AFE0-12BE57EDA563"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Registration  Screen/RegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "tryRegister()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FBC66EC7-A8E5-4B7B-BCAD-64D25E67EECF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Registration  Screen/RegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "tryRegister()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

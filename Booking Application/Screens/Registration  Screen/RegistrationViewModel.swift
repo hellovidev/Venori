@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 import Foundation
 
 class RegistrationViewModel: ObservableObject {
@@ -225,9 +226,19 @@ class RegistrationViewModel: ObservableObject {
                 self.serviceAPI.userAccountAuthentication(completion: { result in
                     switch result {
                     case .success(let account):
-                        let preferences = UserDefaults.standard
-                        preferences.set(account.user, forKey: "current_user")
-                        preferences.set(account.token, forKey: "access_token")
+
+                        let userDefaults = UserDefaults.standard
+                        do {
+                            try userDefaults.setObject(account.user, forKey: "current_user")
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        
+                        //UserDefaults.standard.set(account.user, forKey: "current_user")
+
+                        
+                        UserDefaults.standard.set(account.token, forKey: "access_token")
+                        UserDefaults.standard.synchronize()
                         self.controller?.registrationComplete()
                     case .failure(let error):
                         print(error)
@@ -251,4 +262,37 @@ enum NameCheck {
     case valid
     case empty
     case small
+}
+
+extension UserDefaults { //: ObjectSavable
+    func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(object)
+            set(data, forKey: forKey)
+        } catch {
+            throw ObjectSavableError.unableToEncode
+        }
+    }
+    
+    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable {
+        guard let data = data(forKey: forKey) else { throw ObjectSavableError.noValue }
+        let decoder = JSONDecoder()
+        do {
+            let object = try decoder.decode(type, from: data)
+            return object
+        } catch {
+            throw ObjectSavableError.unableToDecode
+        }
+    }
+}
+
+enum ObjectSavableError: String, LocalizedError {
+    case unableToEncode = "Unable to encode object into data"
+    case noValue = "No data object found for the given key"
+    case unableToDecode = "Unable to decode object into given type"
+    
+    var errorDescription: String? {
+        rawValue
+    }
 }

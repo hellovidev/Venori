@@ -11,6 +11,12 @@ struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
+        let bindingEmailCapitalization = Binding<String>(get: {
+            viewModel.email
+        }, set: {
+            viewModel.email = $0.lowercased()
+        })
+        
         ZStack {
             VStack {
                 ZStack {
@@ -27,18 +33,43 @@ struct LoginView: View {
             VStack {
                 Spacer()
                 VStack(alignment: .leading) {
-                    TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false)
+                    TextFieldView(data: bindingEmailCapitalization, placeholder: "Email", isPassword: false)
                         .padding(.bottom, 8)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
+                        .padding([.leading, .trailing], 24)
+                    if !viewModel.hasEmailDomain {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: -24) {
+                                ForEach(viewModel.emailProviders, id: \.self) { item in
+                                    Button(action: {
+                                        viewModel.email.append(item)
+                                    }) {
+                                        Text(item)
+                                            .foregroundColor(.black)
+                                            .padding([.top, .bottom], 8)
+                                            .padding([.leading, .trailing], 12)
+                                    }
+                                    .background(Color.white)
+                                    .cornerRadius(24)
+                                    .padding(.leading, 24)
+                                    .padding(.trailing, 8)
+                                }
+                            }
+                        }
+                        .padding(.bottom, 4)
+                        .ignoresSafeArea(edges: [.leading, .trailing])
+                    }
                     Text(viewModel.inputErrorMessage)
                         .isHidden(viewModel.inputErrorMessage.isEmpty ? true : false, remove: viewModel.inputErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 4)
+                        .padding([.leading, .trailing], 24)
                     TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true)
+                        .padding([.leading, .trailing], 24)
                 }
-                .padding(.leading, 24)
-                .padding(.trailing, 24)
                 Button(action: {
                     self.hideKeyboard()
                     self.viewModel.tryAuthorize()

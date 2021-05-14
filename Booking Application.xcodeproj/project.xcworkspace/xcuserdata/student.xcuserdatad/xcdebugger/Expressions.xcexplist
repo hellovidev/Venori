@@ -84,6 +84,23 @@
          contextName = "HomeViewModel.getAddress():HomeViewModel.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in RegistrationViewModel.tryRegister():RegistrationViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "account.token">
+            </PersistentString>
+            <PersistentString
+               value = "account">
+            </PersistentString>
+            <PersistentString
+               value = "userDefaults.getObject(forKey: &quot;current_user&quot;, castTo: User.self)">
+            </PersistentString>
+            <PersistentString
+               value = "account.user">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in ServiceAPI.reserveTablePlace(placeIdentifier:):ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -370,6 +387,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.account?.token">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceAPI.userAccountRegistration(completion:name:surname:email:password:):ServiceAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.statusCode">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

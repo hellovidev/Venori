@@ -1060,8 +1060,12 @@ class ServiceAPI: ObservableObject {
             
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
-                case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
+                case 201:
+                    NSLog(NSLocalizedString("Status Code is 201... Request for sign in.", comment: "Success"))
+                case 401:
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                case 422:
+                    completion(.failure(NSLocalizedString("The given data was invalid.", comment: "Error")))
                 default:
                     completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }

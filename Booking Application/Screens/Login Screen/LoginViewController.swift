@@ -5,7 +5,6 @@
 //  Created by student on 14.04.21.
 //
 
-import UIKit
 import SwiftUI
 
 class LoginViewController: UIHostingController<LoginView>  {
@@ -61,5 +60,5 @@ class LoginViewController: UIHostingController<LoginView>  {
             sceneDelegate.window?.makeKeyAndVisible()
         }
     }
-    
+
 }

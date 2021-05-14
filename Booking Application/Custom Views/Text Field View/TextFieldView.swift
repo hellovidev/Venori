@@ -37,7 +37,6 @@ struct TextFieldView: View {
                 } else {
                     TextField("", text: $data)
                         .font(.system(size: 24))
-                        .textCase(.lowercase)
                 }
             }
             .padding()

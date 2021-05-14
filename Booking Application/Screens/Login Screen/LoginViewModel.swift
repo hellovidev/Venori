@@ -11,7 +11,8 @@ import Foundation
 class LoginViewModel: ObservableObject {
     weak var controller: LoginViewController?
     private var cancellableSet = Set<AnyCancellable>()
-    private let serviceAPI = ServiceAPI()
+    private let serverRequests = ServiceAPI()
+    let emailProviders = ["@gmail.com", "@icloud.com", "@yahoo.com", "@hotmail.com", "@yandex.com"]
     
     // Alert Data
     
@@ -25,17 +26,26 @@ class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isValid: Bool = false
+    @Published var hasEmailDomain: Bool = false
     
     deinit {
         for cancellable in cancellableSet {
             cancellable.cancel()
+            print("Cancel!")
         }
     }
     
     init() {
+        isEmailHasEmailDomainPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in self?.hasEmailDomain = $0 }
+            //.assign(to: \.hasEmailDomain, on: self)
+            .store(in: &cancellableSet)
+        
         isFormFieldCompletePublisher
             .receive(on: RunLoop.main)
-            .assign(to: \.isValid, on: self)
+            .sink { [weak self] in self?.isValid = $0 }
+            //.assign(to: \.isValid, on: [weak self])
             .store(in: &cancellableSet)
     }
     
@@ -68,6 +78,15 @@ class LoginViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    private var isEmailHasEmailDomainPublisher: AnyPublisher<Bool, Never> {
+        $email
+            .removeDuplicates()
+            .map { email in
+                return email.contains("@") != email.isEmpty
+            }
+            .eraseToAnyPublisher()
+    }
+    
     private var isPasswordEmptyPublisher: AnyPublisher<Bool, Never> {
         $password
             .debounce(for: 0.3, scheduler: RunLoop.main)
@@ -78,48 +97,58 @@ class LoginViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    private var isPasswordStrengthPublisher: AnyPublisher<Bool, Never> {
+        $password
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map { password in
+                return password.count >= 8
+            }
+            .eraseToAnyPublisher()
+    }
+    
     private var isFormFieldCompletePublisher: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest3(isEmailEmptyPublisher, isEmailValidPublisher, isPasswordEmptyPublisher)
-            .map { emailIsEmpty, emailIsValid, passwordIsEmpty in
-                return !emailIsEmpty && (emailIsValid == .valid) && !passwordIsEmpty
+        Publishers.CombineLatest4(isEmailEmptyPublisher, isEmailValidPublisher, isPasswordEmptyPublisher, isPasswordStrengthPublisher)
+            .map { emailIsEmpty, emailIsValid, passwordIsEmpty, passwordIsStrong in
+                return !emailIsEmpty && (emailIsValid == .valid) && !passwordIsEmpty && passwordIsStrong
             }
             .eraseToAnyPublisher()
     }
     
     func tryAuthorize() {
         isLoading = true
-        self.serviceAPI.userAccountAuthentication(completion: { result in
-            self.isLoading = false
+        self.serverRequests.userAccountAuthentication(completion: { result in
             switch result {
             case .success(let account):
-                let preferences = UserDefaults.standard
-                preferences.set(account.token, forKey: "access_token")
-                
+                self.isLoading = false
+                let userDefaults = UserDefaults.standard
                 do {
-
-                    // Encode User
+                    try userDefaults.setObject(account.user, forKey: "current_user")
+                    UserDefaults.standard.set(account.token, forKey: "access_token")
+                    UserDefaults.standard.synchronize()
                     
-                    let data = try JSONEncoder().encode(account.user)
-
-                    // Write/Set Data
-                    
-                    UserDefaults.standard.set(data, forKey: "current_user")
+                    self.controller?.authorizationComplete()
                 } catch {
-                    print("Unable to Encode User (\(error))")
+                    print("Unable to Encode User (\(error.localizedDescription))")
                     self.errorMessage = error.localizedDescription
                     self.showAlert = true
                 }
-                
-                self.controller?.authorizationComplete()
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self.isLoading = false
                     print(error.localizedDescription)
-                    self.errorMessage = "No users with this login and password!"
+                    switch error.localizedDescription {
+                    case "The data couldn’t be read because it is missing.":
+                        self.errorMessage = "Authorization faild. Incorrect user credentials!"
+                    default:
+                        self.errorMessage = error.localizedDescription
+                    }
                     self.showAlert = true
                 }
             }
         }, email: self.email, password: self.password)
     }
+    
 }
 
 enum EmailCheck {

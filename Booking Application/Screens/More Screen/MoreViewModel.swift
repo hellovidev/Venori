@@ -50,3 +50,12 @@ class MoreViewModel: ObservableObject {
     }
     
 }
+
+
+//let userDefaults = UserDefaults.standard
+//do {
+//    let playingItMyWay = try userDefaults.getObject(forKey: "MyFavouriteBook", castTo: Book.self)
+//    print(playingItMyWay)
+//} catch {
+//    print(error.localizedDescription)
+//}

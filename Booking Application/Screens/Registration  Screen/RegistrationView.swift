@@ -40,12 +40,37 @@ struct RegistrationView: View {
                         .padding(.bottom, 8)
                     TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false)
                         .padding(.bottom,6)
+                        .keyboardType(.emailAddress)
+                    
+//                    if !viewModel.hasEmailDomain {
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack(spacing: -24) {
+//                                ForEach(viewModel.emailProviders, id: \.self) { item in
+//                                    Button(action: {
+//                                        viewModel.email.append(item)
+//                                    }) {
+//                                        Text(item)
+//                                            .foregroundColor(.black)
+//                                            .padding([.top, .bottom], 8)
+//                                            .padding([.leading, .trailing], 12)
+//                                    }
+//                                    .background(Color.white)
+//                                    .cornerRadius(24)
+//                                    .padding(.leading, 24)
+//                                    .padding(.trailing, 8)
+//                                }
+//                            }
+//                        }
+//                        .padding(.bottom, 4)
+//                        .ignoresSafeArea(edges: [.leading, .trailing])
+//                    }
+                    
                     Text(viewModel.inputEmailErrorMessage)
                         .isHidden(viewModel.inputEmailErrorMessage.isEmpty ? true : false, remove: viewModel.inputEmailErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 4)
                     TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true)
                         .padding(.bottom, 6)
                     TextFieldView(data: $viewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
