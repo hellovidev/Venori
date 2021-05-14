@@ -33,16 +33,29 @@ class CategoriesViewController: UIHostingController<CategoriesView>  {
     // MARK: -> Go To Previous Screen
     
     func redirectPrevious() {
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
+        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: nil)
     }
     
     // MARK: -> Redirect User To Food Items of Category
     
     func redirectCategoryPlaces(categoryIdentifier: Int, categoryName: String) {
         let navigationController = UINavigationController(rootViewController: CategoryPlacesViewController(categoryIdentifier: categoryIdentifier, categoryName: categoryName))
+        
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: -> Redirect User To Food Items of Category

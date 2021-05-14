@@ -29,8 +29,12 @@ class HomeViewModel: ObservableObject {
 
     private var currentPage = 1
 
-    @Published var showAlertError = false
+    @Published var showAlert = false
     @Published var errorMessage = ""
+    
+    init() {
+        loadMoreContent()
+    }
 
      func loadPlacesContent() {
         isLoadingPagePlaces = true
@@ -143,7 +147,7 @@ class HomeViewModel: ObservableObject {
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
-                self.showAlertError = true
+                self.showAlert = true
                 print(error)
             }
         }, placeIdentifier: place.id)
@@ -158,7 +162,7 @@ class HomeViewModel: ObservableObject {
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
-                self.showAlertError = true
+                self.showAlert = true
                 print(error)
             }
         }, placeIdentifier: place.id)
@@ -175,13 +179,13 @@ class HomeViewModel: ObservableObject {
                         print(message)
                     case .failure(let error):
                         self.errorMessage = error.localizedDescription
-                        self.showAlertError = true
+                        self.showAlert = true
                         print(error)
                     }
                 }, latitude: UserDefaults.standard.double(forKey: "latitude"), longitude: UserDefaults.standard.double(forKey: "longitude"), address: address)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
-                self.showAlertError = true
+                self.showAlert = true
                 print(error)
             }
         }, pdblLatitude: UserDefaults.standard.double(forKey: "latitude"), withLongitude: UserDefaults.standard.double(forKey: "longitude"))
@@ -214,6 +218,65 @@ class HomeViewModel: ObservableObject {
                 completion(.success(address))
             }
         })
+    }
+    
+    
+    // ----
+    
+    var canLoadMorePages = true
+    var currentPageSearch = 1
+    
+    @Published var placesSearch = [Place]()
+    @Published var isLoadingPage = false
+    
+    func loadMoreContentIfNeeded(currentItem item: Place?) {
+        guard let item = item else {
+            loadMoreContent()
+            return
+        }
+        
+        let thresholdIndex = placesSearch.index(placesSearch.endIndex, offsetBy: -5)
+        if placesSearch.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
+            loadMoreContent()
+        }
+    }
+    
+    func loadMoreContent() {
+        guard !isLoadingPage && canLoadMorePages else {
+            return
+        }
+        
+        isLoadingPage = true
+        
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue)!
+        
+        url.queryItems = [
+            URLQueryItem(name: "page", value: "\(self.currentPageSearch)")
+        ]
+        
+        var request = URLRequest(url: url.url!)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
+            .map(\.data)
+            .decode(type: Places.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { response in
+                self.canLoadMorePages = (response.lastPage != response.currentPage)
+                self.isLoadingPage = false
+                self.currentPageSearch += 1
+            })
+            .map({ response in
+                print(response.data)
+                self.placesSearch.append(contentsOf: response.data)
+                return self.placesSearch
+            })
+            .catch({ _ in Just(self.placesSearch) })
+            .assign(to: &$placesSearch)
     }
     
 }

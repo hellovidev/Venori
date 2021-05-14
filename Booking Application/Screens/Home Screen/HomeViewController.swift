@@ -10,6 +10,7 @@ import CoreLocation
 
 class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelegate  {
     private let viewModel = HomeViewModel()
+    private let locationAlreadySend: Bool = false
     
     // MARK: -> Initialization SwiftUI View
     
@@ -50,7 +51,6 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         let navigationController = UINavigationController(rootViewController: rootviewController)
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -62,28 +62,17 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     
     // MARK: -> Redirect User To Category Places
     
-    func redirectCategoryPlaces(object: Category) {
-//        let rootviewController = DetailsRestarauntViewController()
-//        rootviewController.place = object
+    func redirectCategoryPlaces(categoryIdentifier: Int, categoryName: String) {
+        let navigationController = UINavigationController(rootViewController: CategoryPlacesViewController(categoryIdentifier: categoryIdentifier, categoryName: categoryName))
         
-//        let transition = CATransition()
-//        transition.duration = 0.25
-//        transition.type = CATransitionType.push
-//        transition.subtype = CATransitionSubtype.fromRight
-//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-//        view.window?.layer.add(transition, forKey: kCATransition)
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
         
-//        let navigationController = UINavigationController(rootViewController: rootviewController)
-//        navigationController.modalPresentationStyle = .fullScreen
-//        self.present(navigationController, animated: false, completion: nil)
-    }
-    
-    // MARK: -> Redirect To Menu
-    
-    func redirectFoodItems() {
-        let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: -> Show Map View
@@ -100,7 +89,6 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         let navigationController = UINavigationController(rootViewController: PlacesViewController())
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -114,7 +102,6 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         let navigationController = UINavigationController(rootViewController: CategoriesViewController())
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -128,7 +115,6 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         let navigationController = UINavigationController(rootViewController: FavouritesViewController())
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -148,7 +134,9 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
                     UserDefaults.standard.set(locationValue.latitude, forKey: "latitude")
                     UserDefaults.standard.set(locationValue.longitude, forKey: "longitude")
                     UserDefaults.standard.synchronize()
-                    self.viewModel.sentUserLocation()
+                    if !locationAlreadySend {
+                        self.viewModel.sentUserLocation()
+                    }
                     print("locations = \(locationValue.latitude) \(locationValue.longitude)")
                 }
             }

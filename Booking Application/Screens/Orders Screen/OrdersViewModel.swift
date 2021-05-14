@@ -53,6 +53,7 @@ class OrdersViewModel: ObservableObject {
         ]
         
         var request = URLRequest(url: url.url!)
+        print(url.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")

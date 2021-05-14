@@ -46,7 +46,6 @@ class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
     
     func redirectPrevious() {
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
