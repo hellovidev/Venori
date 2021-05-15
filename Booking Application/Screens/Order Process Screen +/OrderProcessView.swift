@@ -17,7 +17,7 @@ struct OrderProcessView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if !isComplete {
-                BookProcessView(placeID: viewModel.placeID!, actionContinue: {
+                BookProcessView(placeID: viewModel.placeIdentifier, actionContinue: {
                     self.isComplete.toggle()
                 }, actionClose: {
                     self.viewModel.controller?.backToPlace()
@@ -317,11 +317,5 @@ struct BookProcessView: View {
             }
             DatePickerView(orderDateReservation: $dateReservation, show: $showPopUp, times: $times, placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours)
         }
-    }
-}
-
-struct BookView_Previews: PreviewProvider {
-    static var previews: some View {
-        OrderProcessView(viewModel: OrderProcessViewModel())
     }
 }

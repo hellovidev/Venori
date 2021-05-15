@@ -9,18 +9,17 @@ import UIKit
 import SwiftUI
 
 class OrderProcessViewController: UIHostingController<OrderProcessView>  {
-    private let viewModel = OrderProcessViewModel()
-    var placeID: Int?
+    private let viewModel: OrderProcessViewModel
     
     // Hide Navigation Bar & Set Place ID to View Model From Place Details Screen
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.placeID = placeID
     }
     
-    init() {
+    init(placeIdentifier: Int) {
+        viewModel = OrderProcessViewModel(placeIdentifier: placeIdentifier)
         let view = OrderProcessView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self

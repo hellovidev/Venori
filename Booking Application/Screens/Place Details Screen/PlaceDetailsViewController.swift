@@ -5,18 +5,20 @@
 //  Created by student on 19.04.21.
 //
 
-import UIKit
 import SwiftUI
 
 class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
     private let viewModel: PlaceDetailsViewModel
-    private var serviceAPI = ServerRequest()
     
+    // MARK: -> Make Navigation Bar Hidden
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    // MARK: -> Make Status Bar Color Elements White
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -32,15 +34,10 @@ class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func redirectToBooking() {
-        let navigationController = UINavigationController(rootViewController: OrderProcessViewController())
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
-    }
+    // MARK: -> Go To Previous Screen
     
-    func goBack() {
+    func redirectPrevious() {
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -50,6 +47,8 @@ class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
         self.dismiss(animated: false, completion: nil)
     }
     
+    // MARK: -> Go To Map
+    
     func showMapView() {
         let navigationController = UINavigationController(rootViewController: MapViewController(latitude: viewModel.place.addressLat, longitude: viewModel.place.addressLon))
         navigationController.modalPresentationStyle = .fullScreen
@@ -57,33 +56,19 @@ class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
     }
     
     // MARK: -> Redirect User To Booking Process
-
-    func redirectToBookingProcess(object: Place) {
-        let rootviewController = OrderProcessViewController()
-        rootviewController.placeID = object.id
-        let navigationController = UINavigationController(rootViewController: rootviewController)
+    
+    func redirectBookingProcess(placeIdentifier: Int) {
+        let navigationController = UINavigationController(rootViewController: OrderProcessViewController(placeIdentifier: placeIdentifier))
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }
     
     // MARK: -> Redirect User To Reviews Of Place
-
+    
     func redirectReviews(placeIdentifier: Int) {
         let navigationController = UINavigationController(rootViewController: ReviewsViewController(placeIdentifier: placeIdentifier))
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
-    }
-    
-    func showWeekSchedule(placeID: Int) {
-        self.serviceAPI.getScheduleOfPlace(completion: { result in
-                switch result {
-                case .success(let weekSchedule):
-                    self.viewModel.schedules = weekSchedule
-                    print(weekSchedule)
-                case .failure(let error):
-                    print(error)
-                }
-        }, placeIdentifier: placeID)
     }
     
 }

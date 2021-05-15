@@ -68,9 +68,8 @@ struct CategoryPlacesView: View {
                         ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
                             PlaceCardView(place: item, onCardClick: {
                                 viewModel.controller?.redirectPlaceDetails(object: item)
-                            }, onFavouriteClick: {
-                                guard item.favourite != nil else { return }
-                                viewModel.deleteFavouriteState(favourite: item)
+                            }, onFavouriteClick: {                                
+                                item.favourite ?? false ? self.viewModel.deleteFavouriteState(favourite: item) : self.viewModel.setFavouriteState(favourite: item)
                             }, isProcessDelete: false)
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)

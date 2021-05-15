@@ -42,4 +42,5 @@ struct MapViewDetails: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    
 }
