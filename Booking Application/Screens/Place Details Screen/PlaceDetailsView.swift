@@ -17,7 +17,6 @@ struct PlaceDetailsView: View {
             ScrollView(showsIndicators: false) {
                 ZStack {
                     ImageURL(url: DomainRouter.generalDomain.rawValue + viewModel.place.imageURL)
-                        .background(Color.gray)
                         .frame(maxWidth: .infinity, maxHeight: 256, alignment: .center)
                     HStack(alignment: .center) {
                         Button (action: {

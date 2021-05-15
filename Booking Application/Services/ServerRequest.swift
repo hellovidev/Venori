@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: -> Domain Routes
 
@@ -589,7 +590,7 @@ class ServerRequest: ObservableObject {
         
         request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             
             // Check Presence of Errors
             
@@ -626,21 +627,30 @@ class ServerRequest: ObservableObject {
             }
             
             do {
-                
-                // Decodable JSON Data
-                
-                let response = try JSONDecoder().decode([String].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(.success(response))
+                let info = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                if info != nil {
+                    print(info!["message"] as Any)
+                    completion(.success([String]()))
+                } else {
+                    
+                    // Decodable JSON Data
+                    
+                    guard let response = try JSONDecoder().decode([String]?.self, from: data) else {
+                        return completion(.success([String]()))
+                    }
+                    
+                    DispatchQueue.main.async {
+                        completion(.success(response))
+                    }
                 }
             } catch {
+                print(error.localizedDescription)
                 completion(.failure(error))
             }
         })
         .resume()
     }
-    
+
     // MARK: -> Methods For Actions With Order Object
     
     func cancelOrderInProgress(completion: @escaping (Result<String, Error>) -> Void, orderIdentifier: Int) {

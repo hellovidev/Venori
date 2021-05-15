@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct DatePickerView: View {
-    private let serviceAPI = ServerRequest()
+//    private let serviceAPI = ServerRequest()
     @Binding var orderDateReservation: Date
     @Binding var show: Bool
-    @Binding var times: [Time]
-    var placeIdentifier: Int
-    var adultsAmount: Int
-    var duration: Float
+//    @Binding var times: [Time]
+//    var placeIdentifier: Int
+//    var adultsAmount: Int
+//    var duration: Float
+    
+    var onSelected: () -> Void
     
     var body: some View {
         ZStack {
@@ -41,31 +43,32 @@ struct DatePickerView: View {
                     .cornerRadius(16)
                     
                     Button(action: {
+                        self.onSelected()
                         // Dismiss the PopUp
-                        self.serviceAPI.getPlaceAvailableTime(completion: {
-                            
-                            result in
-                            switch result {
-                            case .success(let times):
-                                //print(times)
-                                //self.times = times
-                                self.times = [Time]()
-                                for item in times {
-                                    self.times.append(Time(time: item))
-                                }
-                            case .failure(let error):
-                                print(error)
-                            //                                                DispatchQueue.main.async {
-                            //                                                    self.viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-                            //                                                  }
-                            }
-                        }
+//                        self.serviceAPI.getPlaceAvailableTime(completion: {
+//
+//                            result in
+//                            switch result {
+//                            case .success(let times):
+//                                //print(times)
+//                                //self.times = times
+//                                self.times = [Time]()
+//                                for item in times {
+//                                    self.times.append(Time(time: item))
+//                                }
+//                            case .failure(let error):
+//                                print(error)
+//                            //                                                DispatchQueue.main.async {
+//                            //                                                    self.viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
+//                            //                                                  }
+//                            }
+//                        }
+//
+//                        , placeIdentifier: placeIdentifier, adultsAmount: adultsAmount, duration: duration, date: Date().getDateCorrectFormat(date: orderDateReservation))
                         
-                        , placeIdentifier: placeIdentifier, adultsAmount: adultsAmount, duration: duration, date: Date().getDateCorrectFormat(date: orderDateReservation))
-                        
-                        withAnimation(.linear(duration: 0.3)) {
-                            show = false
-                        }
+//                        withAnimation(.linear(duration: 0.3)) {
+//                            show = false
+//                        }
                     }, label: {
                         Text("Okay")
                             .foregroundColor(.white)

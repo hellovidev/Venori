@@ -6,7 +6,7 @@
          contextName = "BookingHistoryViewModel.loadMoreContentIfNeeded(currentItem:):BookingHistoryViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "thresholdIndex">
+               value = "item.id">
             </PersistentString>
             <PersistentString
                value = "orders.firstIndex(where: { $0.id == item.id }) == thresholdIndex">
@@ -15,16 +15,16 @@
                value = "$0.id">
             </PersistentString>
             <PersistentString
-               value = "orders.index(orders.endIndex, offsetBy: -5)">
+               value = "orders.firstIndex(where: { $0.id == item.id })">
             </PersistentString>
             <PersistentString
                value = "orders.endIndex">
             </PersistentString>
             <PersistentString
-               value = "item.id">
+               value = "thresholdIndex">
             </PersistentString>
             <PersistentString
-               value = "orders.firstIndex(where: { $0.id == item.id })">
+               value = "orders.index(orders.endIndex, offsetBy: -5)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -130,6 +130,17 @@
             </PersistentString>
             <PersistentString
                value = "self.items">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ServerRequest.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServerRequest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "print(url)">
+            </PersistentString>
+            <PersistentString
+               value = "print(request)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -245,10 +256,10 @@
                value = "self.isHistory">
             </PersistentString>
             <PersistentString
-               value = "self.isActiveOrder">
+               value = "isHistory">
             </PersistentString>
             <PersistentString
-               value = "isHistory">
+               value = "self.isActiveOrder">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -291,27 +302,18 @@
          contextName = "closure #2 in OrdersViewModel.loadMoreContent():OrdersViewModel.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in PlaceDetailsViewModel.getSchedule():PlaceDetailsViewModel.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in OrdersViewModel.cancelOrder(orderIdentifier:):OrdersViewModel.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #6 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
+         contextName = "closure #3 in closure #2 in closure #1 in closure #1 in PlaceDetailsView.body.getter:PlaceDetailsView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "placeID">
-            </PersistentString>
-            <PersistentString
-               value = "valueHours">
-            </PersistentString>
-            <PersistentString
-               value = "Int(valueHumans)">
-            </PersistentString>
-            <PersistentString
-               value = "valueHumans">
+               value = "viewModel.place.phone">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in PlaceDetailsViewModel.getSchedule():PlaceDetailsViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in FavouritesView.body.getter:FavouritesView.swift">
@@ -328,10 +330,19 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #3 in closure #2 in closure #1 in closure #1 in PlaceDetailsView.body.getter:PlaceDetailsView.swift">
+         contextName = "closure #1 in closure #6 in closure #1 in closure #1 in BookProcessView.body.getter:BookView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "viewModel.place.phone">
+               value = "placeID">
+            </PersistentString>
+            <PersistentString
+               value = "valueHours">
+            </PersistentString>
+            <PersistentString
+               value = "Int(valueHumans)">
+            </PersistentString>
+            <PersistentString
+               value = "valueHumans">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -528,6 +539,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #2 in closure #1 in closure #1 in OrderProcessView.body.getter:OrderProcessView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ate().getSelectedDate(date: viewModel.dateReservation)">
+            </PersistentString>
+            <PersistentString
+               value = "Date().getSelectedDate(date: viewModel.dateReservation)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #4 in closure #2 in closure #1 in closure #1 in DetailsRestarauntView.body.getter:DetailsRestarauntView.swift">
          <PersistentStrings>
             <PersistentString
@@ -610,6 +632,22 @@
          contextName = "closure #1 in ServiceAPI.cancelOrderInProgress(completion:orderIdentifier:):ServiceAPI.swift">
       </ContextState>
       <ContextState
+         contextName = "OrderProcessViewModel.init(placeIdentifier:):OrderProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Date().getDateCorrectFormat(date: Date())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in OrderProcessViewModel.getAvailableTime(placeIdentifier:adultsAmount:duration:date:):OrderProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Date().getDateCorrectFormat(date: Date())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ReviewProcessViewModel.publishNewReview(newReview:):ReviewProcessViewModel.swift">
       </ContextState>
       <ContextState
@@ -635,10 +673,10 @@
          contextName = "closure #8 in closure #1 in closure #1 in closure #1 in BookProcessView.body.getter:OrderProcessView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "$0.id == self.selectedReservationTime">
+               value = "self.selectedReservationTime">
             </PersistentString>
             <PersistentString
-               value = "self.selectedReservationTime">
+               value = "$0.id == self.selectedReservationTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -702,9 +740,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in HomeViewModel.sentUserLocation():HomeViewModel.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #3 in closure #1 in closure #1 in closure #1 in HomeView.body.getter:HomeView.swift">
          <PersistentStrings>
             <PersistentString
@@ -714,6 +749,9 @@
                value = "!viewModel.isLoadingPage &amp;&amp; viewModel.placesSearch.isEmpty">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in HomeViewModel.sentUserLocation():HomeViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in BookView.body.getter:BookView.swift">
@@ -824,13 +862,16 @@
          contextName = "closure #1 in BookingHistoryViewModel.loadMoreContent():BookingHistoryViewModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "response.lastPage">
+            </PersistentString>
+            <PersistentString
+               value = "self.canLoadMorePages">
+            </PersistentString>
+            <PersistentString
                value = "(response.lastPage != response.currentPage)">
             </PersistentString>
             <PersistentString
                value = "self.currentPage">
-            </PersistentString>
-            <PersistentString
-               value = "self.canLoadMorePages">
             </PersistentString>
             <PersistentString
                value = "response.currentPage">
@@ -840,9 +881,6 @@
             </PersistentString>
             <PersistentString
                value = "response.lastPage != response.currentPage">
-            </PersistentString>
-            <PersistentString
-               value = "response.lastPage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

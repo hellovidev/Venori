@@ -15,9 +15,22 @@ struct EnumerationTimeView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: -8) {
-                ForEach(items, id: \.self) { item in
-                    ItemTimeView(time: item, selectedButtonIdentifier: self.$selected, isSelected: self.$choosed)
+            HStack(spacing: -16) {
+                if !items.isEmpty {
+                    ForEach(items, id: \.self) { item in
+                        ItemTimeView(time: item, selectedButtonIdentifier: self.$selected, isSelected: self.$choosed)
+                    }
+                } else {
+                    Button(action: {}) {
+                        Text("💤 It's Day off")
+                            .foregroundColor(Color.black)
+                            .padding([.top, .bottom], 12)
+                            .padding([.leading, .trailing], 16)
+                    }
+                    .background(Color.yellow)
+                    .cornerRadius(24)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 8)
                 }
             }
         }
@@ -42,5 +55,6 @@ struct ItemTimeView: View {
         .background(self.selectedButtonIdentifier == self.time.id ? Color.blue : Color(UIColor(hex: "#F6F6F6FF")!))
         .cornerRadius(24)
         .padding(.leading, 16)
+        .padding(.trailing, 8)
     }
 }

@@ -5,13 +5,10 @@
 //  Created by student on 19.04.21.
 //
 
-import UIKit
 import SwiftUI
 
 class OrderProcessViewController: UIHostingController<OrderProcessView>  {
     private let viewModel: OrderProcessViewModel
-    
-    // Hide Navigation Bar & Set Place ID to View Model From Place Details Screen
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -31,7 +28,7 @@ class OrderProcessViewController: UIHostingController<OrderProcessView>  {
     
     // MARK: -> Click on 'Back' Button on Order Process View
     
-    func backToPlace() {
+    func redirectPrevious() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
@@ -40,14 +37,6 @@ class OrderProcessViewController: UIHostingController<OrderProcessView>  {
     
     func completeOrderProcess() {
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: -> Pop Up for Faild Print
-    
-    func failPopUp(title: String, message: String, buttonTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
 }
