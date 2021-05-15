@@ -17,7 +17,7 @@ struct Order: Codable, Hashable, Identifiable {
     var time: String
     var stayingEnd: String
     var userID: Int
-    var placeID: Int //***
+    var placeID: Int
     var createdAt: String
     var updatedAt: String
     var place: Place?

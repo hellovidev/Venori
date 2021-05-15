@@ -295,33 +295,81 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B8D1DCBA-0B5F-4FE3-86B8-B27C1151AFA0"
+            uuid = "888D0C9C-B231-4C6E-91FF-DF015B697A4E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Orders Screen/OrdersViewModel.swift"
+            filePath = "Booking Application/Screens/Orders Screen/OrdersView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "loadMoreContent()"
-            landmarkType = "7">
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9552C9CB-B8DC-488E-92BD-C3E4C32D77BD"
+            uuid = "A05BB97E-6151-47B4-92DC-8E34DB108175"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Booking Application/Screens/Orders Screen/OrdersViewModel.swift"
+            filePath = "Booking Application/Screens/Orders Screen/OrdersView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "loadMoreContent()"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C8D526A-78CF-4B5C-9467-16ADCCB4E1D8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Booking Application/Screens/Place Details Screen/PlaceDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "getSchedule()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0C8D526A-78CF-4B5C-9467-16ADCCB4E1D8 - f2fb9cbc6d661ff1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Booking_Application.Result&lt;Swift.Array&lt;Booking_Application.Schedule&gt;, Swift.Error&gt;) -&gt; () in Booking_Application.PlaceDetailsViewModel.getSchedule() -&gt; ()"
+                  moduleName = "Booking Application"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Screens/Place%20Details%20Screen/PlaceDetailsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  uuid = "0C8D526A-78CF-4B5C-9467-16ADCCB4E1D8 - f2fb9cbc6d661ff1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Booking_Application.Result&lt;Swift.Array&lt;Booking_Application.Schedule&gt;, Swift.Error&gt;) -&gt; () in Booking_Application.PlaceDetailsViewModel.getSchedule() -&gt; ()"
+                  moduleName = "Booking Application"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Documents/Booking-Application/Booking%20Application/Screens/Place%20Details%20Screen/PlaceDetailsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "304">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

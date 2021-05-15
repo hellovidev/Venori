@@ -11,7 +11,7 @@ import Foundation
 class RegistrationViewModel: ObservableObject {
     weak var controller: RegistrationViewController?
     private var cancellableSet = Set<AnyCancellable>()
-    private let serverRequests = ServiceAPI()
+    private let serverRequests = ServerRequest()
     let emailProviders = ["@gmail.com", "@icloud.com", "@yahoo.com", "@hotmail.com", "@yandex.com"]
     
     // Alert Data

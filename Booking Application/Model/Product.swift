@@ -22,7 +22,7 @@ struct Product: Codable, Hashable, Identifiable {
         case name = "name"
         case weight = "weight"
         case price = "price"
-        case imageURL = "image_url" //storage/products/coffe_americano.png
+        case imageURL = "image_url"
         case categoryID = "category_id"
         case createdAt = "created_at"
         case updatedAt = "updated_at"

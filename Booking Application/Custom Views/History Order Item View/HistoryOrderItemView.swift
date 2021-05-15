@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: -> History Order Item View
 
 struct HistoryOrderItemView: View {
-    private let serviceAPI = ServiceAPI()
+    private let serviceAPI = ServerRequest()
     @State private var order: Order
     @State private var isHistory: Bool = false
     @State private var isActiveOrder: Bool = false

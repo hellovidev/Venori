@@ -10,7 +10,7 @@ import SwiftUI
 
 class ReviewsViewModel: ObservableObject {
     weak var controller: ReviewsViewController?
-    private let serviceAPI = ServiceAPI()
+    private let serviceAPI = ServerRequest()
     var canLoadMorePages = true
     var currentPage = 1
     

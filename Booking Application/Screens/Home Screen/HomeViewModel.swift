@@ -11,7 +11,7 @@ import CoreLocation
 
 class HomeViewModel: ObservableObject {
     weak var controller: HomeViewController?
-    private let serviceAPI: ServiceAPI = ServiceAPI()
+    private let serviceAPI: ServerRequest = ServerRequest()
     @Published var locationManager: CLLocationManager?
     
     private var cancellables = Set<AnyCancellable>()

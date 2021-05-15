@@ -9,7 +9,7 @@ import Foundation
 
 class MoreViewModel: ObservableObject {
     weak var controller: MoreViewController?
-    private let serverRequests = ServiceAPI()
+    private let serverRequests = ServerRequest()
     
     @Published var user: User?
     @Published var showAlert = false

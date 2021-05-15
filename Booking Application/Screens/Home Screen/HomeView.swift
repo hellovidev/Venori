@@ -67,7 +67,7 @@ struct HomeView: View {
                     if !editing {
                         // MARK: -> Scroll View For Load Data
                         
-                        ScrollView {
+                        ScrollView(showsIndicators: false){
                             VStack {
                                 
                                 // MARK: -> Favorite Restaurants Block

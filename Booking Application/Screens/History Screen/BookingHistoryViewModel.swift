@@ -11,7 +11,7 @@ import SwiftUI
 class BookingHistoryViewModel: ObservableObject {
     weak var controller: BookingHistoryViewController?
     private var cancellables = Set<AnyCancellable>()
-    private var serviceAPI = ServiceAPI()
+    private var serviceAPI = ServerRequest()
     var canLoadMorePages = true
     var currentPage = 1
     

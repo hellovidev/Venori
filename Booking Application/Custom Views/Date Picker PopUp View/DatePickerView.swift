@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DatePickerView: View {
-    private let serviceAPI = ServiceAPI()
+    private let serviceAPI = ServerRequest()
     @Binding var orderDateReservation: Date
     @Binding var show: Bool
     @Binding var times: [Time]

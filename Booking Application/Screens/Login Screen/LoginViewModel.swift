@@ -11,7 +11,7 @@ import Foundation
 class LoginViewModel: ObservableObject {
     weak var controller: LoginViewController?
     private var cancellableSet = Set<AnyCancellable>()
-    private let serverRequests = ServiceAPI()
+    private let serverRequests = ServerRequest()
     let emailProviders = ["@gmail.com", "@icloud.com", "@yahoo.com", "@hotmail.com", "@yandex.com"]
     
     // Alert Data

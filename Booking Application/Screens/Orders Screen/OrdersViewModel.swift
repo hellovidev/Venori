@@ -11,7 +11,7 @@ import Foundation
 
 class OrdersViewModel: ObservableObject {
     weak var controller: OrdersViewController?
-    private let serviceAPI = ServiceAPI()
+    let serverRequest = ServerRequest()
     var canLoadMorePages = true
     var currentPage = 1
     
@@ -82,7 +82,7 @@ class OrdersViewModel: ObservableObject {
     // MARK: -> Cancel Order
     
     func cancelOrder(orderIdentifier: Int) {
-        self.serviceAPI.cancelOrderInProgress(completion: { result in
+        self.serverRequest.cancelOrderInProgress(completion: { result in
             switch result {
             case .success(let message):
                 if let removeOrderIndex = self.orders.firstIndex(where: { $0.id == orderIdentifier }) {

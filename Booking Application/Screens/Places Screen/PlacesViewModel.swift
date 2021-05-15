@@ -13,7 +13,7 @@ class PlacesViewModel: ObservableObject {
     @Published var showAlertError = false
     @Published var errorMessage = ""
     
-    private var serviceAPI = ServiceAPI()
+    private var serverRequest = ServerRequest()
     var canLoadMorePages = true
     var currentPage = 1
     
@@ -78,7 +78,7 @@ class PlacesViewModel: ObservableObject {
     // MARK: -> API Request For Delete Place From Favourite
     
     func deleteFavouriteState(favourite: Place) {
-        serviceAPI.deleteFavourite(completion: { result in
+        serverRequest.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
                 if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
@@ -96,7 +96,7 @@ class PlacesViewModel: ObservableObject {
     // MARK: -> API Request For Add Place To Favourite
     
     func setFavouriteState(favourite: Place) {
-        self.serviceAPI.addToFavourite(completion: { result in
+        self.serverRequest.addToFavourite(completion: { result in
             switch result {
             case .success(let response):
                 if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {

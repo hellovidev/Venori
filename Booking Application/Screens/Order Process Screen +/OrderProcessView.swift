@@ -92,7 +92,7 @@ struct BookProcessView: View {
     
     @State private var dateReservation: Date = Date()
     
-    var serviceAPI: ServiceAPI = ServiceAPI()
+    var serviceAPI: ServerRequest = ServerRequest()
     
     @State private var selectedReservationTime: String = ""
     @State private var isField: Bool = false
@@ -286,7 +286,16 @@ struct BookProcessView: View {
                     Spacer()
                     Button(action: {
                         if let selectedTime = times.first(where: { $0.id == self.selectedReservationTime }) {
-                            serviceAPI.reserveTablePlace(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: Date().getDateCorrectFormat(date: dateReservation), time: selectedTime.time)
+                            serviceAPI.reserveTablePlace(placeIdentifier: placeID, adultsAmount: Int(valueHumans), duration: valueHours, date: Date().getDateCorrectFormat(date: dateReservation), time: selectedTime.time, completion: { response in
+                                switch response {
+                                case .success(let data):
+                                    print(data)
+                                case .failure(let error):
+                                print(error)
+
+                                }
+                                
+                            })
                             self.actionContinue()
                         }
                     }) {

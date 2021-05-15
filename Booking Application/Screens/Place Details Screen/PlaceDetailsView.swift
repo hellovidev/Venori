@@ -12,14 +12,14 @@ struct PlaceDetailsView: View {
     @ObservedObject var viewModel: PlaceDetailsViewModel
     @State private var showPopUp: Bool = false
     
-    var serviceAPI: ServiceAPI = ServiceAPI()
+    var serviceAPI: ServerRequest = ServerRequest()
     
     var body: some View {
         ZStack {
             ScrollView {
                 
                 ZStack {
-                    ImageURL(url: DomainRouter.generalDomain.rawValue + viewModel.place!.imageURL)
+                    ImageURL(url: DomainRouter.generalDomain.rawValue + viewModel.place.imageURL)
                         .background(Color.gray)
                         .frame(maxWidth: .infinity, maxHeight: 256, alignment: .center)
 
@@ -32,9 +32,8 @@ struct PlaceDetailsView: View {
                                 .padding(.leading, 16)
                         }
                         Spacer()
-                        if self.viewModel.place != nil {
                             Button (action: {
-                                self.viewModel.place?.favourite ?? false ? self.viewModel.deleteFavouriteState() : self.viewModel.setFavouriteState()
+                                self.viewModel.place.favourite ?? false ? self.viewModel.deleteFavouriteState() : self.viewModel.setFavouriteState()
                             }, label: {
                                 Image("Heart")
                                     .resizable()
@@ -42,20 +41,19 @@ struct PlaceDetailsView: View {
                                     .frame(maxWidth: 22, maxHeight: 22, alignment: .center)
                                     .foregroundColor(.white)
                                     .padding(6)
-                                    .background(viewModel.place?.favourite ?? false ? Color.blue : Color(UIColor(hex: "#0000007A")!))
+                                    .background(viewModel.place.favourite ?? false ? Color.blue : Color(UIColor(hex: "#0000007A")!))
                                     .clipShape(Circle())
                                     .padding([.top, .bottom], 12)
                                     .padding(.trailing, 16)
                             })
                             
-                        }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .padding(.top, 36)
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(viewModel.place!.name)
+                    Text(viewModel.place.name)
                         .font(.system(size: 28, weight: .bold))
                         .padding(.top, 22)
                         .padding(.bottom, 2)
@@ -65,14 +63,14 @@ struct PlaceDetailsView: View {
                         .padding(.bottom, 8)
                     
                     HStack(alignment: .center) {
-                        StarsView(rating: viewModel.place!.rating)
+                        StarsView(rating: viewModel.place.rating)
                             .padding(.trailing, 4)
-                        Text("\(NSString(format: "%.01f", viewModel.place!.rating))")
+                        Text("\(NSString(format: "%.01f", viewModel.place.rating))")
                             .font(.system(size: 18, weight: .semibold))
                         Button(action: {
-                            self.viewModel.controller?.redirectReviews(placeIdentifier: viewModel.place!.id)
+                            self.viewModel.controller?.redirectReviews(placeIdentifier: viewModel.place.id)
                         }, label: {
-                            Text("\(viewModel.place!.reviewsCount) Reviews")
+                            Text("\(viewModel.place.reviewsCount) Reviews")
                                 .font(.system(size: 18, weight: .regular))
                                 .foregroundColor(Color(UIColor(hex: "#00000080")!))
                         })
@@ -85,7 +83,7 @@ struct PlaceDetailsView: View {
                                 .padding(.trailing, 8)
                                 .padding(.top, 18)
                             VStack(alignment: .leading) {
-                                Text(viewModel.place!.addressFull)
+                                Text(viewModel.place.addressFull)
                                     .font(.system(size: 18, weight: .regular))
                                     .padding(.bottom, 2)
                                 Button {
@@ -98,9 +96,8 @@ struct PlaceDetailsView: View {
                             .frame(maxHeight: .infinity)
                         }
                         Spacer()
-                        if viewModel.place != nil {
                             
-                            Map(coordinateRegion: .constant(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.place!.addressLat, longitude: viewModel.place!.addressLon), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))), annotationItems: [MapPin(name: "I'm here", coordinate: CLLocationCoordinate2D(latitude: viewModel.place!.addressLat, longitude: viewModel.place!.addressLon))] ) { location in
+                            Map(coordinateRegion: .constant(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.place.addressLat, longitude: viewModel.place.addressLon), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))), annotationItems: [MapPin(name: "I'm here", coordinate: CLLocationCoordinate2D(latitude: viewModel.place.addressLat, longitude: viewModel.place.addressLon))] ) { location in
                                 MapAnnotation(coordinate: location.coordinate) {
                                     Image("Point Pin")
                                         .resizable()
@@ -112,14 +109,13 @@ struct PlaceDetailsView: View {
                             .scaledToFill()
                             .cornerRadius(16)
                             
-                        }
                     }
                     .padding(.bottom, 20)
                     
                     HStack {
                         Image("Phone")
                             .padding(.trailing, 8)
-                        Text(viewModel.place!.phone ?? "No phone")
+                        Text(viewModel.place.phone ?? "No phone")
                             .font(.system(size: 18, weight: .regular))
                     }
                     .padding(.bottom, 22)
@@ -136,7 +132,7 @@ struct PlaceDetailsView: View {
                             
                             Button {
                                 showPopUp.toggle()
-                                self.viewModel.controller?.showWeekSchedule(placeID: self.viewModel.place!.id)
+                                self.viewModel.controller?.showWeekSchedule(placeID: self.viewModel.place.id)
                             } label: {
                                 Text("View schedule")
                                     .font(.system(size: 12, weight: .regular))
@@ -145,36 +141,11 @@ struct PlaceDetailsView: View {
                         
                     }
                     .padding(.bottom, 24)
-                    .onAppear {
-                        self.serviceAPI.getScheduleOfPlace(completion: { result in
-                            switch result {
-                            case .success(let weekSchedule): do {
-                                //print(weekSchedule)
-                                
-                                switch Date().dayOfWeek()! {
-                                case "Monday":
-                                    self.viewModel.workTime = weekSchedule[1].workEnd!
-                                case "Wednesday":
-                                    self.viewModel.workTime = weekSchedule[3].workEnd!
-                                default:
-                                    self.viewModel.workTime = weekSchedule[0].workEnd!
-                                }
-                            }
-                            //self.times = times
-                            case .failure(let error):
-                                print(error)
-                            //                                    DispatchQueue.main.async {
-                            //                                        viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-                            //                                      }
-                            }
-                        }, placeIdentifier: self.viewModel.place!.id)
-                        
-                    }
                     
                     HStack(alignment: .top) {
                         Image("Info")
                             .padding(.trailing, 8)
-                        Text(viewModel.place!.description)
+                        Text(viewModel.place.description)
                             .font(.system(size: 18, weight: .regular))
                     }
                 }
@@ -183,7 +154,7 @@ struct PlaceDetailsView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.viewModel.controller?.redirectToBookingProcess(object: viewModel.place!)
+                    self.viewModel.controller?.redirectToBookingProcess(object: viewModel.place)
                 }) {
                     Text("Book a table")
                         .foregroundColor(.white)
@@ -200,16 +171,16 @@ struct PlaceDetailsView: View {
             }
             .ignoresSafeArea(.container, edges: .top)
             
-            SchedulePopUpView(placeIdentifier: self.viewModel.place!.id,show: $showPopUp, schedules: [])
+            SchedulePopUpView(placeIdentifier: self.viewModel.place.id,show: $showPopUp, schedules: [])
         }
     }
 }
 
-struct DetailsRestaurantView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlaceDetailsView(viewModel: PlaceDetailsViewModel())
-    }
-}
+//struct DetailsRestaurantView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlaceDetailsView(viewModel: PlaceDetailsViewModel(place: <#Place#>))
+//    }
+//}
 
 
 struct StarsView: View {

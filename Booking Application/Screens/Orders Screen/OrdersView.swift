@@ -41,9 +41,32 @@ struct OrdersView: View {
                                     })
                                     .onAppear {
                                         viewModel.loadMoreContentIfNeeded(currentItem: item)
+//                                        viewModel.serverRequest.fetchDataAboutOrders(completion: {
+//                                            response in
+//                                            switch response {
+//                                            case .success(let orders):
+//                                                viewModel.orders = orders.data
+//                                                print(orders)
+//                                            case .failure(let error):
+//                                                print(error)
+//                                            }
+//                                        })
                                     }
                                 }
                             }
+//                            .onAppear {
+//                                //viewModel.loadMoreContentIfNeeded(currentItem: item)
+//                                viewModel.serverRequest.fetchDataAboutOrders(completion: {
+//                                    response in
+//                                    switch response {
+//                                    case .success(let orders):
+//                                        viewModel.orders = orders.data
+//                                        print(orders)
+//                                    case .failure(let error):
+//                                        print(error)
+//                                    }
+//                                })
+//                            }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                             .padding(.top, 16)
                             .padding(.bottom, 35)

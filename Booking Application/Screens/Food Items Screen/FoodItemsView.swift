@@ -11,7 +11,7 @@ struct FoodItemsView: View {
     @ObservedObject var viewModel: FoodItemsViewModel
     @State private var showPopUp: Bool = false
     @State private var errorMessage: String = ""
-    private let serviceAPI = ServiceAPI()
+    private let serviceAPI = ServerRequest()
     
     var body: some View {
         NavigationView {
@@ -65,16 +65,16 @@ struct FoodItemsView: View {
                 ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
             }
         }
-        .onAppear {
-            self.serviceAPI.fetchDataAboutCategories(completion: { result in
-                switch result {
-                case .success(let categories):
-                    self.viewModel.categories = categories.data
-                case .failure(let error):
-                    self.errorMessage = error.localizedDescription
-                    showPopUp.toggle()
-                }
-            })
-        }
+//        .onAppear {
+//            self.serviceAPI.fetchDataAboutCategories(completion: { result in
+//                switch result {
+//                case .success(let categories):
+//                    self.viewModel.categories = categories.data
+//                case .failure(let error):
+//                    self.errorMessage = error.localizedDescription
+//                    showPopUp.toggle()
+//                }
+//            })
+//        }
     }
 }

@@ -14,7 +14,7 @@ class CategoryPlacesViewModel: ObservableObject {
     @Published var showAlertError = false
     @Published var errorMessage = ""
     
-    private var serviceAPI = ServiceAPI()
+    private var serviceAPI = ServerRequest()
     var canLoadMorePages = true
     var currentPage = 1
     

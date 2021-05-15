@@ -13,7 +13,7 @@ struct SchedulePopUpView: View {
     
     @State var schedules: [Schedule]
     
-    var serviceAPI = ServiceAPI()
+    var serviceAPI = ServerRequest()
     
     private let enumerations = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     

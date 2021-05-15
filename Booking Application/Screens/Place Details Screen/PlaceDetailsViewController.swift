@@ -9,8 +9,8 @@ import UIKit
 import SwiftUI
 
 class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
-    private let viewModel = PlaceDetailsViewModel()
-    private var serviceAPI = ServiceAPI()
+    private let viewModel: PlaceDetailsViewModel
+    private var serviceAPI = ServerRequest()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -22,7 +22,7 @@ class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
     }
     
     init(place: Place) {
-        viewModel.place = place
+        viewModel = PlaceDetailsViewModel(place: place)
         let view = PlaceDetailsView(viewModel: viewModel)
         super.init(rootView: view)
         viewModel.controller = self
@@ -51,7 +51,7 @@ class PlaceDetailsViewController: UIHostingController<PlaceDetailsView>  {
     }
     
     func showMapView() {
-        let navigationController = UINavigationController(rootViewController: MapViewController(latitude: viewModel.place?.addressLat ?? 0, longitude: viewModel.place?.addressLon ?? 0))
+        let navigationController = UINavigationController(rootViewController: MapViewController(latitude: viewModel.place.addressLat, longitude: viewModel.place.addressLon))
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }
