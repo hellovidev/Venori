@@ -46,7 +46,8 @@ struct ReviewsView: View {
                                     .padding(.trailing, 19)
                                     .foregroundColor(.black)
                             })
-                        }.frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     
                     // MARK: -> Data List View
@@ -67,7 +68,7 @@ struct ReviewsView: View {
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                        .padding(.top, 16)
+                        .padding(.top, 8)
                         .padding(.bottom, 35)
                         
                         // MARK: -> While Data Loading Show Progress View

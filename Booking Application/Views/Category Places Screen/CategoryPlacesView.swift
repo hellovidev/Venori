@@ -109,10 +109,5 @@ struct CategoryPlacesView: View {
             }
         }
     }
+    
 }
-
-//struct CategoryPlacesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CategoryPlacesView()
-//    }
-//}

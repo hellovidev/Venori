@@ -12,57 +12,61 @@ struct ReviewProcessView: View {
     
     var body: some View {
         ZStack {
-        VStack(alignment: .leading) {
-            Button ( action:{
-                viewModel.controller?.redirectPrevious()
-            }, label: {
-                Image("Close")
-                    .padding([.top, .bottom, .trailing], 22)
+            VStack(alignment: .leading) {
+                Button ( action:{
+                    viewModel.controller?.redirectPrevious()
+                }, label: {
+                    Image("Close")
+                        .padding([.top, .bottom, .trailing], 22)
+                        .padding(.leading, 16)
+                })
+                Text("New review")
+                    .font(.system(size: 32, weight: .bold))
                     .padding(.leading, 16)
-            })
-            Text("New review")
-                .font(.system(size: 32, weight: .bold))
-                .padding(.leading, 16)
-                .padding(.bottom, 22)
-            
-            TextFieldReviewView(data: $viewModel.titleText, placeholder: "Title")
-                .padding([.trailing, .leading], 16)
-            
-            Text("Description")
-                .foregroundColor(Color.black)
-                .font(.system(size: 18))
-                .padding([.trailing, .leading], 20)
-            
-            TextEditor(text: $viewModel.descriptionText)
-                .font(.system(size: 18))
-                .frame(maxHeight: 96, alignment: .center)
-                .border(Color.gray, width: 1)
-                .padding(3)
-                
-                .padding([.trailing, .leading], 16)
-            RatingView(rating: $viewModel.rating)
-                .padding([.trailing, .leading], 16)
-                .padding([.top, .bottom], 12)
-            Button(action: {
-                viewModel.publishNewReview(title: viewModel.titleText, rating: viewModel.rating!, description: viewModel.descriptionText)
-            }) {
-                Text("Publish")
-                    .foregroundColor(.white)
-                    .font(.system(size: 17, weight: .semibold))
-                    .padding(.top, 13)
-                    .padding(.bottom, 13)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                    .frame(maxWidth: .infinity)
-                    .shadow(radius: 10)
-                    .background(!viewModel.isValid ? Color.gray : Color("Button Color"))
+                    .padding(.bottom, 22)
+                Text("Title")
+                    .foregroundColor(Color.black)
+                    .font(.system(size: 18))
+                    .padding([.trailing, .leading], 20)
+                TextFieldReviewView(data: $viewModel.titleText, placeholder: "")
+                    .padding([.trailing, .leading, .bottom], 16)
+                Text("Description")
+                    .foregroundColor(Color.black)
+                    .font(.system(size: 18))
+                    .padding([.trailing, .leading], 20)
+                TextEditor(text: $viewModel.descriptionText)
+                    .font(.system(size: 18))
+                    .frame(maxHeight: 82, alignment: .center)
+                    .border(Color.gray, width: 1)
+                    .padding(3)
+                    .padding([.trailing, .leading, .bottom], 16)
+                Text("Rating")
+                    .foregroundColor(Color.black)
+                    .font(.system(size: 18))
+                    .padding([.trailing, .leading], 20)
+                RatingView(rating: $viewModel.rating)
+                    .padding([.trailing, .leading], 16)
+                Spacer()
+                Button(action: {
+                    viewModel.publishNewReview(title: viewModel.titleText, rating: viewModel.rating!, description: viewModel.descriptionText)
+                }, label:{
+                    Text("Publish")
+                        .foregroundColor(.white)
+                        .font(.system(size: 17, weight: .semibold))
+                        .padding(.top, 13)
+                        .padding(.bottom, 13)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                        .frame(maxWidth: .infinity)
+                        .shadow(radius: 10)
+                        .background(!viewModel.isValid ? Color.gray : Color("Button Color"))
+                })
+                .disabled(!viewModel.isValid)
+                .modifier(ButtonModifier())
+                .padding(.bottom, 35)
             }
-            .disabled(!viewModel.isValid)
-            .modifier(ButtonModifier())
-            .padding(.bottom, 35)
-            Spacer()
-        }
-        .ignoresSafeArea(.keyboard)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+
             
             if viewModel.isLoading {
                 ZStack {
@@ -71,6 +75,7 @@ struct ReviewProcessView: View {
                 }
                 .ignoresSafeArea()
             }
+            
         }
         .onTapGesture {
             self.hideKeyboard()
@@ -79,6 +84,7 @@ struct ReviewProcessView: View {
             Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
         }
     }
+    
 }
 
 struct RatingView: View {
@@ -105,6 +111,7 @@ struct RatingView: View {
         } else {
             return "star"
         }
+        
     }
 }
 
@@ -119,15 +126,11 @@ struct TextFieldReviewView: View {
             TextField(placeholder, text: $data)
                 .font(.system(size: 18))
                 .multilineTextAlignment(.leading)
-            
-            Divider()
-                .frame(height: 1)
-                .padding(.horizontal, 30)
-                .background(Color.gray)
         }
-        .frame(maxHeight: 48, alignment: .center)
-        .padding(3)
+        .frame(maxHeight: 42, alignment: .center)
+        .padding(.vertical, 2)
+        .padding(.horizontal, 8)
+        .border(Color.gray, width: 1)
     }
+    
 }
-
-

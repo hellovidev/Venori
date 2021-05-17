@@ -10,7 +10,7 @@ import SwiftUI
 struct PullToRefresh: View {
     @State private var needRefresh: Bool = false
     var coordinateSpaceName: String
-    var onRefresh: () ->Void
+    var onRefresh: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
@@ -40,7 +40,7 @@ struct PullToRefresh: View {
                 }
                 Spacer()
             }
-        }.padding(.top, -50)
+        }.padding(.top, -64)
     }
     
 }

@@ -10,43 +10,65 @@ import SwiftUI
 
 class CategoryPlacesViewModel: ObservableObject {
     weak var controller: CategoryPlacesViewController?
+    private var serverRequest = ServerRequest()
+    private var cancellables = Set<AnyCancellable>()
+    private var canLoadMorePages = true
+    private var currentPage = 1
+    
+    @Published var places = [Place]()
+    @Published var isLoadingPage = false
+    
+    // Alert Data
     
     @Published var showAlertError = false
     @Published var errorMessage = ""
     
-    private var serviceAPI = ServerRequest()
-    var canLoadMorePages = true
-    var currentPage = 1
-    
-    @Published var places = [Place]()
-    @Published var isLoadingPage = false
-    @Published var isProcessDelete = false
-    
-    private var cancellables = Set<AnyCancellable>()
+    // Identity Data
     
     private let categoryIdentifier: Int
     let categoryName: String
     
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
     init(categoryIdentifier: Int, categoryName: String) {
         self.categoryIdentifier = categoryIdentifier
         self.categoryName = categoryName
+        
+        self.loadMorePlaces()
+        
+        // Register to receive notification in your class
+        
+        NotificationCenter.default
+            .publisher(for: .newReviewNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.resetPlacesData()
+                self?.loadMorePlaces()
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: -> Load Content By Pages
     
     func loadMoreContentIfNeeded(currentItem item: Place?) {
         guard let item = item else {
-            loadMoreContent()
+            loadMorePlaces()
             return
         }
         
         let thresholdIndex = places.index(places.endIndex, offsetBy: -5)
         if places.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+            loadMorePlaces()
         }
     }
     
-    func loadMoreContent() {
+    func loadMorePlaces() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -76,7 +98,7 @@ class CategoryPlacesViewModel: ObservableObject {
                 self.currentPage += 1
             })
             .map({ response in
-                print(response.data)
+                //print(response.data)
                 self.places.append(contentsOf: response.data)
                 return self.places
             })
@@ -87,17 +109,17 @@ class CategoryPlacesViewModel: ObservableObject {
     // MARK: -> API Request For Delete Place From Favourite
     
     func deleteFavouriteState(favourite: Place) {
-        serviceAPI.deleteFavourite(completion: { result in
+        serverRequest.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
                 if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[deleteFavouriteIndex].favourite = false
                 }
-                print(response)
+                print("Delete favourite success: \(response)")
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlertError = true
-                print(error)
+                print("Delete favourite faild: \(error.localizedDescription)")
             }
         }, placeIdentifier: favourite.id)
     }
@@ -105,18 +127,26 @@ class CategoryPlacesViewModel: ObservableObject {
     // MARK: -> API Request For Add Place To Favourite
     
     func setFavouriteState(favourite: Place) {
-        self.serviceAPI.addToFavourite(completion: { result in
+        self.serverRequest.addToFavourite(completion: { result in
             switch result {
             case .success(let response):
                 if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[setFavouriteIndex].favourite = true
                 }
-                print(response)
+                print("Make favourite success: \(response.name) now is favourite.")
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlertError = true
-                print(error)
+                print("Make favourite faild: \(error.localizedDescription)")
             }
         }, placeIdentifier: favourite.id)
     }
+    
+    func resetPlacesData() {
+        currentPage = 1
+        places.removeAll()
+        isLoadingPage = false
+        canLoadMorePages = true
+    }
+    
 }

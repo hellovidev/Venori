@@ -15,10 +15,7 @@ class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        viewModel.places.removeAll()
-        viewModel.isLoadingPage = false
-        viewModel.canLoadMorePages = true
-        viewModel.currentPage = 1
+        viewModel.resetPlacesData()
     }
     
     // MARK: -> Make Navigation Bar Hidden
@@ -26,7 +23,6 @@ class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.loadMoreContent()
     }
     
     // MARK: -> Initialization SwiftUI View
@@ -50,7 +46,7 @@ class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         view.window?.layer.add(transition, forKey: kCATransition)
-
+        
         self.navigationController?.popViewController(animated: false)
         self.dismiss(animated: false, completion: nil)
     }
@@ -62,7 +58,6 @@ class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
         let navigationController = UINavigationController(rootViewController: rootviewController)
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -71,4 +66,5 @@ class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: false, completion: nil)
     }
+    
 }
