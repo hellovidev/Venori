@@ -11,11 +11,11 @@ struct LaunchView: View {
     @State private var isLoading: Bool = true
     
     var body: some View {
-        VStack{
-            isLoading ? Image("Splash Image Blur").frame(alignment: .top).modifier(ImageStartModifier()) : Image("Splash Image").frame(maxWidth: .infinity, alignment: .top).modifier(ImageStartModifier())
-            Spacer()
-        }
-        .overlay(
+        ZStack {
+            VStack{
+                isLoading ? Image("Splash Image Blur").frame(alignment: .top).modifier(ImageStartModifier()) : Image("Splash Image").frame(maxWidth: .infinity, alignment: .top).modifier(ImageStartModifier())
+                Spacer()
+            }
             RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#D6DDE700")!), Color(UIColor(hex: "#DAE1EBFF")!)]), center: UnitPoint(x: 0.5, y: 0.33), startRadius: 140, endRadius: 220)
                 .ignoresSafeArea()
                 .onAppear {
@@ -23,8 +23,9 @@ struct LaunchView: View {
                         self.isLoading.toggle()
                     })
                 }
-        )
+        }
     }
+    
 }
 
 struct ImageStartModifier: ViewModifier {
@@ -34,10 +35,12 @@ struct ImageStartModifier: ViewModifier {
             .opacity(1.0)
             .animation(.easeInOut(duration: 2.0))
     }
+    
 }
 
-struct SplashView_Previews: PreviewProvider {
+struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
         LaunchView()
     }
+    
 }

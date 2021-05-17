@@ -388,10 +388,18 @@
 			path = "Review Process Screen";
 			sourceTree = "<group>";
 		};
-		3FA90CA52632F70B001D1BCE /* Views */ = {
+		3F9DCB4626529E4D00B279CD /* Launch Screen */ = {
 			isa = PBXGroup;
 			children = (
 				3F86BDF22626D9B000CA4CD3 /* LaunchView.swift */,
+			);
+			path = "Launch Screen";
+			sourceTree = "<group>";
+		};
+		3FA90CA52632F70B001D1BCE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3F9DCB4626529E4D00B279CD /* Launch Screen */,
 				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
