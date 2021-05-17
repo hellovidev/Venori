@@ -43,8 +43,14 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
     // MARK: -> Click On 'Back' Button
     
     func redirectPrevious() {
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
+        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: nil)
     }
     
     // MARK: -> Redirect User To Detail Information About Place
@@ -54,7 +60,6 @@ class BookingHistoryViewController: UIHostingController<BookingHistoryView>  {
         let navigationController = UINavigationController(rootViewController: rootviewController)
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)

@@ -11,6 +11,12 @@ struct RegistrationView: View {
     @ObservedObject var viewModel: RegistrationViewModel
     
     var body: some View {
+        let bindingEmailCapitalization = Binding<String>(get: {
+            viewModel.email
+        }, set: {
+            viewModel.email = $0.lowercased()
+        })
+        
         ZStack {
             VStack {
                 ZStack {
@@ -32,17 +38,17 @@ struct RegistrationView: View {
                         TextFieldView(data: $viewModel.name, placeholder: "Name", isPassword: false)
                         TextFieldView(data: $viewModel.surname, placeholder: "Surname", isPassword: false)
                     }
-                    .padding(.bottom, 6)
+                    .padding(.bottom, 4)
                     .padding([.leading, .trailing], 24)
                     Text(viewModel.inputNameErrorMessage)
                         .isHidden(viewModel.inputNameErrorMessage.isEmpty ? true : false, remove: viewModel.inputNameErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 4)
                         .padding([.leading, .trailing], 24)
-                    TextFieldView(data: $viewModel.email, placeholder: "Email", isPassword: false)
-                        .padding(.bottom, 6)
+                    TextFieldView(data: bindingEmailCapitalization, placeholder: "Email", isPassword: false)
+                        .padding(.bottom, 4)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .padding([.leading, .trailing], 24)
@@ -76,19 +82,26 @@ struct RegistrationView: View {
                         .padding(.bottom, 4)
                         .padding([.leading, .trailing], 24)
                     TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true)
-                        .padding(.bottom, 6)
-                        .padding([.leading, .trailing], 24)
-                    TextFieldView(data: $viewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
+                        .padding(.bottom, 4)
                         .padding([.leading, .trailing], 24)
                     Text(viewModel.inputPasswordErrorMessage)
                         .isHidden(viewModel.inputPasswordErrorMessage.isEmpty ? true : false, remove: viewModel.inputPasswordErrorMessage.isEmpty ? true : false)
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.red)
                         .background(Color.yellow)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 4)
+                        .padding([.leading, .trailing], 24)
+                    TextFieldView(data: $viewModel.passwordRepeat, placeholder: "Repeat Password", isPassword: true)
+                        .padding([.leading, .trailing], 24)
+                    Text(viewModel.inputPasswordRepeatErrorMessage)
+                        .isHidden(viewModel.inputPasswordRepeatErrorMessage.isEmpty ? true : false, remove: viewModel.inputPasswordRepeatErrorMessage.isEmpty ? true : false)
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(.red)
+                        .background(Color.yellow)
+                        .padding(.bottom, 4)
                         .padding([.leading, .trailing], 24)
                 }
-                .padding(.top, 96)
+                .padding(.top, 72)
                 VStack {
                     Button(action: {
                         self.hideKeyboard()

@@ -118,7 +118,6 @@ class LoginViewModel: ObservableObject {
     
     private var isPasswordLengthCorrectPublisher: AnyPublisher<String, Never> {
         Publishers.CombineLatest(isPasswordEmptyPublisher, isPasswordStrengthPublisher)
-            //.debounce(for: 0.5, scheduler: RunLoop.main)
             .map { passwordIsEmpty, passwordIsStrong in
                 if !passwordIsEmpty == false && passwordIsStrong == false {
                     return ""

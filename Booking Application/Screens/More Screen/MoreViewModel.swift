@@ -11,6 +11,10 @@ class MoreViewModel: ObservableObject {
     weak var controller: MoreViewController?
     private let serverRequests = ServerRequest()
     
+    // Alert Data
+    
+    @Published var isLoading: Bool = false
+    
     @Published var user: User?
     @Published var showAlert = false
     @Published var errorMessage = ""
@@ -26,15 +30,20 @@ class MoreViewModel: ObservableObject {
     }
     
     func logoutAccount() {
+        isLoading = true
         self.serverRequests.userAccountLogout( completion: { result in
             switch result {
             case .success(let message):
-                print(message)
+                self.isLoading = false
                 self.controller?.systemLogout()
+                print(message)
             case .failure(let error):
-                print(error)
-                self.errorMessage = error.localizedDescription
-                self.showAlert = true
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.errorMessage = error.localizedDescription
+                    self.showAlert = true
+                    print(error)
+                }
             }
         })
     }

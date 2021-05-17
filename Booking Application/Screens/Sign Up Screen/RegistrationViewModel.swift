@@ -19,6 +19,7 @@ class RegistrationViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var errorMessage = ""
     @Published var inputEmailErrorMessage = ""
+    @Published var inputPasswordRepeatErrorMessage = ""
     @Published var inputPasswordErrorMessage = ""
     @Published var inputNameErrorMessage = ""
     @Published var isLoading: Bool = false
@@ -50,6 +51,12 @@ class RegistrationViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { [weak self] in self?.isValid = $0 }
             .store(in: &cancellableSet)
+        
+        isPasswordLengthCorrectPublisher
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in self?.inputPasswordErrorMessage = $0 }
+            .store(in: &cancellableSet)
     }
     
     private var isEmailEmptyPublisher: AnyPublisher<Bool, Never> {
@@ -74,6 +81,8 @@ class RegistrationViewModel: ObservableObject {
                 case false:
                     if !email.isEmpty {
                         self.inputEmailErrorMessage = "Invalid email address!"
+                    } else {
+                        self.inputEmailErrorMessage = ""
                     }
                     return .invalid
                 }
@@ -110,6 +119,20 @@ class RegistrationViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    private var isPasswordLengthCorrectPublisher: AnyPublisher<String, Never> {
+        Publishers.CombineLatest(isPasswordEmptyPublisher, isPasswordStrengthPublisher)
+            .map { passwordIsEmpty, passwordIsStrong in
+                if !passwordIsEmpty == false && passwordIsStrong == false {
+                    return ""
+                } else if !passwordIsEmpty && passwordIsStrong {
+                    return ""
+                } else {
+                    return "Password should be > 8 and 256 < symbols!"
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
     private var arePasswordsEqualEmptyPublisher: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest($password, $passwordRepeat)
             .debounce(for: 0.3, scheduler: RunLoop.main)
@@ -124,24 +147,26 @@ class RegistrationViewModel: ObservableObject {
             .debounce(for: 0.3, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { password in
-                return password.count >= 8
+                return password.count >= 8 && password.count <= 256
             }
             .eraseToAnyPublisher()
     }
     
     private var isPasswordValidPublisher: AnyPublisher<PasswordCheck, Never> {
-        Publishers.CombineLatest3(isPasswordEmptyPublisher, arePasswordsEqualEmptyPublisher, isPasswordStrengthPublisher)
-            .map { passwordIsEmpty, passwordAreEqual, passwordIsStrong in
+        Publishers.CombineLatest4(isPasswordEmptyPublisher, arePasswordsEqualEmptyPublisher, isPasswordStrengthPublisher, isPasswordRepeatEmptyPublisher)
+            .map { passwordIsEmpty, passwordAreEqual, passwordIsStrong, passwordRepeatIsEmpty in
                 if passwordIsEmpty {
                     return .empty
-                } else if !passwordAreEqual {
-                    self.inputPasswordErrorMessage = "Passwords are not equal!"
+                } else if !passwordAreEqual && !passwordRepeatIsEmpty {
+                    self.inputPasswordRepeatErrorMessage = "Passwords are not equal!"
                     return .noMatch
                 } else if !passwordIsStrong {
-                    self.inputPasswordErrorMessage = "Password count should be grater than 8!"
+                    if passwordRepeatIsEmpty {
+                        self.inputPasswordRepeatErrorMessage = ""
+                    }
                     return .notStrong
                 } else {
-                    self.inputPasswordErrorMessage = ""
+                    self.inputPasswordRepeatErrorMessage = ""
                     return .valid
                 }
             }

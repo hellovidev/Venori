@@ -70,24 +70,24 @@ struct BookingHistoryView: View {
                                     .padding(.bottom, 35)
                             }
                             
-                        }.coordinateSpace(name: "pullToRefresh")
-                        
-                        // MARK: -> Empty Data View
-                        
-                        if !viewModel.isLoadingPage && viewModel.orders.isEmpty {
-                            VStack {
-                                Image("Empty")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(Color.gray)
-                                    .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
-                                Text("No Data")
-                                    .font(.system(size: 24, weight: .semibold))
-                                    .foregroundColor(Color.gray)
+                            // MARK: -> Empty Data View
+                            
+                            if !viewModel.isLoadingPage && viewModel.orders.isEmpty {
+                                VStack {
+                                    Image("Empty")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .frame(maxWidth: 64, maxHeight: 64, alignment: .center)
+                                        .fixedSize()
+                                        .foregroundColor(Color.gray)
+                                    Text("No Data")
+                                        .font(.system(size: 24, weight: .semibold))
+                                        .foregroundColor(Color.gray)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                .padding(.top, 96)
                             }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            .padding(.top, 128)
-                        }
+                        }.coordinateSpace(name: "pullToRefresh")
                     }
                 }
             }

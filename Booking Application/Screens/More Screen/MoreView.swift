@@ -32,6 +32,7 @@ struct MoreView: View {
     }
     
     var body: some View {
+        ZStack {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .center) {
                 ZStack {
@@ -98,6 +99,18 @@ struct MoreView: View {
             }
         }
         .ignoresSafeArea(.container, edges: .top)
+            
+            if viewModel.isLoading {
+                ZStack {
+                    Color(UIColor(hex: "#FFFFFF99")!)
+                    ProgressView()
+                }
+                .ignoresSafeArea()
+            }
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
+        }
     }
 }
 
