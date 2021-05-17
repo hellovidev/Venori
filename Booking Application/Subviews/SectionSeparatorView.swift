@@ -32,10 +32,12 @@ struct SectionSeparatorView: View {
         }
         .padding(.bottom, 9)
     }
+    
 }
 
 struct SectionView_Previews: PreviewProvider {
     static var previews: some View {
         SectionSeparatorView(title: "Category", onClick: {})
     }
+    
 }

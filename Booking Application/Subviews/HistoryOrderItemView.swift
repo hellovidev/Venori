@@ -10,12 +10,9 @@ import SwiftUI
 // MARK: -> History Order Item View
 
 struct HistoryOrderItemView: View {
-    private let serviceAPI = ServerRequest()
     @State private var order: Order
     @State private var isHistory: Bool = false
     @State private var isActiveOrder: Bool = false
-    //@State private var place = Place()
-    
     @State private var cancelCallback: () -> Void
     @State private var openPlaceCallback: () -> Void
     
@@ -34,6 +31,7 @@ struct HistoryOrderItemView: View {
             self._isHistory = State(initialValue: false)
             self._isActiveOrder = State(initialValue: true)
         }
+        
     }
     
     var body: some View {
@@ -48,10 +46,7 @@ struct HistoryOrderItemView: View {
                         .font(.system(size: 12, weight: .regular))
                         .padding([.leading, .trailing], 10)
                         .padding([.top, .bottom], 6)
-                        .background(
-                            Color(UIColor(hex: "#3A7DFF2E")!)
-                                .cornerRadius(14)
-                        )
+                        .background(Color(UIColor(hex: "#3A7DFF2E")!).cornerRadius(14))
                 }
                 Spacer()
                 Text("$\(self.order.price)")
@@ -70,13 +65,11 @@ struct HistoryOrderItemView: View {
                 Text("\(self.order.people) Person\(self.order.people == 1 ? "" : "s")")
                     .font(.system(size: 14, weight: .regular))
             }
-            
             Button(action: {
                 self.openPlaceCallback()
             }, label: {
                 PlaceInnerItemView(place: self.order.place ?? Place())
             })
-
             VStack(alignment: .center) {
                 Button(action: {
                     self.cancelCallback()
@@ -104,4 +97,5 @@ struct HistoryOrderItemView: View {
         }
         .padding([.leading, .trailing], 16)
     }
+    
 }

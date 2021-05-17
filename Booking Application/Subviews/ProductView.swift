@@ -39,6 +39,7 @@ struct ProductView: View {
         .padding([.leading, .trailing], 16)
         .padding([.top, .bottom], 8)
     }
+    
 }
 
 struct ProductView_Previews: PreviewProvider {

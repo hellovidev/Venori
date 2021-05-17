@@ -9,18 +9,17 @@ import SwiftUI
 
 struct PullToRefresh: View {
     @State private var needRefresh: Bool = false
-    
     var coordinateSpaceName: String
     var onRefresh: () ->Void
     
     var body: some View {
-        GeometryReader { geo in
-            if (geo.frame(in: .named(coordinateSpaceName)).midY > 50) {
+        GeometryReader { geometry in
+            if (geometry.frame(in: .named(coordinateSpaceName)).midY > 50) {
                 Spacer()
                     .onAppear {
                         needRefresh = true
                     }
-            } else if (geo.frame(in: .named(coordinateSpaceName)).maxY < 10) {
+            } else if (geometry.frame(in: .named(coordinateSpaceName)).maxY < 10) {
                 Spacer()
                     .onAppear {
                         if needRefresh {
@@ -43,4 +42,5 @@ struct PullToRefresh: View {
             }
         }.padding(.top, -50)
     }
+    
 }

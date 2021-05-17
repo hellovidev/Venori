@@ -42,4 +42,5 @@ struct PlaceInnerItemView: View {
         }
         .padding([.bottom, .top], 12)
     }
+    
 }

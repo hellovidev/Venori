@@ -11,7 +11,7 @@ struct StepperView: View {
     @Binding var value: Float
     var valueType: String
     var onClick: () -> Void
-        
+    
     var body: some View {
         HStack(alignment: .center) {
             Button {
@@ -40,7 +40,7 @@ struct StepperView: View {
                 if valueType == "hr" && value < 24 {
                     value += 0.5
                     self.onClick()
-                } else if valueType != "hr" {
+                } else if valueType != "hr" && value < 256 {
                     value += 1
                     self.onClick()
                 }

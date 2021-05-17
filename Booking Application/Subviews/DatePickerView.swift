@@ -8,14 +8,8 @@
 import SwiftUI
 
 struct DatePickerView: View {
-//    private let serviceAPI = ServerRequest()
     @Binding var orderDateReservation: Date
     @Binding var show: Bool
-//    @Binding var times: [Time]
-//    var placeIdentifier: Int
-//    var adultsAmount: Int
-//    var duration: Float
-    
     var onSelected: () -> Void
     
     var body: some View {
@@ -41,34 +35,8 @@ struct DatePickerView: View {
                     .padding(16)
                     .background(Color.white)
                     .cornerRadius(16)
-                    
                     Button(action: {
                         self.onSelected()
-                        // Dismiss the PopUp
-//                        self.serviceAPI.getPlaceAvailableTime(completion: {
-//
-//                            result in
-//                            switch result {
-//                            case .success(let times):
-//                                //print(times)
-//                                //self.times = times
-//                                self.times = [Time]()
-//                                for item in times {
-//                                    self.times.append(Time(time: item))
-//                                }
-//                            case .failure(let error):
-//                                print(error)
-//                            //                                                DispatchQueue.main.async {
-//                            //                                                    self.viewModel.controller?.failPopUp(title: "Error", message: error.localizedDescription, buttonTitle: "Okay")
-//                            //                                                  }
-//                            }
-//                        }
-//
-//                        , placeIdentifier: placeIdentifier, adultsAmount: adultsAmount, duration: duration, date: Date().getDateCorrectFormat(date: orderDateReservation))
-                        
-//                        withAnimation(.linear(duration: 0.3)) {
-//                            show = false
-//                        }
                     }, label: {
                         Text("Okay")
                             .foregroundColor(.white)
@@ -83,29 +51,9 @@ struct DatePickerView: View {
                     .frame(maxWidth: 300)
                     .background(Color("Button Color"))
                     .cornerRadius(24)
-                    
                 }
             }
         }
     }
+    
 }
-
-//struct DatePickerView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DatePickerView()
-//    }
-//}
-
-
-////let date = Date()
-//let formatter = DateFormatter()
-////Give the format you want to the formatter:
-//
-//formatter.dateFormat = "yyyy-MM-dd"
-////Get the result string:
-//
-//let result = formatter.string(from: dateReservation)
-//
-////Set your label:
-
-

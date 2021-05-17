@@ -35,6 +35,7 @@ struct EnumerationTimeView: View {
             }
         }
     }
+    
 }
 
 struct ItemTimeView: View {
@@ -46,15 +47,16 @@ struct ItemTimeView: View {
         Button(action: {
             self.selectedButtonIdentifier = self.time.id
             self.isSelected = true
-        }) {
+        }, label: {
             Text(time.time)
                 .foregroundColor(self.selectedButtonIdentifier == self.time.id ? Color.white : Color(UIColor(hex: "#00000080")!))
                 .padding([.top, .bottom], 12)
                 .padding([.leading, .trailing], 16)
-        }
+        })
         .background(self.selectedButtonIdentifier == self.time.id ? Color.blue : Color(UIColor(hex: "#F6F6F6FF")!))
         .cornerRadius(24)
         .padding(.leading, 16)
         .padding(.trailing, 8)
     }
+    
 }

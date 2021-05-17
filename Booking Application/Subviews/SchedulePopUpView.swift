@@ -68,12 +68,7 @@ struct SchedulePopUpView: View {
                     .frame(maxWidth: 300)
                     .background(Color.white)
                     .cornerRadius(16)
-                    
                     Button(action: {
-                        // Dismiss the PopUp
-//                        withAnimation(.linear(duration: 0.3)) {
-//                            show = false
-//                        }
                         show = false
                     }, label: {
                         Text("Okay")
@@ -94,4 +89,5 @@ struct SchedulePopUpView: View {
             }
         }
     }
+    
 }

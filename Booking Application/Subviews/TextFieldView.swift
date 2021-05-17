@@ -48,6 +48,7 @@ struct TextFieldView: View {
             .foregroundColor(.black)
         }
     }
+    
 }
 
 struct TextFieldPlaceholderModifier: ViewModifier {
@@ -56,4 +57,5 @@ struct TextFieldPlaceholderModifier: ViewModifier {
             .font(.system(size: 13, weight: .regular))
             .frame(maxWidth: .infinity, maxHeight: 18, alignment: .leading)
     }
+    
 }

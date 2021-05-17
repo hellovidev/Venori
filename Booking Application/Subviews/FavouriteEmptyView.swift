@@ -36,10 +36,12 @@ struct FavouriteEmptyView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: 169)
     }
+    
 }
 
 struct FavouriteEmptyView_Previews: PreviewProvider {
     static var previews: some View {
         FavouriteEmptyView()
     }
+    
 }

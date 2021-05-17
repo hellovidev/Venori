@@ -62,7 +62,7 @@ struct FoodItemsView: View {
                     }
                 }
                 .navigationBarHidden(true)
-                ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
+                //ErrorPopUpView(title: "Error", message: self.errorMessage, show: $showPopUp)
             }
         }
 //        .onAppear {

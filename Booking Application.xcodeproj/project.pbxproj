@@ -24,7 +24,6 @@
 		3F3F8F3E26285CD20027E48C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F3D26285CD20027E48C /* HomeViewController.swift */; };
 		3F3F8F4126285D770027E48C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F8F4026285D770027E48C /* HomeViewModel.swift */; };
 		3F48FF0E26456B93002F65CC /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48FF0D26456B93002F65CC /* PullToRefresh.swift */; };
-		3F64AC46263FF85800862BAC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC45263FF85800862BAC /* LoadingView.swift */; };
 		3F64AC5226402D6F00862BAC /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5126402D6F00862BAC /* ButtonModifier.swift */; };
 		3F64AC5826402E3900862BAC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F64AC5726402E3900862BAC /* DatePickerView.swift */; };
 		3F68114726297E0B00095A7F /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68114626297E0B00095A7F /* OrdersViewController.swift */; };
@@ -75,13 +74,11 @@
 		3FA90CA22632F0DE001D1BCE /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90CA12632F0DE001D1BCE /* TextFieldView.swift */; };
 		3FA90CA82632F862001D1BCE /* FavouriteEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90CA72632F862001D1BCE /* FavouriteEmptyView.swift */; };
 		3FA90CAD2632F922001D1BCE /* SectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90CAC2632F922001D1BCE /* SectionSeparatorView.swift */; };
-		3FA90CB22632FB97001D1BCE /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90CB12632FB97001D1BCE /* NavigationBarView.swift */; };
 		3FA90CB72632FFD0001D1BCE /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA90CB62632FFD0001D1BCE /* SearchBarView.swift */; };
 		3FB452AF264171C1001128A0 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB452AE264171C1001128A0 /* Views.swift */; };
 		3FC3BB3D2639A97F00C74727 /* FoodItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB3C2639A97F00C74727 /* FoodItemsViewModel.swift */; };
 		3FC3BB402639A9AA00C74727 /* FoodItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB3F2639A9AA00C74727 /* FoodItemsViewController.swift */; };
 		3FC3BB432639B40300C74727 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB422639B40300C74727 /* Product.swift */; };
-		3FC3BB472639B5E800C74727 /* ErrorPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB462639B5E800C74727 /* ErrorPopUpView.swift */; };
 		3FC3BB4C2639BF6600C74727 /* BookingHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB4B2639BF6600C74727 /* BookingHistoryViewModel.swift */; };
 		3FC3BB4F2639BF7700C74727 /* BookingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC3BB4E2639BF7700C74727 /* BookingHistoryViewController.swift */; };
 		3FCE05962643F4C90097F23B /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCE05952643F4C90097F23B /* FavouritesView.swift */; };
@@ -120,7 +117,6 @@
 		3F3F8F3D26285CD20027E48C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F3F8F4026285D770027E48C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3F48FF0D26456B93002F65CC /* PullToRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefresh.swift; sourceTree = "<group>"; };
-		3F64AC45263FF85800862BAC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3F64AC5126402D6F00862BAC /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		3F64AC5726402E3900862BAC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		3F68114626297E0B00095A7F /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
@@ -173,13 +169,11 @@
 		3FA90CA12632F0DE001D1BCE /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		3FA90CA72632F862001D1BCE /* FavouriteEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteEmptyView.swift; sourceTree = "<group>"; };
 		3FA90CAC2632F922001D1BCE /* SectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSeparatorView.swift; sourceTree = "<group>"; };
-		3FA90CB12632FB97001D1BCE /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		3FA90CB62632FFD0001D1BCE /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		3FB452AE264171C1001128A0 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		3FC3BB3C2639A97F00C74727 /* FoodItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsViewModel.swift; sourceTree = "<group>"; };
 		3FC3BB3F2639A9AA00C74727 /* FoodItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsViewController.swift; sourceTree = "<group>"; };
 		3FC3BB422639B40300C74727 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		3FC3BB462639B5E800C74727 /* ErrorPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopUpView.swift; sourceTree = "<group>"; };
 		3FC3BB4B2639BF6600C74727 /* BookingHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryViewModel.swift; sourceTree = "<group>"; };
 		3FC3BB4E2639BF7700C74727 /* BookingHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryViewController.swift; sourceTree = "<group>"; };
 		3FCE05952643F4C90097F23B /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
@@ -211,22 +205,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F1E19C0263C4B7500908DE3 /* Enumeration Time View */ = {
-			isa = PBXGroup;
-			children = (
-				3F1E19C1263C4B9A00908DE3 /* EnumerationTimeView.swift */,
-			);
-			path = "Enumeration Time View";
-			sourceTree = "<group>";
-		};
-		3F26126126396F0B00B3250D /* Schedule PopUp View */ = {
-			isa = PBXGroup;
-			children = (
-				3F26126226396F2000B3250D /* SchedulePopUpView.swift */,
-			);
-			path = "Schedule PopUp View";
-			sourceTree = "<group>";
-		};
 		3F26126C263992A600B3250D /* Food Items Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,70 +213,6 @@
 				3FC3BB3F2639A9AA00C74727 /* FoodItemsViewController.swift */,
 			);
 			path = "Food Items Screen";
-			sourceTree = "<group>";
-		};
-		3F261271263994DE00B3250D /* Product View */ = {
-			isa = PBXGroup;
-			children = (
-				3F2612722639950500B3250D /* ProductView.swift */,
-			);
-			path = "Product View";
-			sourceTree = "<group>";
-		};
-		3F2612752639994800B3250D /* Enumeration Categories View */ = {
-			isa = PBXGroup;
-			children = (
-				3F261276263999AE00B3250D /* EnumerationItemsView.swift */,
-			);
-			path = "Enumeration Categories View";
-			sourceTree = "<group>";
-		};
-		3F48FF0C26456B7D002F65CC /* Pull to refresh */ = {
-			isa = PBXGroup;
-			children = (
-				3F48FF0D26456B93002F65CC /* PullToRefresh.swift */,
-			);
-			path = "Pull to refresh";
-			sourceTree = "<group>";
-		};
-		3F64AC44263FF83A00862BAC /* Loading View */ = {
-			isa = PBXGroup;
-			children = (
-				3F64AC45263FF85800862BAC /* LoadingView.swift */,
-			);
-			path = "Loading View";
-			sourceTree = "<group>";
-		};
-		3F64AC5026402D5300862BAC /* Modifiers */ = {
-			isa = PBXGroup;
-			children = (
-				3F64AC5126402D6F00862BAC /* ButtonModifier.swift */,
-			);
-			path = Modifiers;
-			sourceTree = "<group>";
-		};
-		3F64AC5626402E2100862BAC /* Date Picker PopUp View */ = {
-			isa = PBXGroup;
-			children = (
-				3F64AC5726402E3900862BAC /* DatePickerView.swift */,
-			);
-			path = "Date Picker PopUp View";
-			sourceTree = "<group>";
-		};
-		3F82B2A726459093000BBC14 /* Place Inner Item View */ = {
-			isa = PBXGroup;
-			children = (
-				3F82B2A8264590C1000BBC14 /* PlaceInnerItemView.swift */,
-			);
-			path = "Place Inner Item View";
-			sourceTree = "<group>";
-		};
-		3F82B2AC26459156000BBC14 /* History Order Item View */ = {
-			isa = PBXGroup;
-			children = (
-				3F82B2AD2645916C000BBC14 /* HistoryOrderItemView.swift */,
-			);
-			path = "History Order Item View";
 			sourceTree = "<group>";
 		};
 		3F86BD9F2626D4C800CA4CD3 = {
@@ -320,11 +234,11 @@
 		3F86BDAA2626D4C800CA4CD3 /* Booking Application */ = {
 			isa = PBXGroup;
 			children = (
-				3FB452AD264171AD001128A0 /* Extensions */,
+				3FA90CA52632F70B001D1BCE /* Views */,
+				3FF060762628640A00308556 /* Models */,
 				3FDE435526319F6D00699ECB /* Services */,
-				3FF060762628640A00308556 /* Model */,
-				3FA90CA52632F70B001D1BCE /* Screens */,
-				3FDE43692632D1DE00699ECB /* Custom Views */,
+				3FB452AD264171AD001128A0 /* Extensions */,
+				3FDE43692632D1DE00699ECB /* Subviews */,
 				3F86BDAD2626D4C800CA4CD3 /* SceneDelegate.swift */,
 				3F86BDAB2626D4C800CA4CD3 /* AppDelegate.swift */,
 				3F86BDB42626D4D200CA4CD3 /* Assets.xcassets */,
@@ -424,14 +338,6 @@
 			path = "Home Screen";
 			sourceTree = "<group>";
 		};
-		3F86BDF12626D9A100CA4CD3 /* Launch View */ = {
-			isa = PBXGroup;
-			children = (
-				3F86BDF22626D9B000CA4CD3 /* LaunchView.swift */,
-			);
-			path = "Launch View";
-			sourceTree = "<group>";
-		};
 		3F86BDF72626D9C600CA4CD3 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,14 +356,6 @@
 				3F86BE1A2626F93600CA4CD3 /* RegistrationViewController.swift */,
 			);
 			path = "Sign Up Screen";
-			sourceTree = "<group>";
-		};
-		3F8F0E9226381805006404B5 /* Stepper View */ = {
-			isa = PBXGroup;
-			children = (
-				3F8F0E8F263817EE006404B5 /* StepperView.swift */,
-			);
-			path = "Stepper View";
 			sourceTree = "<group>";
 		};
 		3F9DCAD5264BFDFF00B279CD /* Category Places Screen */ = {
@@ -490,33 +388,10 @@
 			path = "Review Process Screen";
 			sourceTree = "<group>";
 		};
-		3FA90C912632E606001D1BCE /* Place Card View */ = {
+		3FA90CA52632F70B001D1BCE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3FA90C922632E653001D1BCE /* PlaceCardView.swift */,
-			);
-			path = "Place Card View";
-			sourceTree = "<group>";
-		};
-		3FA90C972632E9F3001D1BCE /* Category View */ = {
-			isa = PBXGroup;
-			children = (
-				3FA90C982632EA05001D1BCE /* CategoryView.swift */,
-			);
-			path = "Category View";
-			sourceTree = "<group>";
-		};
-		3FA90CA02632F0B5001D1BCE /* Text Field View */ = {
-			isa = PBXGroup;
-			children = (
-				3FA90CA12632F0DE001D1BCE /* TextFieldView.swift */,
-			);
-			path = "Text Field View";
-			sourceTree = "<group>";
-		};
-		3FA90CA52632F70B001D1BCE /* Screens */ = {
-			isa = PBXGroup;
-			children = (
+				3F86BDF22626D9B000CA4CD3 /* LaunchView.swift */,
 				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
@@ -534,39 +409,7 @@
 				3F9DCAD5264BFDFF00B279CD /* Category Places Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		3FA90CA62632F853001D1BCE /* Favourite Empty View */ = {
-			isa = PBXGroup;
-			children = (
-				3FA90CA72632F862001D1BCE /* FavouriteEmptyView.swift */,
-			);
-			path = "Favourite Empty View";
-			sourceTree = "<group>";
-		};
-		3FA90CAB2632F902001D1BCE /* Section Separator View */ = {
-			isa = PBXGroup;
-			children = (
-				3FA90CAC2632F922001D1BCE /* SectionSeparatorView.swift */,
-			);
-			path = "Section Separator View";
-			sourceTree = "<group>";
-		};
-		3FA90CB02632FB62001D1BCE /* Navigation Bar View */ = {
-			isa = PBXGroup;
-			children = (
-				3FA90CB12632FB97001D1BCE /* NavigationBarView.swift */,
-			);
-			path = "Navigation Bar View";
-			sourceTree = "<group>";
-		};
-		3FA90CB52632FFAF001D1BCE /* Search Bar View */ = {
-			isa = PBXGroup;
-			children = (
-				3FA90CB62632FFD0001D1BCE /* SearchBarView.swift */,
-			);
-			path = "Search Bar View";
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3FB452AD264171AD001128A0 /* Extensions */ = {
@@ -582,14 +425,6 @@
 				3F9DCB372652962300B279CD /* Color.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		3FC3BB452639B5C400C74727 /* Error PopUp View */ = {
-			isa = PBXGroup;
-			children = (
-				3FC3BB462639B5E800C74727 /* ErrorPopUpView.swift */,
-			);
-			path = "Error PopUp View";
 			sourceTree = "<group>";
 		};
 		3FCE05942643F4920097F23B /* Favourites Screen */ = {
@@ -611,31 +446,27 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		3FDE43692632D1DE00699ECB /* Custom Views */ = {
+		3FDE43692632D1DE00699ECB /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				3F82B2AC26459156000BBC14 /* History Order Item View */,
-				3F82B2A726459093000BBC14 /* Place Inner Item View */,
-				3F48FF0C26456B7D002F65CC /* Pull to refresh */,
-				3F64AC5626402E2100862BAC /* Date Picker PopUp View */,
-				3F64AC5026402D5300862BAC /* Modifiers */,
-				3F64AC44263FF83A00862BAC /* Loading View */,
-				3F1E19C0263C4B7500908DE3 /* Enumeration Time View */,
-				3FC3BB452639B5C400C74727 /* Error PopUp View */,
-				3F86BDF12626D9A100CA4CD3 /* Launch View */,
-				3F261271263994DE00B3250D /* Product View */,
-				3F8F0E9226381805006404B5 /* Stepper View */,
-				3FA90C972632E9F3001D1BCE /* Category View */,
-				3FA90CA02632F0B5001D1BCE /* Text Field View */,
-				3FA90C912632E606001D1BCE /* Place Card View */,
-				3FA90CB52632FFAF001D1BCE /* Search Bar View */,
-				3FA90CB02632FB62001D1BCE /* Navigation Bar View */,
-				3FA90CA62632F853001D1BCE /* Favourite Empty View */,
-				3F26126126396F0B00B3250D /* Schedule PopUp View */,
-				3FA90CAB2632F902001D1BCE /* Section Separator View */,
-				3F2612752639994800B3250D /* Enumeration Categories View */,
+				3F82B2AD2645916C000BBC14 /* HistoryOrderItemView.swift */,
+				3F82B2A8264590C1000BBC14 /* PlaceInnerItemView.swift */,
+				3F48FF0D26456B93002F65CC /* PullToRefresh.swift */,
+				3F64AC5726402E3900862BAC /* DatePickerView.swift */,
+				3F64AC5126402D6F00862BAC /* ButtonModifier.swift */,
+				3F1E19C1263C4B9A00908DE3 /* EnumerationTimeView.swift */,
+				3F2612722639950500B3250D /* ProductView.swift */,
+				3FA90CA12632F0DE001D1BCE /* TextFieldView.swift */,
+				3F8F0E8F263817EE006404B5 /* StepperView.swift */,
+				3FA90C982632EA05001D1BCE /* CategoryView.swift */,
+				3F26126226396F2000B3250D /* SchedulePopUpView.swift */,
+				3FA90CA72632F862001D1BCE /* FavouriteEmptyView.swift */,
+				3FA90CB62632FFD0001D1BCE /* SearchBarView.swift */,
+				3F261276263999AE00B3250D /* EnumerationItemsView.swift */,
+				3FA90CAC2632F922001D1BCE /* SectionSeparatorView.swift */,
+				3FA90C922632E653001D1BCE /* PlaceCardView.swift */,
 			);
-			path = "Custom Views";
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		3FDE43712632D20F00699ECB /* Map Screen */ = {
@@ -648,7 +479,7 @@
 			path = "Map Screen";
 			sourceTree = "<group>";
 		};
-		3FF060762628640A00308556 /* Model */ = {
+		3FF060762628640A00308556 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				3FDE434C26318C0800699ECB /* Link.swift */,
@@ -661,7 +492,7 @@
 				3FF060772628641D00308556 /* Category.swift */,
 				3FA90C8D2632DEEE001D1BCE /* Schedule.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -752,7 +583,6 @@
 				3F48FF0E26456B93002F65CC /* PullToRefresh.swift in Sources */,
 				3F86BDDD2626D91000CA4CD3 /* OrderProcessView.swift in Sources */,
 				3FDE436F2632D20B00699ECB /* MapViewModel.swift in Sources */,
-				3FA90CB22632FB97001D1BCE /* NavigationBarView.swift in Sources */,
 				3F9DCB26265294AA00B279CD /* String.swift in Sources */,
 				3FCE05962643F4C90097F23B /* FavouritesView.swift in Sources */,
 				3F9DCAE8264C070C00B279CD /* ReviewsView.swift in Sources */,
@@ -817,11 +647,9 @@
 				3FF0608526286EC200308556 /* PlacesViewController.swift in Sources */,
 				3FDE435E2631C0CD00699ECB /* Order.swift in Sources */,
 				3F82B2AE2645916C000BBC14 /* HistoryOrderItemView.swift in Sources */,
-				3FC3BB472639B5E800C74727 /* ErrorPopUpView.swift in Sources */,
 				3F86BDCC2626D85200CA4CD3 /* BookingHistoryView.swift in Sources */,
 				3FF060782628641D00308556 /* Category.swift in Sources */,
 				3F9DCB2C2652952200B279CD /* Notification.swift in Sources */,
-				3F64AC46263FF85800862BAC /* LoadingView.swift in Sources */,
 				3FCE059E2643F60A0097F23B /* FavouritesViewController.swift in Sources */,
 				3F68114A26297E7800095A7F /* OrdersViewModel.swift in Sources */,
 			);
