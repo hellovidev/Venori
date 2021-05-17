@@ -39,11 +39,12 @@ struct TextFieldView: View {
                         .font(.system(size: 24))
                 }
             }
-            .padding()
+            .padding(.vertical, 4)
+            .padding(.horizontal, 8)
             .frame(maxHeight: 44, alignment: .center)
             .background(Color("Text Field Color"))
             .cornerRadius(8)
-            .padding(3)
+            .padding(2)
             .foregroundColor(.black)
         }
     }

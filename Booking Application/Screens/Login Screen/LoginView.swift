@@ -35,7 +35,7 @@ struct LoginView: View {
                 Spacer()
                 VStack(alignment: .leading) {
                     TextFieldView(data: bindingEmailCapitalization, placeholder: "Email", isPassword: false)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 4)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .padding([.leading, .trailing], 24)
@@ -69,6 +69,14 @@ struct LoginView: View {
                         .padding(.bottom, 4)
                         .padding([.leading, .trailing], 24)
                     TextFieldView(data: $viewModel.password, placeholder: "Password", isPassword: true)
+                        .padding(.bottom, 4)
+                        .padding([.leading, .trailing], 24)
+                    Text(viewModel.inputPasswordErrorMessage)
+                        .isHidden(viewModel.inputPasswordErrorMessage.isEmpty ? true : false, remove: viewModel.inputPasswordErrorMessage.isEmpty ? true : false)
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(.red)
+                        .background(Color.yellow)
+                        .padding(.bottom, 4)
                         .padding([.leading, .trailing], 24)
                 }
                 Button(action: {

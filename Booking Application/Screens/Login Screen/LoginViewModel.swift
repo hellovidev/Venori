@@ -19,6 +19,7 @@ class LoginViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var errorMessage = ""
     @Published var inputErrorMessage = ""
+    @Published var inputPasswordErrorMessage = ""
     @Published var isLoading: Bool = false
     
     // User Data
@@ -47,6 +48,12 @@ class LoginViewModel: ObservableObject {
             .sink { [weak self] in self?.isValid = $0 }
             //.assign(to: \.isValid, on: [weak self])
             .store(in: &cancellableSet)
+        
+        isPasswordLengthCorrectPublisher
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in self?.inputPasswordErrorMessage = $0 }
+            .store(in: &cancellableSet)
     }
     
     private var isEmailEmptyPublisher: AnyPublisher<Bool, Never> {
@@ -71,6 +78,8 @@ class LoginViewModel: ObservableObject {
                 case false:
                     if !email.isEmpty {
                         self.inputErrorMessage = "Invalid email address!"
+                    } else {
+                        self.inputErrorMessage = ""
                     }
                     return .invalid
                 }
@@ -102,7 +111,22 @@ class LoginViewModel: ObservableObject {
             .debounce(for: 0.3, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { password in
-                return password.count >= 8
+                return password.count >= 8 && password.count <= 256
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private var isPasswordLengthCorrectPublisher: AnyPublisher<String, Never> {
+        Publishers.CombineLatest(isPasswordEmptyPublisher, isPasswordStrengthPublisher)
+            //.debounce(for: 0.5, scheduler: RunLoop.main)
+            .map { passwordIsEmpty, passwordIsStrong in
+                if !passwordIsEmpty == false && passwordIsStrong == false {
+                    return ""
+                } else if !passwordIsEmpty && passwordIsStrong {
+                    return ""
+                } else {
+                    return "Password should be > 8 and 256 < symbols!"
+                }
             }
             .eraseToAnyPublisher()
     }
