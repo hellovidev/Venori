@@ -145,6 +145,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #3 in ReviewProcessViewModel.publishNewReview(title:rating:description:):ReviewProcessViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response[&quot;message&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "response[&quot;message&quot;] as? String">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #3 in closure #1 in ReviewProcessView.body.getter:ReviewProcessView.swift">
          <PersistentStrings>
             <PersistentString
@@ -693,6 +704,20 @@
          <PersistentStrings>
             <PersistentString
                value = "times">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "default argument 1 of ImageURL.init(url:loading:failure:):ImageLoader.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UIImage.gifImageWithName(&quot;Image Loading&quot;)!">
+            </PersistentString>
+            <PersistentString
+               value = "UIImage.gifImageWithName(&quot;Data&quot;)!">
+            </PersistentString>
+            <PersistentString
+               value = "UIImage.gifImageWithName(&quot;Image Loading&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -714,6 +714,69 @@ class ServerRequest: ObservableObject {
         .resume()
     }
     
+    // MARK: -> Methods For Actions With Review Object
+    
+    func deleteReview(completion: @escaping (Result<String, Error>) -> Void, reviewIdentifier: Int) {
+        guard let url = URL(string: getReviewLink(reviewIdentifier: reviewIdentifier)) else { return }
+        
+        // Set Request Settings
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        // Bearer Token for Authorized User
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
+            
+            // Check Presence of Errors
+            
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            // Data Validation
+            
+            guard let data = data else {
+                completion(.failure(NSLocalizedString("Delete review from server is empty!", comment: "Error")))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    NSLog(NSLocalizedString("Status Code is 200... Review deleted.", comment: "Success"))
+                case 401:
+                    completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
+                default:
+                    completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
+                }
+            } else {
+                completion(.failure(NSLocalizedString("HTTP response is empty!", comment: "Error")))
+                return
+            }
+            
+            do {
+                
+                // Decodable JSON Data
+                
+                guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                //print(response)
+                
+                DispatchQueue.main.async {
+                    completion(.success(response["message"] as! String))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        })
+        .resume()
+    }
+    
     // MARK: -> Additional Functions To Generate Links
     
     func getReserveLink(id: Int) -> String {
@@ -734,6 +797,10 @@ class ServerRequest: ObservableObject {
     
     func getPlaceLink(placeIdentifier: Int) -> String {
         return DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue + "/\(placeIdentifier)"
+    }
+    
+    func getReviewLink(reviewIdentifier: Int) -> String {
+        return DomainRouter.linkAPIRequests.rawValue + DomainRouter.reviewsRoute.rawValue + "/\(reviewIdentifier)"
     }
     
 }

@@ -47,7 +47,7 @@ struct BookingHistoryView: View {
                                 viewModel.currentPage = 1
                                 viewModel.loadMoreContent()
                             }
-                            VStack {
+                            LazyVStack {
                                 ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
                                     HistoryOrderItemView(order: item, cancel: {}, redirect: {
                                         guard item.place != nil else { return }

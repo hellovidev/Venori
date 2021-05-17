@@ -38,13 +38,13 @@ struct ReviewsView: View {
                             Button(action: {
                                 self.viewModel.controller?.redirectNewReview(placeIdentifier: viewModel.placeIdentifier)
                             }, label: {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: 18, alignment: .leading)
-                            .padding([.bottom, .top], 13)
-                            .padding(.trailing, 19)
-                            .foregroundColor(.black)
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: 18, alignment: .leading)
+                                    .padding([.bottom, .top], 13)
+                                    .padding(.trailing, 19)
+                                    .foregroundColor(.black)
                             })
                         }.frame(maxWidth: .infinity, alignment: .trailing)
                     }
@@ -53,18 +53,17 @@ struct ReviewsView: View {
                     
                     ScrollView(showsIndicators: !viewModel.reviews.isEmpty) {
                         PullToRefresh(coordinateSpaceName: "pullToRefresh") {
-                            viewModel.reviews.removeAll()
-                            viewModel.isLoadingPage = false
-                            viewModel.canLoadMorePages = true
-                            viewModel.currentPage = 1
-                            viewModel.loadMoreContent()
+                            viewModel.resetReviewsData()
+                            viewModel.loadMoreReviews()
                         }
                         LazyVStack(alignment: .leading) {
-                            ForEach(viewModel.reviews, id: \.self) { item in //.sorted { $0.id > $1.id }
-                                ReviewItemView(title: item.title, rating: Float(item.rating), description: item.description)
-                                    .onAppear {
-                                        viewModel.loadMoreContentIfNeeded(currentItem: item)
-                                    }
+                            ForEach(viewModel.reviews.sorted { $0.id > $1.id }, id: \.self) { item in
+                                ReviewItemView(title: item.title, rating: Float(item.rating), description: item.description, canChange: item.userId == viewModel.user?.id, onDelete: {
+                                    viewModel.deleteReview(id: item.id)
+                                })
+                                .onAppear {
+                                    viewModel.loadMoreContentIfNeeded(currentItem: item)
+                                }
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -98,44 +97,57 @@ struct ReviewsView: View {
                     .coordinateSpace(name: "pullToRefresh")
                 }
                 .navigationBarHidden(true)
-                .alert(isPresented: $viewModel.showAlertError) {
-                    Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+                
+                if viewModel.isLoading {
+                    ZStack {
+                        Color(UIColor(hex: "#FFFFFF99")!)
+                        ProgressView()
+                    }
+                    .ignoresSafeArea()
                 }
+            }
+            .alert(isPresented: $viewModel.showAlertError) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
             }
         }
     }
+    
 }
-
-//struct ReviewsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ReviewsView()
-//    }
-//}
 
 struct ReviewItemView: View {
     let title: String
     let rating: Float
     let description: String
+    let canChange: Bool
+    let onDelete: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("\(title)")
-                .font(.title2)
-                .bold()
-            StarsView(rating: rating)
-                .padding([.bottom, .top], 6)
-                .fixedSize()
-            Text("\(description)")
-                .multilineTextAlignment(.leading )
-            Divider()
+        HStack {
+            VStack(alignment: .leading) {
+                Text("\(title)")
+                    .font(.title2)
+                    .bold()
+                StarsView(rating: rating)
+                    .padding([.bottom, .top], 6)
+                    .fixedSize()
+                Text("\(description)")
+                    .multilineTextAlignment(.leading )
+                Divider()
+            }
+            Spacer()
+            if canChange {
+                Button(action: {
+                    self.onDelete()
+                }, label: {
+                    Image(systemName: "trash")
+                        .resizable()
+                        .frame(maxWidth: 24, maxHeight: 24, alignment: .center)
+                })
+                .padding(2)
+            }
         }
         .padding(.top, 8)
-        .padding([.leading, .trailing], 16)
+        .padding(.horizontal, 16)
     }
-}
-
-struct ReviewsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ReviewItemView(title: "All is just super!", rating: 3.2, description: "My desription is here and its so cool!")
-    }
+    
 }

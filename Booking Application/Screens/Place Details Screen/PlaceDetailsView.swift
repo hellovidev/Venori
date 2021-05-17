@@ -17,6 +17,7 @@ struct PlaceDetailsView: View {
             ScrollView(showsIndicators: false) {
                 ZStack {
                     ImageURL(url: DomainRouter.generalDomain.rawValue + viewModel.place.imageURL)
+                        .scaledToFill()
                         .frame(maxWidth: .infinity, maxHeight: 256, alignment: .center)
                     HStack(alignment: .center) {
                         Button (action: {
@@ -57,6 +58,7 @@ struct PlaceDetailsView: View {
                     HStack(alignment: .center) {
                         StarsView(rating: viewModel.place.rating)
                             .padding(.trailing, 4)
+                            .frame(maxHeight: 28)
                         Text("\(NSString(format: "%.01f", viewModel.place.rating))")
                             .font(.system(size: 18, weight: .semibold))
                         Button(action: {
@@ -76,6 +78,7 @@ struct PlaceDetailsView: View {
                             VStack(alignment: .leading) {
                                 Text(viewModel.place.addressFull)
                                     .font(.system(size: 18, weight: .regular))
+                                    .fixedSize(horizontal: false, vertical: true)
                                     .padding(.bottom, 2)
                                 Button (action: {
                                     viewModel.controller?.showMapView()
@@ -95,7 +98,6 @@ struct PlaceDetailsView: View {
                                     .scaledToFit()
                             }
                         }
-                        .body.hidden()
                         .frame(maxWidth: 88, maxHeight: 88, alignment: .center)
                         .scaledToFill()
                         .cornerRadius(16)

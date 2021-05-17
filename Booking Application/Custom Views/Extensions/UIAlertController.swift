@@ -99,7 +99,10 @@ extension String {
 }
 
 
-
+extension Notification.Name {
+    static let newOrderNotification = Notification.Name("newOrderNotification")
+    static let newReviewNotification = Notification.Name("newReviewNotification")
+}
 
 
 

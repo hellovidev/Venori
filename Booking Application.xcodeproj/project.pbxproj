@@ -504,8 +504,8 @@
 			children = (
 				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
-				3F86BDFF2626DA0C00CA4CD3 /* Sign Up Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
+				3F86BDFF2626DA0C00CA4CD3 /* Sign Up Screen */,
 				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,

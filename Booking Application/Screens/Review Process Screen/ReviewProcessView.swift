@@ -11,6 +11,7 @@ struct ReviewProcessView: View {
     @ObservedObject var viewModel: ReviewProcessViewModel
     
     var body: some View {
+        ZStack {
         VStack(alignment: .leading) {
             Button ( action:{
                 viewModel.controller?.redirectPrevious()
@@ -32,13 +33,13 @@ struct ReviewProcessView: View {
                 .font(.system(size: 18))
                 .padding([.trailing, .leading], 20)
             
-                TextEditor(text: $viewModel.descriptionText)
-                    .font(.system(size: 18))
-                    .frame(maxHeight: 96, alignment: .center)
-                    .border(Color.gray, width: 1)
-                    .padding(3)
-
-            .padding([.trailing, .leading], 16)
+            TextEditor(text: $viewModel.descriptionText)
+                .font(.system(size: 18))
+                .frame(maxHeight: 96, alignment: .center)
+                .border(Color.gray, width: 1)
+                .padding(3)
+                
+                .padding([.trailing, .leading], 16)
             RatingView(rating: $viewModel.rating)
                 .padding([.trailing, .leading], 16)
                 .padding([.top, .bottom], 12)
@@ -54,14 +55,23 @@ struct ReviewProcessView: View {
                     .padding(.trailing, 16)
                     .frame(maxWidth: .infinity)
                     .shadow(radius: 10)
-                .background(!viewModel.isValid ? Color.gray : Color("Button Color"))
+                    .background(!viewModel.isValid ? Color.gray : Color("Button Color"))
             }
             .disabled(!viewModel.isValid)
             .modifier(ButtonModifier())
             .padding(.bottom, 35)
             Spacer()
         }
-         .ignoresSafeArea(.keyboard)
+        .ignoresSafeArea(.keyboard)
+            
+            if viewModel.isLoading {
+                ZStack {
+                    Color(UIColor(hex: "#FFFFFF99")!)
+                    ProgressView()
+                }
+                .ignoresSafeArea()
+            }
+        }
         .onTapGesture {
             self.hideKeyboard()
         }

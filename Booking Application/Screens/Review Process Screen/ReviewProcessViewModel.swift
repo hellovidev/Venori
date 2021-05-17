@@ -27,6 +27,7 @@ class ReviewProcessViewModel: ObservableObject {
     //@Published var isEmptyRating: Bool = true
     
     @Published var isValid: Bool = false
+    @Published var isLoading: Bool = false
 
     init(placeIdentifier: Int) {
         self.placeIdentifier = placeIdentifier
@@ -85,6 +86,7 @@ class ReviewProcessViewModel: ObservableObject {
     }
     
     func publishNewReview(title: String, rating: Int, description: String) {
+        isLoading = true
         let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.reviewsRoute.rawValue)!
         
         // Request Body Generating
@@ -124,8 +126,17 @@ class ReviewProcessViewModel: ObservableObject {
             },
             receiveValue: { data in
                 guard let response = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                if response["message"] as? String != "Review already exists" {
+                    self.isLoading = false
+                    // and post notification like this
+                    NotificationCenter.default.post(name: .newReviewNotification, object: nil)
+                    self.controller?.redirectPrevious()
+                } else {
+                    self.isLoading = false
+                    self.showAlert = true
+                    self.errorMessage = "Review already exists"
+                }
                 print("Server response: \(response)")
-                self.controller?.redirectPrevious()
             })
             .store(in: &cancellables)
     }
@@ -197,3 +208,7 @@ enum FormFieldCheck {
     case emptyDescription
     case emptyFields
 }
+
+//protocol isAbleToReceiveData {
+//  func pass(errorMessage: String)  //data: string is an example parameter
+//}
