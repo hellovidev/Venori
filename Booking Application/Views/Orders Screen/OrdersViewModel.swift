@@ -7,38 +7,60 @@
 
 import Combine
 import SwiftUI
-import Foundation
 
 class OrdersViewModel: ObservableObject {
     weak var controller: OrdersViewController?
-    let serverRequest = ServerRequest()
-    var canLoadMorePages = true
-    var currentPage = 1
+    private var cancellables = Set<AnyCancellable>()
+    private let serverRequest = ServerRequest()
+    private var canLoadMorePages = true
+    private var currentPage = 1
     
-    @Published var orders = [Order]()
+    @Published var activeOrders = [Order]()
     @Published var isLoadingPage = false
-    @Published var isProcessDelete = false
     
-    @Published var showAlertError = false
+    // Alert Data
+    
+    @Published var showAlert = false
     @Published var errorMessage = ""
     
-    private var cancellables = Set<AnyCancellable>()
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
+    init() {
+        self.loadMoreActiveOrders()
+        
+        // Register to receive notification in your class
+        
+        NotificationCenter.default
+            .publisher(for: .newOrderNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.resetActiveOrders()
+                self?.loadMoreActiveOrders()
+            }
+            .store(in: &cancellables)
+    }
     
     // MARK: -> Load Content By Pages
     
     func loadMoreContentIfNeeded(currentItem item: Order?) {
         guard let item = item else {
-            loadMoreContent()
+            loadMoreActiveOrders()
             return
         }
         
-        let thresholdIndex = orders.index(orders.endIndex, offsetBy: -5)
-        if orders.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+        let thresholdIndex = activeOrders.index(activeOrders.endIndex, offsetBy: -3)
+        if activeOrders.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
+            loadMoreActiveOrders()
         }
     }
     
-    func loadMoreContent() {
+    func loadMoreActiveOrders() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -53,7 +75,7 @@ class OrdersViewModel: ObservableObject {
         ]
         
         var request = URLRequest(url: url.url!)
-        print(url.url!)
+
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -69,14 +91,22 @@ class OrdersViewModel: ObservableObject {
                 self.isLoadingPage = false
                 self.currentPage += 1
             })
-            .map({ response in
-                print(response.data)
-                self.orders.append(contentsOf: response.data)
-                
-                return self.orders
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of active orders finished.")
+                case .failure(let error):
+                    print("Error of load active orders: \(error.localizedDescription)")
+                    self.isLoadingPage = false
+                    self.resetActiveOrders()
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some active orders: \(response.data.count)")
+                self.activeOrders.append(contentsOf: response.data)
             })
-            .catch({ _ in Just(self.orders) })
-            .assign(to: &$orders)
+            .store(in: &cancellables)
     }
     
     // MARK: -> Cancel Order
@@ -85,14 +115,25 @@ class OrdersViewModel: ObservableObject {
         self.serverRequest.cancelOrderInProgress(completion: { result in
             switch result {
             case .success(let message):
-                if let removeOrderIndex = self.orders.firstIndex(where: { $0.id == orderIdentifier }) {
-                    self.orders.remove(at: removeOrderIndex)
+                if let removeOrderIndex = self.activeOrders.firstIndex(where: { $0.id == orderIdentifier }) {
+                    self.activeOrders.remove(at: removeOrderIndex)
                 }
-                print(message)
+                // Post notification to history orders
+                NotificationCenter.default.post(name: .newOrderHistoryNotification, object: nil)
+                print("Cancel order success: \(message)")
             case .failure(let error):
-                print(error)
+                self.showAlert = true
+                self.errorMessage = error.localizedDescription
+                print("Cancel order faild: \(error.localizedDescription)")
             }
         }, orderIdentifier: orderIdentifier)
+    }
+    
+    func resetActiveOrders() {
+        currentPage = 1
+        activeOrders.removeAll()
+        isLoadingPage = false
+        canLoadMorePages = true
     }
     
 }

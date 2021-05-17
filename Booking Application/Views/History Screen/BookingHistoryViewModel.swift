@@ -11,29 +11,56 @@ import SwiftUI
 class BookingHistoryViewModel: ObservableObject {
     weak var controller: BookingHistoryViewController?
     private var cancellables = Set<AnyCancellable>()
-    private var serviceAPI = ServerRequest()
-    var canLoadMorePages = true
-    var currentPage = 1
+    private var serverRequest = ServerRequest()
+    private var canLoadMorePages = true
+    private var currentPage = 1
     
-    @Published var orders = [Order]()
+    @Published var historyOrders = [Order]()
     @Published var isLoadingPage = false
-    @Published var isProcessDelete = false
+    
+    // Alert Data
+    
+    @Published var showAlert = false
+    @Published var errorMessage = ""
+    
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
+    init() {
+        self.loadMoreHistoryOrders()
+        
+        // Register to receive notification in your class
+        
+        NotificationCenter.default
+            .publisher(for: .newOrderHistoryNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.resetOrdersHistoryData()
+                self?.loadMoreHistoryOrders()
+            }
+            .store(in: &cancellables)
+    }
     
     // MARK: -> Load Content By Pages
     
     func loadMoreContentIfNeeded(currentItem item: Order?) {
         guard let item = item else {
-            self.loadMoreContent()
+            self.loadMoreHistoryOrders()
             return
         }
         
-        let thresholdIndex = orders.index(orders.endIndex, offsetBy: -5)
-        if orders.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            self.loadMoreContent()
+        let thresholdIndex = historyOrders.index(historyOrders.endIndex, offsetBy: -5)
+        if historyOrders.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
+            self.loadMoreHistoryOrders()
         }
     }
     
-    func loadMoreContent() {
+    func loadMoreHistoryOrders() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -46,12 +73,8 @@ class BookingHistoryViewModel: ObservableObject {
             URLQueryItem(name: "history", value: nil),
             URLQueryItem(name: "page", value: "\(self.currentPage)")
         ]
-           // ?history=""&page=3
-        
-//        let url = URL(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.bookingHistoryRoute.rawValue + "&page=\(self.currentPage)")!
         
         var request = URLRequest(url: url.url!)
-        print(url.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -67,22 +90,29 @@ class BookingHistoryViewModel: ObservableObject {
                 self.isLoadingPage = false
                 self.currentPage += 1
             })
-//            .sink(receiveCompletion: { error in
-//                print(error)
-//
-//            }, receiveValue: { response in
-//                print(response.data)
-//                self.orders.append(contentsOf: response.data)
-//                //return self.orders
-//            })
-            .map({ response in
-                print(response.data)
-                self.orders.append(contentsOf: response.data)
-                return self.orders
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of history orders finished.")
+                case .failure(let error):
+                    print("Error of load history orders: \(error.localizedDescription)")
+                    self.isLoadingPage = false
+                    self.resetOrdersHistoryData()
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some history orders: \(response.data.count)")
+                self.historyOrders.append(contentsOf: response.data)
             })
-            //.replaceError(with: [])
-            .catch({ _ in Just(self.orders) })
-            .assign(to: &$orders)
+            .store(in: &cancellables)
+    }
+    
+    func resetOrdersHistoryData() {
+        currentPage = 1
+        historyOrders.removeAll()
+        isLoadingPage = false
+        canLoadMorePages = true
     }
     
 }

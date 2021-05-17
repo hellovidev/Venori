@@ -57,7 +57,7 @@ struct ReviewsView: View {
                             viewModel.resetReviewsData()
                             viewModel.loadMoreReviews()
                         }
-                        LazyVStack(alignment: .leading) {
+                        VStack(alignment: .leading) {
                             ForEach(viewModel.reviews.sorted { $0.id > $1.id }, id: \.self) { item in
                                 ReviewItemView(title: item.title, rating: Float(item.rating), description: item.description, canChange: item.userId == viewModel.user?.id, onDelete: {
                                     viewModel.deleteReview(id: item.id)

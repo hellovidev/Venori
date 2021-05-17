@@ -403,6 +403,8 @@
 				3FDE43712632D20F00699ECB /* Map Screen */,
 				3F86BDF72626D9C600CA4CD3 /* Login Screen */,
 				3F86BDE52626D95300CA4CD3 /* More Screen */,
+				3F86BDCA2626D83800CA4CD3 /* History Screen */,
+				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3F9DCAE6264C06CD00B279CD /* Reviews Screen */,
 				3F9DCAD5264BFDFF00B279CD /* Category Places Screen */,
 				3F86BDD62626D8CA00CA4CD3 /* Categories Screen */,
@@ -412,9 +414,7 @@
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3FCE05942643F4920097F23B /* Favourites Screen */,
 				3F9DCAF4264C244E00B279CD /* Review Process Screen */,
-				3F86BDCA2626D83800CA4CD3 /* History Screen */,
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
-				3F86BDC72626D7FA00CA4CD3 /* Orders Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 			);
 			path = Views;

@@ -53,6 +53,8 @@ class OrderProcessViewModel: ObservableObject {
                 switch response {
                 case .success(let data):
                     self.isBookingComplete.toggle()
+                    // Post notification to history orders
+                    NotificationCenter.default.post(name: .newOrderNotification, object: nil)
                     print(data)
                 case .failure(let error):
                     print(error)

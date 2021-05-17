@@ -178,6 +178,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "BookingHistoryViewModel.resetOrdersHistoryData():BookingHistoryViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "historyOrders">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in RequestAPI.getTokenAuthentication(email:password:):RequestAPI.swift">
          <PersistentStrings>
             <PersistentString

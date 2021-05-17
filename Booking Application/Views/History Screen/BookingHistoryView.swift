@@ -39,23 +39,21 @@ struct BookingHistoryView: View {
                     // MARK: -> Scroll View For Load Data
                     
                     ZStack {
-                        ScrollView(showsIndicators: !viewModel.orders.isEmpty) {
+                        ScrollView(showsIndicators: !viewModel.historyOrders.isEmpty) {
                             PullToRefresh(coordinateSpaceName: "pullToRefresh") {
-                                viewModel.orders.removeAll()
-                                viewModel.isLoadingPage = false
-                                viewModel.canLoadMorePages = true
-                                viewModel.currentPage = 1
-                                viewModel.loadMoreContent()
+                                viewModel.resetOrdersHistoryData()
+                                viewModel.loadMoreHistoryOrders()
                             }
-                            LazyVStack {
-                                ForEach(viewModel.orders.sorted { $0.id > $1.id }, id: \.self) { item in
+                            VStack {
+                                ForEach(viewModel.historyOrders, id: \.self) { item in //.sorted { $0.id > $1.id }
                                     HistoryOrderItemView(order: item, cancel: {}, redirect: {
                                         guard item.place != nil else { return }
                                         viewModel.controller?.redirectPlaceDetails(object: item.place!)
                                     })
-                                        .onAppear {
-                                            viewModel.loadMoreContentIfNeeded(currentItem: item)
-                                        }
+                                    .id(UUID())
+                                    .onAppear {
+                                        viewModel.loadMoreContentIfNeeded(currentItem: item)
+                                    }
                                 }
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -72,7 +70,7 @@ struct BookingHistoryView: View {
                             
                             // MARK: -> Empty Data View
                             
-                            if !viewModel.isLoadingPage && viewModel.orders.isEmpty {
+                            if !viewModel.isLoadingPage && viewModel.historyOrders.isEmpty {
                                 VStack {
                                     Image("Empty")
                                         .resizable()
@@ -92,12 +90,10 @@ struct BookingHistoryView: View {
                 }
             }
             .navigationBarHidden(true)
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
+            }
         }
     }
-}
-
-struct BookingHistoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookingHistoryView(viewModel: BookingHistoryViewModel())
-    }
+    
 }
