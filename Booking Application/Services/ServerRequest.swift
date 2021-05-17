@@ -66,7 +66,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 201:
-                    NSLog(NSLocalizedString("Status Code is 201... Request for sign in.", comment: "Success"))
+                    print("Register: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 201... Request for sign in.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 case 422:
@@ -131,7 +132,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
+                    print("Login: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for sign in.", comment: "Success"))
                 default:
                     completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))
                 }
@@ -196,7 +198,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for log out.", comment: "Success"))
+                    print("Logout: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for log out.", comment: "Success"))
                     UserDefaults.standard.removeObject(forKey: "access_token")
                     UserDefaults.standard.removeObject(forKey: "current_user")
                     UserDefaults.standard.removeObject(forKey: "latitude")
@@ -265,7 +268,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for user location.", comment: "Success"))
+                    print("User location sent: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for user location.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 case 422:
@@ -336,7 +340,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for add favourite place.", comment: "Success"))
+                    print("Add favourite: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for add favourite place.", comment: "Success"))
                 case 201:
                     NSLog(NSLocalizedString("Status Code is 201... Success storing a new favourite.", comment: "Success"))
                 case 401:
@@ -409,7 +414,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for delete favourite place.", comment: "Success"))
+                    print("Delete favourite: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for delete favourite place.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -469,7 +475,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for week schedule in place.", comment: "Success"))
+                    print("Get schedule: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for week schedule in place.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -542,7 +549,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... POST reserve data.", comment: "Success"))
+                    print("Reserve: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... POST reserve data.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -609,7 +617,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Request for available time in place.", comment: "Success"))
+                    print("Get available time: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Request for available time in place.", comment: "Success"))
                 case 400:
                     completion(.failure(NSLocalizedString("Place not found!", comment: "Error")))
                 case 401:
@@ -686,7 +695,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Order canceled.", comment: "Success"))
+                    print("Cancel order: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Order canceled.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -749,7 +759,8 @@ class ServerRequest: ObservableObject {
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 200:
-                    NSLog(NSLocalizedString("Status Code is 200... Review deleted.", comment: "Success"))
+                    print("Delete review: 200 OK")
+                    //NSLog(NSLocalizedString("Status Code is 200... Review deleted.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:

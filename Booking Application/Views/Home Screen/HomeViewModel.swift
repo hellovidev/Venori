@@ -60,7 +60,7 @@ class HomeViewModel: ObservableObject {
                 self.isLoadingPagePlaces = false
             })
             .map({ response in
-                print(response.data)
+                //print(response.data)
                 self.places = response.data
                 return self.places
             })
@@ -92,7 +92,7 @@ class HomeViewModel: ObservableObject {
                 self.isLoadingPageFavourites = false
             })
             .map({ response in
-                print(response.data)
+                //print(response.data)
                 self.favorites = response.data
                 
                 for (index, _) in self.favorites.enumerated() {
@@ -129,7 +129,7 @@ class HomeViewModel: ObservableObject {
                self.isLoadingPageCategories = false
            })
            .map({ response in
-               print(response.data)
+               //print(response.data)
                self.categories = response.data
                
                return self.categories
@@ -144,7 +144,7 @@ class HomeViewModel: ObservableObject {
             case .success(let response):
                 self.loadPlacesContent()
                 self.loadFavouritesContent()
-                print(response)
+                //print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlert = true
@@ -159,7 +159,7 @@ class HomeViewModel: ObservableObject {
             case .success(let response):
                 self.loadPlacesContent()
                 self.loadFavouritesContent()
-                print(response)
+                //print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlert = true
@@ -271,7 +271,7 @@ class HomeViewModel: ObservableObject {
                 self.currentPageSearch += 1
             })
             .map({ response in
-                print(response.data)
+                //print(response.data)
                 self.placesSearch.append(contentsOf: response.data)
                 return self.placesSearch
             })

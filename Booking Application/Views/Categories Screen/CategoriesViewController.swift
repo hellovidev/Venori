@@ -57,12 +57,4 @@ class CategoriesViewController: UIHostingController<CategoriesView>  {
         self.present(navigationController, animated: false, completion: nil)
     }
     
-    // MARK: -> Redirect User To Food Items of Category
-    
-    func redirectToFoodItems() {
-        let navigationController = UINavigationController(rootViewController: FoodItemsViewController())
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated:true, completion: nil)
-    }
-    
 }

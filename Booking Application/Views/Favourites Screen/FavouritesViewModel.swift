@@ -10,34 +10,58 @@ import Foundation
 
 class FavouritesViewModel: ObservableObject {
     weak var controller: FavouritesViewController?
+    private var cancellables = Set<AnyCancellable>()
+    private var serverRequest = ServerRequest()
+    private var canLoadMorePages = true
+    private var currentPage = 1
+
+    // Alert Data
+    
     @Published var showAlertError = false
     @Published var errorMessage = ""
-    
-    private var serviceAPI = ServerRequest()
-    var canLoadMorePages = true
-    var currentPage = 1
     
     @Published var favourites = [Place]()
     @Published var isLoadingPage = false
     @Published var isProcessDelete = false
     
-    private var cancellables = Set<AnyCancellable>()
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
+    init() {
+        self.loadMoreFavourites()
+        
+        // Register to receive notification in your class
+        
+        NotificationCenter.default
+            .publisher(for: .newFavouriteNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.resetFavouritesData()
+                self?.loadMoreFavourites()
+            }
+            .store(in: &cancellables)
+    }
     
     // MARK: -> Load Content By Pages
     
     func loadMoreContentIfNeeded(currentItem item: Place?) {
         guard let item = item else {
-            loadMoreContent()
+            loadMoreFavourites()
             return
         }
         
         let thresholdIndex = favourites.index(favourites.endIndex, offsetBy: -5)
         if favourites.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+            loadMoreFavourites()
         }
     }
     
-    func loadMoreContent() {
+    func loadMoreFavourites() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -67,7 +91,7 @@ class FavouritesViewModel: ObservableObject {
                 self.currentPage += 1
             })
             .map({ response in
-                print(response.data)
+                //print(response.data)
                 self.favourites.append(contentsOf: response.data)
                 
                 for (index, _) in self.favourites.enumerated() {
@@ -83,20 +107,27 @@ class FavouritesViewModel: ObservableObject {
     // MARK: -> API Request For Delete Place From Favourite
     
     func deleteFavouriteState(favourite: Place) {
-        serviceAPI.deleteFavourite(completion: { result in
+        serverRequest.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
                 if let removeOrderIndex = self.favourites.firstIndex(where: { $0.id == favourite.id }) {
                     self.favourites.remove(at: removeOrderIndex)
                 }
                 self.isProcessDelete = false
-                print(response)
+                //print(" \(response.count)")
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlertError = true
                 print(error)
             }
         }, placeIdentifier: favourite.id)
+    }
+    
+    func resetFavouritesData() {
+        currentPage = 1
+        isLoadingPage = false
+        favourites.removeAll()
+        canLoadMorePages = true
     }
     
 }
