@@ -15,7 +15,6 @@ class CategoriesViewController: UIHostingController<CategoriesView>  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.loadMoreContent()
     }
     
     // MARK: -> Initialization SwiftUI View
@@ -65,4 +64,5 @@ class CategoriesViewController: UIHostingController<CategoriesView>  {
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated:true, completion: nil)
     }
+    
 }

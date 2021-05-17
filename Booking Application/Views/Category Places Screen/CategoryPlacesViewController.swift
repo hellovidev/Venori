@@ -7,16 +7,8 @@
 
 import SwiftUI
 
-
 class CategoryPlacesViewController: UIHostingController<CategoryPlacesView>  {
     private let viewModel: CategoryPlacesViewModel
-    
-    // MARK: -> Update Values
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        viewModel.resetPlacesData()
-    }
     
     // MARK: -> Make Navigation Bar Hidden
     

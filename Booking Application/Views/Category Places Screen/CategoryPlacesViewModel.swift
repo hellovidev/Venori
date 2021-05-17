@@ -130,10 +130,12 @@ class CategoryPlacesViewModel: ObservableObject {
         self.serverRequest.addToFavourite(completion: { result in
             switch result {
             case .success(let response):
-                if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
-                    self.places[setFavouriteIndex].favourite = true
+                DispatchQueue.main.async {
+                    if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
+                        self.places[setFavouriteIndex].favourite = true
+                    }
+                    print("Make favourite success: \(response.name) now is favourite.")
                 }
-                print("Make favourite success: \(response.name) now is favourite.")
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlertError = true

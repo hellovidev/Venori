@@ -46,11 +46,8 @@ struct CategoriesView: View {
                 ZStack {
                     ScrollView {
                         PullToRefresh(coordinateSpaceName: "pullToRefresh") {
-                            viewModel.categories.removeAll()
-                            viewModel.isLoadingPage = false
-                            viewModel.canLoadMorePages = true
-                            viewModel.currentPage = 1
-                            viewModel.loadMoreContent()
+                            viewModel.resetCategoriesData()
+                            viewModel.loadMoreCategories()
                         }
                         .padding(.bottom, 12)
                         LazyVGrid(columns: columns, spacing: 20) {
@@ -98,4 +95,5 @@ struct CategoriesView: View {
             }
         }
     }
+    
 }

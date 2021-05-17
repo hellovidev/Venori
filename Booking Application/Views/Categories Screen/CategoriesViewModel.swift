@@ -10,30 +10,36 @@ import Foundation
 
 class CategoriesViewModel: ObservableObject {
     weak var controller: CategoriesViewController?
-    @Published var categories = [Category]()
+    private var canLoadMorePages = true
+    private var currentPage = 1
     
+    @Published var categories = [Category]()
     @Published var isLoadingPage = false
-    var currentPage = 1
-    var canLoadMorePages = true
+    
+    // Alert Data
     
     @Published var showAlertError = false
     @Published var errorMessage = ""
+    
+    init() {
+        self.loadMoreCategories()
+    }
     
     // MARK: -> Load Content By Pages
     
     func loadMoreContentIfNeeded(currentItem item: Category?) {
         guard let item = item else {
-            loadMoreContent()
+            loadMoreCategories()
             return
         }
         
         let thresholdIndex = categories.index(categories.endIndex, offsetBy: -5)
         if categories.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+            loadMoreCategories()
         }
     }
     
-    func loadMoreContent() {
+    func loadMoreCategories() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -63,12 +69,19 @@ class CategoriesViewModel: ObservableObject {
                 self.currentPage += 1
             })
             .map({ response in
-                print(response.data)
+                //print(response.data)
                 self.categories.append(contentsOf: response.data)
                 return self.categories
             })
             .catch({ _ in Just(self.categories) })
             .assign(to: &$categories)
+    }
+    
+    func resetCategoriesData() {
+        currentPage = 1
+        isLoadingPage = false
+        categories.removeAll()
+        canLoadMorePages = true
     }
     
 }
