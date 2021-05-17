@@ -22,11 +22,3 @@ struct LoadingView: UIViewRepresentable {
     }
     
 }
-
-//extension View where Self == LoadingView {
-//    
-//    func configure(_ configuration: @escaping (Self.UIView) -> Void) -> Self {
-//        Self.init(isAnimating: self.isAnimating, configuration: configuration)
-//    }
-//    
-//}

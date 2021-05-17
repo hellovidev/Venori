@@ -108,20 +108,4 @@ struct DatePickerView: View {
 //
 ////Set your label:
 
-extension Date {
-    func getDateCorrectFormat(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        let result = formatter.string(from: date)
-        return result
-    }
-    
-    func getSelectedDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "LLLL dd, yyyy"
-        formatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        let result = formatter.string(from: date)
-        return result
-    }
-}
+

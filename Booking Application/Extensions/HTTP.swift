@@ -1,120 +1,15 @@
 //
-//  UIAlertController.swift
+//  HTTP.swift
 //  Booking Application
 //
-//  Created by student on 4.05.21.
+//  Created by student on 17.05.21.
 //
 
-import UIKit
-
-extension UIAlertController {
-    func showPopUp(title: String, message: String, buttonTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-}
-
-extension Date {
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
-    }
-    
-    func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday
-    }
-}
-
-extension String {
-    func isValidEmail(_ email: Self) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-}
-
-extension UIApplication {
-    var statusBarView: UIView? {
-        if responds(to: Selector(("statusBar"))) {
-            return value(forKey: "statusBar") as? UIView
-        }
-        return nil
-    }
-}
-
-extension UserDefaults {
-    func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable {
-        let encoder = JSONEncoder()
-        do {
-            let data = try encoder.encode(object)
-            set(data, forKey: forKey)
-        } catch {
-            throw ObjectSavableError.unableToEncode
-        }
-    }
-    
-    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable {
-        guard let data = data(forKey: forKey) else { throw ObjectSavableError.noValue }
-        let decoder = JSONDecoder()
-        do {
-            let object = try decoder.decode(type, from: data)
-            return object
-        } catch {
-            throw ObjectSavableError.unableToDecode
-        }
-    }
-    
-}
-
-enum ObjectSavableError: String, LocalizedError {
-    case unableToEncode = "Unable to encode object into data"
-    case noValue = "No data object found for the given key"
-    case unableToDecode = "Unable to decode object into given type"
-    
-    var errorDescription: String? {
-        rawValue
-    }
-    
-}
-
-
-// MARK: -> String Extension for Validate Password & Email
-
-extension String {
-    func isValidEmail() -> Bool {
-        // Here, `try!` will always succeed because the pattern is valid
-        let regex = try! NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
-        return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
-    }
-    
-    func isValidPassword() -> Bool {
-        if self.count < 8 {
-            return false
-        } else {
-            return true
-        }
-    }
-}
-
-
-extension Notification.Name {
-    static let newOrderNotification = Notification.Name("newOrderNotification")
-    static let newReviewNotification = Notification.Name("newReviewNotification")
-}
-
-
-
-// MARK: -> Added Functionality For Return Error As String
-
-extension String: LocalizedError {
-    public var errorDescription: String? { return self }
-}
+import SwiftUI
 
 // MARK: -> HTTP Status Codes Precess as Error
 
-enum HTTPStatusCode: Int, Error {
+public enum HTTPStatusCode: Int, Error {
     
     // The response class representation of status codes, these get grouped by their first digit.
     enum ResponseType {
@@ -366,32 +261,6 @@ enum HTTPStatusCode: Int, Error {
     
 }
 
-
-// MARK: -> Get Data Results Or Error From Completion
-
-enum Result<Success, Error: Swift.Error> {
-    case success(Success)
-    case failure(Error)
-}
-
-extension Result {
-    func get() throws -> Success {
-        switch self {
-        case .success(let value):
-            return value
-        case .failure(let error):
-            throw error
-        }
-    }
-}
-
-extension Result where Success == Data {
-    func decoded<T: Codable>(using decoder: JSONDecoder = .init()) throws -> T {
-        let data = try get()
-        return try decoder.decode(T.self, from: data)
-    }
-}
-
 // MARK: -> Get Status Code of HTTP Response
 
 extension HTTPURLResponse {
@@ -399,25 +268,4 @@ extension HTTPURLResponse {
         return HTTPStatusCode(rawValue: statusCode)
     }
     
-}
-
-
-
-
-extension Date {
-    func convertServerOrderDate(date: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
-        //dateFormatter.date(from: date)
-        
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "LLLL dd, yyyy h:mm a"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        
-        if let dateConverted = dateFormatter.date(from: date) {
-            return dateFormatterPrint.string(from: dateConverted)
-        } else {
-            return "There was an error decoding the string"
-        }
-    }
 }

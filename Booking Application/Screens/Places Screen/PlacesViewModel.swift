@@ -86,9 +86,11 @@ class PlacesViewModel: ObservableObject {
                 }
                 print(response)
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlertError = true
-                print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlertError = true
+                    print(error)
+                }
             }
         }, placeIdentifier: favourite.id)
     }
@@ -104,9 +106,11 @@ class PlacesViewModel: ObservableObject {
                 }
                 print(response)
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlertError = true
-                print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlertError = true
+                    print(error)
+                }
             }
         }, placeIdentifier: favourite.id)
     }
