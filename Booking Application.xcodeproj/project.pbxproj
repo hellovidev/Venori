@@ -205,14 +205,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F26126C263992A600B3250D /* Food Items Screen */ = {
+		3F26126C263992A600B3250D /* Food Items Screen - */ = {
 			isa = PBXGroup;
 			children = (
 				3F26126D263992D100B3250D /* FoodItemsView.swift */,
 				3FC3BB3C2639A97F00C74727 /* FoodItemsViewModel.swift */,
 				3FC3BB3F2639A9AA00C74727 /* FoodItemsViewController.swift */,
 			);
-			path = "Food Items Screen";
+			path = "Food Items Screen -";
 			sourceTree = "<group>";
 		};
 		3F86BD9F2626D4C800CA4CD3 = {
@@ -415,7 +415,7 @@
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
 				3F86BDFF2626DA0C00CA4CD3 /* Sign Up Screen */,
 				3F9DCAF4264C244E00B279CD /* Review Process Screen */,
-				3F26126C263992A600B3250D /* Food Items Screen */,
+				3F26126C263992A600B3250D /* Food Items Screen - */,
 			);
 			path = Views;
 			sourceTree = "<group>";
