@@ -65,7 +65,7 @@ struct CategoryPlacesView: View {
                         
                         // Search Meethod Here
                         
-                        ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
+                        ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)) }), id: \.self) { item in
                             PlaceCardView(place: item, onCardClick: {
                                 viewModel.controller?.redirectPlaceDetails(object: item)
                             }, onFavouriteClick: { _ in                                

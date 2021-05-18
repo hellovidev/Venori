@@ -10,12 +10,12 @@ import Foundation
 class MoreViewModel: ObservableObject {
     weak var controller: MoreViewController?
     private let serverRequests = ServerRequest()
+        
+    @Published var isLoading: Bool = false
+    @Published var user: User?
     
     // Alert Data
     
-    @Published var isLoading: Bool = false
-    
-    @Published var user: User?
     @Published var showAlert = false
     @Published var errorMessage = ""
     
@@ -23,7 +23,7 @@ class MoreViewModel: ObservableObject {
         do {
             self.user = try UserDefaults.standard.getObject(forKey: "current_user", castTo: User.self)
         } catch {
-            print(error.localizedDescription)
+            print("Decode user faild: \(error.localizedDescription)")
             errorMessage = error.localizedDescription
             showAlert = true
         }
@@ -36,13 +36,13 @@ class MoreViewModel: ObservableObject {
             case .success(let message):
                 self.isLoading = false
                 self.controller?.systemLogout()
-                print(message)
+                print("Logout success: \(message)")
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.isLoading = false
                     self.errorMessage = error.localizedDescription
                     self.showAlert = true
-                    print(error)
+                    print("Logout faild: \(error.localizedDescription)")
                 }
             }
         })

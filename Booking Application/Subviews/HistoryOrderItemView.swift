@@ -41,7 +41,6 @@ struct HistoryOrderItemView: View {
                     .font(.system(size: 20, weight: .bold))
                 ZStack {
                     Text(self.order.status)
-                        .isHidden(!self.isActiveOrder, remove: !self.isActiveOrder)
                         .foregroundColor(.blue)
                         .font(.system(size: 12, weight: .regular))
                         .padding([.leading, .trailing], 10)

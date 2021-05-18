@@ -11,29 +11,27 @@ import CoreLocation
 
 class HomeViewModel: ObservableObject {
     weak var controller: HomeViewController?
-    private let serviceAPI: ServerRequest = ServerRequest()
-    @Published var locationManager: CLLocationManager?
-    
+    private let serverRequest = ServerRequest()
     private var cancellables = Set<AnyCancellable>()
-    
-    @Published var addressFull: String?
-    
-    @Published var categories = [Category]()
-    @Published var favorites = [Place]()
-    @Published var places = [Place]()
-
-    @Published var isLoadingPagePlaces = false
-    @Published var isLoadingPageFavourites = false
-    @Published var isLoadingPageCategories = false
-    @Published var isProcessDelete = false
-
     private var currentPage = 1
 
+    @Published var locationManager: CLLocationManager?
+    @Published var addressFull: String?
+    @Published var categories = [Category]()
+    @Published var favourites = [Place]()
+    @Published var places = [Place]()
+        
+    // Alert Data
+    
     @Published var showAlert = false
     @Published var errorMessage = ""
     
     init() {
-        self.loadMoreContent()
+        self.loadPlacesContent()
+        self.loadFavouritesContent()
+        self.loadCategoriesContent()
+        
+        self.addressFull = UserDefaults.standard.string(forKey: "address_full")
         
         NotificationCenter.default
             .publisher(for: .newLocationNotification)
@@ -55,11 +53,21 @@ class HomeViewModel: ObservableObject {
                 self?.errorMessage = "Location doesn't loaded."
             }
             .store(in: &cancellables)
-    }
-
-     func loadPlacesContent() {
-        isLoadingPagePlaces = true
         
+        NotificationCenter.default
+            .publisher(for: .newFavouriteNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.loadPlacesContent()
+                self?.loadFavouritesContent()
+                self?.loadCategoriesContent()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func loadPlacesContent() {
         var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.placesRoute.rawValue)!
         
         url.queryItems = [
@@ -77,21 +85,23 @@ class HomeViewModel: ObservableObject {
             .map(\.data)
             .decode(type: Places.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
-            .handleEvents(receiveOutput: { response in
-                self.isLoadingPagePlaces = false
-            })
-            .map({ response in
-                //print(response.data)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of places finished.")
+                case .failure(let error):
+                    print("Error of load places: \(error.localizedDescription)")
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some places: \(response.data.count)")
                 self.places = response.data
-                return self.places
             })
-            .catch({ _ in Just(self.places) })
-            .assign(to: &$places)
+            .store(in: &cancellables)
     }
     
-     func loadFavouritesContent() {
-        isLoadingPageFavourites = true
-        
+    func loadFavouritesContent() {
         var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.favouritesRoute.rawValue)!
         
         url.queryItems = [
@@ -109,86 +119,94 @@ class HomeViewModel: ObservableObject {
             .map(\.data)
             .decode(type: Places.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
-            .handleEvents(receiveOutput: { response in
-                self.isLoadingPageFavourites = false
-            })
-            .map({ response in
-                //print(response.data)
-                self.favorites = response.data
-                
-                for (index, _) in self.favorites.enumerated() {
-                    self.favorites[index].favourite = true
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of favourites finished.")
+                case .failure(let error):
+                    print("Error of load favourites: \(error.localizedDescription)")
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
                 }
-                
-                return self.favorites
+            }, receiveValue: { response in
+                print("Loaded some favourites: \(response.data.count)")
+                self.favourites = response.data
+                for (index, _) in self.favourites.enumerated() {
+                    self.favourites[index].favourite = true
+                }
             })
-            .catch({ _ in Just(self.favorites) })
-            .assign(to: &$favorites)
+            .store(in: &cancellables)
     }
     
     func loadCategoriesContent() {
-       isLoadingPageCategories = true
-       
-       var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue)!
-       
-       url.queryItems = [
-           URLQueryItem(name: "page", value: "\(self.currentPage)")
-       ]
-       
-       var request = URLRequest(url: url.url!)
-       request.httpMethod = "GET"
-       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-       request.setValue("application/json", forHTTPHeaderField: "Accept")
-       
-       request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
-       
-       URLSession.shared.dataTaskPublisher(for: request as URLRequest)
-           .map(\.data)
-           .decode(type: Categories.self, decoder: JSONDecoder())
-           .receive(on: DispatchQueue.main)
-           .handleEvents(receiveOutput: { response in
-               self.isLoadingPageCategories = false
-           })
-           .map({ response in
-               //print(response.data)
-               self.categories = response.data
-               
-               return self.categories
-           })
-           .catch({ _ in Just(self.categories) })
-           .assign(to: &$categories)
-   }
+        var url = URLComponents(string: DomainRouter.linkAPIRequests.rawValue + DomainRouter.categoriesRoute.rawValue)!
+        
+        url.queryItems = [
+            URLQueryItem(name: "page", value: "\(self.currentPage)")
+        ]
+        
+        var request = URLRequest(url: url.url!)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("Bearer \(UserDefaults.standard.string(forKey: "access_token")!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTaskPublisher(for: request as URLRequest)
+            .map(\.data)
+            .decode(type: Categories.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of сategories finished.")
+                case .failure(let error):
+                    print("Error of load сategories: \(error.localizedDescription)")
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some сategories: \(response.data.count)")
+                self.categories = response.data
+            })
+            .store(in: &cancellables)
+    }
     
     func deleteFavouriteState(place: Place) {
-        self.serviceAPI.deleteFavourite(completion: { result in
+        self.serverRequest.deleteFavourite(completion: { result in
             switch result {
             case .success(let response):
-                self.loadPlacesContent()
-                self.loadFavouritesContent()
-                //print(response)
+                if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == place.id }) {
+                    self.places[deleteFavouriteIndex].favourite = false
+                }
+                if let removeOrderIndex = self.favourites.firstIndex(where: { $0.id == place.id }) {
+                    self.favourites.remove(at: removeOrderIndex)
+                }
+                print("Delete favourite success: \(response)")
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
                     self.showAlert = true
-                    print(error)
+                    print("Delete favourite faild: \(error.localizedDescription)")
                 }
-
             }
         }, placeIdentifier: place.id)
     }
     
     func setFavouriteState(place: Place) {
-        self.serviceAPI.addToFavourite(completion: { result in
+        self.serverRequest.addToFavourite(completion: { result in
             switch result {
             case .success(let response):
-                self.loadPlacesContent()
+                if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == place.id }) {
+                    self.places[setFavouriteIndex].favourite = true
+                }
                 self.loadFavouritesContent()
-                //print(response)
+                print("Add favourite success: \(response)")
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
                     self.showAlert = true
-                    print(error)
+                    print("Add favourite faild: \(error.localizedDescription)")
                 }
             }
         }, placeIdentifier: place.id)
@@ -199,20 +217,24 @@ class HomeViewModel: ObservableObject {
             switch result {
             case .success(let address):
                 self.addressFull = address
-                self.serviceAPI.sentCurrentUserLocation(completion: { result in
+                self.serverRequest.sentCurrentUserLocation(completion: { result in
                     switch result {
                     case .success(let message):
-                        print(message)
+                        print("Sent user location success: \(message)")
                     case .failure(let error):
-                        self.errorMessage = error.localizedDescription
-                        self.showAlert = true
-                        print(error)
+                        
+                        // Post notification about error location
+                        
+                        NotificationCenter.default.post(name: .newLocationErrorNotification, object: nil)
+                        print("Sent user location faild: \(error.localizedDescription)")
                     }
                 }, latitude: UserDefaults.standard.double(forKey: "latitude"), longitude: UserDefaults.standard.double(forKey: "longitude"), address: address)
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlert = true
-                print(error)
+                
+                // Post notification about error location
+                
+                NotificationCenter.default.post(name: .newLocationErrorNotification, object: nil)
+                print("Sent user location faild: \(error.localizedDescription)")
             }
         }, pdblLatitude: UserDefaults.standard.double(forKey: "latitude"), withLongitude: UserDefaults.standard.double(forKey: "longitude"))
     }
@@ -236,38 +258,38 @@ class HomeViewModel: ObservableObject {
             
             if placemark.count > 0 {
                 let placemark = placemarks![0]
+                let address: String = (placemark.country ?? "") // Some args more: + ", " + (placemark.locality ?? "") + ", " + (placemark.thoroughfare ?? "")
+                UserDefaults.standard.set(address, forKey: "address_full")
                 
-                /// EDIT
+                // Post notification about location data update
                 
-                
-                let address: String = (placemark.country ?? "") //+ ", " + (placemark.locality ?? "") + ", " + (placemark.thoroughfare ?? "")
+                NotificationCenter.default.post(name: .newLocationNotification, object: nil)
                 completion(.success(address))
             }
         })
     }
     
-    
-    // ----
-    
-    var canLoadMorePages = true
-    var currentPageSearch = 1
+    // MARK: -> Search Process
     
     @Published var placesSearch = [Place]()
     @Published var isLoadingPage = false
     
+    private var canLoadMorePages = true
+    private var currentPageSearch = 1
+    
     func loadMoreContentIfNeeded(currentItem item: Place?) {
         guard let item = item else {
-            loadMoreContent()
+            loadMoreSearchPlaces()
             return
         }
         
         let thresholdIndex = placesSearch.index(placesSearch.endIndex, offsetBy: -5)
         if placesSearch.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+            loadMoreSearchPlaces()
         }
     }
     
-    func loadMoreContent() {
+    func loadMoreSearchPlaces() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -296,12 +318,20 @@ class HomeViewModel: ObservableObject {
                 self.isLoadingPage = false
                 self.currentPageSearch += 1
             })
-            .map({ response in
-                //print(response.data)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of сategories finished.")
+                case .failure(let error):
+                    print("Error of load сategories: \(error.localizedDescription)")
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some сategories: \(response.data.count)")
                 self.placesSearch.append(contentsOf: response.data)
-                return self.placesSearch
             })
-            .catch({ _ in Just(self.placesSearch) })
-            .assign(to: &$placesSearch)
+            .store(in: &cancellables)
     }
+    
 }

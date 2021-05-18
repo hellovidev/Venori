@@ -202,8 +202,6 @@ class ServerRequest: ObservableObject {
                     //NSLog(NSLocalizedString("Status Code is 200... Request for log out.", comment: "Success"))
                     UserDefaults.standard.removeObject(forKey: "access_token")
                     UserDefaults.standard.removeObject(forKey: "current_user")
-                    UserDefaults.standard.removeObject(forKey: "latitude")
-                    UserDefaults.standard.removeObject(forKey: "longitude")
                     UserDefaults.standard.synchronize()
                 default:
                     completion(.failure(NSLocalizedString("Unknown status code error!", comment: "Error")))

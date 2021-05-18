@@ -412,8 +412,8 @@
 				3F86BDD02626D88000CA4CD3 /* Places Screen */,
 				3F86BDDB2626D90000CA4CD3 /* Order Process Screen + */,
 				3F86BDE02626D92B00CA4CD3 /* Place Details Screen */,
-				3F86BDFF2626DA0C00CA4CD3 /* Sign Up Screen */,
 				3F86BDEB2626D97800CA4CD3 /* Home Screen */,
+				3F86BDFF2626DA0C00CA4CD3 /* Sign Up Screen */,
 				3F9DCAF4264C244E00B279CD /* Review Process Screen */,
 				3F26126C263992A600B3250D /* Food Items Screen */,
 			);

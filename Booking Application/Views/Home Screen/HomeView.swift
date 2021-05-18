@@ -65,6 +65,7 @@ struct HomeView: View {
                     }
                     
                     if !editing {
+                        
                         // MARK: -> Scroll View For Load Data
                         
                         ScrollView(showsIndicators: false){
@@ -76,12 +77,12 @@ struct HomeView: View {
                                     SectionSeparatorView(title: "My Favorite Restaraunts", onClick: {
                                         self.viewModel.controller?.seeAllFavourites()
                                     })
-                                    if viewModel.favorites.isEmpty {
+                                    if viewModel.favourites.isEmpty {
                                         FavouriteEmptyView()
                                     } else {
                                         ScrollView(.horizontal, showsIndicators: false) {
                                             HStack(spacing: -8) {
-                                                ForEach(viewModel.favorites.sorted { $0.id < $1.id }, id: \.self) { object in
+                                                ForEach(viewModel.favourites.sorted { $0.id < $1.id }, id: \.self) { object in
                                                     PlaceCardView(place: object, onCardClick: {
                                                         self.viewModel.controller?.redirectPlaceDetails(object: object)
                                                     }, onFavouriteClick: { _ in
@@ -91,8 +92,6 @@ struct HomeView: View {
                                                 }
                                             }
                                         }
-                                        
-                                        
                                     }
                                 }
                                 .padding(.bottom, 26)
@@ -115,7 +114,6 @@ struct HomeView: View {
                                             }
                                         }
                                     }
-                                    
                                 }
                                 .padding(.bottom, 26)
                                 
@@ -125,7 +123,6 @@ struct HomeView: View {
                                     SectionSeparatorView(title: "Food Categories", onClick: {
                                         viewModel.controller?.seeAllCategories()
                                     })
-                                    
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: -8) {
                                             ForEach(viewModel.categories, id: \.self) { object in
@@ -135,12 +132,12 @@ struct HomeView: View {
                                             }
                                         }
                                     }
-                                    
                                 }
                                 .padding(.bottom, 26)
                             }
                         }
                     } else {
+                        
                         // MARK: -> Grid On Scroll View For Load Data
                         
                         ScrollView(showsIndicators: !viewModel.placesSearch.isEmpty) {
@@ -148,7 +145,7 @@ struct HomeView: View {
                                 
                                 // Search Meethod Here
                                 
-                                ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
+                                ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)) }), id: \.self) { item in
                                     PlaceCardView(place: item, onCardClick: {
                                         viewModel.controller?.redirectPlaceDetails(object: item)
                                     }, onFavouriteClick: { _ in
@@ -200,10 +197,5 @@ struct HomeView: View {
             }
         }
     }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(viewModel: HomeViewModel())
-    }
+    
 }

@@ -10,7 +10,6 @@ import CoreLocation
 
 class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelegate  {
     private let viewModel = HomeViewModel()
-    private let locationAlreadySend: Bool = false
     
     // MARK: -> Initialization SwiftUI View
     
@@ -24,24 +23,11 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: -> Request User Location
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-//        viewModel.locationManager = CLLocationManager()
-//        viewModel.locationManager?.delegate = self
-//        viewModel.locationManager?.requestAlwaysAuthorization()
-//        view.backgroundColor = .gray
-    }
-    
     // MARK: -> Make Navigation Bar Hidden
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.loadPlacesContent()
-        viewModel.loadFavouritesContent()
-        viewModel.loadCategoriesContent()
     }
     
     // MARK: -> Redirect User To Detail Information About Place
@@ -83,11 +69,11 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
             navigationController.modalPresentationStyle = .fullScreen
             self.present(navigationController, animated: true, completion: nil)
         } else {
-                    viewModel.locationManager = CLLocationManager()
-                    viewModel.locationManager?.delegate = self
-                    viewModel.locationManager?.requestAlwaysAuthorization()
+            viewModel.locationManager = CLLocationManager()
+            viewModel.locationManager?.delegate = self
+            viewModel.locationManager?.requestAlwaysAuthorization()
+            view.backgroundColor = .gray
         }
-
     }
     
     // MARK: -> See All Functions
@@ -132,7 +118,7 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     }
     
     // MARK: -> User Location
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
@@ -147,7 +133,7 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
             }
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             print("New location is \(location)")
