@@ -35,7 +35,7 @@ class PlacesViewModel: ObservableObject {
         // Register to receive notification in your class
         
         NotificationCenter.default
-            .publisher(for: .newFavouriteNotification)
+            .publisher(for: .newFavouriteFromPlaceNotification)
             .sink() { [weak self] _ in
                 
                 // Handle notification
@@ -118,6 +118,10 @@ class PlacesViewModel: ObservableObject {
                 if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[deleteFavouriteIndex].favourite = false
                 }
+                
+                // Post notification to favourite places
+                
+                NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print("Delete favourite success: \(response)")
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -138,6 +142,10 @@ class PlacesViewModel: ObservableObject {
                 if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[setFavouriteIndex].favourite = true
                 }
+                
+                // Post notification to favourite places
+                
+                NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print("Add favourite success: \(response)")
             case .failure(let error):
                 DispatchQueue.main.async {

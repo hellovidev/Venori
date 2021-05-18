@@ -43,7 +43,7 @@ class CategoryPlacesViewModel: ObservableObject {
         // Register to receive notification in your class
         
         NotificationCenter.default
-            .publisher(for: .newFavouriteNotification)
+            .publisher(for: .newFavouriteFromPlaceNotification)
             .sink() { [weak self] _ in
                 
                 // Handle notification
@@ -115,6 +115,7 @@ class CategoryPlacesViewModel: ObservableObject {
                 if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[deleteFavouriteIndex].favourite = false
                 }
+                NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print("Delete favourite success: \(response)")
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -134,6 +135,7 @@ class CategoryPlacesViewModel: ObservableObject {
                     if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                         self.places[setFavouriteIndex].favourite = true
                     }
+                    NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                     print("Make favourite success: \(response.name) now is favourite.")
                 }
             case .failure(let error):

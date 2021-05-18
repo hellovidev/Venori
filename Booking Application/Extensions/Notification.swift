@@ -14,5 +14,6 @@ extension Notification.Name {
     static let newFavouriteNotification = Notification.Name("newFavouriteNotification")
     static let newLocationNotification = Notification.Name("newLocationNotification")
     static let newLocationErrorNotification = Notification.Name("newLocationErrorNotification")
+    static let newFavouriteFromPlaceNotification = Notification.Name("newFavouriteFromPlaceNotification")
 
 }

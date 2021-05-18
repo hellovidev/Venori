@@ -35,7 +35,7 @@ class FavouritesViewModel: ObservableObject {
         // Register to receive notification in your class
         
         NotificationCenter.default
-            .publisher(for: .newFavouriteNotification)
+            .publisher(for: .newFavouriteFromPlaceNotification)
             .sink() { [weak self] _ in
                 
                 // Handle notification
@@ -120,6 +120,10 @@ class FavouritesViewModel: ObservableObject {
                 if let removeOrderIndex = self.favourites.firstIndex(where: { $0.id == favourite.id }) {
                     self.favourites.remove(at: removeOrderIndex)
                 }
+                
+                // Post notification to favourite places
+                
+                NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print("Delete favourite success: \(response)")
             case .failure(let error):
                 self.showAlert = true

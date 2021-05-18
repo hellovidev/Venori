@@ -36,6 +36,7 @@ class PlaceDetailsViewModel: ObservableObject {
                 
                 // Post notification to favourite places
                 
+                NotificationCenter.default.post(name: .newFavouriteFromPlaceNotification, object: nil)
                 NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print("Delete favourite success: \(response)")
             case .failure(let error):
@@ -58,6 +59,7 @@ class PlaceDetailsViewModel: ObservableObject {
                 
                 // Post notification to favourite places
                 
+                NotificationCenter.default.post(name: .newFavouriteFromPlaceNotification, object: nil)
                 NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print("Add favourite success: \(response)")
             case .failure(let error):
