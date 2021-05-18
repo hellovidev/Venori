@@ -9,8 +9,10 @@ import Foundation
 
 class PlaceDetailsViewModel: ObservableObject {
     weak var controller: PlaceDetailsViewController?
-    private let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     private let serverRequest = ServerRequest()
+    private let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
+    // Alert Data
     
     @Published var showAlertError = false
     @Published var errorMessage = ""
@@ -31,13 +33,17 @@ class PlaceDetailsViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 self.place.favourite = false
+                
                 // Post notification to favourite places
+                
                 NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
-                //print(response)
+                print("Delete favourite success: \(response)")
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlertError = true
-                //print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlertError = true
+                    print("Delete favourite faild: \(error.localizedDescription)")
+                }
             }
         }, placeIdentifier: self.place.id)
     }
@@ -49,13 +55,17 @@ class PlaceDetailsViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 self.place.favourite = true
+                
                 // Post notification to favourite places
+                
                 NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
-                //print(response)
+                print("Add favourite success: \(response)")
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlertError = true
-                //print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlertError = true
+                    print("Add favourite faild: \(error.localizedDescription)")
+                }
             }
         }, placeIdentifier: self.place.id)
     }
@@ -87,9 +97,14 @@ class PlaceDetailsViewModel: ObservableObject {
                         print("Incorrect schedule day!")
                     }
                 }
+                print("Get schedule success: \(weekSchedule.count)")
             }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlertError = true
+                    print("Get schedule faild: \(error.localizedDescription)")
+                }
             }
         }, placeIdentifier: place.id)
     }
