@@ -33,7 +33,28 @@ class HomeViewModel: ObservableObject {
     @Published var errorMessage = ""
     
     init() {
-        loadMoreContent()
+        self.loadMoreContent()
+        
+        NotificationCenter.default
+            .publisher(for: .newLocationNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.addressFull = UserDefaults.standard.string(forKey: "address_full")
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .newLocationErrorNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.showAlert = true
+                self?.errorMessage = "Location doesn't loaded."
+            }
+            .store(in: &cancellables)
     }
 
      func loadPlacesContent() {
@@ -146,9 +167,12 @@ class HomeViewModel: ObservableObject {
                 self.loadFavouritesContent()
                 //print(response)
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlert = true
-                print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlert = true
+                    print(error)
+                }
+
             }
         }, placeIdentifier: place.id)
     }
@@ -161,9 +185,11 @@ class HomeViewModel: ObservableObject {
                 self.loadFavouritesContent()
                 //print(response)
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showAlert = true
-                print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.showAlert = true
+                    print(error)
+                }
             }
         }, placeIdentifier: place.id)
     }
@@ -278,5 +304,4 @@ class HomeViewModel: ObservableObject {
             .catch({ _ in Just(self.placesSearch) })
             .assign(to: &$placesSearch)
     }
-    
 }

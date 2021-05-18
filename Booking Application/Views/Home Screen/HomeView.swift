@@ -159,6 +159,7 @@ struct HomeView: View {
                                             viewModel.setFavouriteState(place: item)
                                         }
                                     })
+                                    .id(UUID())
                                     .onAppear {
                                         viewModel.loadMoreContentIfNeeded(currentItem: item)
                                     }

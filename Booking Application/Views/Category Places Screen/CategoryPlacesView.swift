@@ -71,6 +71,7 @@ struct CategoryPlacesView: View {
                             }, onFavouriteClick: { _ in                                
                                 item.favourite ?? false ? self.viewModel.deleteFavouriteState(favourite: item) : self.viewModel.setFavouriteState(favourite: item)
                             })
+                            .id(UUID())
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }

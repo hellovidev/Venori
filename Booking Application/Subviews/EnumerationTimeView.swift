@@ -12,25 +12,47 @@ struct EnumerationTimeView: View {
     var items: [Time]
     @Binding var selected: String
     @Binding var choosed: Bool
+    @Binding var isLoading: Bool
+    @Binding var isError: Bool
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: -16) {
-                if !items.isEmpty {
-                    ForEach(items, id: \.self) { item in
-                        ItemTimeView(time: item, selectedButtonIdentifier: self.$selected, isSelected: self.$choosed)
+                if !isLoading && !isError {
+                    if !items.isEmpty {
+                        ForEach(items, id: \.self) { item in
+                            ItemTimeView(time: item, selectedButtonIdentifier: self.$selected, isSelected: self.$choosed)
+                        }
+                    } else {
+                        Button(action: {}) {
+                            Text("💤 It's Day off")
+                                .foregroundColor(Color.black)
+                                .padding([.top, .bottom], 12)
+                                .padding([.leading, .trailing], 16)
+                        }
+                        .background(Color.yellow)
+                        .cornerRadius(24)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 8)
                     }
-                } else {
+                } else if isError {
+                    
                     Button(action: {}) {
-                        Text("💤 It's Day off")
-                            .foregroundColor(Color.black)
+                        Text("Sorry... Loading is faild ❌")
+                            .foregroundColor(Color.white)
                             .padding([.top, .bottom], 12)
                             .padding([.leading, .trailing], 16)
                     }
-                    .background(Color.yellow)
+                    .background(Color.black)
                     .cornerRadius(24)
                     .padding(.leading, 16)
                     .padding(.trailing, 8)
+                } else {
+                    ProgressView()
+                        .padding(.leading, 16)
+                        .padding(.trailing, 24)
+                    Text("Loading...")
+                        .padding(.trailing, 24)
                 }
             }
         }

@@ -123,6 +123,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "HomeViewController.showMapView():HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.addressFull">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ContentDataSource.init():ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString

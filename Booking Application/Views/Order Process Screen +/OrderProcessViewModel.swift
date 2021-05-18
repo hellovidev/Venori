@@ -11,16 +11,27 @@ class OrderProcessViewModel: ObservableObject {
     weak var controller: OrderProcessViewController?
     private let serverRequest = ServerRequest()
     
-    @Published var times = [Time]()
-    @Published var isFormValid: Bool = false
-    @Published var valueHours: Float = 0.5
-    @Published var valueHumans: Float = 1
-    @Published var selectedReservationTime: String = ""
-    @Published var isBookingComplete: Bool = false
-    @Published var dateReservation: Date = Date()
-    
-    @Published var availableTime = [String]()
     @Published var placeIdentifier: Int
+
+    // Form Status
+    
+    @Published var valueHumans: Float = 1
+    @Published var valueHours: Float = 0.5
+    @Published var isFormValid: Bool = false
+    @Published var dateReservation: Date = Date()
+    @Published var isBookingComplete: Bool = false
+    @Published var selectedReservationTime: String = ""
+    
+    // Available Time Status
+    
+    @Published var times = [Time]()
+    @Published var isLoadingAvailableTime: Bool = true
+    @Published var isAvailableTimeError: Bool = false
+    
+    // Alert Data
+    
+    @Published var showAlert = false
+    @Published var errorMessage = ""
     
     init(placeIdentifier: Int) {
         self.placeIdentifier = placeIdentifier
@@ -28,8 +39,7 @@ class OrderProcessViewModel: ObservableObject {
     }
     
     func getAvailableTime(placeIdentifier: Int, adultsAmount: Int, duration: Float, date: String) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        self.isLoadingAvailableTime = true
         
         self.serverRequest.getPlaceAvailableTime(completion: { result in
             switch result {
@@ -40,9 +50,15 @@ class OrderProcessViewModel: ObservableObject {
                     for item in times {
                         self.times.append(Time(time: item))
                     }
+                    self.isLoadingAvailableTime = false
+                    self.isAvailableTimeError = false
                 }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.isLoadingAvailableTime = false
+                    self.isAvailableTimeError = true
+                    print("Get available time faild: \(error.localizedDescription)")
+                }                
             }
         }, placeIdentifier: placeIdentifier, adultsAmount: adultsAmount, duration: duration, date: date)
     }
@@ -51,24 +67,22 @@ class OrderProcessViewModel: ObservableObject {
         if let selectedTime = times.first(where: { $0.id == self.selectedReservationTime }) {
             self.serverRequest.reserveTablePlace(placeIdentifier: placeIdentifier, adultsAmount: Int(valueHumans), duration: valueHours, date: Date().getDateCorrectFormat(date: dateReservation), time: selectedTime.time, completion: { response in
                 switch response {
-                case .success(let data):
+                case .success(let response):
                     self.isBookingComplete.toggle()
-                    // Post notification to history orders
+                    
+                    // Post notification to active orders
+                    
                     NotificationCenter.default.post(name: .newOrderNotification, object: nil)
-                    print(data)
+                    print("Try push new order success: \(response)")
                 case .failure(let error):
-                    print(error)
+                    DispatchQueue.main.async {
+                        self.showAlert = true
+                        self.errorMessage = error.localizedDescription
+                        print("Try push new order faild: \(error.localizedDescription)")
+                    }
                 }
             })
         }
     }
     
-    
-    
-    
-    
-    
-    
 }
-
-

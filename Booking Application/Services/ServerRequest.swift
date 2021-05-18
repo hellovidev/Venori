@@ -343,7 +343,8 @@ class ServerRequest: ObservableObject {
                     print("Add favourite: 200 OK")
                     //NSLog(NSLocalizedString("Status Code is 200... Request for add favourite place.", comment: "Success"))
                 case 201:
-                    NSLog(NSLocalizedString("Status Code is 201... Success storing a new favourite.", comment: "Success"))
+                    print("Add favourite: 201 OK")
+                    //NSLog(NSLocalizedString("Status Code is 201... Success storing a new favourite.", comment: "Success"))
                 case 401:
                     completion(.failure(NSLocalizedString("User is not authenticated!", comment: "Error")))
                 default:
@@ -638,7 +639,7 @@ class ServerRequest: ObservableObject {
             do {
                 let info = try JSONSerialization.jsonObject(with: data) as? [String: Any]
                 if info != nil {
-                    print(info!["message"] as Any)
+                    //print(info!["message"] as Any)
                     completion(.success([String]()))
                 } else {
                     
@@ -653,7 +654,7 @@ class ServerRequest: ObservableObject {
                     }
                 }
             } catch {
-                print(error.localizedDescription)
+                //print(error.localizedDescription)
                 completion(.failure(error))
             }
         })

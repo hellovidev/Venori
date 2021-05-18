@@ -28,10 +28,10 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        viewModel.locationManager = CLLocationManager()
-        viewModel.locationManager?.delegate = self
-        viewModel.locationManager?.requestAlwaysAuthorization()
-        view.backgroundColor = .gray
+//        viewModel.locationManager = CLLocationManager()
+//        viewModel.locationManager?.delegate = self
+//        viewModel.locationManager?.requestAlwaysAuthorization()
+//        view.backgroundColor = .gray
     }
     
     // MARK: -> Make Navigation Bar Hidden
@@ -78,9 +78,16 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     // MARK: -> Show Map View
     
     func showMapView() {
-        let navigationController = UINavigationController(rootViewController: MapViewController(latitude: UserDefaults.standard.double(forKey: "latitude") , longitude: UserDefaults.standard.double(forKey: "longitude") ))
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true, completion: nil)
+        if viewModel.addressFull != nil {
+            let navigationController = UINavigationController(rootViewController: MapViewController(latitude: UserDefaults.standard.double(forKey: "latitude") , longitude: UserDefaults.standard.double(forKey: "longitude") ))
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true, completion: nil)
+        } else {
+                    viewModel.locationManager = CLLocationManager()
+                    viewModel.locationManager?.delegate = self
+                    viewModel.locationManager?.requestAlwaysAuthorization()
+        }
+
     }
     
     // MARK: -> See All Functions
@@ -125,7 +132,7 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
     }
     
     // MARK: -> User Location
-    
+
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
@@ -134,15 +141,13 @@ class HomeViewController: UIHostingController<HomeView>, CLLocationManagerDelega
                     UserDefaults.standard.set(locationValue.latitude, forKey: "latitude")
                     UserDefaults.standard.set(locationValue.longitude, forKey: "longitude")
                     UserDefaults.standard.synchronize()
-                    if !locationAlreadySend {
-                        self.viewModel.sentUserLocation()
-                    }
+                    self.viewModel.sentUserLocation()
                     print("locations = \(locationValue.latitude) \(locationValue.longitude)")
                 }
             }
         }
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             print("New location is \(location)")

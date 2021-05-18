@@ -9,13 +9,103 @@ import UIKit
 import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+    
+    private let serviceAPI: ServerRequest = ServerRequest()
+    @Published var locationManager: CLLocationManager?
+    @Published var addressFull: String?
+    
+    func getAddressFromLatLon(completion: @escaping (Result<String, Error>) -> Void, pdblLatitude: Double, withLongitude pdblLongitude: Double) {
+        let geoCoder: CLGeocoder = CLGeocoder()
+        let location: CLLocation = CLLocation(latitude: pdblLatitude, longitude: pdblLongitude)
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error) in
+            if (error != nil) {
+                print("Reverse geodcode fail: \(error!.localizedDescription)")
+                completion(.failure(error!))
+            }
+            
+            guard placemarks != nil else {
+                completion(.failure(error!))
+                return
+            }
+            
+            let placemark = placemarks! as [CLPlacemark]
+            
+            if placemark.count > 0 {
+                let placemark = placemarks![0]
+                let address: String = (placemark.country ?? "") // Some args more: + ", " + (placemark.locality ?? "") + ", " + (placemark.thoroughfare ?? "")
+                UserDefaults.standard.set(address, forKey: "address_full")
+                // Post notification about location data update
+                NotificationCenter.default.post(name: .newLocationNotification, object: nil)
+                completion(.success(address))
+            }
+        })
+    }
+    
+    func sentUserLocation() {
+        getAddressFromLatLon(completion: { result in
+            switch result {
+            case .success(let address):
+                self.addressFull = address
+                self.serviceAPI.sentCurrentUserLocation(completion: { result in
+                    switch result {
+                    case .success(let message):
+                        print("Sent user location success: \(message)")
+                    case .failure(let error):
+                        
+                        // Post notification about error location
+                        
+                        NotificationCenter.default.post(name: .newLocationErrorNotification, object: nil)
+                        print("Sent user location faild: \(error.localizedDescription)")
+                    }
+                }, latitude: UserDefaults.standard.double(forKey: "latitude"), longitude: UserDefaults.standard.double(forKey: "longitude"), address: address)
+            case .failure(let error):
+                
+                // Post notification about error location
+                
+                NotificationCenter.default.post(name: .newLocationErrorNotification, object: nil)
+                print("Sent user location faild: \(error.localizedDescription)")
+            }
+        }, pdblLatitude: UserDefaults.standard.double(forKey: "latitude"), withLongitude: UserDefaults.standard.double(forKey: "longitude"))
+    }
+    
+    // MARK: -> User Location
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                if CLLocationManager.isRangingAvailable() {
+                    guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+                    UserDefaults.standard.set(locationValue.latitude, forKey: "latitude")
+                    UserDefaults.standard.set(locationValue.longitude, forKey: "longitude")
+                    UserDefaults.standard.synchronize()
+                    self.sentUserLocation()
+                }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print("New location is \(location)")
+        }
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        
+        return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
         UserDefaults.standard.removeObject(forKey: "latitude")
         UserDefaults.standard.removeObject(forKey: "longitude")
-        // Override point for customization after application launch.
-        return true
+        UserDefaults.standard.removeObject(forKey: "address_full")
     }
     
     // MARK: UISceneSession Lifecycle

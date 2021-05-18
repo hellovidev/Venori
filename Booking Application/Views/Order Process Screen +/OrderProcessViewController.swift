@@ -10,6 +10,8 @@ import SwiftUI
 class OrderProcessViewController: UIHostingController<OrderProcessView>  {
     private let viewModel: OrderProcessViewModel
     
+    // MARK: -> Make Navigation Bar Hidden
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true

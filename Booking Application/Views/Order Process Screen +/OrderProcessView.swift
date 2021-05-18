@@ -73,7 +73,7 @@ struct OrderProcessView: View {
                                     .font(.system(size: 18, weight: .regular))
                                     .padding(.leading, 16)
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    EnumerationTimeView(items: viewModel.times, selected: self.$viewModel.selectedReservationTime, choosed: $viewModel.isFormValid)
+                                    EnumerationTimeView(items: viewModel.times, selected: self.$viewModel.selectedReservationTime, choosed: $viewModel.isFormValid, isLoading: $viewModel.isLoadingAvailableTime, isError: $viewModel.isAvailableTimeError)
                                 }
                             }
                             .padding(.bottom, 24)
@@ -101,6 +101,9 @@ struct OrderProcessView: View {
                         showPopUp.toggle()
                         viewModel.getAvailableTime(placeIdentifier: viewModel.placeIdentifier, adultsAmount: Int(viewModel.valueHumans), duration: viewModel.valueHours, date: Date().getDateCorrectFormat(date: viewModel.dateReservation))
                     })
+                }
+                .alert(isPresented: $viewModel.showAlert) {
+                    Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
                 }
             } else {
                 CompleteView(actionContinue: {

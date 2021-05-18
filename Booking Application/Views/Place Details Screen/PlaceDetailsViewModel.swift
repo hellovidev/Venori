@@ -33,11 +33,11 @@ class PlaceDetailsViewModel: ObservableObject {
                 self.place.favourite = false
                 // Post notification to favourite places
                 NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
-                print(response)
+                //print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlertError = true
-                print(error)
+                //print(error)
             }
         }, placeIdentifier: self.place.id)
     }
@@ -51,11 +51,11 @@ class PlaceDetailsViewModel: ObservableObject {
                 self.place.favourite = true
                 // Post notification to favourite places
                 NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
-                print(response)
+                //print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlertError = true
-                print(error)
+                //print(error)
             }
         }, placeIdentifier: self.place.id)
     }

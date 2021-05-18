@@ -43,7 +43,7 @@ class CategoryPlacesViewModel: ObservableObject {
         // Register to receive notification in your class
         
         NotificationCenter.default
-            .publisher(for: .newReviewNotification)
+            .publisher(for: .newFavouriteNotification)
             .sink() { [weak self] _ in
                 
                 // Handle notification
