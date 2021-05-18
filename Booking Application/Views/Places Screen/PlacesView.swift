@@ -76,6 +76,7 @@ struct PlacesView: View {
                                     viewModel.setFavouriteState(favourite: item)
                                 }
                             })
+                            .id(UUID())
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }
@@ -109,15 +110,10 @@ struct PlacesView: View {
                 }
             }
             .navigationBarHidden(true)
-            .alert(isPresented: $viewModel.showAlertError) {
-                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
             }
         }
     }
-}
-
-struct PlacesView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlacesView(viewModel: PlacesViewModel())
-    }
+    
 }

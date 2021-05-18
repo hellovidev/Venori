@@ -10,22 +10,11 @@ import SwiftUI
 class PlacesViewController: UIHostingController<PlacesView>  {
     private let viewModel = PlacesViewModel()
     
-    // MARK: -> Update Values
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        viewModel.places.removeAll()
-        viewModel.isLoadingPage = false
-        viewModel.canLoadMorePages = true
-        viewModel.currentPage = 1
-    }
-    
     // MARK: -> Make Navigation Bar Hidden
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.loadMoreContent()
     }
     
     // MARK: -> Initialization SwiftUI View
@@ -44,12 +33,11 @@ class PlacesViewController: UIHostingController<PlacesView>  {
     
     func redirectPrevious() {
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         view.window?.layer.add(transition, forKey: kCATransition)
-
+        
         self.navigationController?.popViewController(animated: false)
         self.dismiss(animated: false, completion: nil)
     }
@@ -61,7 +49,6 @@ class PlacesViewController: UIHostingController<PlacesView>  {
         let navigationController = UINavigationController(rootViewController: rootviewController)
         
         let transition = CATransition()
-        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)

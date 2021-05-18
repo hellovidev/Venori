@@ -55,6 +55,7 @@ struct CategoriesView: View {
                                 CategoryView(title: object.name, imageName: DomainRouter.generalDomain.rawValue + object.imageURL, onClick: {
                                     self.viewModel.controller?.redirectCategoryPlaces(categoryIdentifier: object.id, categoryName: object.name)
                                 })
+                                .id(UUID())
                                 .onAppear {
                                     viewModel.loadMoreContentIfNeeded(currentItem: object)
                                 }

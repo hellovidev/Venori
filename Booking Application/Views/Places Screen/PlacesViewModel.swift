@@ -10,34 +10,59 @@ import Foundation
 
 class PlacesViewModel: ObservableObject {
     weak var controller: PlacesViewController?
-    @Published var showAlertError = false
-    @Published var errorMessage = ""
-    
+    private var cancellables = Set<AnyCancellable>()
     private var serverRequest = ServerRequest()
-    var canLoadMorePages = true
-    var currentPage = 1
+    private var canLoadMorePages = true
+    private var currentPage = 1
     
     @Published var places = [Place]()
     @Published var isLoadingPage = false
-    @Published var isProcessDelete = false
     
-    private var cancellables = Set<AnyCancellable>()
+    // Alert Data
+    
+    @Published var showAlert = false
+    @Published var errorMessage = ""
+    
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
+    init() {
+        self.loadMorePlaces()
+        
+        // Register to receive notification in your class
+        
+        NotificationCenter.default
+            .publisher(for: .newFavouriteNotification)
+            .sink() { [weak self] _ in
+                
+                // Handle notification
+                
+                self?.resetPlacesData()
+                self?.loadMorePlaces()
+            }
+            .store(in: &cancellables)
+    }
+    
+    
     
     // MARK: -> Load Content By Pages
     
     func loadMoreContentIfNeeded(currentItem item: Place?) {
         guard let item = item else {
-            loadMoreContent()
+            loadMorePlaces()
             return
         }
         
         let thresholdIndex = places.index(places.endIndex, offsetBy: -5)
         if places.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
-            loadMoreContent()
+            loadMorePlaces()
         }
     }
     
-    func loadMoreContent() {
+    func loadMorePlaces() {
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -66,13 +91,22 @@ class PlacesViewModel: ObservableObject {
                 self.isLoadingPage = false
                 self.currentPage += 1
             })
-            .map({ response in
-                print(response.data)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of places finished.")
+                case .failure(let error):
+                    print("Error of load places: \(error.localizedDescription)")
+                    self.isLoadingPage = false
+                    self.resetPlacesData()
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some places: \(response.data.count)")
                 self.places.append(contentsOf: response.data)
-                return self.places
             })
-            .catch({ _ in Just(self.places) })
-            .assign(to: &$places)
+            .store(in: &cancellables)
     }
     
     // MARK: -> API Request For Delete Place From Favourite
@@ -84,12 +118,12 @@ class PlacesViewModel: ObservableObject {
                 if let deleteFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[deleteFavouriteIndex].favourite = false
                 }
-                print(response)
+                print("Delete favourite success: \(response)")
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
-                    self.showAlertError = true
-                    print(error)
+                    self.showAlert = true
+                    print("Delete favourite faild: \(error.localizedDescription)")
                 }
             }
         }, placeIdentifier: favourite.id)
@@ -104,15 +138,22 @@ class PlacesViewModel: ObservableObject {
                 if let setFavouriteIndex = self.places.firstIndex(where: { $0.id == favourite.id }) {
                     self.places[setFavouriteIndex].favourite = true
                 }
-                print(response)
+                print("Add favourite success: \(response)")
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
-                    self.showAlertError = true
-                    print(error)
+                    self.showAlert = true
+                    print("Add favourite faild: \(error.localizedDescription)")
                 }
             }
         }, placeIdentifier: favourite.id)
+    }
+    
+    func resetPlacesData() {
+        currentPage = 1
+        places.removeAll()
+        isLoadingPage = false
+        canLoadMorePages = true
     }
     
 }
