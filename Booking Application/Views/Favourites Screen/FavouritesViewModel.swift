@@ -14,15 +14,14 @@ class FavouritesViewModel: ObservableObject {
     private var serverRequest = ServerRequest()
     private var canLoadMorePages = true
     private var currentPage = 1
-
+    
     // Alert Data
     
-    @Published var showAlertError = false
+    @Published var showAlert = false
     @Published var errorMessage = ""
     
     @Published var favourites = [Place]()
     @Published var isLoadingPage = false
-    @Published var isProcessDelete = false
     
     deinit {
         for cancellable in cancellables {
@@ -55,7 +54,7 @@ class FavouritesViewModel: ObservableObject {
             return
         }
         
-        let thresholdIndex = favourites.index(favourites.endIndex, offsetBy: -5)
+        let thresholdIndex = favourites.index(favourites.endIndex, offsetBy: -4)
         if favourites.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
             loadMoreFavourites()
         }
@@ -90,18 +89,26 @@ class FavouritesViewModel: ObservableObject {
                 self.isLoadingPage = false
                 self.currentPage += 1
             })
-            .map({ response in
-                //print(response.data)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Loading of favourites finished.")
+                case .failure(let error):
+                    print("Error of load favourites: \(error.localizedDescription)")
+                    self.isLoadingPage = false
+                    self.resetFavouritesData()
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { response in
+                print("Loaded some favourites: \(response.data.count)")
                 self.favourites.append(contentsOf: response.data)
                 
                 for (index, _) in self.favourites.enumerated() {
                     self.favourites[index].favourite = true
                 }
-                
-                return self.favourites
             })
-            .catch({ _ in Just(self.favourites) })
-            .assign(to: &$favourites)
+            .store(in: &cancellables)
     }
     
     // MARK: -> API Request For Delete Place From Favourite
@@ -113,12 +120,11 @@ class FavouritesViewModel: ObservableObject {
                 if let removeOrderIndex = self.favourites.firstIndex(where: { $0.id == favourite.id }) {
                     self.favourites.remove(at: removeOrderIndex)
                 }
-                self.isProcessDelete = false
-                //print(" \(response.count)")
+                print("Delete favourite success: \(response)")
             case .failure(let error):
+                self.showAlert = true
                 self.errorMessage = error.localizedDescription
-                self.showAlertError = true
-                print(error)
+                print("Delete favourite faild: \(error.localizedDescription)")
             }
         }, placeIdentifier: favourite.id)
     }

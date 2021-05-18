@@ -84,9 +84,9 @@ struct HomeView: View {
                                                 ForEach(viewModel.favorites.sorted { $0.id < $1.id }, id: \.self) { object in
                                                     PlaceCardView(place: object, onCardClick: {
                                                         self.viewModel.controller?.redirectPlaceDetails(object: object)
-                                                    }, onFavouriteClick: {
+                                                    }, onFavouriteClick: { _ in
                                                         object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                                    }, isProcessDelete: false)
+                                                    })
                                                     .padding(.leading, 16)
                                                 }
                                             }
@@ -108,9 +108,9 @@ struct HomeView: View {
                                             ForEach(viewModel.places.sorted { $0.id < $1.id }, id: \.self) { object in
                                                 PlaceCardView(place: object, onCardClick: {
                                                     self.viewModel.controller?.redirectPlaceDetails(object: object)
-                                                }, onFavouriteClick: {
+                                                }, onFavouriteClick: { _ in
                                                     object.favourite ?? false ? self.viewModel.deleteFavouriteState(place: object) : self.viewModel.setFavouriteState(place: object)
-                                                }, isProcessDelete: false)
+                                                })
                                                 .padding(.leading, 16)
                                             }
                                         }
@@ -151,14 +151,14 @@ struct HomeView: View {
                                 ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
                                     PlaceCardView(place: item, onCardClick: {
                                         viewModel.controller?.redirectPlaceDetails(object: item)
-                                    }, onFavouriteClick: {
+                                    }, onFavouriteClick: { _ in
                                         guard item.favourite != nil else { return }
                                         if item.favourite! {
                                             viewModel.deleteFavouriteState(place: item)
                                         } else {
                                             viewModel.setFavouriteState(place: item)
                                         }
-                                    }, isProcessDelete: false)
+                                    })
                                     .onAppear {
                                         viewModel.loadMoreContentIfNeeded(currentItem: item)
                                     }

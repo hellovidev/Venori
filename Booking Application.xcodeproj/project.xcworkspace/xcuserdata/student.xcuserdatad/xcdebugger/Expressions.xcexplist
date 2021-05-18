@@ -203,6 +203,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in PlaceCardView.body.getter:PlaceCardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isProcess">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ServiceAPI.getPlaceAvailableTime(completion:placeIdentifier:adultsAmount:duration:date:):ServiceAPI.swift">
          <PersistentStrings>
             <PersistentString

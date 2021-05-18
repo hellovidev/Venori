@@ -10,18 +10,10 @@ import SwiftUI
 // MARK: -> Restaraunt Card View
 
 struct PlaceCardView: View {
-    @State private var place: Place
-    @State private var onCardClick: () -> Void
-    @State private var onFavouriteClick: () -> Void
-    @State private var isProcessDelete: Bool
-    
-    init(place: Place, onCardClick: @escaping () -> Void, onFavouriteClick: @escaping () -> Void, isProcessDelete: Bool) {
-        self._place = State(initialValue: place)
-        self._onCardClick = State(initialValue: onCardClick)
-        self._onFavouriteClick = State(initialValue: onFavouriteClick)
-        self._isProcessDelete = State(initialValue: isProcessDelete)
-        
-    }
+    let place: Place
+    let onCardClick: () -> Void
+    let onFavouriteClick: (@escaping () -> Void) -> Void
+    @State private var isProcess: Bool = false
     
     var body: some View {
         ZStack {
@@ -33,7 +25,10 @@ struct PlaceCardView: View {
                         .scaledToFit()
                     VStack {
                         Button {
-                            self.onFavouriteClick()
+                            isProcess = true
+                            self.onFavouriteClick({ 
+                                self.isProcess = false
+                            })
                         } label: {
                             Image("Heart")
                                 .resizable()
@@ -49,7 +44,7 @@ struct PlaceCardView: View {
                         Spacer()
                     }
                     .frame(maxWidth: 296, maxHeight: 169, alignment: .trailing)
-                    if isProcessDelete {
+                    if isProcess {
                         ZStack {
                             RadialGradient(gradient: Gradient(colors: [Color(UIColor(hex: "#00000066")!), Color(UIColor(hex: "#00000000")!)]), center: UnitPoint(x: 0.5, y: 0.5), startRadius: 0, endRadius: 32)
                             ProgressView()

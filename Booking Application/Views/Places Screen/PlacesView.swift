@@ -68,14 +68,14 @@ struct PlacesView: View {
                         ForEach(viewModel.places.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
                             PlaceCardView(place: item, onCardClick: {
                                 viewModel.controller?.redirectPlaceDetails(object: item)
-                            }, onFavouriteClick: {
+                            }, onFavouriteClick: { _ in 
                                 guard item.favourite != nil else { return }
                                 if item.favourite! {
                                     viewModel.deleteFavouriteState(favourite: item)
                                 } else {
                                     viewModel.setFavouriteState(favourite: item)
                                 }
-                            }, isProcessDelete: false)
+                            })
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }

@@ -31,6 +31,8 @@ class PlaceDetailsViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 self.place.favourite = false
+                // Post notification to favourite places
+                NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -47,6 +49,8 @@ class PlaceDetailsViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 self.place.favourite = true
+                // Post notification to favourite places
+                NotificationCenter.default.post(name: .newFavouriteNotification, object: nil)
                 print(response)
             case .failure(let error):
                 self.errorMessage = error.localizedDescription

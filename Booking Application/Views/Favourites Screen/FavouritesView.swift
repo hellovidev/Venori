@@ -68,10 +68,10 @@ struct FavouritesView: View {
                         ForEach(viewModel.favourites.filter({ text.isEmpty ? true : $0.name.lowercased().contains(text.lowercased()) }), id: \.self) { item in
                             PlaceCardView(place: item, onCardClick: {
                                 viewModel.controller?.redirectPlaceDetails(object: item)
-                            }, onFavouriteClick: {
+                            }, onFavouriteClick: { _ in 
                                 guard item.favourite != nil else { return }
                                 viewModel.deleteFavouriteState(favourite: item)
-                            }, isProcessDelete: false)
+                            })
                             .onAppear {
                                 viewModel.loadMoreContentIfNeeded(currentItem: item)
                             }
@@ -105,15 +105,10 @@ struct FavouritesView: View {
                 }
             }
             .navigationBarHidden(true)
-            .alert(isPresented: $viewModel.showAlertError) {
-                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlertError = false }))
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Error"), message: Text("\(viewModel.errorMessage)"), dismissButton: .cancel(Text("Okay"), action: { viewModel.showAlert = false }))
             }
         }
     }
-}
-
-struct FavouritesView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavouritesView(viewModel: FavouritesViewModel())
-    }
+    
 }
