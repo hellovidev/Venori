@@ -14,12 +14,6 @@ class ReviewProcessViewController: UIHostingController<ReviewProcessView>  {
         super.viewDidLoad()
     }
     
-    // MARK: -> Update Values
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-    }
-    
     // MARK: -> Make Navigation Bar Hidden
     
     override func viewWillAppear(_ animated: Bool) {

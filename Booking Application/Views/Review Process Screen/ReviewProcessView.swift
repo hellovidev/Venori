@@ -65,8 +65,6 @@ struct ReviewProcessView: View {
                 .modifier(ButtonModifier())
                 .padding(.bottom, 35)
             }
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-
             
             if viewModel.isLoading {
                 ZStack {
@@ -77,6 +75,7 @@ struct ReviewProcessView: View {
             }
             
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .onTapGesture {
             self.hideKeyboard()
         }
