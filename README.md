@@ -13,3 +13,6 @@
 - [x] Location
 - [x] Map
 - [ ] CoreData
+
+### Server side
+Laravel back-end [[Link](https://github.com/Pavlusha311245/VenoriBackend)]
