@@ -10,3 +10,6 @@
 - [x] SwiftUI
 - [x] Combine
 - [x] Networking
+- [x] Location
+- [x] Map
+- [ ] CoreData
